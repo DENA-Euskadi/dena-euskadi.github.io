@@ -1,0 +1,47 @@
+site_name: ''
+
+nav:
+  - Home: index.md
+  - Arquitectura:
+      - Visión general: arquitectura/index.md
+      - Diagramas (draw.io): arquitectura/diagramas.md
+      - Otra documentación: arquitectura/otra-documentacion.md
+  - Autenticación:
+      - Visión general: autenticacion/index.md
+      - Cliente ↔ CORE DENA: autenticacion/client-core-dena.md
+      - CORE DENA → Administración:
+          - Visión general: autenticacion/core-dena-administracion/index.md
+          - Modelo: autenticacion/core-dena-administracion/modelo.md
+          - Servicios: autenticacion/core-dena-administracion/servicios.md
+      - Administración → CORE DENA:
+          - Visión general: autenticacion/administracion-core-dena/index.md
+          - Modelo: autenticacion/administracion-core-dena/modelo.md
+          - Servicios: autenticacion/administracion-core-dena/servicios.md
+  - Semántica:
+      - Visión general: semantica/index.md
+      - Semántica Base:
+          - Visión general: semantica/semantica-base/index.md
+          - Modelo: semantica/semantica-base/modelo/index.md
+      - DATA-SYNC:
+          - Visión general: semantica/data-sync/index.md
+          - Modelo: semantica/data-sync/modelo/index.md
+          - Servicios REST: semantica/data-sync/servicios-rest.md
+      - DATA-RETRIEVE: semantica/data-retrieve/index.md
+      - PERSON-SYNC:
+          - Visión general: semantica/person-sync/index.md
+          - Modelo:
+              - Visión general: semantica/person-sync/modelo/index.md
+              - PUSH: semantica/person-sync/modelo/push.md
+              - PULL: semantica/person-sync/modelo/pull.md
+          - Servicios REST: semantica/person-sync/servicios-rest.md
+      - Otra documentación: semantica/otra-documentacion.md
+  - Ejemplos de código: ejemplos-codigo/index.md
+  - Adjuntos: adjuntos/index.md
+
+
+plugins:
+  - search
+  - techdocs-core
+  - macros:
+      include_yaml:
+        - ./mkdocs-vars.yaml

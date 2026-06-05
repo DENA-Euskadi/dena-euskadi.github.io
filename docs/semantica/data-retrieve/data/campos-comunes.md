@@ -1,0 +1,159 @@
+# Campos Comunes (Base Fields)
+
+## Descripción
+
+Todos los objetos de datos intercambiados en DATA-RETRIEVE heredan un conjunto de campos comunes de la clase base `DN00DENADataExchangedObjectBase`. Este documento describe esos campos.
+
+```mermaid
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#FFFFFF"
+    primaryTextColor: "#000000"
+    primaryBorderColor: "#CCCCCC"
+    lineColor: "#4A4A4A"
+    fontSize: "12px"
+---
+flowchart LR
+    BASE["<b>DN00DENADataExchangedObjectBase</b><br/><i>Clase base de todos los objetos</i>"]
+
+    BASE --> OID["oid<br/><i>Identificador técnico único</i>"]
+    BASE --> ID["id<br/><i>Identificador de negocio</i>"]
+    BASE --> URLS["urls[]<br/><i>url · language · tags</i>"]
+    BASE --> ADMIN["originAdminRef<br/><i>administrationId · dir3Code</i>"]
+    BASE --> PERSON["aboutPersonRef<br/><i>personId</i>"]
+
+    style BASE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:8,ry:8
+    style OID fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style ID fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style URLS fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style ADMIN fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
+    style PERSON fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
+```
+
+| Color | Significado |
+|-------|-------------|
+| 🟣 Violeta | Clase base abstracta |
+| 🔵 Azul claro | Campos obligatorios (oid, id) |
+| 🟢 Verde | URLs de acceso |
+| 🟡 Amarillo | Campos opcionales (refs autocompletados por DENA) |
+
+---
+
+## Campos heredados por todos los objetos
+
+| Campo | Tipo | Obligatorio | Descripción |
+|-------|------|:-----------:|-------------|
+| `oid` | `String` | ✅ | Identificador técnico único asignado por el sistema de la administración |
+| `id` | `String` | ✅ | Identificador de negocio legible (asignado por la administración) |
+| `urls` | `Array` | ❌ | URLs de acceso al objeto en la sede electrónica |
+| `originAdminRef` | `Object` | ❌ | Referencia a la administración de origen. Si no se proporciona, DENA lo completa automáticamente |
+| `aboutPersonRef` | `Object` | ❌ | Referencia a la persona sobre la que trata el objeto. Si no se proporciona, DENA lo completa automáticamente |
+
+---
+
+## Detalle de `originAdminRef`
+
+Identifica la administración que genera el dato. Es opcional porque DENA puede inferirlo del contexto de la petición.
+
+```json
+{
+  "originAdminRef": {
+    "administrationId": "ADMIN-001",
+    "dir3Code": "EA0000001"
+  }
+}
+```
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `administrationId` | `String` | Identificador de la administración en DENA |
+| `dir3Code` | `String` | Código DIR3 de la administración |
+
+---
+
+## Detalle de `aboutPersonRef`
+
+Identifica a la persona ciudadana a la que se refiere el dato. Es opcional porque DENA lo completa con el `personId` del contexto de la petición.
+
+```json
+{
+  "aboutPersonRef": {
+    "personId": "12345678A"
+  }
+}
+```
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `personId` | `String` | DNI/NIE/NIF de la persona |
+
+---
+
+## Detalle de `urls`
+
+Array de URLs que permiten acceder al objeto en la sede electrónica. Cada elemento tiene la siguiente estructura:
+
+```json
+{
+  "urls": [
+    {
+      "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123",
+      "language": "SPANISH",
+      "tags": ["default"]
+    },
+    {
+      "url": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123",
+      "language": "BASQUE",
+      "tags": ["default"]
+    }
+  ]
+}
+```
+
+| Campo | Tipo | Obligatorio | Descripción |
+|-------|------|:-----------:|-------------|
+| `url` | `String` | ✅ | URL completa (HTTPS) |
+| `language` | `String` | ❌ | Idioma de la URL: `SPANISH`, `BASQUE`, `ENGLISH` |
+| `tags` | `Array<String>` | ❌ | Etiquetas para clasificar la URL |
+
+### Tags comunes
+
+| Tag | Uso |
+|-----|-----|
+| `default` | URL principal de acceso al objeto |
+| `payment` | URL de pago (en objetos de tipo pago) |
+| `payment-receipt` | URL del justificante de pago |
+
+---
+
+## Ejemplo completo con campos comunes
+
+```json
+{
+  "type": "administrativeServiceProcedureRecord",
+  "oid": "EXP-OID-001",
+  "id": "EXP-2024-00123",
+  "originAdminRef": {
+    "administrationId": "ADMIN-001",
+    "dir3Code": "EA0000001"
+  },
+  "aboutPersonRef": {
+    "personId": "12345678A"
+  },
+  "urls": [
+    { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
+  ],
+  "...": "campos específicos del objeto"
+}
+```
+
+---
+
+## Notas para la administración
+
+- Los campos `originAdminRef` y `aboutPersonRef` son **opcionales**. Si la administración no los incluye, DENA los completará automáticamente a partir del contexto de la petición.
+- Se recomienda incluir al menos una URL con tag `default` por cada idioma soportado (castellano y euskera como mínimo).
+- El campo `oid` debe ser único dentro del sistema de la administración para ese tipo de objeto.
+- El campo `id` debe ser el identificador de negocio que la persona ciudadana reconoce (ej: número de expediente visible en la sede).
