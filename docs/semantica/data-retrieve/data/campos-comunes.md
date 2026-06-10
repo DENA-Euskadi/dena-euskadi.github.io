@@ -1,7 +1,7 @@
 # Campos Comunes (Base Fields)
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 > - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
 > - **Código:** [DN00DENADataExchangedObjectBase.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
 
@@ -212,4 +212,4 @@ Ver también: [`DN00DataTypeEnum.java`](https://github.com/DENA-Euskadi/dena-com
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

@@ -1,7 +1,7 @@
 # Pago (Payment)
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 > - **Test:** [DN99DENATestMockObjFactoryForOneOffPayment.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
 > - **Código:**
 >   - [DN00OneOffPayment.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java)
@@ -36,12 +36,13 @@ flowchart LR
     PAYBASE --> DD["<b>Domiciliación</b><br/><i>directDebitPayment</i>"]
 
     ONEOFF --> DATES["paymentDates<br/><i>dueDate · surchargedAt · paidAt</i>"]
-    ONEOFF --> FORMAT["format"]    
+    ONEOFF --> FORMAT["format · schema"]    
     ONEOFF --> AMOUNT["amount<br/>amountIfSurcharged"]
     ONEOFF --> DATA["data<br/><i>forStatus · at · medium<br/>device · messageByLang</i>"]
 
     DD --> DDDATA["directDebitData<br/><i>startDate · expiresAt<br/>frequency · medium · mediumHint</i>"]
     DD --> NEXT["nextChargeAt<br/>nextChargeAmountInEuro"]
+    DD --> STATUS["paymentStatus"]
     DD --> HIST["history[]<br/><i>at · amountInEuro</i>"]
 
     style PAYBASE fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
@@ -54,6 +55,7 @@ flowchart LR
     style DATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style DDDATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style NEXT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style STATUS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style HIST fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
     click EXP "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver Expediente"
@@ -69,38 +71,76 @@ flowchart LR
 
 ---
 
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00PaymentDataExchangedBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentDataExchangedBase.java) |
+| DN00OneOffPayment | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java) |
+| DN00OneOffPaymentData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPaymentData.java) |
+| DN00OneOffPaymentSchemaFormat | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPaymentSchemaFormat.java) |
+| DN00DirectDebitPayment | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitPayment.java) |
+| DN00DirectDebitData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitData.java) |
+| DN00DirectDebitPaymentHistoryItem | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitPaymentHistoryItem.java) |
+| DN00PaymentDates | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentDates.java) |
+| DN00PaymentStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentStateCode.java) |
+| DN00PaymentMedium | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentMedium.java) |
+| DN00PaymentDevice | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentDevice.java) |
+| DN00PaymentType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentType.java) |
+
+---
+
+## 🧪 Tests y ejemplos
+
+| Test | Repositorio |
+|------|-------------|
+| DN00PayOffPaymentTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java) |
+| DN00DirectDebitPaymentsTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitPayment.java) |
+| DN00PaymentDatesTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDates.java) |
+| DN00PaymentStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentStateCode.java) |
+| DN00PaymentStatusDataWhenCompletedTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
+| DN00PaymentStatusDataWhenRejectedTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
+| DN00PaymentStatusDataWhenCancelledTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
+| DN00PaymentStatusDataWhenErrorTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
+| DN00OneOffPaymentSchemaTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
+| DN00PaymentIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDataExchangedBase.java) |
+
+---
+
 ## Atributos comunes
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `type` | `String` | ✅ | `"oneOffPayment"` o `"directDebitPayment"` |
-| `oid` | `String` | ✅ | Identificador técnico único |
-| `id` | `String` | ✅ | Identificador de negocio |
-| `procedureRecord` | `Object` | ✅ | Referencia al expediente (`oid`, `id`) |
-| `paymentType` | `String` | ✅ | `ONE_OFF_PAYMENT` o `DIRECT_DEBIT` |
-| `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | Concepto del pago |
-| `participatingOrgUnits` | `Array` | ❌ | Unidades orgánicas participantes |
-| `urls` | `Array` | ❌ | URLs de pago y justificante |
+
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `type` | `String` | ✅ | `"oneOffPayment"` | `"oneOffPayment"` o `"directDebitPayment"` |
+| `oid` | `String` | ✅ | `"PAY-OID-001"` | Identificador técnico único |
+| `id` | `String` | ✅ | `"PAY-2024-00321"` | Identificador de negocio |
+| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
+| `paymentType` | `String` | ✅ | `"ONE_OFF_PAYMENT"` | `ONE_OFF_PAYMENT` o `DIRECT_DEBIT` |
+| `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Tasa licencia"}` | Concepto del pago |
+| `participatingOrgUnits` | `Array` | ❌ | *(ver [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Unidades orgánicas participantes |
+| `urls` | `Array` | ❌ | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de pago y justificante |
 
 ---
 
 ## Pago único — Atributos específicos
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `format` | `String` | ❌ | Formato de pago (501, 502, 503, 507, 508, 514, 515, 521, 522, 524, 525, 528, 529) |
-| `paymentDates.dueDate` | `String` (date) | ✅ | Fecha de vencimiento |
-| `paymentDates.surchargedAt` | `String` (date) | ❌ | Inicio del periodo de recargo |
-| `paymentDates.paidAt` | `String` (date) | ❌ | Fecha de pago efectivo (obligatorio si `forStatus = COMPLETED`) |
-| `amount` | `Money` | ✅ | Importe del pago |
-| `amountIfSurcharged` | `Money` | ❌ | Importe con recargo |
-| `data.forStatus` | `String` | ✅ | Estado del pago |
-| `data.at` | `String` (ISO 8601) | ❌ | Fecha/hora en que se realizó la acción de pago |
-| `data.medium` | `String` | ❌ | Medio de pago utilizado |
-| `data.device` | `String` | ❌ | Dispositivo utilizado |
-| `data.paymentProcessorId` | `String` | ❌ | Entidad procesadora |
-| `data.paymentProcessorTransactionId` | `String` | ❌ | ID de transacción |
-| `data.messageByLang` | `LanguageTexts` | ❌ | Mensaje informativo (ej: motivo de rechazo) |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `format` | `String` | ❌ | `"502"` | Formato de pago (501, 502, 503, 507, 508, 514, 515, 521, 522, 523, 524, 525, 528, 529) |
+| `schema` | `Object` | ❌ | *(ver [`DN00IsOneOffPaymentSchema`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Esquema del formato de pago (estructura interna específica del formato) |
+| `paymentDates.dueDate` | `String` (date) | ✅ | `"2024-06-30"` | Fecha de vencimiento |
+| `paymentDates.surchargedAt` | `String` (date) | ❌ | `"2024-07-15"` | Inicio del periodo de recargo |
+| `paymentDates.paidAt` | `String` (date) | ❌ | `"2024-05-28"` | Fecha de pago efectivo (obligatorio si `forStatus = COMPLETED`) |
+| `amount` | `Money` | ✅ | `{"amount":45.50,"currency":"EUR"}` | Importe del pago |
+| `amountIfSurcharged` | `Money` | ❌ | `{"amount":50.05,"currency":"EUR"}` | Importe con recargo |
+| `data.forStatus` | `String` | ✅ | `"PENDING"` | Estado del pago |
+| `data.at` | `String` (ISO 8601) | ❌ | `"2024-05-28T11:23:45Z"` | Fecha/hora en que se realizó la acción de pago |
+| `data.medium` | `String` | ❌ | `"PAYMENT_CARD"` | Medio de pago utilizado |
+| `data.device` | `String` | ❌ | `"WEB_BROWSER"` | Dispositivo utilizado |
+| `data.paymentProcessorId` | `String` | ❌ | `"BANKIA"` | Entidad procesadora |
+| `data.paymentProcessorTransactionId` | `String` | ❌ | `"TXN-2024-ABC123"` | ID de transacción |
+| `data.messageByLang` | `LanguageTexts` | ❌ | `{"SPANISH":"Pago rechazado"}` | Mensaje informativo (ej: motivo de rechazo) |
 
 ### Tipo `Money`
 
@@ -117,16 +157,25 @@ El tipo `Money` es un objeto con la siguiente estructura:
 
 ## Domiciliación — Atributos específicos
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `directDebitData.startDate` | `String` (date) | ✅ | Fecha de alta de la domiciliación |
-| `directDebitData.expiresAt` | `String` (date) | ❌ | Fecha de expiración (null = vigente indefinidamente) |
-| `directDebitData.frequency` | `String` | ✅ | Frecuencia (ver tabla abajo) |
-| `directDebitData.medium` | `String` | ❌ | Medio de pago |
-| `directDebitData.mediumHint` | `String` | ❌ | Indicación del medio (ej: últimos dígitos de cuenta) |
-| `nextChargeAt` | `String` (date) | ❌ | Fecha del próximo cargo |
-| `nextChargeAmountInEuro` | `Number` | ❌ | Importe del próximo cargo |
-| `history` | `Array` | ❌ | Historial de cargos realizados |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `directDebitData.startDate` | `String` (date) | ✅ | `"2024-01-15"` | Fecha de alta de la domiciliación |
+| `directDebitData.expiresAt` | `String` (date) | ❌ | `null` | Fecha de expiración (null = vigente indefinidamente) |
+| `directDebitData.frequency` | `String` | ✅ | `"MONTHLY"` | Frecuencia (ver [frecuencias](#frecuencias-directdebitdatafrequency)) |
+| `directDebitData.medium` | `String` | ❌ | `"DIRECT_DEBIT"` | Medio de pago |
+| `directDebitData.mediumHint` | `String` | ❌ | `"2100 ***** 051332"` | Indicación del medio (ej: últimos dígitos de cuenta) |
+| `nextChargeAt` | `String` (date) | ❌ | `"2024-07-01"` | Fecha del próximo cargo |
+| `nextChargeAmountInEuro` | `Number` | ❌ | `120.00` | Importe del próximo cargo |
+| `paymentStatus` | `String` | ❌ | `"ACTIVE"` | Estado de la domiciliación |
+| `history` | `Array` | ❌ | `[{"at":"2024-06-01","amountInEuro":120.00}]` | Historial de cargos realizados |
+
+### Estados de la domiciliación (`paymentStatus`)
+
+| Código | Descripción |
+|--------|-------------|
+| `ACTIVE` | Domiciliación activa |
+| `CANCELED` | Domiciliación cancelada |
+| `EXPIRED` | Domiciliación expirada |
 
 ### Frecuencias (`directDebitData.frequency`)
 
@@ -268,6 +317,7 @@ Cada elemento del array `history` tiene la siguiente estructura:
   },
   "nextChargeAt": "2024-07-01",
   "nextChargeAmountInEuro": 120.00,
+  "paymentStatus": "ACTIVE",
   "history": [
     { "at": "2024-06-01", "amountInEuro": 120.00 },
     { "at": "2024-05-01", "amountInEuro": 120.00 }
@@ -289,46 +339,6 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 ---
 
-## 🔗 Código fuente
-
-| Clase | Repositorio |
-|-------|-------------|
-| DN00PaymentDataExchangedBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentDataExchangedBase.java) |
-| DN00OneOffPayment | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java) |
-| DN00OneOffPaymentData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPaymentData.java) |
-| DN00OneOffPaymentSchemaFormat | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPaymentSchemaFormat.java) |
-| DN00DirectDebitPayment | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitPayment.java) |
-| DN00DirectDebitData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitData.java) |
-| DN00DirectDebitPaymentHistoryItem | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitPaymentHistoryItem.java) |
-| DN00PaymentDates | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentDates.java) |
-| DN00PaymentStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentStateCode.java) |
-| DN00PaymentMedium | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentMedium.java) |
-| DN00PaymentDevice | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentDevice.java) |
-| DN00PaymentType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/DN00PaymentType.java) |
-
-
----
-
-## 🧪 Tests y ejemplos
-
-| Test | Repositorio |
-|------|-------------|
-| DN00PayOffPaymentTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java) |
-| DN00DirectDebitPaymentsTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitPayment.java) |
-| DN00PaymentDatesTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDates.java) |
-| DN00PaymentStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentStateCode.java) |
-| DN00PaymentStatusDataWhenCompletedTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenRejectedTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenCancelledTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenErrorTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00OneOffPaymentSchemaTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
-| DN00PaymentIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDataExchangedBase.java) |
-
-
-
-
-
-
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

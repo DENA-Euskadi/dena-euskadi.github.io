@@ -1,7 +1,7 @@
 # Persona (PersonData)
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 > - **Test:** [DN99DENATestMockObjFactoryForPersonData.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForPersonData.java)
 > - **Código:** [DN00PersonData.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonData.java)
 
@@ -60,33 +60,67 @@ flowchart LR
 
 ---
 
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00PersonData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonData.java) |
+| DN00ContactData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) |
+| DN00Address | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Address.java) |
+| DN00Addresses | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) |
+| DN00BankData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java) |
+| DN00BankDataCollection | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) |
+| DN00Account | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Account.java) |
+| DN00ContactType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java) |
+| DN00IdType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java) |
+
+---
+
+## 🧪 Tests y ejemplos
+
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+
+| Mock Factory | Repositorio |
+|--------------|-------------|
+| DN99DENATestMockObjFactoryForPersonData | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForPersonData.java) |
+| DN99DENATestMockObjFactoryForContactData | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactData.java) |
+| DN99DENATestMockObjFactoryForAddress | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddress.java) |
+| DN99DENATestMockObjFactoryForAddresses | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddresses.java) |
+| DN99DENATestMockObjFactoryForBankData | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankData.java) |
+| DN99DENATestMockObjFactoryForBankDataCollection | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankDataCollection.java) |
+| DN99DENATestMockObjFactoryForAccount | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAccount.java) |
+| DN99DENATestMockObjFactoryForContactType | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactType.java) |
+| DN99DENATestMockObjFactoryForIdType | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForIdType.java) |
+
+---
+
 ## PersonData — Atributos JSON
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `type` | `String` | ✅ | `"personData"` |
-| `oid` | `String` | ✅ | Identificador técnico |
-| `id` | `String` | ✅ | Identificador de negocio |
-| `contactData` | [`DN00ContactData`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) | ✅ | Datos de contacto detallados |
-| `addresses` | [`DN00Addresses`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) | ❌ | Direcciones (principal + otras) |
-| `bankDataCollection` | [`DN00BankDataCollection`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) | ❌ | Datos bancarios |
-| `orgUnit` | [`DN00OrgUnitReference`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) | ❌ | Unidad orgánica asociada (ver [unidad-organica.md](./unidad-organica.md)) |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `type` | `String` | ✅ | `"personData"` | Discriminador polimórfico |
+| `oid` | `String` | ✅ | `"PDATA-OID-001"` | Identificador técnico |
+| `id` | `String` | ✅ | `"12345678A"` | Identificador de negocio |
+| `contactData` | [`DN00ContactData`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) | ✅ | *(ver [contactData](#datos-de-contacto-contactdata))* | Datos de contacto detallados |
+| `addresses` | [`DN00Addresses`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) | ❌ | *(ver [Direcciones](#direcciones-addresses))* | Direcciones (principal + otras) |
+| `bankDataCollection` | [`DN00BankDataCollection`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) | ❌ | *(ver [Datos bancarios](#datos-bancarios-bankdatacollection))* | Datos bancarios |
+| `orgUnit` | [`DN00OrgUnitReference`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) | ❌ | *(ver [unidad-organica.md](./unidad-organica.md))* | Unidad orgánica asociada |
 
 ---
 
 ## Datos de contacto ([`contactData`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java))
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `partyId` | `String` | ✅ | NIF/NIE del interesado |
-| `partyName` | `String` | ✅ | Nombre |
-| `partySurName` | `String` | ✅ | Apellidos |
-| `birthDate` | `String` (ISO 8601) | ❌ | Fecha de nacimiento |
-| `phone` | `String` | ❌ | Teléfono principal |
-| `phone2` | `String` | ❌ | Teléfono secundario |
-| `email` | `String` | ❌ | Correo electrónico |
-| `contactLanguage` | `String` | ❌ | Idioma preferido (`SPANISH`, `BASQUE`, `ENGLISH`) |
-| `contactMode` | `String` | ❌ | Modo de contacto preferido |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `partyId` | `String` | ✅ | `"12345678A"` | NIF/NIE del interesado |
+| `partyName` | `String` | ✅ | `"María"` | Nombre |
+| `partySurName` | `String` | ✅ | `"García López"` | Apellidos |
+| `birthDate` | `String` (ISO 8601) | ❌ | `"1985-03-20T00:00:00Z"` | Fecha de nacimiento |
+| `phone` | `String` | ❌ | `"+34600000001"` | Teléfono principal |
+| `phone2` | `String` | ❌ | `null` | Teléfono secundario |
+| `email` | `String` | ❌ | `"maria@example.com"` | Correo electrónico |
+| `contactLanguage` | `String` | ❌ | `"SPANISH"` | Idioma preferido (`SPANISH`, `BASQUE`, `ENGLISH`) |
+| `contactMode` | `String` | ❌ | `"ELECTRONIC"` | Modo de contacto preferido |
 
 ### Modos de contacto ([`contactMode`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java))
 
@@ -99,43 +133,43 @@ flowchart LR
 
 ## Direcciones ([`addresses`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java))
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `mainAddress` | `Object` | ❌ | Dirección principal |
-| `otherAddresses` | `Object` | ❌ | Otras direcciones |
-| `otherAddresses.addresses` | `Array` | ❌ | Lista de direcciones adicionales |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `mainAddress` | `Object` | ❌ | *(ver [Dirección](#dirección-mainaddress--cada-elemento-de-otheraddressesaddresses))* | Dirección principal |
+| `otherAddresses` | `Object` | ❌ | | Otras direcciones |
+| `otherAddresses.addresses` | `Array` | ❌ | | Lista de direcciones adicionales |
 
 ### Dirección ([`mainAddress`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Address.java) / cada elemento de `otherAddresses.addresses`)
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `addressDescription` | `LanguageTexts` | ❌ | Descripción de la dirección |
-| `countryNoraCode` | `String` | ❌ | Código NORA del país |
-| `countryDesc` | `LanguageTexts` | ❌ | Nombre del país |
-| `provinceNoraCode` | `String` | ❌ | Código NORA de la provincia |
-| `provinceDesc` | `LanguageTexts` | ❌ | Nombre de la provincia |
-| `municipalityNoraCode` | `String` | ❌ | Código NORA del municipio |
-| `municipalityDesc` | `LanguageTexts` | ❌ | Nombre del municipio |
-| `localityNoraCode` | `String` | ❌ | Código NORA de la localidad |
-| `localityDesc` | `LanguageTexts` | ❌ | Nombre de la localidad |
-| `address` | `String` | ❌ | Dirección postal completa |
-| `postalCode` | `String` | ❌ | Código postal |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `addressDescription` | `LanguageTexts` | ❌ | `{"SPANISH":"Domicilio habitual"}` | Descripción de la dirección |
+| `countryNoraCode` | `String` | ❌ | `"108"` | Código NORA del país |
+| `countryDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"España"}` | Nombre del país |
+| `provinceNoraCode` | `String` | ❌ | `"48"` | Código NORA de la provincia |
+| `provinceDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bizkaia"}` | Nombre de la provincia |
+| `municipalityNoraCode` | `String` | ❌ | `"48020"` | Código NORA del municipio |
+| `municipalityDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bilbao"}` | Nombre del municipio |
+| `localityNoraCode` | `String` | ❌ | `"48020"` | Código NORA de la localidad |
+| `localityDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bilbao"}` | Nombre de la localidad |
+| `address` | `String` | ❌ | `"Gran Vía 50, 3º B"` | Dirección postal completa |
+| `postalCode` | `String` | ❌ | `"48001"` | Código postal |
 
 ---
 
 ## Datos bancarios ([`bankDataCollection`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java))
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `bankData` | `Array` | ❌ | Lista de datos bancarios |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `bankData` | `Array` | ❌ | | Lista de datos bancarios |
 
 ### Cada elemento de [`bankData`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java)
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `account.accountId` | `String` | ✅ | Número de cuenta (IBAN u otro) |
-| `account.idType` | `String` | ✅ | Tipo de identificador |
-| `entity` | `String` | ❌ | Entidad bancaria |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `account.accountId` | `String` | ✅ | `"ES9121000418450200051332"` | Número de cuenta (IBAN u otro) |
+| `account.idType` | `String` | ✅ | `"IBAN"` | Tipo de identificador |
+| `entity` | `String` | ❌ | `"CaixaBank"` | Entidad bancaria |
 
 ### Tipos de identificador de cuenta ([`idType`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java))
 
@@ -208,39 +242,6 @@ flowchart LR
 
 ---
 
-## 🔗 Código fuente
-
-| Clase | Repositorio |
-|-------|-------------|
-| DN00PersonData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonData.java) |
-| DN00ContactData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) |
-| DN00Address | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Address.java) |
-| DN00Addresses | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) |
-| DN00BankData | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java) |
-| DN00BankDataCollection | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) |
-| DN00Account | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Account.java) |
-| DN00ContactType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java) |
-| DN00IdType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java) |
-
----
-
-## 🧪 Tests y ejemplos
-
-> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
-
-| Mock Factory | Repositorio |
-|--------------|-------------|
-| DN99DENATestMockObjFactoryForPersonData | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForPersonData.java) |
-| DN99DENATestMockObjFactoryForContactData | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactData.java) |
-| DN99DENATestMockObjFactoryForAddress | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddress.java) |
-| DN99DENATestMockObjFactoryForAddresses | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddresses.java) |
-| DN99DENATestMockObjFactoryForBankData | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankData.java) |
-| DN99DENATestMockObjFactoryForBankDataCollection | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankDataCollection.java) |
-| DN99DENATestMockObjFactoryForAccount | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAccount.java) |
-| DN99DENATestMockObjFactoryForContactType | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactType.java) |
-| DN99DENATestMockObjFactoryForIdType | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForIdType.java) |
-
-
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

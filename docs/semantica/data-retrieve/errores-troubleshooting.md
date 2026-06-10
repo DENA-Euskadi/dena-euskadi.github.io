@@ -147,4 +147,4 @@ Si el error persiste tras revisar esta guía, contactar con el equipo DENA propo
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

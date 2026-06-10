@@ -1,7 +1,7 @@
 # Notificación (Administrative Notice)
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 > - **Test:** [DN99DENATestMockObjFactoryForAdministrativeNotice.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
 > - **Código:** [DN00AdministrativeNotice.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNotice.java)
 
@@ -52,19 +52,40 @@ flowchart LR
 
 ---
 
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00AdministrativeNotice | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNotice.java) |
+| DN00AdministrativeNoticeStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNoticeStateCode.java) |
+| DN00AdministrativeNoticeType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNoticeType.java) |
+
+---
+
+## 🧪 Tests y ejemplos
+
+| Test | Repositorio |
+|------|-------------|
+| DN00NotificationTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java) |
+| DN00NotificationStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNoticeStateCode.java) |
+| DN00NotificationTypeTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNoticeType.java) |
+| DN00NotificationIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java) |
+
+---
+
 ## Atributos JSON
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `type` | `String` | ✅ | Tipo de notificación: `"OFFICIAL_NOTICE"` o `"COMMUNICATION"`. Además, el discriminador polimórfico del objeto es `"administrativeNotice"` |
-| `oid` | `String` | ✅ | Identificador técnico único |
-| `id` | `String` | ✅ | Identificador de negocio |
-| `procedureRecord` | `Object` | ✅ | Referencia al expediente (`oid`, `id`) |
-| `issuedAt` | `String` (ISO 8601) | ✅ | Fecha de emisión |
-| `readedAt` | `String` (ISO 8601) | ❌ | Fecha de lectura (null si no leída) |
-| `state` | `String` | ✅ | Estado actual (directamente el código, NO un objeto) |
-| `actSubjectByLanguage` | `LanguageTexts` | ✅ | Asunto del acto notificado |
-| `urls` | `Array` | ❌ (recomendado) | URLs de acceso |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `type` | `String` | ✅ | `"OFFICIAL_NOTICE"` | Tipo de notificación. Discriminador polimórfico: `"administrativeNotice"` |
+| `oid` | `String` | ✅ | `"NOT-OID-001"` | Identificador técnico único |
+| `id` | `String` | ✅ | `"NOT-2024-00456"` | Identificador de negocio |
+| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
+| `issuedAt` | `String` (ISO 8601) | ✅ | `"2024-05-20T09:00:00Z"` | Fecha de emisión |
+| `readedAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Fecha de lectura (null si no leída) |
+| `state` | `String` | ✅ | `"PENDING_TO_BE_READED_BY_DESTINATION"` | Estado actual (string directo, NO objeto) |
+| `actSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Asunto del acto notificado |
+| `urls` | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
 
 > **Importante:** En notificaciones, el campo `state` es directamente un **string** con el código de estado (ej: `"PENDING_TO_BE_READED_BY_DESTINATION"`), a diferencia de expedientes y registros donde `state` es un objeto con `stateCode` y `description`.
 
@@ -148,31 +169,6 @@ flowchart LR
 
 ---
 
-## 🔗 Código fuente
-
-| Clase | Repositorio |
-|-------|-------------|
-| DN00AdministrativeNotice | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNotice.java) |
-| DN00AdministrativeNoticeStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNoticeStateCode.java) |
-| DN00AdministrativeNoticeType | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNoticeType.java) |
-
-
----
-
-## 🧪 Tests y ejemplos
-
-| Test | Repositorio |
-|------|-------------|
-| DN00NotificationTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java) |
-| DN00NotificationStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNoticeStateCode.java) |
-| DN00NotificationTypeTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNoticeType.java) |
-| DN00NotificationIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java) |
-
-
-
-
-
-
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

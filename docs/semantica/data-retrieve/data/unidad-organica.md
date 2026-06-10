@@ -1,7 +1,7 @@
 # Unidad Orgánica (Org Unit)
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 > - **Test:** [DN99DENATestMockObjFactoryForOrgUnitReference.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReference.java)
 > - **Código:** [DN00OrgUnitReference.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java)
 
@@ -39,16 +39,39 @@ flowchart LR
 
 ---
 
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00OrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) |
+| DN00OrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java) |
+| DN00OrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitRole.java) |
+
+---
+
+## 🧪 Tests y ejemplos
+
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+
+| Mock Factory | Repositorio |
+|--------------|-------------|
+| DN99DENATestMockObjFactoryForOrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReference.java) |
+| DN99DENATestMockObjFactoryForOrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReferenceWithRole.java) |
+| DN99DENATestMockObjFactoryForOrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitRole.java) |
+
+---
+
 ## Atributos JSON
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `orgUnit.oid` | `String` | ❌ | Identificador técnico |
-| `orgUnit.id` | `String` | ✅ | Identificador de negocio |
-| `orgUnit.dir3Id` | `String` | ❌ | Código DIR3 |
-| `orgUnit.displayNameByLanguage` | `LanguageTexts` | ✅ | Nombre de la unidad |
-| `orgUnit.urls` | `Array` | ❌ | URLs de la unidad |
-| `role` | `String` | ✅ | Rol en el contexto |
+
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `orgUnit.oid` | `String` | ❌ | `"ORG-OID-001"` | Identificador técnico |
+| `orgUnit.id` | `String` | ✅ | `"ORG-URBANISMO"` | Identificador de negocio |
+| `orgUnit.dir3Id` | `String` | ❌ | `"EA0000001"` | Código DIR3 |
+| `orgUnit.displayNameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Dpto. Urbanismo"}` | Nombre de la unidad |
+| `orgUnit.urls` | `Array` | ❌ | | URLs de la unidad |
+| `role` | `String` | ✅ | `"RESPONSIBLE"` | Rol en el contexto |
 
 ---
 
@@ -110,32 +133,6 @@ flowchart LR
 
 ---
 
-## 🔗 Código fuente
-
-| Clase | Repositorio |
-|-------|-------------|
-| DN00OrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) |
-| DN00OrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java) |
-| DN00OrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitRole.java) |
-
-
----
-
-## 🧪 Tests y ejemplos
-
-> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
-
-| Mock Factory | Repositorio |
-|--------------|-------------|
-| DN99DENATestMockObjFactoryForOrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReference.java) |
-| DN99DENATestMockObjFactoryForOrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReferenceWithRole.java) |
-| DN99DENATestMockObjFactoryForOrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitRole.java) |
-
-
-
-
-
-
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

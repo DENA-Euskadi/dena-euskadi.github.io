@@ -1,7 +1,7 @@
 # Expediente (Procedure Record)
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 > - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
 > - **Código:** [DN00AdmistrativeServiceProcedureRecord.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java)
 
@@ -28,7 +28,9 @@ flowchart LR
     EXP --> SRV["service<br/><i>serviceNameByLanguage<br/>originRef · DENARef · SIARef</i>"]
     EXP --> PROC["procedure<br/><i>serviceNameByLanguage<br/>originRef · DENARef · SIARef</i>"]
     EXP --> STATE["state<br/><i>stateCode · description</i>"]
-    EXP --> DATES["createdAt<br/>lastUpdatedAt"]
+    EXP --> DATES["createdAt · lastUpdatedAt<br/>applicationDate"]
+    EXP --> REGNUMBER["regNumber"]
+    EXP --> INTERESTED["interested<br/><i>partyId · partyName</i>"]
     EXP --> DESC["descriptionByLanguage"]
     EXP --> URLS["urls[]"]
 
@@ -37,6 +39,8 @@ flowchart LR
     style PROC fill:#f5f5f5,stroke:#666666,color:#000000,rx:6,ry:6
     style STATE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
     style DATES fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style REGNUMBER fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style INTERESTED fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style DESC fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
@@ -53,22 +57,47 @@ flowchart LR
 
 ---
 
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00AdmistrativeServiceProcedureRecord | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java) |
+| DN00AdministrativeServiceProcedureRecordState | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordState.java) |
+| DN00AdministrativeServiceProcedureRecordStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordStateCode.java) |
+
+---
+
+## 🧪 Tests y ejemplos
+
+| Test | Repositorio |
+|------|-------------|
+| DN00RecordTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
+| DN00RecordStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedureRecordState.java) |
+| DN00RecordIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
+
+---
+
 ## Atributos JSON
 
-| Campo | Tipo | Obligatorio | Descripción |
-|-------|------|:-----------:|-------------|
-| `type` | `String` | ✅ | `"administrativeServiceProcedureRecord"` |
-| `oid` | `String` | ✅ | Identificador técnico único |
-| `id` | `String` | ✅ | Identificador de negocio |
-| `service` | `Object` | ✅ | Servicio administrativo (ver [servicio-administrativo.md](./servicio-administrativo.md)) |
-| `procedure` | `Object` | ✅ | Procedimiento (ver [servicio-administrativo.md](./servicio-administrativo.md)) |
-| `createdAt` | `String` (ISO 8601) | ✅ | Fecha de creación |
-| `lastUpdatedAt` | `String` (ISO 8601) | ❌ | Fecha de última actualización |
-| `state` | `Object` | ✅ | Estado actual |
-| `state.stateCode` | `String` | ✅ | Código de estado |
-| `state.description` | `LanguageTexts` | ❌ | Descripción multiidioma del estado |
-| `descriptionByLanguage` | `LanguageTexts` | ❌ | Descripción del expediente |
-| `urls` | `Array` | ❌ (recomendado) | URLs de acceso a la sede electrónica |
+| Campo | Tipo | Obligatorio | Ejemplo | Descripción |
+|-------|------|:-----------:|---------|-------------|
+| `type` | `String` | ✅ | `"administrativeServiceProcedureRecord"` | Discriminador polimórfico |
+| `oid` | `String` | ✅ | `"EXP-OID-001"` | Identificador técnico único |
+| `id` | `String` | ✅ | `"EXP-2024-00123"` | Identificador de negocio |
+| `service` | `Object` | ✅ | *(ver [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdmistrativeService`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java))* | Servicio administrativo |
+| `procedure` | `Object` | ✅ | *(ver [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdministrativeServiceProcedure`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java))* | Procedimiento |
+| `createdAt` | `String` (ISO 8601) | ✅ | `"2024-03-15T10:30:00Z"` | Fecha de creación |
+| `lastUpdatedAt` | `String` (ISO 8601) | ❌ | `"2024-06-01T14:00:00Z"` | Fecha de última actualización |
+| `applicationDate` | `String` (ISO 8601) | ❌ | `"2024-03-14T09:00:00Z"` | Fecha de presentación de la solicitud |
+| `regNumber` | `String` | ❌ | `"REG-2024-00123"` | Número de registro |
+| `state` | `Object` | ✅ | *(ver [`DN00AdministrativeServiceProcedureRecordState`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordState.java))* | Estado actual |
+| `state.stateCode` | `String` | ✅ | `"IN_PROGRESS"` | Código de estado |
+| `state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"En tramitación"}` | Descripción multiidioma del estado |
+| `interested` | `Object` | ❌ | *(ver [`DN00AdministrativeServiceInterested`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceInterested.java))* | Interesado en el expediente |
+| `interested.partyId` | `String` | ❌ | `"12345678A"` | NIF/DNI del interesado |
+| `interested.partyName` | `String` | ❌ | `"Juan García"` | Nombre del interesado |
+| `descriptionByLanguage` | `LanguageTexts` | ❌ | `{"SPANISH":"Licencia apertura"}` | Descripción del expediente |
+| `urls` | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso a la sede electrónica |
 
 ---
 
@@ -102,6 +131,9 @@ flowchart LR
   },
   "createdAt": "2024-03-15T10:30:00Z",
   "lastUpdatedAt": "2024-06-01T14:00:00Z",
+  "applicationDate": "2024-03-14T09:00:00Z",
+  "regNumber": "REG-2024-00123",
+  "interested": { "partyId": "12345678A", "partyName": "Juan García" },
   "state": {
     "stateCode": "IN_PROGRESS",
     "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
@@ -136,34 +168,6 @@ Los siguientes objetos referencian al expediente mediante `procedureRecord`:
 - Ver [validaciones.md](../validaciones.md) para reglas completas.
 
 
-
-
----
-
-## 🔗 Código fuente
-
-| Clase | Repositorio |
-|-------|-------------|
-| DN00AdmistrativeServiceProcedureRecord | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java) |
-| DN00AdministrativeServiceProcedureRecordState | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordState.java) |
-| DN00AdministrativeServiceProcedureRecordStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordStateCode.java) |
-
-
----
-
-## 🧪 Tests y ejemplos
-
-| Test | Repositorio |
-|------|-------------|
-| DN00RecordTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
-| DN00RecordStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedureRecordState.java) |
-| DN00RecordIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
-
-
-
-
-
-
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

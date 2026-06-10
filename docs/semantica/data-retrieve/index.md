@@ -1,7 +1,7 @@
 # DATA-RETRIEVE
 
-> - **Versión:** `v0.3.25`
-> - **Fecha:** 2026-06-10
+> - **Versión:** `v0.3.26`
+> - **Fecha:** 2026-06-11
 
 ## ¿Qué es?
 
@@ -113,6 +113,12 @@ flowchart LR
 ---
 
 ## Documentación
+
+### Guía de implementación
+
+| Documento | Contenido |
+|-----------|----------|
+| [📖 **guia-implementacion.md**](./guia-implementacion.md) | **Guía paso a paso** para que una administración implemente el endpoint |
 
 ### Endpoint
 
@@ -243,18 +249,18 @@ flowchart LR
 
 | Campo | Obligatorio | Descripción |
 |-------|:-----------:|-------------|
-| `context.messageType` | ✅ | Tipo de mensaje (ver tabla abajo) |
-| `context.dataType.dataTypeId` | ✅ | Tipo de dato solicitado (`RECORDS`, `NOTICES`, etc.) |
-| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad (generado automáticamente) |
-| `context.flowDirection` | ✅ | Dirección: `REQUEST` o `RESPONSE` |
-| `context.originPartyId` | ❌ | Identificador del origen del mensaje |
-| `context.destinationPartyId` | ❌ | Identificador del destino del mensaje |
-| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona |
-| `context.administration` | ❌ | Referencia a la administración destino |
-| `context.interopRouteData` | ❌ | Traza de componentes por los que ha pasado el mensaje |
-| `consentOid` | ❌ | OID del consentimiento otorgado por la persona |
-| `protocol.urls` | ❌ | URLs de plantilla del protocolo |
-| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`) |
+| `context.messageType` | ✅ | Tipo de mensaje. Ver [`DN00InteropMessageType`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
+| `context.dataType.dataTypeId` | ✅ | Tipo de dato solicitado (`RECORDS`, `NOTICES`, etc.). Ver [`DN00DataTypeEnum`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.flowDirection` | ✅ | Dirección: `REQUEST` o `RESPONSE`. Ver [`DN00InteropFlowDirection`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
+| `context.originPartyId` | ❌ | Identificador del origen del mensaje. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.destinationPartyId` | ❌ | Identificador del destino del mensaje. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.administration` | ❌ | Referencia a la administración destino. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.interopRouteData` | ❌ | Traza de componentes. Ver [`DN00IteropRouteDataItem`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
+| `consentOid` | ❌ | OID del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
+| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
+| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`). Ver [`DN00InteropProtocol`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
 | `data` | ✅ | Payload específico de la operación |
 
 ### Tipos de mensaje (`messageType`)
@@ -409,9 +415,9 @@ flowchart LR
 | SIA | Sistema de Información Administrativa (catálogo de servicios AGE) |
 | LanguageTexts | Objeto multiidioma con claves `SPANISH`, `BASQUE`, `ENGLISH` |
 | dataItems | Array de objetos de dominio devueltos por la administración |
-| consentOid | Identificador del consentimiento otorgado por la persona |
-| interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje |
-| messageCorrelationId | UUID que permite correlacionar request y response |
+| consentOid | Identificador del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
+| interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje. Ver [`DN00IteropRouteDataItem`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
+| messageCorrelationId | UUID que permite correlacionar request y response. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
 
 
 
@@ -424,4 +430,4 @@ flowchart LR
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
