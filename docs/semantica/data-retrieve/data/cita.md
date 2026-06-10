@@ -1,5 +1,10 @@
 # Cita (Schedule Item)
 
+> - **Versión:** `v0.3.25`
+> - **Fecha:** 2026-06-10
+> - **Test:** [DN99DENATestMockObjFactoryForScheduleItem.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java)
+> - **Código:** [DN00ScheduleItem.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItem.java)
+
 ## Descripción
 
 Representa un elemento de agenda o cita previa. Puede ser una cita con duración o un hito puntual (duración = 0).
@@ -163,3 +168,40 @@ flowchart LR
 | Tiene estado | ❌ No | ✅ Sí |
 | Tiene fecha ISO 8601 | ❌ (usa campos separados year/month/day/hour/minute) | ✅ Sí |
 | Tiene ubicación física | ✅ Sí | ❌ No |
+
+
+
+
+---
+
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00ScheduleItem | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItem.java) |
+| DN00ScheduleItemLocation | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java) |
+| DN00ScheduleItemLocationItem | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocationItem.java) |
+| DN00ScheduleItemPriority | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemPriority.java) |
+
+
+---
+
+## 🧪 Tests y ejemplos
+
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+
+| Mock Factory | Repositorio |
+|--------------|-------------|
+| DN99DENATestMockObjFactoryForScheduleItem | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java) |
+| DN99DENATestMockObjFactoryForScheduleItemLocation | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemLocation.java) |
+| DN99DENATestMockObjFactoryForScheduleItemLocationItem | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemLocationItem.java) |
+| DN99DENATestMockObjFactoryForScheduleItemPriority | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemPriority.java) |
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

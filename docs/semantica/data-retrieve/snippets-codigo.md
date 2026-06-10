@@ -27,12 +27,13 @@ public class RetrieveDataController {
 
         // Buscar datos según tipo
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
-            case "RECORDS"  -> fetchRecords(personId);
-            case "NOTICES"  -> fetchNotices(personId);
-            case "REGISTRY" -> fetchRegistry(personId);
-            case "PAYMENTS" -> fetchPayments(personId);
-            case "SCHEDULE" -> fetchSchedule(personId);
-            default         -> List.of();
+            case "RECORDS"     -> fetchRecords(personId);
+            case "NOTICES"     -> fetchNotices(personId);
+            case "REGISTRY"    -> fetchRegistry(personId);
+            case "PAYMENTS"    -> fetchPayments(personId);
+            case "SCHEDULE"    -> fetchSchedule(personId);
+            case "PERSON_DATA" -> fetchPersonData(personId);
+            default            -> List.of();
         };
 
         // Construir response
@@ -94,12 +95,13 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
 
     var dataItems = dataTypeId switch
     {
-        "RECORDS"  => GetRecords(personId),
-        "NOTICES"  => GetNotices(personId),
-        "REGISTRY" => GetRegistry(personId),
-        "PAYMENTS" => GetPayments(personId),
-        "SCHEDULE" => GetSchedule(personId),
-        _          => new List<object>()
+        "RECORDS"     => GetRecords(personId),
+        "NOTICES"     => GetNotices(personId),
+        "REGISTRY"    => GetRegistry(personId),
+        "PAYMENTS"    => GetPayments(personId),
+        "SCHEDULE"    => GetSchedule(personId),
+        "PERSON_DATA" => GetPersonData(personId),
+        _             => new List<object>()
     };
 
     return Results.Ok(new
@@ -143,6 +145,7 @@ async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
         "REGISTRY": fetch_registry,
         "PAYMENTS": fetch_payments,
         "SCHEDULE": fetch_schedule,
+        "PERSON_DATA": fetch_person_data,
     }
 
     data_items = fetchers.get(data_type_id, lambda _: [])(person_id)
@@ -203,6 +206,7 @@ app.post('/api/retrieveData', (req, res) => {
     REGISTRY: fetchRegistry,
     PAYMENTS: fetchPayments,
     SCHEDULE: fetchSchedule,
+    PERSON_DATA: fetchPersonData,
   };
 
   const dataItems = (fetchers[dataTypeId] || (() => []))(personId);
@@ -262,12 +266,13 @@ Route::post('/api/retrieveData', function (Request $request) {
     $dataTypeId = $context['dataType']['dataTypeId'];
 
     $dataItems = match ($dataTypeId) {
-        'RECORDS'  => fetchRecords($personId),
-        'NOTICES'  => fetchNotices($personId),
-        'REGISTRY' => fetchRegistry($personId),
-        'PAYMENTS' => fetchPayments($personId),
-        'SCHEDULE' => fetchSchedule($personId),
-        default    => [],
+        'RECORDS'     => fetchRecords($personId),
+        'NOTICES'     => fetchNotices($personId),
+        'REGISTRY'    => fetchRegistry($personId),
+        'PAYMENTS'    => fetchPayments($personId),
+        'SCHEDULE'    => fetchSchedule($personId),
+        'PERSON_DATA' => fetchPersonData($personId),
+        default       => [],
     };
 
     return response()->json([
@@ -390,3 +395,16 @@ app.use((err, req, res, next) => {
 - [endpoint-data-retrieve.md](./endpoint-data-retrieve.md) — Contrato completo del endpoint
 - [validaciones.md](./validaciones.md) — Reglas de formato y validación
 - [errores-troubleshooting.md](./errores-troubleshooting.md) — Guía de errores comunes
+
+
+
+
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

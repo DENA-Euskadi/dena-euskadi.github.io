@@ -1,5 +1,10 @@
 # Unidad Orgánica (Org Unit)
 
+> - **Versión:** `v0.3.25`
+> - **Fecha:** 2026-06-10
+> - **Test:** [DN99DENATestMockObjFactoryForOrgUnitReference.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReference.java)
+> - **Código:** [DN00OrgUnitReference.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java)
+
 ## Descripción
 
 Representa una unidad organizativa de la administración que participa en un servicio o procedimiento con un rol determinado.
@@ -99,3 +104,38 @@ flowchart LR
 - `orgUnit.dir3Id` es opcional pero recomendado si la unidad tiene código DIR3 asignado.
 - `displayNameByLanguage` debe incluir al menos textos en `SPANISH` y `BASQUE`.
 - Una misma unidad puede aparecer con diferentes roles en distintos servicios/procedimientos.
+
+
+
+
+---
+
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00OrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) |
+| DN00OrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java) |
+| DN00OrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitRole.java) |
+
+
+---
+
+## 🧪 Tests y ejemplos
+
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+
+| Mock Factory | Repositorio |
+|--------------|-------------|
+| DN99DENATestMockObjFactoryForOrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReference.java) |
+| DN99DENATestMockObjFactoryForOrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReferenceWithRole.java) |
+| DN99DENATestMockObjFactoryForOrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitRole.java) |
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

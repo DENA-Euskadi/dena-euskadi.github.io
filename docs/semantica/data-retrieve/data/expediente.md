@@ -1,5 +1,10 @@
 # Expediente (Procedure Record)
 
+> - **Versión:** `v0.3.25`
+> - **Fecha:** 2026-06-10
+> - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
+> - **Código:** [DN00AdmistrativeServiceProcedureRecord.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java)
+
 ## Descripción
 
 Representa un expediente administrativo vinculado a un servicio y procedimiento. Es el objeto central del modelo: notificaciones, registros y pagos dependen de él.
@@ -35,8 +40,8 @@ flowchart LR
     style DESC fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
-    click SRV "./servicio-administrativo.md" "Ver Servicio Administrativo"
-    click PROC "./servicio-administrativo.md" "Ver Procedimiento"
+    click SRV "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/servicio-administrativo.md" "Ver Servicio Administrativo"
+    click PROC "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/servicio-administrativo.md" "Ver Procedimiento"
 ```
 
 | Color | Significado |
@@ -129,3 +134,36 @@ Los siguientes objetos referencian al expediente mediante `procedureRecord`:
 - Si se incluye `lastUpdatedAt`, debe ser ≥ `createdAt`.
 - `service` y `procedure` deben incluir al menos `serviceNameByLanguage` con textos en `SPANISH` y `BASQUE`.
 - Ver [validaciones.md](../validaciones.md) para reglas completas.
+
+
+
+
+---
+
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00AdmistrativeServiceProcedureRecord | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java) |
+| DN00AdministrativeServiceProcedureRecordState | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordState.java) |
+| DN00AdministrativeServiceProcedureRecordStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordStateCode.java) |
+
+
+---
+
+## 🧪 Tests y ejemplos
+
+| Test | Repositorio |
+|------|-------------|
+| DN00RecordTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
+| DN00RecordStatusTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedureRecordState.java) |
+| DN00RecordIDTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

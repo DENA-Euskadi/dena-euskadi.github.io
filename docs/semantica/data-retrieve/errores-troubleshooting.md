@@ -15,7 +15,7 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 | JSON inválido en el body | Validar que el body es JSON válido antes de procesarlo |
 | Falta `context.subjectPerson.personId` | Campo obligatorio — verificar que se recibe |
 | Falta `context.dataType.dataTypeId` | Campo obligatorio — verificar que se recibe |
-| `dataTypeId` con valor no reconocido | Aceptar solo: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE` |
+| `dataTypeId` con valor no reconocido | Aceptar solo: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE`, `PERSON_DATA` |
 
 ### 401 — No autorizado
 
@@ -135,3 +135,16 @@ Si el error persiste tras revisar esta guía, contactar con el equipo DENA propo
 2. El código HTTP devuelto
 3. El body de la respuesta (si aplica)
 4. Logs del servidor con timestamp
+
+
+
+
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

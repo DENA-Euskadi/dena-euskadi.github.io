@@ -113,3 +113,7 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 
 ```
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

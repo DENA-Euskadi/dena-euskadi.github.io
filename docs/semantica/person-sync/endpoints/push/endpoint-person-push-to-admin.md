@@ -139,3 +139,7 @@ El token se obtiene automáticamente mediante client credentials.
 4. Respetar los códigos HTTP estándar
 5. Responder en menos de 30 segundos
 6. Usar `code: "OK"` en respuestas exitosas y `code: "CLIENT_ERR"` o `code: "SERVER_ERR"` en errores
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

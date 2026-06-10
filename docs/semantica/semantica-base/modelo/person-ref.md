@@ -19,3 +19,7 @@ Objeto para referenciar a una persona registrada en DENA por su oid o id (NIF, N
     "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
 }
 ```
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

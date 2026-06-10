@@ -247,6 +247,24 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 | `location` | ❌ (recomendado) |
 | `urls` | ❌ |
 
+### Datos de persona (`personData`)
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `contactData` | ✅ |
+| `contactData.partyId` | ✅ |
+| `contactData.partyName` | ✅ |
+| `contactData.partySurName` | ✅ |
+| `contactData.birthDate` | ❌ |
+| `contactData.phone` | ❌ |
+| `contactData.email` | ❌ |
+| `contactData.contactLanguage` | ❌ |
+| `contactData.contactMode` | ❌ |
+| `addresses` | ❌ |
+| `bankDataCollection` | ❌ |
+
 ---
 
 ## Resumen de formatos
@@ -259,3 +277,16 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 | Idioma | Enum string | `SPANISH`, `BASQUE`, `ENGLISH` |
 | URL | HTTPS válida | `https://sede.miadmin.eus/...` |
 | Identificador | String alfanumérico | `EXP-2024-00123` |
+
+
+
+
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

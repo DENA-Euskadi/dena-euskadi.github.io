@@ -1,5 +1,8 @@
 # DATA-RETRIEVE
 
+> - **Versión:** `v0.3.25`
+> - **Fecha:** 2026-06-10
+
 ## ¿Qué es?
 
 **Data-Retrieve** es el mecanismo mediante el cual DENA solicita a cada administración pública los datos de una persona ciudadana. La administración expone un endpoint REST y devuelve los objetos de datos en formato JSON normalizado.
@@ -69,16 +72,16 @@ flowchart LR
     REGISTRY --> PROC
     PAYBASE --> PROC
 
-    click RECORD "./data/expediente.md" "Ver documentación de Expediente"
-    click NOTICE "./data/notificacion.md" "Ver documentación de Notificación"
-    click REGISTRY "./data/registro-oficial.md" "Ver documentación de Registro Oficial"
-    click PAYBASE "./data/pago.md" "Ver documentación de Pagos"
-    click ONEOFF "./data/pago.md" "Ver documentación de Pago Único"
-    click DIRECTDEBIT "./data/pago.md" "Ver documentación de Domiciliación"
-    click SCHEDULE "./data/cita.md" "Ver documentación de Cita"
-    click SRV "./data/servicio-administrativo.md" "Ver documentación de Servicio"
-    click PROC "./data/servicio-administrativo.md" "Ver documentación de Procedimiento"
-    click BASE "./data/campos-comunes.md" "Ver campos comunes heredados"
+    click RECORD "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver documentación de Expediente"
+    click NOTICE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/notificacion.md" "Ver documentación de Notificación"
+    click REGISTRY "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/registro-oficial.md" "Ver documentación de Registro Oficial"
+    click PAYBASE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Pagos"
+    click ONEOFF "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Pago Único"
+    click DIRECTDEBIT "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Domiciliación"
+    click SCHEDULE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/cita.md" "Ver documentación de Cita"
+    click SRV "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/servicio-administrativo.md" "Ver documentación de Servicio"
+    click PROC "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/servicio-administrativo.md" "Ver documentación de Procedimiento"
+    click BASE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/campos-comunes.md" "Ver campos comunes heredados"
 
     style IFACE fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:10,ry:10
     style BASE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:10,ry:10
@@ -96,11 +99,11 @@ flowchart LR
 
 | Color | Significado |
 |-------|-------------|
-| Azul claro | Interfaz base (contrato) |
-| Violeta | Clase base abstracta |
-| Naranja | Objetos de dominio intercambiados |
-| Rojo claro | Pago único (OneOffPayment) |
-| Gris claro | Contexto jerárquico (Servicio / Procedimiento) |
+| 🔵 Azul claro | Interfaz base (contrato) |
+| 🟣 Violeta | Clase base abstracta |
+| 🟠 Naranja | Objetos de dominio intercambiados |
+| 🔴 Rojo claro | Pago único (OneOffPayment) |
+| ⚪ Gris claro | Contexto jerárquico (Servicio / Procedimiento) |
 
 | Línea | Significado |
 |-------|-------------|
@@ -126,6 +129,7 @@ flowchart LR
 | **Registro Oficial** | Asiento registral de entrada/salida | [registro-oficial.md](./data/registro-oficial.md) |
 | **Pago** | Pago único o domiciliación bancaria | [pago.md](./data/pago.md) |
 | **Cita** | Cita previa o elemento de agenda | [cita.md](./data/cita.md) |
+| **Persona** | Datos de la persona ciudadana (contacto, dirección, bancarios) | [persona.md](./data/persona.md) |
 | **Servicio Administrativo** | Servicio y procedimiento | [servicio-administrativo.md](./data/servicio-administrativo.md) |
 | **Unidad Orgánica** | Unidad organizativa participante | [unidad-organica.md](./data/unidad-organica.md) |
 
@@ -324,11 +328,11 @@ flowchart LR
     ITEMS --> PAYMENT["Pago"]
     ITEMS --> SCHEDULE["Cita"]
 
-    click RECORD "./data/expediente.md" "Ver documentación de Expediente"
-    click NOTICE "./data/notificacion.md" "Ver documentación de Notificación"
-    click REGISTRY "./data/registro-oficial.md" "Ver documentación de Registro Oficial"
-    click PAYMENT "./data/pago.md" "Ver documentación de Pagos"
-    click SCHEDULE "./data/cita.md" "Ver documentación de Cita"
+    click RECORD "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver documentación de Expediente"
+    click NOTICE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/notificacion.md" "Ver documentación de Notificación"
+    click REGISTRY "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/registro-oficial.md" "Ver documentación de Registro Oficial"
+    click PAYMENT "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Pagos"
+    click SCHEDULE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/cita.md" "Ver documentación de Cita"
 
     style ROOT fill:#1A3A6B,stroke:#0F2545,color:#FFFFFF,rx:8,ry:8
     style CTX fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
@@ -408,3 +412,16 @@ flowchart LR
 | consentOid | Identificador del consentimiento otorgado por la persona |
 | interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje |
 | messageCorrelationId | UUID que permite correlacionar request y response |
+
+
+
+
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

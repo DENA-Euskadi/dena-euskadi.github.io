@@ -110,3 +110,7 @@ Consulta el estado de una solicitud de exportación.
 | `404` | Persona no encontrada |
 | `500` | Error interno |
 | `503` | Servicio no disponible |
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

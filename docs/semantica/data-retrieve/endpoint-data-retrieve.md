@@ -306,3 +306,16 @@ El token se obtiene automáticamente mediante client credentials.
 - [campos-comunes.md](./data/campos-comunes.md) — Campos heredados por todos los objetos
 - [validaciones.md](./validaciones.md) — Reglas de formato y validación
 - [errores-troubleshooting.md](./errores-troubleshooting.md) — Guía de errores comunes
+
+
+
+
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

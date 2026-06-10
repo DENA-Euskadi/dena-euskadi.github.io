@@ -1,5 +1,10 @@
 # Campos Comunes (Base Fields)
 
+> - **Versión:** `v0.3.25`
+> - **Fecha:** 2026-06-10
+> - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
+> - **Código:** [DN00DENADataExchangedObjectBase.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
+
 ## Descripción
 
 Todos los objetos de datos intercambiados en DATA-RETRIEVE heredan un conjunto de campos comunes de la clase base `DN00DENADataExchangedObjectBase`. Este documento describe esos campos.
@@ -157,3 +162,54 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
 - Se recomienda incluir al menos una URL con tag `default` por cada idioma soportado (castellano y euskera como mínimo).
 - El campo `oid` debe ser único dentro del sistema de la administración para ese tipo de objeto.
 - El campo `id` debe ser el identificador de negocio que la persona ciudadana reconoce (ej: número de expediente visible en la sede).
+
+---
+
+## Objetos que heredan estos campos
+
+| Tipo (`type`) | Objeto | Documento |
+|---------------|--------|-----------|
+| `administrativeServiceProcedureRecord` | Expediente | [expediente.md](./expediente.md) |
+| `administrativeNotice` | Notificación | [notificacion.md](./notificacion.md) |
+| `administrativeOfficialRegistryRecord` | Registro Oficial | [registro-oficial.md](./registro-oficial.md) |
+| `oneOffPayment` | Pago único | [pago.md](./pago.md) |
+| `directDebitPayment` | Domiciliación | [pago.md](./pago.md) |
+| `scheduleItem` | Cita | [cita.md](./cita.md) |
+| `personData` | Datos de persona | [persona.md](./persona.md) |
+
+Ver también: [`DN00DataTypeEnum.java`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) — enumerado con todos los tipos de datos disponibles.
+
+
+
+
+---
+
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00DENADataExchangedObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) |
+| DN00OrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) |
+| DN00OrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java) |
+| DN00OrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitRole.java) |
+
+
+---
+
+## 🧪 Tests y ejemplos
+
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+
+| Mock Factory | Repositorio |
+|--------------|-------------|
+| DN99DENATestMockObjFactoryForDENADataExchangedObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java) |
+| DN99DENATestMockObjFactoryForStateWithDescriptionBase | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForStateWithDescriptionBase.java) |
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

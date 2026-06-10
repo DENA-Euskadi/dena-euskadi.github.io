@@ -1,5 +1,12 @@
 # Servicio Administrativo (Administrative Service)
 
+> - **Versión:** `v0.3.25`
+> - **Fecha:** 2026-06-10
+> - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java)
+> - **Código:**
+>   - [DN00AdmistrativeService.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java)
+>   - [DN00AdministrativeServiceProcedure.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java)
+
 ## Descripción
 
 El **Servicio** y el **Procedimiento** forman el contexto jerárquico del expediente. Todo expediente pertenece a un procedimiento, y todo procedimiento pertenece a un servicio.
@@ -39,11 +46,11 @@ flowchart TD
     style ORG fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
     style REFS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
-    click EXP "./expediente.md" "Ver Expediente"
-    click NOT "./notificacion.md" "Ver Notificación"
-    click REG "./registro-oficial.md" "Ver Registro Oficial"
-    click PAY "./pago.md" "Ver Pago"
-    click ORG "./unidad-organica.md" "Ver Unidad Orgánica"
+    click EXP "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver Expediente"
+    click NOT "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/notificacion.md" "Ver Notificación"
+    click REG "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/registro-oficial.md" "Ver Registro Oficial"
+    click PAY "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver Pago"
+    click ORG "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/unidad-organica.md" "Ver Unidad Orgánica"
 ```
 
 | Color | Significado |
@@ -161,3 +168,43 @@ Servicio Administrativo
 - `originRef.id` es obligatorio: la administración debe proporcionar al menos el identificador de negocio del servicio y procedimiento en su catálogo propio.
 - `DENARef` y `SIARef` son opcionales. Si la administración conoce el código DENA o SIA, puede incluirlo para facilitar la correlación.
 - `serviceNameByLanguage` debe incluir al menos textos en `SPANISH` y `BASQUE`.
+
+
+
+
+---
+
+## 🔗 Código fuente
+
+| Clase | Repositorio |
+|-------|-------------|
+| DN00AdmistrativeService | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java) |
+| DN00AdministrativeServiceProcedure | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java) |
+| DN00AdmistrativeServiceObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceObjectBase.java) |
+| DN00AdministrativeServiceReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceReference.java) |
+| DN00AdministrativeServiceProcedureReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceProcedureReference.java) |
+| DN00AdministrativeServiceObjectReferenceBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceObjectReferenceBase.java) |
+
+
+---
+
+## 🧪 Tests y ejemplos
+
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+
+| Mock Factory | Repositorio |
+|--------------|-------------|
+| DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java) |
+| DN99DENATestMockObjFactoryForAdmistrativeService | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeService.java) |
+| DN99DENATestMockObjFactoryForAdministrativeServiceProcedure | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedure.java) |
+| DN99DENATestMockObjFactoryForAdministrativeServiceReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceReference.java) |
+| DN99DENATestMockObjFactoryForAdministrativeServiceProcedureReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedureReference.java) |
+
+
+
+
+
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>

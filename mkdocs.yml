@@ -22,18 +22,12 @@ nav:
       - Semántica Base:
           - Visión general: semantica/semantica-base/index.md
           - Modelo: semantica/semantica-base/modelo/index.md
-      - DATA-SYNC:
-          - Visión general: semantica/data-sync/index.md
-          - Modelo: semantica/data-sync/modelo/index.md
-          - Servicios REST: semantica/data-sync/servicios-rest.md
+      - METADATA-SYNC: semantica/metadata-sync/index.md
       - DATA-RETRIEVE: semantica/data-retrieve/index.md
       - PERSON-SYNC:
           - Visión general: semantica/person-sync/index.md
-          - Modelo:
-              - Visión general: semantica/person-sync/modelo/index.md
-              - PUSH: semantica/person-sync/modelo/push.md
-              - PULL: semantica/person-sync/modelo/pull.md
-          - Servicios REST: semantica/person-sync/servicios-rest.md
+          - PUSH: semantica/person-sync/modelo/push.md
+          - PULL: semantica/person-sync/modelo/pull.md
       - Otra documentación: semantica/otra-documentacion.md
   - Ejemplos de código: ejemplos-codigo/index.md
   - Adjuntos: adjuntos/index.md

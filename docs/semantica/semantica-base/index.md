@@ -117,3 +117,7 @@ A continuación se detallan los modelos comunes utilizados en varios servicios R
 | [OrgAdminRef](./modelo/org-admin-ref.md) | Referencia a una administración |
 | [PersonRef](./modelo/person-ref.md) | Referencia a una persona |
 | [LanguageTexts](./modelo/language-texts.md) | Mensajes o textos en multiples idiomas |
+
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
