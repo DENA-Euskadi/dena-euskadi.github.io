@@ -1,0 +1,2738 @@
+{
+  "info": {
+    "_postman_id": "7590ba93-1e5a-4862-9cbe-15a7444308b5",
+    "name": "DENA ADMINS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "9455858"
+  },
+  "item": [
+    {
+      "name": "DENA AUTH",
+      "item": [
+        {
+          "name": "getTokenDenaADMIN_IN (ADMIN to DENA)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Extrae el access_token del cuerpo de la respuesta\r",
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "// Verifica que exista y guarda en variable de entorno\r",
+                  "if (jsonData.access_token) {\r",
+                  "    pm.environment.set(\"access_token_in\", jsonData.access_token);\r",
+                  "} else {\r",
+                  "    console.warn(\"No se encontró access_token en la respuesta.\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "text"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{in_client_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{in_client_secret}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{denaAuthEndPoint}}{{denaAuthEnvironment}}/realms/DenaAuthAdmins/protocol/openid-connect/token",
+              "host": [
+                "{{denaAuthEndPoint}}{{denaAuthEnvironment}}"
+              ],
+              "path": [
+                "realms",
+                "DenaAuthAdmins",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validateTokenIN",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{in_client_secret}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{in_client_id}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "token",
+                  "value": "{{access_token_in}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{denaAuthEndPoint}}{{denaAuthEnvironment}}/realms/DenaAuthAdmins/protocol/openid-connect/token/introspect",
+              "host": [
+                "{{denaAuthEndPoint}}{{denaAuthEnvironment}}"
+              ],
+              "path": [
+                "realms",
+                "DenaAuthAdmins",
+                "protocol",
+                "openid-connect",
+                "token",
+                "introspect"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTokenDenaADMIN_OUT_ALL (DENA to ADMIN)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Extrae el access_token del cuerpo de la respuesta\r",
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "// Verifica que exista y guarda en variable de entorno\r",
+                  "if (jsonData.access_token) {\r",
+                  "    pm.environment.set(\"access_token_out_all\", jsonData.access_token);\r",
+                  "} else {\r",
+                  "    console.warn(\"No se encontró access_token en la respuesta.\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials",
+                  "type": "text"
+                },
+                {
+                  "key": "client_id",
+                  "value": "{{out_all_client_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "client_secret",
+                  "value": "{{out_all_client_secret}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{denaAuthEndPoint}}{{denaAuthEnvironment}}/realms/DenaAuthAdmins/protocol/openid-connect/token",
+              "host": [
+                "{{denaAuthEndPoint}}{{denaAuthEnvironment}}"
+              ],
+              "path": [
+                "realms",
+                "DenaAuthAdmins",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validateTokenOUT_ALL",
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "{{out_all_client_secret}}",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "{{out_all_client_id}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "token",
+                  "value": "{{access_token_out_all}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{denaAuthEndPoint}}{{denaAuthEnvironment}}/realms/DenaAuthAdmins/protocol/openid-connect/token/introspect",
+              "host": [
+                "{{denaAuthEndPoint}}{{denaAuthEnvironment}}"
+              ],
+              "path": [
+                "realms",
+                "DenaAuthAdmins",
+                "protocol",
+                "openid-connect",
+                "token",
+                "introspect"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "DENA PERSON SYNC",
+      "item": [
+        {
+          "name": "1- CREATE PULL ADMIN BESPOKE (create job)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Extrae el access_token del cuerpo de la respuesta\r",
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "// Verifica que exista y guarda en variable de entorno\r",
+                  "if (jsonData.data && jsonData.data.job) {\r",
+                  "    pm.environment.set(\"job_id\", jsonData.data.job.oid);\r",
+                  "} else {\r",
+                  "    //console.info(jsonData.data)\r",
+                  "    console.warn(\"No se encontró access_token en la respuesta.\");\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"CREATE_PULL_ADMIN_BESPOKE\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"exportSpec\": {\r\n            \"personExportSpec\": \"{{person_export_spec}}\",\r\n            \"lastUpdateRange\": \"Instant:(2026-05-12T09:12:55.536444200Z..)\",\r\n            \"exportFileFormat\": \"{{file_format}}\"\r\n        },\r\n        \"orgAdminRef\": {\r\n            \"id\": \"{{adminId}}\"\r\n        }\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/bespokes",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "sync",
+                "bespokes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "1- CREATE PULL ADMIN BESPOKE (create job)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"CREATE_PULL_ADMIN_BESPOKE\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"exportSpec\": {\r\n            \"personExportSpec\": \"{{person_export_spec}}\",\r\n            \"lastUpdateRange\": \"Instant:(2026-05-12T09:12:55.536444200Z..)\",\r\n            \"exportFileFormat\": \"{{file_format}}\"\r\n        },\r\n        \"orgAdminRef\": {\r\n            \"id\": \"{{adminId}}\"\r\n        }\r\n    }\r\n}"
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/bespokes",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "bespokes"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person-sync/api/admin/persons/sync/bespokes"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781097571399"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "3060B493-B562-47F5-8D48-2D7DE285B357"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:j3nmaYTGibAzVOLjTJLMli7DKig1g9bNvfktUIvMsSY=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:QUrrqoNz7cdtEodTsw/6VGwK4Ig6unpoHpLwqZXjRR8=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:19:31 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN_SYNC\",\n                \"timestamp\": \"2026-06-10T13:19:31.3993867Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"3060B493-B562-47F5-8D48-2D7DE285B357\"\n    },\n    \"data\": {\n        \"job\": {\n            \"admin\": {\n                \"id\": \"demo_admin1\",\n                \"oid\": \"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3001\"\n            },\n            \"entityVersion\": 0,\n            \"exportSpec\": {\n                \"personExportSpec\": \"data\",\n                \"lastUpdateRange\": \"Instant:(2026-05-12T09:12:55.536444200Z..)\",\n                \"exportFileFormat\": \"CSV\"\n            },\n            \"numericId\": 0,\n            \"oid\": \"6ED0D4EC-0F26-4E27-A8F7-F4AC263A20B0\",\n            \"processingAttempts\": 0,\n            \"registeredAt\": \"2026-06-10T13:19:31.3279064Z\",\n            \"status\": \"REGISTERED\",\n            \"trackingInfo\": {\n                \"createDate\": \"2026-06-10T13:19:31.3309912Z\",\n                \"creatorUserCode\": \"mock-user-login\",\n                \"creatorUserOid\": \"d1ad1046-30e8-49f4-b598-27ee2a75e257\",\n                \"lastUpdate\": \"2026-06-10T13:19:31.3309912Z\"\n            }\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "2- GET PULL ADMIN BESPOKE (check status)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"GET_PULL_ADMIN_BESPOKE\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"jobOid\": \"{{job_id}}\"\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/bespokes/{{job_id}}",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "sync",
+                "bespokes",
+                "{{job_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "2- GET PULL ADMIN BESPOKE (check status) - FINISHED",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"GET_PULL_ADMIN_BESPOKE\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"jobOid\": \"{{job_id}}\"\r\n    }\r\n}"
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/bespokes/{{job_id}}",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "bespokes",
+                    "{{job_id}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person-sync/api/admin/persons/sync/bespokes/6ED0D4EC-0F26-4E27-A8F7-F4AC263A20B0"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781097662639"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "B3A09024-E03F-4F5B-B212-946F8AEF4DF4"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:MnCdW7XHYwtFEnHoV+KeDJuDsAfrib+wM2Ea/U5N1iE=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:qK3lblWIPK0kUKAq26KIq8WyUq8dClX/+XqH9TCVqtQ=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:21:02 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN_SYNC\",\n                \"timestamp\": \"2026-06-10T13:21:02.6392140Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"B3A09024-E03F-4F5B-B212-946F8AEF4DF4\"\n    },\n    \"data\": {\n        \"job\": {\n            \"admin\": {\n                \"id\": \"demo_admin1\",\n                \"oid\": \"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3001\"\n            },\n            \"entityVersion\": 1,\n            \"exportResultAssets\": [\n                {\n                    \"exportContentSpec\": {\n                        \"personExportSpec\": \"data\",\n                        \"lastUpdateRange\": \"Instant:(2026-05-12T09:12:55.536444200Z..)\",\n                        \"exportFileFormat\": \"CSV\"\n                    },\n                    \"fileStoreItemOid\": \"5254236C-07D2-45A9-8B27-C6287CE8BFCF\"\n                }\n            ],\n            \"exportSpec\": {\n                \"personExportSpec\": \"data\",\n                \"lastUpdateRange\": \"Instant:(2026-05-12T09:12:55.536444200Z..)\",\n                \"exportFileFormat\": \"CSV\"\n            },\n            \"finishedAt\": \"2026-06-10T13:20:00.2095457Z\",\n            \"numericId\": 0,\n            \"oid\": \"6ED0D4EC-0F26-4E27-A8F7-F4AC263A20B0\",\n            \"processingAttempts\": 1,\n            \"registeredAt\": \"2026-06-10T13:19:31.3279064Z\",\n            \"startedAt\": \"2026-06-10T13:20:00.0158947Z\",\n            \"status\": \"FINISHED_OK\",\n            \"trackingInfo\": {\n                \"createDate\": \"2026-06-10T13:19:31.3309912Z\",\n                \"creatorUserCode\": \"mock-user-login\",\n                \"creatorUserOid\": \"d1ad1046-30e8-49f4-b598-27ee2a75e257\",\n                \"lastUpdate\": \"2026-06-10T13:20:00.2134119Z\",\n                \"lastUpdaterUserCode\": \"mock-user-login\",\n                \"lastUpdaterUserOid\": \"de2fb146-2eec-4b8a-8d76-221d584002e4\"\n            }\n        }\n    }\n}"
+            },
+            {
+              "name": "2- GET PULL ADMIN BESPOKE (check status)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"GET_PULL_ADMIN_BESPOKE\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"jobOid\": \"{{job_id}}\"\r\n    }\r\n}"
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/bespokes/{{job_id}}",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "bespokes",
+                    "{{job_id}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person-sync/api/admin/persons/sync/bespokes/178B3F49-2785-4679-BD46-537BE963EC4F"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781097717540"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "4673FBC6-EBA4-4246-B0DB-35B18A76655F"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:EXqVkhpTcD9V8NOvAdJC4lYkW44CC0tqjA3cqEGuzeQ=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:6+rC2Hgxj2U1Mbs8yp361/gwnIVdlBPFSSXJJF61TxE=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:21:57 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN_SYNC\",\n                \"timestamp\": \"2026-06-10T13:21:57.5408856Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"4673FBC6-EBA4-4246-B0DB-35B18A76655F\"\n    },\n    \"data\": {\n        \"job\": {\n            \"admin\": {\n                \"id\": \"demo_admin1\",\n                \"oid\": \"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3001\"\n            },\n            \"entityVersion\": 0,\n            \"exportSpec\": {\n                \"personExportSpec\": \"data\",\n                \"lastUpdateRange\": \"Instant:(2026-05-12T09:12:55.536444200Z..)\",\n                \"exportFileFormat\": \"CSV\"\n            },\n            \"numericId\": 0,\n            \"oid\": \"178B3F49-2785-4679-BD46-537BE963EC4F\",\n            \"processingAttempts\": 0,\n            \"registeredAt\": \"2026-06-10T13:21:55.0949852Z\",\n            \"status\": \"REGISTERED\",\n            \"trackingInfo\": {\n                \"createDate\": \"2026-06-10T13:21:55.0980096Z\",\n                \"creatorUserCode\": \"mock-user-login\",\n                \"creatorUserOid\": \"6c547d1d-9d2c-433b-bd50-cbeee1893d38\"\n            }\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "3- FETCH BESPOKE EXPORT ASSET (get custom asset)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"FETCH_BESPOKE_EXPORT_ASSET\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"jobOid\": \"{{job_id}}\"\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/bespokes/{{job_id}}/asset",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "sync",
+                "bespokes",
+                "{{job_id}}",
+                "asset"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "3- FETCH BESPOKE EXPORT ASSET - DATA (all data)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\": \"{{dena_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"FETCH_BESPOKE_EXPORT_ASSET\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"jobOid\": \"{{job_id}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}/person-sync/api/admin/persons/sync/bespokes/{{job_id}}/asset",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}"
+                  ],
+                  "path": [
+                    "person-sync",
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "bespokes",
+                    "{{job_id}}",
+                    "asset"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"EA2C8B50-7525-4F4E-A25C-63B4FDB735DA.csv\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 12:23:34 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "OID,ID,createdAt,lastUpdatedAt,name,surname1,surname2\r\n08C1846F-5F30-43E7-B1D3-E1EC40EF2CA1,80808080L,2026-05-20T09:46:44.344929Z,,Idoia,Urrutia,Lambarri\r\n11503363-7EB4-4B18-B7D5-7C7D2FADDA79,30303030X,2026-05-20T09:46:44.155908Z,,Olatz,Lambarri,Pérez\r\n20E230F9-E3A6-4487-AAB9-23AAD25D7478,20202020E,2026-05-20T09:46:44.127726Z,,Idoia,Xaocokitl,Belano\r\n2759049B-5E62-4C05-8545-6CC6AF9CDEB9,50505050C,2026-05-20T09:46:44.223813Z,,Nerea,Urrutia,Zubizarreta\r\n2B1CD9EB-2C9D-412F-8445-819C4026C8D1,44444444A,2026-05-20T09:46:43.881385Z,,Idoia,Lambarri,Aranguren\r\n32A84F97-71DC-45CE-B0F0-594935A1FAB5,00000001R,2026-05-20T09:46:43.718632Z,,Arturo,Xaocokitl,Etxebarria\r\n33BA8F25-E220-4334-A039-3E806D0AEDD5,40404040H,2026-05-20T09:46:44.184965Z,,Enrike,Xaocokitl,Belano\r\n40A3B1D2-C20F-4A54-A5C6-DBBCD125A98C,75610293E,2026-05-20T09:46:44.369853Z,,Lucía,Sasiain,Sánchez\r\n5FD7423C-82F9-434A-B40A-2C7295B4301A,99999999R,2026-05-20T09:46:44.025414Z,,Íñigo,García,García\r\n6B3DA38D-929A-413E-BAFC-15D55ED24362,12312312R,2026-05-20T09:46:44.061717Z,,Lucía,González,Ochoa\r\n6D0AD66D-F349-4BD7-BEF1-E30881A71411,10101010K,2026-05-20T09:46:44.095886Z,,Ulises,Sasiain,Mendoza\r\n868A775A-35D8-4C7C-A5B1-3419BE43065A,33333333P,2026-05-20T09:46:43.839214Z,,Íñigo,Aranguren,Mendoza\r\n9092277D-7060-4BB6-90D0-70216C9320AD,22222222J,2026-05-20T09:46:43.801058Z,,Gorka,Fernández,Aila\r\n92FB1B82-97D4-4AF9-9E79-C6951C60A1FE,60606060F,2026-05-20T09:46:44.276760Z,,Olatz,Martínez,Aranguren\r\nA4620E08-ABB6-4EDB-8E00-D8DBB8D5B5B5,66666666Q,2026-05-20T09:46:43.919742Z,,Enrike,Fernández,Pérez\r\nE37E66C4-CFC4-44C7-BBAB-CC52A93DCE09,00000000T,2026-05-20T09:46:43.193998Z,,Íñigo,González,González\r\nEC0FB2D8-EAB3-4D64-A7D2-D8A2942865F8,11111111H,2026-05-20T09:46:43.766764Z,,Javier,Aila,Ochoa\r\nF1E5D0AD-E957-4224-B6E4-C44CD3A22538,88888888Y,2026-05-20T09:46:43.984948Z,,Iker,Fernández,Aila\r\nF7BCF8BF-FBE6-4017-8FEC-89D056F87857,70707070G,2026-05-20T09:46:44.318034Z,,Nerea,Mendoza,Aila\r\nFD9DFB13-DC67-48A6-A8D5-74C4E8D76583,77777777B,2026-05-20T09:46:43.950882Z,,Idoia,Mendoza,Fernández\r\n"
+            },
+            {
+              "name": "3- FETCH BESPOKE EXPORT ASSET - SYNC (changes)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"FETCH_BESPOKE_EXPORT_ASSET\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"jobOid\": \"{{job_id}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}/person-sync/api/admin/persons/sync/bespokes/{{job_id}}/asset",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}"
+                  ],
+                  "path": [
+                    "person-sync",
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "bespokes",
+                    "{{job_id}}",
+                    "asset"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"074328AB-193A-4BC6-8E11-F1AE498515C3.csv\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 12:24:35 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "OID,ID,createdAt,lastUpdatedAt,changeEvent,allNamesHash\r\n08C1846F-5F30-43E7-B1D3-E1EC40EF2CA1,80808080L,2026-05-20T09:46:44.351663Z,,CREATED,a9810fa8cbf2732137e30ef9a404af8cb0e97e4eb0ce2601a0d60b8614864830\r\n92FB1B82-97D4-4AF9-9E79-C6951C60A1FE,60606060F,2026-05-20T09:46:44.285778Z,,CREATED,c39d0d4edd5c54603deebf7b61457acca35b05d1e94f66c8e2d4ce6d72eaa91f\r\n868A775A-35D8-4C7C-A5B1-3419BE43065A,33333333P,2026-05-20T09:46:43.850757Z,,CREATED,d658e6ec5472339a52589f04a1a3ef2afa4e610b0b77280fe7f58037365d059c\r\n33BA8F25-E220-4334-A039-3E806D0AEDD5,40404040H,2026-05-20T09:46:44.194174Z,,CREATED,21545e793f0e74f545e7d1358cdd7cbebe61aa983dd2882d15b2718bcc36709f\r\nE37E66C4-CFC4-44C7-BBAB-CC52A93DCE09,00000000T,2026-05-20T09:46:43.673839Z,,CREATED,6e54b16945aca7c3cbc6d68577b01125052498e5345555f21d438efa367e0872\r\n6B3DA38D-929A-413E-BAFC-15D55ED24362,12312312R,2026-05-20T09:46:44.068716Z,,CREATED,32cd7dceddd1c16bd94e30263efbcfb561162c34aa59902b80cfdb73ef6bbd95\r\nF1E5D0AD-E957-4224-B6E4-C44CD3A22538,88888888Y,2026-05-20T09:46:43.997072Z,,CREATED,034c00388235e61426a0a981ceed9e522eb925b96bd842936634b3b65b335bf6\r\nF7BCF8BF-FBE6-4017-8FEC-89D056F87857,70707070G,2026-05-20T09:46:44.324703Z,,CREATED,f8ac5b8a981ec08aa5b39956561897283e05c8b4434d358d2ff5fbc98cea0378\r\n6D0AD66D-F349-4BD7-BEF1-E30881A71411,10101010K,2026-05-20T09:46:44.102670Z,,CREATED,70cd91fbe165a404dafdde93d21bdcfbb6d5a9961820218561b3aa168b559671\r\n11503363-7EB4-4B18-B7D5-7C7D2FADDA79,30303030X,2026-05-20T09:46:44.163896Z,,CREATED,8dbf12ee12f2b6b4a462dbfeb99a367f2ed7d158eb352fd8611e7195d94b8354\r\n2759049B-5E62-4C05-8545-6CC6AF9CDEB9,50505050C,2026-05-20T09:46:44.236193Z,,CREATED,7e864f52ab6c3a52a12822d676cca879d43e4410eeda10344836879d7898e2e0\r\nEC0FB2D8-EAB3-4D64-A7D2-D8A2942865F8,11111111H,2026-05-20T09:46:43.774511Z,,CREATED,dc5ad0e74dc77b05c86e3116fef5656f7d2cd388adb5e36410a9b63e4f48af14\r\n5FD7423C-82F9-434A-B40A-2C7295B4301A,99999999R,2026-05-20T09:46:44.035689Z,,CREATED,f0baf3d4d77a82f98670c2bb0251f1f4e3f1f9ce62f636e60b459eb9c26281f5\r\nA4620E08-ABB6-4EDB-8E00-D8DBB8D5B5B5,66666666Q,2026-05-20T09:46:43.928803Z,,CREATED,ef8ffecdad90bae24c397d64bdfb2b510c7654598e128e7092f124e551cdff09\r\n32A84F97-71DC-45CE-B0F0-594935A1FAB5,00000001R,2026-05-20T09:46:43.743666Z,,CREATED,3cb12ac7a42b2ee89ef5c45a454afedb97489a099fc8b1942161f6e240258a77\r\n2B1CD9EB-2C9D-412F-8445-819C4026C8D1,44444444A,2026-05-20T09:46:43.891887Z,,CREATED,4224413c63d211182ae0d7a187d45e6f83f476633c727957941f20ac8f36318d\r\n20E230F9-E3A6-4487-AAB9-23AAD25D7478,20202020E,2026-05-20T09:46:44.134779Z,,CREATED,26ff9b12ba17543b2346ca39e1e13d71be9a6eba00b234152d9c96f81bd55a9f\r\n40A3B1D2-C20F-4A54-A5C6-DBBCD125A98C,75610293E,2026-05-20T09:46:44.375848Z,,CREATED,90194087eb8352eaf9612349a71bcbfc935c5bfa6a79d7cdfcb49c223f953168\r\nFD9DFB13-DC67-48A6-A8D5-74C4E8D76583,77777777B,2026-05-20T09:46:43.958905Z,,CREATED,7edf1e5641a227a70eb43c7c43e9d795fe8c228411fdc7cb1917a01a7dab845e\r\n9092277D-7060-4BB6-90D0-70216C9320AD,22222222J,2026-05-20T09:46:43.810820Z,,CREATED,ee3b118efaf8340fbffe730d517aac10b3f46ba2cce548cca8eb13761ea05863\r\n"
+            }
+          ]
+        },
+        {
+          "name": "FETCH PREGEN EXPORT ASSET (get PreGen asset)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "*/*",
+                "disabled": true
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"FETCH_PREGEN_EXPORT_ASSET\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"exportType\": \"{{export_type}}\",\r\n        \"fileFormat\": \"{{file_format}}\",\r\n        \"jobType\": \"{{job_type}}\"\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}/api/admin/persons/sync/pregens/asset",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_sync_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "sync",
+                "pregens",
+                "asset"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "FETCH PREGEN EXPORT ASSET - DATA (all data)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "*/*",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"FETCH_PREGEN_EXPORT_ASSET\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"exportType\": \"{{export_type}}\",\r\n        \"fileFormat\": \"{{file_format}}\",\r\n        \"jobType\": \"{{job_type}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}/person-sync/api/admin/persons/sync/pregens/asset",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}"
+                  ],
+                  "path": [
+                    "person-sync",
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "pregens",
+                    "asset"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"3E082293-DB59-48FE-8924-A104F05AE6A3.csv\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 12:24:08 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "OID,ID,createdAt,lastUpdatedAt,name,surname1,surname2\r\n08C1846F-5F30-43E7-B1D3-E1EC40EF2CA1,80808080L,2026-05-20T09:46:44.344929Z,,Idoia,Urrutia,Lambarri\r\n11503363-7EB4-4B18-B7D5-7C7D2FADDA79,30303030X,2026-05-20T09:46:44.155908Z,,Olatz,Lambarri,Pérez\r\n20E230F9-E3A6-4487-AAB9-23AAD25D7478,20202020E,2026-05-20T09:46:44.127726Z,,Idoia,Xaocokitl,Belano\r\n2759049B-5E62-4C05-8545-6CC6AF9CDEB9,50505050C,2026-05-20T09:46:44.223813Z,,Nerea,Urrutia,Zubizarreta\r\n2B1CD9EB-2C9D-412F-8445-819C4026C8D1,44444444A,2026-05-20T09:46:43.881385Z,,Idoia,Lambarri,Aranguren\r\n32A84F97-71DC-45CE-B0F0-594935A1FAB5,00000001R,2026-05-20T09:46:43.718632Z,,Arturo,Xaocokitl,Etxebarria\r\n33BA8F25-E220-4334-A039-3E806D0AEDD5,40404040H,2026-05-20T09:46:44.184965Z,,Enrike,Xaocokitl,Belano\r\n40A3B1D2-C20F-4A54-A5C6-DBBCD125A98C,75610293E,2026-05-20T09:46:44.369853Z,,Lucía,Sasiain,Sánchez\r\n5FD7423C-82F9-434A-B40A-2C7295B4301A,99999999R,2026-05-20T09:46:44.025414Z,,Íñigo,García,García\r\n6B3DA38D-929A-413E-BAFC-15D55ED24362,12312312R,2026-05-20T09:46:44.061717Z,,Lucía,González,Ochoa\r\n6D0AD66D-F349-4BD7-BEF1-E30881A71411,10101010K,2026-05-20T09:46:44.095886Z,,Ulises,Sasiain,Mendoza\r\n868A775A-35D8-4C7C-A5B1-3419BE43065A,33333333P,2026-05-20T09:46:43.839214Z,,Íñigo,Aranguren,Mendoza\r\n9092277D-7060-4BB6-90D0-70216C9320AD,22222222J,2026-05-20T09:46:43.801058Z,,Gorka,Fernández,Aila\r\n92FB1B82-97D4-4AF9-9E79-C6951C60A1FE,60606060F,2026-05-20T09:46:44.276760Z,,Olatz,Martínez,Aranguren\r\nA4620E08-ABB6-4EDB-8E00-D8DBB8D5B5B5,66666666Q,2026-05-20T09:46:43.919742Z,,Enrike,Fernández,Pérez\r\nE37E66C4-CFC4-44C7-BBAB-CC52A93DCE09,00000000T,2026-05-20T09:46:43.193998Z,,Íñigo,González,González\r\nEC0FB2D8-EAB3-4D64-A7D2-D8A2942865F8,11111111H,2026-05-20T09:46:43.766764Z,,Javier,Aila,Ochoa\r\nF1E5D0AD-E957-4224-B6E4-C44CD3A22538,88888888Y,2026-05-20T09:46:43.984948Z,,Iker,Fernández,Aila\r\nF7BCF8BF-FBE6-4017-8FEC-89D056F87857,70707070G,2026-05-20T09:46:44.318034Z,,Nerea,Mendoza,Aila\r\nFD9DFB13-DC67-48A6-A8D5-74C4E8D76583,77777777B,2026-05-20T09:46:43.950882Z,,Idoia,Mendoza,Fernández\r\n"
+            },
+            {
+              "name": "FETCH PREGEN EXPORT ASSET - SYNC (changes)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "*/*",
+                    "disabled": true
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"FETCH_PREGEN_EXPORT_ASSET\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"exportType\": \"{{export_type}}\",\r\n        \"fileFormat\": \"{{file_format}}\",\r\n        \"jobType\": \"{{job_type}}\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}/person-sync/api/admin/persons/sync/pregens/asset",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}"
+                  ],
+                  "path": [
+                    "person-sync",
+                    "api",
+                    "admin",
+                    "persons",
+                    "sync",
+                    "pregens",
+                    "asset"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"25145A5F-5625-41AB-AD3B-559F4A3CF109.csv\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 12:25:32 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "OID,ID,createdAt,lastUpdatedAt,changeEvent,allNamesHash\r\n08C1846F-5F30-43E7-B1D3-E1EC40EF2CA1,80808080L,2026-05-20T09:46:44.351663Z,,CREATED,a9810fa8cbf2732137e30ef9a404af8cb0e97e4eb0ce2601a0d60b8614864830\r\n92FB1B82-97D4-4AF9-9E79-C6951C60A1FE,60606060F,2026-05-20T09:46:44.285778Z,,CREATED,c39d0d4edd5c54603deebf7b61457acca35b05d1e94f66c8e2d4ce6d72eaa91f\r\n868A775A-35D8-4C7C-A5B1-3419BE43065A,33333333P,2026-05-20T09:46:43.850757Z,,CREATED,d658e6ec5472339a52589f04a1a3ef2afa4e610b0b77280fe7f58037365d059c\r\n33BA8F25-E220-4334-A039-3E806D0AEDD5,40404040H,2026-05-20T09:46:44.194174Z,,CREATED,21545e793f0e74f545e7d1358cdd7cbebe61aa983dd2882d15b2718bcc36709f\r\nE37E66C4-CFC4-44C7-BBAB-CC52A93DCE09,00000000T,2026-05-20T09:46:43.673839Z,,CREATED,6e54b16945aca7c3cbc6d68577b01125052498e5345555f21d438efa367e0872\r\n6B3DA38D-929A-413E-BAFC-15D55ED24362,12312312R,2026-05-20T09:46:44.068716Z,,CREATED,32cd7dceddd1c16bd94e30263efbcfb561162c34aa59902b80cfdb73ef6bbd95\r\nF1E5D0AD-E957-4224-B6E4-C44CD3A22538,88888888Y,2026-05-20T09:46:43.997072Z,,CREATED,034c00388235e61426a0a981ceed9e522eb925b96bd842936634b3b65b335bf6\r\nF7BCF8BF-FBE6-4017-8FEC-89D056F87857,70707070G,2026-05-20T09:46:44.324703Z,,CREATED,f8ac5b8a981ec08aa5b39956561897283e05c8b4434d358d2ff5fbc98cea0378\r\n6D0AD66D-F349-4BD7-BEF1-E30881A71411,10101010K,2026-05-20T09:46:44.102670Z,,CREATED,70cd91fbe165a404dafdde93d21bdcfbb6d5a9961820218561b3aa168b559671\r\n11503363-7EB4-4B18-B7D5-7C7D2FADDA79,30303030X,2026-05-20T09:46:44.163896Z,,CREATED,8dbf12ee12f2b6b4a462dbfeb99a367f2ed7d158eb352fd8611e7195d94b8354\r\n2759049B-5E62-4C05-8545-6CC6AF9CDEB9,50505050C,2026-05-20T09:46:44.236193Z,,CREATED,7e864f52ab6c3a52a12822d676cca879d43e4410eeda10344836879d7898e2e0\r\nEC0FB2D8-EAB3-4D64-A7D2-D8A2942865F8,11111111H,2026-05-20T09:46:43.774511Z,,CREATED,dc5ad0e74dc77b05c86e3116fef5656f7d2cd388adb5e36410a9b63e4f48af14\r\n5FD7423C-82F9-434A-B40A-2C7295B4301A,99999999R,2026-05-20T09:46:44.035689Z,,CREATED,f0baf3d4d77a82f98670c2bb0251f1f4e3f1f9ce62f636e60b459eb9c26281f5\r\nA4620E08-ABB6-4EDB-8E00-D8DBB8D5B5B5,66666666Q,2026-05-20T09:46:43.928803Z,,CREATED,ef8ffecdad90bae24c397d64bdfb2b510c7654598e128e7092f124e551cdff09\r\n32A84F97-71DC-45CE-B0F0-594935A1FAB5,00000001R,2026-05-20T09:46:43.743666Z,,CREATED,3cb12ac7a42b2ee89ef5c45a454afedb97489a099fc8b1942161f6e240258a77\r\n2B1CD9EB-2C9D-412F-8445-819C4026C8D1,44444444A,2026-05-20T09:46:43.891887Z,,CREATED,4224413c63d211182ae0d7a187d45e6f83f476633c727957941f20ac8f36318d\r\n20E230F9-E3A6-4487-AAB9-23AAD25D7478,20202020E,2026-05-20T09:46:44.134779Z,,CREATED,26ff9b12ba17543b2346ca39e1e13d71be9a6eba00b234152d9c96f81bd55a9f\r\n40A3B1D2-C20F-4A54-A5C6-DBBCD125A98C,75610293E,2026-05-20T09:46:44.375848Z,,CREATED,90194087eb8352eaf9612349a71bcbfc935c5bfa6a79d7cdfcb49c223f953168\r\nFD9DFB13-DC67-48A6-A8D5-74C4E8D76583,77777777B,2026-05-20T09:46:43.958905Z,,CREATED,7edf1e5641a227a70eb43c7c43e9d795fe8c228411fdc7cb1917a01a7dab845e\r\n9092277D-7060-4BB6-90D0-70216C9320AD,22222222J,2026-05-20T09:46:43.810820Z,,CREATED,ee3b118efaf8340fbffe730d517aac10b3f46ba2cce548cca8eb13761ea05863\r\n"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DENA PERSONS",
+      "item": [
+        {
+          "name": "PERSON SEARCH",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_SEARCH\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"dateRange\": \"Instant:(2026-05-04T14:17:18.297580100Z..)\",\r\n        \"pagingPosition\": {\r\n            \"totalItemsCount\": 0,\r\n            \"startPosition\": 0,\r\n            \"endPosition\": 0,\r\n            \"requestedNumberOfItems\": 100\r\n        },\r\n        \"persons\": [\r\n            {\r\n                \"id\": \"{{mock_person_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons"
+              ]
+            },
+            "description": "StartFragment\n\n```\n{\n    \"context\": {\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_POSTMAN\",\n                \"denaTS\": {{dena_timestamp}}\n            }\n        ],\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\n        \"messageType\": \"PERSON_ADMIN_SEARCH\",\n        \"flowDirection\": \"REQUEST\",\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\n        \"originPartyId\": \"DENA_POSTMAN\",\n        \"destinationPartyId\": \"DENA_INTEROP\"\n    },\n    \"data\": {\n        \"dateRange\": \"Instant:(2026-05-04T14:17:18.297580100Z..)\",\n        \"pagingPosition\": {\n            \"totalItemsCount\": 0,\n            \"startPosition\": 0,\n            \"endPosition\": 0,\n            //max number of items: 1000\n            \"requestedNumberOfItems\": 100\n        },\n        //optional\n        \"persons\": [\n            {\n                \"id\": \"{{mock_person_id}}\"\n                //also you can seach by oid or (oid and id)\n                // \"oid\" : \"0000....\"\n            }\n        ]\n    }\n}\n\n ```\n\nEndFragment"
+          },
+          "response": [
+            {
+              "name": "PERSON SEARCH",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_SEARCH\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"dateRange\": \"Instant:(2026-05-04T14:17:18.297580100Z..)\",\r\n        \"pagingPosition\": {\r\n            \"totalItemsCount\": 0,\r\n            \"startPosition\": 0,\r\n            \"endPosition\": 0,\r\n            \"requestedNumberOfItems\": 100\r\n        },\r\n        \"persons\": [\r\n            {\r\n                \"id\": \"{{mock_person_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person/api/admin/persons"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781098882894"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "2a2d508d-d02f-40da-8ea2-662cd93785b4"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:WUUyYkogvpuYzbHLJIzevlsU+kSJSh9OeDVrb4L5c44=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:YNxO2DzPkOECjc1lSyhjuazghNYIuK7EXMTLd6V8GcM=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:41:22 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"destinationPartyId\": \"DENA_INTEROP\",\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_POSTMAN\",\n                \"timestamp\": \"2026-06-10T13:41:19.9310000Z\"\n            },\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN\",\n                \"timestamp\": \"2026-06-10T13:41:22.8940424Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"2a2d508d-d02f-40da-8ea2-662cd93785b4\",\n        \"messageType\": \"PERSON_ADMIN_SEARCH\",\n        \"originPartyId\": \"DENA_POSTMAN\",\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\"\n    },\n    \"data\": {\n        \"pagination\": {\n            \"endPosition\": 1,\n            \"requestedNumberOfItems\": 100,\n            \"startPosition\": 0,\n            \"totalItemsCount\": 1\n        },\n        \"persons\": [\n            {\n                \"createDate\": \"2026-06-10T10:01:26.3363603Z\",\n                \"lastUpdateDate\": \"2026-06-10T10:01:26.3363603Z\",\n                \"personId\": \"99949992L\",\n                \"personOid\": \"4b7b51b2-1b1b-4b1b-8b1b-1b1b1b1b1b1b\",\n                \"surname1\": \"Urrutia\",\n                \"surname2\": \"Lima\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "PERSON FETCH",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_FETCH_DATA\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"oid\": \"{{mock_person_oid}}\"\r\n        }\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/{{mock_person_oid}}",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "{{mock_person_oid}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8183/api/user/available' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"usersId\": [\r\n    {\r\n      \"valid\": true,\r\n      \"validSpanishNIF\": true,\r\n      \"id\": \"string\",\r\n      \"raw\": \"string\"\r\n    }\r\n  ],\r\n  \"searchType\": \"DATE\",\r\n  \"endDateTime\": \"string\",\r\n  \"initDateTime\": \"string\"\r\n}'"
+          },
+          "response": [
+            {
+              "name": "PERSON FETCH",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_FETCH_DATA\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"oid\": \"{{mock_person_oid}}\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/{{mock_person_oid}}",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons",
+                    "{{mock_person_oid}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person/api/admin/persons/4b7b51b2-1b1b-4b1b-8b1b-1b1b1b1b1b1b"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781099157300"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "110C2422-FF08-472D-8624-DDCD814B96D3"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:E4Q2fh55HCwflrST36SwlZn2I1+dQdLFRfsDhk/C4DU=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:zzQKJACvME2XKwrrf1uHENhx2Ma/8K5PGUo6ewfzDnQ=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:45:57 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN\",\n                \"timestamp\": \"2026-06-10T13:45:57.3002380Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"110C2422-FF08-472D-8624-DDCD814B96D3\"\n    },\n    \"data\": {\n        \"person\": {\n            \"contactInfo\": {\n                \"emailChannels\": [\n                    {\n                        \"addr\": \"olatz.urrutia@mail.com\",\n                        \"default\": false,\n                        \"private\": false,\n                        \"usage\": \"PERSONAL\"\n                    }\n                ],\n                \"phoneChannels\": [\n                    {\n                        \"default\": false,\n                        \"number\": \"688666666\",\n                        \"private\": false,\n                        \"type\": \"MOBILE\",\n                        \"usage\": \"PERSONAL\"\n                    }\n                ],\n                \"private\": false\n            },\n            \"entityVersion\": 0,\n            \"id\": \"99949992L\",\n            \"lastChangeEvent\": \"CREATED\",\n            \"name\": \"Olatz\",\n            \"numericId\": 0,\n            \"oid\": \"4b7b51b2-1b1b-4b1b-8b1b-1b1b1b1b1b1b\",\n            \"surname1\": \"Urrutia\",\n            \"surname2\": \"Lima\",\n            \"trackingInfo\": {\n                \"createDate\": \"2026-06-10T10:01:26.3363603Z\",\n                \"creatorUserCode\": \"mock-user-login\",\n                \"creatorUserOid\": \"87725eb4-753d-4daf-b2e9-e7249d37a282\"\n            }\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "PERSON FETCH byID",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_FETCH_DATA\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"id\": \"{{mock_person_id}}\"\r\n        }\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/byId/{{mock_person_id}}",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "byId",
+                "{{mock_person_id}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8183/api/user/available' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"usersId\": [\r\n    {\r\n      \"valid\": true,\r\n      \"validSpanishNIF\": true,\r\n      \"id\": \"string\",\r\n      \"raw\": \"string\"\r\n    }\r\n  ],\r\n  \"searchType\": \"DATE\",\r\n  \"endDateTime\": \"string\",\r\n  \"initDateTime\": \"string\"\r\n}'"
+          },
+          "response": [
+            {
+              "name": "PERSON FETCH byID",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"denaTS\": {{dena_timestamp}}\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_FETCH_DATA\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"id\": \"{{mock_person_id}}\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}/person/api/admin/persons/byId/{{mock_person_id}}",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}"
+                  ],
+                  "path": [
+                    "person",
+                    "api",
+                    "admin",
+                    "persons",
+                    "byId",
+                    "{{mock_person_id}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Location",
+                  "value": "http://localhost:8086/person/api/admin/persons/byId/80808080L"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1779290447743"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "5EC1C142-82A7-4B32-8EE2-CBF5160EEB8E"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:osLAOREWkS/OMlvTwxNqbLX3VMss5b2USr+PZ+rDbxI=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:JUo9Zel/wWnaehd8DBeQ3lYLHeUilui1VDsYb6gB/dk=:"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 15:20:47 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN\",\n                \"timestamp\": \"2026-05-20T15:20:47.7436435Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"5EC1C142-82A7-4B32-8EE2-CBF5160EEB8E\"\n    },\n    \"data\": {\n        \"person\": {\n            \"entityVersion\": 0,\n            \"id\": \"80808080L\",\n            \"lastChangeEvent\": \"CREATED\",\n            \"name\": \"Idoia\",\n            \"numericId\": 0,\n            \"oid\": \"08C1846F-5F30-43E7-B1D3-E1EC40EF2CA1\",\n            \"surname1\": \"Urrutia\",\n            \"surname2\": \"Lambarri\",\n            \"trackingInfo\": {\n                \"createDate\": \"2026-05-20T09:46:44.3449290Z\",\n                \"creatorUserCode\": \"mock-user-login\",\n                \"creatorUserOid\": \"2dfffeb2-e935-4c22-bb43-aa6a3c574c6e\"\n            }\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "PERSON HEAD (check if exists)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_HEAD\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"oid\": \"{{mock_person_oid}}\"\r\n        }\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/{{mock_person_oid}}:head",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "{{mock_person_oid}}:head"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8183/api/user/available' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"usersId\": [\r\n    {\r\n      \"valid\": true,\r\n      \"validSpanishNIF\": true,\r\n      \"id\": \"string\",\r\n      \"raw\": \"string\"\r\n    }\r\n  ],\r\n  \"searchType\": \"DATE\",\r\n  \"endDateTime\": \"string\",\r\n  \"initDateTime\": \"string\"\r\n}'"
+          },
+          "response": [
+            {
+              "name": "PERSON HEAD",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"denaTS\": {{dena_timestamp}}\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_HEAD\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"oid\": \"{{mock_person_oid}}\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}/person/api/admin/persons/{{mock_person_oid}}:head",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}"
+                  ],
+                  "path": [
+                    "person",
+                    "api",
+                    "admin",
+                    "persons",
+                    "{{mock_person_oid}}:head"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Location",
+                  "value": "http://localhost:8086/person/api/admin/persons/08C1846F-5F30-43E7-B1D3-E1EC40EF2CA1:head"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1779290456516"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "8E7A3116-808E-45A1-A75C-6DFE9506BC3D"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:ENvIih2B+irYG3giyRoe2jVuSNkpKZWQPjjKXTOpi0c=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:OpgAjLXt3Q9Np/0RehHG2BTNQ/u2ZiHj3GlISBnrrAU=:"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 20 May 2026 15:20:56 GMT"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN\",\n                \"timestamp\": \"2026-05-20T15:20:56.5164520Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"8E7A3116-808E-45A1-A75C-6DFE9506BC3D\"\n    },\n    \"data\": {\n        \"exists\": true\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "PERSON HEAD byID (check if exists)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_HEAD\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"id\": \"{{mock_person_id}}\"\r\n        }\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/byId/{{mock_person_id}}:head",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "persons",
+                "byId",
+                "{{mock_person_id}}:head"
+              ]
+            },
+            "description": "Generated from cURL: curl -X 'POST' \\\r\n  'http://localhost:8183/api/user/available' \\\r\n  -H 'accept: application/json' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"usersId\": [\r\n    {\r\n      \"valid\": true,\r\n      \"validSpanishNIF\": true,\r\n      \"id\": \"string\",\r\n      \"raw\": \"string\"\r\n    }\r\n  ],\r\n  \"searchType\": \"DATE\",\r\n  \"endDateTime\": \"string\",\r\n  \"initDateTime\": \"string\"\r\n}'"
+          },
+          "response": [
+            {
+              "name": "PERSON HEAD byID - Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_HEAD\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"id\": \"{{mock_person_id}}\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/byId/{{mock_person_id}}:head",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons",
+                    "byId",
+                    "{{mock_person_id}}:head"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person/api/admin/persons/byId/99949992L:head"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781099348218"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "D8CD35D3-DC55-46D3-9625-9964AD6BF917"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:/GFVCqhk7HepK4AX1GokxmgpDzqZHwUAt6k5GSecUd4=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:AVW88nPvATfWgbeqTxc6Q3z3e9hMKcqK/uPENXn6xyY=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:49:08 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN\",\n                \"timestamp\": \"2026-06-10T13:49:08.2181746Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"D8CD35D3-DC55-46D3-9625-9964AD6BF917\"\n    },\n    \"data\": {\n        \"exists\": true\n    }\n}"
+            },
+            {
+              "name": "PERSON HEAD byID - Not Exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"PERSON_ADMIN_HEAD\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"personRef\": {\r\n            \"id\": \"{{mock_person_id}}\"\r\n        }\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}/api/admin/persons/byId/{{mock_person_id}}:head",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{person_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "persons",
+                    "byId",
+                    "{{mock_person_id}}:head"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/person/api/admin/persons/byId/99949991L:head"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781099388308"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "BD49B917-560C-4374-B96B-5278EC559843"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:xXlPfw8zIMYGdQuiv1BpFAvhVe25vH1As25JWRnGuic=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:aZV0Yfe5yWNtlhNL9mhlBDd5GrddjXSYvOvz13Q4TdI=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 13:49:48 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_PERSON_ADMIN\",\n                \"timestamp\": \"2026-06-10T13:49:48.3087438Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"BD49B917-560C-4374-B96B-5278EC559843\"\n    },\n    \"data\": {\n        \"exists\": false\n    }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DENA SYNC METADATA",
+      "item": [
+        {
+          "name": "SEND METADATA",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function getTimestamps() {\r",
+                  "    const now = new Date();\r",
+                  "\r",
+                  "    const yyyy = now.getUTCFullYear();\r",
+                  "    const MM = String(now.getUTCMonth() + 1).padStart(2, '0');\r",
+                  "    const dd = String(now.getUTCDate()).padStart(2, '0');\r",
+                  "\r",
+                  "    const HH = String(now.getUTCHours()).padStart(2, '0');\r",
+                  "    const mm = String(now.getUTCMinutes()).padStart(2, '0');\r",
+                  "    const ss = String(now.getUTCSeconds()).padStart(2, '0');\r",
+                  "\r",
+                  "    // Milisegundos + relleno hasta 7 decimales\r",
+                  "    const fraction = String(now.getUTCMilliseconds()).padStart(3, '0') + '0000';\r",
+                  "\r",
+                  "    return {\r",
+                  "        timestamp: String(now.getTime()),\r",
+                  "        isoTimestamp: `${yyyy}-${MM}-${dd}T${HH}:${mm}:${ss}.${fraction}Z`\r",
+                  "    };\r",
+                  "}\r",
+                  "\r",
+                  "const { timestamp, isoTimestamp } = getTimestamps();\r",
+                  "\r",
+                  "const correlationId = crypto.randomUUID();\r",
+                  "\r",
+                  "pm.environment.set(\"dena_timestamp\", timestamp);\r",
+                  "pm.environment.set(\"dena_iso_timestamp\", isoTimestamp);\r",
+                  "pm.environment.set(\"dena_correlationId\", correlationId);\r",
+                  "\r",
+                  "// 1) Obtener raw body\r",
+                  "let body = \"\";\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  body = pm.request.body.raw || \"\";\r",
+                  "} else if (pm.request.body?.mode === \"urlencoded\") {\r",
+                  "  body = pm.request.body.urlencoded\r",
+                  "    .filter(p => !p.disabled)\r",
+                  "    .map(p => `${encodeURIComponent(p.key)}=${encodeURIComponent(p.value)}`)\r",
+                  "    .join(\"&\");\r",
+                  "}\r",
+                  "\r",
+                  "// 2) Resolver variables de Postman\r",
+                  "let processedBody = pm.variables.replaceIn(body);\r",
+                  "\r",
+                  "// 3) NO limpiar comentarios con regex (rompe https:// y otros strings)\r",
+                  "\r",
+                  "// Opcional: canonicalizar JSON y enviar exactamente esa versión\r",
+                  "if (pm.request.body?.mode === \"raw\") {\r",
+                  "  try {\r",
+                  "    processedBody = JSON.stringify(JSON.parse(processedBody));\r",
+                  "    pm.request.body.update(processedBody); // garantiza que hasheas lo mismo que envías\r",
+                  "  } catch (e) {\r",
+                  "    // Si no es JSON válido, se deja tal cual\r",
+                  "    pm.request.body.update(processedBody);\r",
+                  "  }\r",
+                  "}\r",
+                  "\r",
+                  "// 4) Calcular hashes exactamente como backend: Base64(SHA-256(timestamp + correlationId + body))\r",
+                  "const dataDena = timestamp + correlationId + processedBody;\r",
+                  "\r",
+                  "const denaDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(dataDena));\r",
+                  "const contentDigestBase64 = CryptoJS.enc.Base64.stringify(CryptoJS.SHA256(processedBody));\r",
+                  "\r",
+                  "const denaDigestHeader = `sha-256=:${denaDigestBase64}:`;\r",
+                  "const contentDigestHeader = `sha-256=:${contentDigestBase64}:`;\r",
+                  "\r",
+                  "// 5) Cabeceras\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-This-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Origin-TimeStamp\", value: timestamp });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Message-Correlation-Id\", value: correlationId });\r",
+                  "pm.request.headers.upsert({ key: \"X-DENA-Data-Digest\", value: denaDigestHeader });\r",
+                  "pm.request.headers.upsert({ key: \"Content-Digest\", value: contentDigestHeader });\r",
+                  "\r",
+                  "// Debug\r",
+                  "console.log(\"BODY HASHED/SENT:\", processedBody);\r",
+                  "console.log(\"X-DENA-Data-Digest:\", denaDigestHeader);\r",
+                  "console.log(\"Content-Digest:\", contentDigestHeader);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"ADMIN_SYNC_METADATA\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"ofType\": \"syncMetaDataFromAdminRequestPayload\",\r\n        \"items\": [\r\n            {\r\n                \"admin\": {\r\n                    \"id\": \"{{adminId}}\"\r\n                },\r\n                \"aboutPerson\": {\r\n                    \"id\": \"{{mock_person_id}}\"\r\n                },\r\n                \"someDataWasUpdatedAt\": \"2027-05-11T09:56:10.2237636Z\",\r\n                \"ofType\": {\r\n                    \"id\": \"{{data_type}}\"\r\n                },\r\n                \"popMessageAfterSync\": {\r\n                    \"how\": \"AT_CLIENT_AFTER_SYNC\",\r\n                    \"messageByLang\": {\r\n                        \"SPANISH\": \"Nuevo expediente de \\\"adminId\\\"\",\r\n                        \"ENGLISH\": \"New procedure from \\\"adminId\\\"\"\r\n                    }\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{sync_path}}/api/admin/interop/sync/metadata",
+              "host": [
+                "{{denaBaseEndPoint}}{{denaEnvironment}}{{sync_path}}"
+              ],
+              "path": [
+                "api",
+                "admin",
+                "interop",
+                "sync",
+                "metadata"
+              ]
+            },
+            "description": "{  \n\"context\": {  \n\"interopRouteData\": \\[  \n{  \n\"denaComponentId\": \"DENA_POSTMAN\",  \n\"denaTS\": {{dena_timestamp}}  \n}  \n\\],  \n\"messageCorrelationId\": \"{{dena_correlationId}}\",  \n\"messageType\": \"ADMIN_SYNC_METADATA\",  \n\"flowDirection\": \"REQUEST\",  \n\"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",  \n\"originPartyId\": \"DENA_POSTMAN\",  \n\"destinationPartyId\": \"DENA_INTEROP\"  \n},  \n\"data\": {  \n\"ofType\": \"syncMetaDataFromAdminRequestPayload\",  \n\"items\": \\[  \n{  \n\"admin\": {  \n\"id\": \"{{adminId}}\"  \n},  \n\"aboutPerson\": {  \n\"id\": \"{{mock_person_id}}\"  \n},  \n\"someDataWasUpdatedAt\": \"2026-05-11T09:56:10.2237636Z\",  \n\"ofType\": {  \n\"id\": \"{{data_type}}\"  \n},  \n// an optional message to be shown at the client side when syncing  \n// (e.g. \"You have a new record at XX\")  \n\"popMessageAfterSync\": {  \n\"how\": \"AT_CLIENT_AFTER_SYNC\",  \n\"messageByLang\": {  \n\"SPANISH\": \"Nuevo expediente de \"adminId\"\",  \n\"ENGLISH\": \"New procedure from \"adminId\"\"  \n}  \n}  \n}  \n\\]  \n}  \n}"
+          },
+          "response": [
+            {
+              "name": "SEND METADATA",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"context\": {\r\n        \"interopRouteData\": [\r\n            {\r\n                \"denaComponentId\": \"DENA_POSTMAN\",\r\n                \"timestamp\":\"{{dena_iso_timestamp}}\"\r\n            }\r\n        ],\r\n        \"messageCorrelationId\": \"{{dena_correlationId}}\",\r\n        \"messageType\": \"ADMIN_SYNC_METADATA\",\r\n        \"flowDirection\": \"REQUEST\",\r\n        \"userAgent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36\",\r\n        \"originPartyId\": \"DENA_POSTMAN\",\r\n        \"destinationPartyId\": \"DENA_INTEROP\"\r\n    },\r\n    \"data\": {\r\n        \"ofType\": \"syncMetaDataFromAdminRequestPayload\",\r\n        \"items\": [\r\n            {\r\n                \"admin\": {\r\n                    \"id\": \"{{adminId}}\"\r\n                },\r\n                \"aboutPerson\": {\r\n                    \"id\": \"{{mock_person_id}}\"\r\n                },\r\n                \"someDataWasUpdatedAt\": \"2027-05-11T09:56:10.2237636Z\",\r\n                \"ofType\": {\r\n                    \"id\": \"{{data_type}}\"\r\n                },\r\n                \"popMessageAfterSync\": {\r\n                    \"how\": \"AT_CLIENT_AFTER_SYNC\",\r\n                    \"messageByLang\": {\r\n                        \"SPANISH\": \"Nuevo expediente de \\\"adminId\\\"\",\r\n                        \"ENGLISH\": \"New procedure from \\\"adminId\\\"\"\r\n                    }\r\n                }\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{denaBaseEndPoint}}{{denaEnvironment}}{{sync_path}}/api/admin/interop/sync/metadata",
+                  "host": [
+                    "{{denaBaseEndPoint}}{{denaEnvironment}}{{sync_path}}"
+                  ],
+                  "path": [
+                    "api",
+                    "admin",
+                    "interop",
+                    "sync",
+                    "metadata"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "type": "text"
+                },
+                {
+                  "key": "Transfer-Encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Location",
+                  "value": "https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata"
+                },
+                {
+                  "key": "X-DENA-This-TimeStamp",
+                  "value": "1781105877789"
+                },
+                {
+                  "key": "X-DENA-Message-Correlation-Id",
+                  "value": "EBC0EFCE-552B-42A3-8D80-C331070485AC"
+                },
+                {
+                  "key": "X-DENA-Data-Digest",
+                  "value": "SHA-256=:uTfw6JYVVESlkbE29nLf5tgWqRKgLb0JkO0QzqRZM80=:"
+                },
+                {
+                  "key": "Content-Digest",
+                  "value": "SHA-256=:9LuoUjVXJE9shxWi6VCB1slhE5XQI69EwATTlW/1TVk=:"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 10 Jun 2026 15:37:57 GMT"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=31536000; includeSubDomains"
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\n    \"code\": \"OK\",\n    \"context\": {\n        \"flowDirection\": \"RESPONSE\",\n        \"interopRouteData\": [\n            {\n                \"denaComponentId\": \"DENA_INTEROP_ADMIN_SYNC\",\n                \"timestamp\": \"2026-06-10T15:37:57.7892717Z\"\n            }\n        ],\n        \"messageCorrelationId\": \"EBC0EFCE-552B-42A3-8D80-C331070485AC\"\n    },\n    \"data\": {\n        \"processingInfo\": {\n            \"transactionOid\": \"09AB76A5-C253-443D-8845-C198000F65F3\",\n            \"receivedItemsCount\": 1,\n            \"processedOK\": [\n                {\n                    \"admin\": {\n                        \"id\": \"demo_admin1\",\n                        \"oid\": \"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3001\"\n                    },\n                    \"dataLastUpdatedAt\": \"2027-05-11T09:56:10.2237636Z\",\n                    \"dataOrigin\": {\n                        \"id\": null,\n                        \"oid\": null\n                    },\n                    \"dataType\": {\n                        \"id\": \"ADMINISTRATIVE_NOTICE\",\n                        \"oid\": \"7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4001\"\n                    },\n                    \"entityVersion\": 4,\n                    \"lastTransactionOid\": \"09AB76A5-C253-443D-8845-C198000F65F3\",\n                    \"numericId\": 0,\n                    \"oid\": \"A03B7D2E-A5EB-4B2E-A593-AF6024D82222\",\n                    \"person\": {\n                        \"id\": \"99949992L\",\n                        \"oid\": \"4b7b51b2-1b1b-4b1b-8b1b-1b1b1b1b1b1b\"\n                    },\n                    \"trackingInfo\": {\n                        \"createDate\": \"2026-06-10T10:01:26.8653514Z\",\n                        \"creatorUserCode\": \"mock-user-login\",\n                        \"creatorUserOid\": \"87725eb4-753d-4daf-b2e9-e7249d37a282\",\n                        \"lastUpdate\": \"2026-06-10T15:37:57.7828625Z\",\n                        \"lastUpdaterUserCode\": \"mock-user-login\",\n                        \"lastUpdaterUserOid\": \"a3ad2133-4a7d-4812-9498-e1c9aa7441a8\"\n                    }\n                }\n            ]\n        }\n    }\n}"
+            }
+          ]
+        }
+      ],
+      "auth": {
+        "type": "noauth"
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

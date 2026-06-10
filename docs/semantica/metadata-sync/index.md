@@ -20,7 +20,7 @@ Gracias a estos metadatos, la aplicación cliente podra saber cuando ha de reali
 
 ### Postman
 
-Colección Postman en [`docs/adjuntos/postman/metadata-sync/metadata-sync.postman_collection.json`](../../adjuntos/postman/metadata-sync/metadata-sync.postman_collection.json).
+Colección y environment Postman en [`docs/adjuntos/postman/`](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman).
 
 ### Documentación Swagger
 

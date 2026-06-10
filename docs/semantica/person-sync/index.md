@@ -29,7 +29,7 @@ Para ello se ofrecen dos mecanismos:
 
 ### Postman
 
-Colección Postman en [`docs/adjuntos/postman/person-sync/person-sync.postman_collection.json`](../../adjuntos/postman/person-sync/person-sync.postman_collection.json).
+Colección y environment Postman en [`docs/adjuntos/postman/`](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman).
 
 ### Documentación Swagger
 
