@@ -6,6 +6,69 @@ Herramientas de desarrollo que facilitan las pruebas e integración con DENA par
 
 ## Herramientas disponibles
 
+### DENA DevTools Services
+
+**Entornos disponibles:**
+- 🌐 **PRE (Internet):** [https://api-batera.pre.dena.eus/devtools-services/](https://api-batera.pre.dena.eus/devtools-services/)
+- 🌐 **PRE (Euskalsarea):** [https://api-batera.pre.batera.euskalsarea.eus/devtools-services/](https://api-batera.pre.batera.euskalsarea.eus/devtools-services/)
+- 🔒 **PRO (Internet):** [https://api-batera.pro.dena.eus/devtools-services/](https://api-batera.pro.dena.eus/devtools-services/) *(próximamente)*
+- 🔒 **PRO (Euskalsarea):** [https://api-batera.pro.batera.euskalsarea.eus/devtools-services/](https://api-batera.pro.batera.euskalsarea.eus/devtools-services/) *(próximamente)*
+
+**Herramienta web para testing de endpoints HTTP** que permite a las administraciones y desarrolladores probar conectividad y realizar llamadas HTTP desde la infraestructura DENA:
+
+#### 🎯 Funcionalidades principales
+
+- 🔗 **Test de endpoints HTTP** - Llamadas GET, POST, PUT, DELETE, PATCH a cualquier URL
+- 🔑 **Soporte de autenticación** - Bearer Token, Basic Auth, API Key
+- 📤 **Múltiples tipos de body** - JSON, Form Data, URL Encoded, Raw Text
+- 📋 **Headers personalizables** - Configuración completa de headers HTTP
+- 🔍 **Query parameters** - Añadir parámetros automáticamente a la URL
+- 📊 **Respuesta detallada** - Status code, headers y body de respuesta
+- 🛡️ **SSL/TLS flexible** - Soporte para certificados no confiables
+- 📝 **Logging detallado** - Trazabilidad completa con UUID por request
+
+#### 💻 Interfaz web
+
+Proporciona una interfaz web intuitiva (`/index.html`) similar a Postman para:
+- Configurar requests HTTP de forma visual
+- Testear APIs desde la infraestructura DENA
+- Validar conectividad con servicios de administraciones
+- Debugging de integraciones
+
+#### 🔌 API REST
+
+**Endpoint:** `POST /api/devtools/test-endpoint`
+
+```json
+{
+  "method": "POST",
+  "url": "https://api.administracion.com/endpoint",
+  "headers": {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer token..."
+  },
+  "body": "{\"key\": \"value\"}"
+}
+```
+
+**Respuesta:**
+```json
+{
+  "statusCode": 200,
+  "responseBody": "...",
+  "responseHeaders": {...},
+  "success": true
+}
+```
+
+#### ⚙️ Casos de uso
+
+- **Testing desde infraestructura DENA** - Probar conectividad desde Tanzú hacia administraciones
+- **Validación de endpoints** - Verificar que los servicios de administración son accesibles
+- **Debugging de integraciones** - Diagnosticar problemas de conectividad o formato
+- **Pruebas de autenticación** - Validar tokens, certificados y credenciales
+- **Desarrollo y testing** - Herramienta auxiliar para equipos de desarrollo
+
 ### DENA Admin Connection Test
 
 **Repositorio:** [DENA-Euskadi/dena-admin-conx-test](https://github.com/DENA-Euskadi/dena-admin-conx-test)

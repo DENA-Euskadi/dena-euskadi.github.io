@@ -66,6 +66,7 @@ Documentación técnica y funcional del proyecto **DENA** dirigida a las adminis
 | Herramienta | Descripción |
 |-------------|-------------|
 | [Índice](./devtools/index.md) | Herramientas de desarrollo para pruebas e integración |
+| [DENA DevTools Services](./devtools/index.md) | Herramienta web para testing de endpoints HTTP desde infraestructura DENA |
 | [DENA Admin Connection Test](https://github.com/DENA-Euskadi/dena-admin-conx-test) | Herramienta para realizar conexiones de prueba con DENA |
 
 ### 💻 Ejemplos de código
