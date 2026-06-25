@@ -1,17 +1,22 @@
-# LanguageTexts
+# :material-translate: LanguageTexts
 
 ## Descripción
 
-Mapa clave-valor para incluir textos en diferentes idiomas
+Mapa clave-valor para incluir textos en diferentes idiomas. Se utiliza en nombres de servicios, procedimientos, estados, etc.
+
+---
 
 ## Atributos JSON
 
-| Campo   | Tipo     | Descripción |
-|---------|----------|-------------|
-| `key`   | `String` | Identificador textual del idioma del mensaje |
-| `value` | `String` | Texto del mensaje para el idioma indicado |
+| Clave | Tipo | Descripción |
+|---|---|---|
+| `SPANISH` | `String` | Texto en castellano |
+| `BASQUE` | `String` | Texto en euskera |
+| `ENGLISH` | `String` | Texto en inglés (opcional) |
 
-## Ejemplo JSON
+---
+
+## Ejemplo
 
 ```json
 {
@@ -20,6 +25,10 @@ Mapa clave-valor para incluir textos en diferentes idiomas
 }
 ```
 
+!!! tip "Idiomas mínimos"
+
+    Se recomienda incluir siempre **castellano** (`SPANISH`) y **euskera** (`BASQUE`) como mínimo.
+
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

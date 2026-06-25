@@ -1,29 +1,56 @@
-# Cliente ↔ CORE DENA
+# :material-cellphone-link: Cliente ↔ CORE DENA
 
-Para la autenticación entre la aplicación cliente y DENA, se utilizará el protocolo OAuth 2.0.
+La autenticación entre la aplicación cliente y DENA utiliza OAuth 2.0. El token obtenido se incluye en las llamadas mediante la cabecera `Authorization: Bearer <token>`.
 
-En primer lugar el cliente deberá autenticarse y obtener un token OAuth, para ello se ofrecen dos mecanismos: autenticación con Giltza o autenticación mediante WebAuthn. En el primer acceso se deberá realizar el proceso con Giltza, tras este se ofrecerá la creación de credenciales WebAuthn para los posteriores accesos.
+---
 
-El token OAuth obtenido deberá incluirse en las llamadas a DENA, mediante la cabecera `Authorization: Bearer <token>`
+## Mecanismos de autenticación
 
-## Flujo de autenticación mediante Giltza
+=== ":material-shield-key: Giltza (primer acceso)"
 
-![Flujo autenticación Giltza](../adjuntos/imagenes/login-giltza.png)
+    En el primer acceso, el usuario se autentica con **Giltza**. DENA valida el token de Giltza y genera un token OAuth propio para la comunicación.
 
-Al acceder a la aplicación cliente, en primer lugar se autenticara al usuario con Giltza, obteniendo un token que será enviado a DENA, tras validar dicho token, DENA generará un token OAuth y lo enviara al cliente para las comunicaciones sucesivas.
+    ![Flujo autenticación Giltza](../adjuntos/imagenes/login-giltza.png)
 
-## Flujo de registro mediante WebAuthn
+    ``` mermaid
+    sequenceDiagram
+        participant User as Usuario
+        participant App as App Cliente
+        participant Giltza as Giltza
+        participant DENA as CORE DENA
 
-Una vez autenticado con Giltza, es posible generar credenciales WebAuthn para los posteriores accesos, para ello se debe seguir el siguiente flujo:
+        User->>App: Accede a la app
+        App->>Giltza: Redirige a login
+        Giltza-->>App: Token Giltza
+        App->>DENA: Envía token Giltza
+        DENA-->>App: Token OAuth DENA
+    ```
 
-![Flujo de registro WebAuthn](../adjuntos/imagenes/webauthn-register.png)
+=== ":material-fingerprint: WebAuthn (accesos posteriores)"
 
-## Flujo de autenticación mediante WebAuthn
+    Tras el primer acceso con Giltza, el usuario puede registrar credenciales WebAuthn para accesos futuros más rápidos.
 
-Con las credenciales generadas en el flujo de registro WebAuthn, la aplicación podrá obtener un token OAuth mediante el siguiente flujo:
+    **Registro:**
 
-![Flujo de autenticación WebAuthn](../adjuntos/imagenes/webauthn-login.png)
+    ![Flujo de registro WebAuthn](../adjuntos/imagenes/webauthn-register.png)
+
+    **Login:**
+
+    ![Flujo de autenticación WebAuthn](../adjuntos/imagenes/webauthn-login.png)
+
+---
+
+## Uso del token
+
+!!! example "Incluir token en las llamadas"
+
+    ```http
+    GET /api/resource
+    Authorization: Bearer eyJhbGciOiJSUzI1NiIs...
+    ```
+
+    El token tiene una duración limitada (`expires_in`). La app debe renovarlo antes de que expire.
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

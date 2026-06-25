@@ -1,41 +1,204 @@
-site_name: ''
+site_name: 'DENA Interop - Documentación para Administraciones'
+site_description: 'Documentación técnica y funcional del proyecto DENA para administraciones públicas integradoras'
+site_url: 'https://DENA-Euskadi.github.io/dena-common-docs'
+
+theme:
+  name: material
+  language: es
+  custom_dir: docs/overrides
+  palette:
+    - scheme: default
+      primary: dena
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Modo oscuro
+    - scheme: slate
+      primary: dena
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Modo claro
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: material/swap-horizontal-bold
+    repo: fontawesome/brands/github
+    tag:
+      home: material/home
+      guia: material/rocket-launch
+      arquitectura: material/cube-outline
+      semantica: material/code-braces
+      autenticacion: material/shield-lock
+      devtools: material/wrench
+      ejemplos: material/file-code
+      referencia: material/book-open-variant
+      adjuntos: material/paperclip
+    admonition:
+      note: material/pencil
+      tip: material/lightbulb
+      info: material/information
+      warning: material/alert
+      danger: material/alert-octagon
+      success: material/check-circle
+      failure: material/close-circle
+      question: material/help-circle
+      example: material/test-tube
+      abstract: material/clipboard-text
+  logo: adjuntos/logos/Dena_RGB_Calado_H.png
+  favicon: adjuntos/logos/Dena_RGB_Calado_H.png
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
 
 nav:
   - Home: index.md
+  - Guía De Inicio:
+      - Checklist De Onboarding: guia-inicio/onboarding.md
+      - Instalación Del Entorno: guia-inicio/instalacion.md
+      - Probar Comunicaciones: guia-inicio/probar-comunicaciones.md
+      - Mock De Expedientes: guia-inicio/mock-expedientes.md
   - Arquitectura:
-      - Visión general: arquitectura/index.md
-      - Diagramas (draw.io): arquitectura/diagramas.md
-      - Otra documentación: arquitectura/otra-documentacion.md
+      - Visión General: arquitectura/index.md
+      - Diagramas (Draw.io): arquitectura/diagramas.md
+      - Otra Documentación: arquitectura/otra-documentacion.md
+  - Semántica:
+      - Visión General: semantica/index.md
+      - Semántica Base:
+          - Visión General: semantica/semantica-base/index.md
+          - DataTypeRef: semantica/semantica-base/modelo/data-type-ref.md
+          - OrgAdminRef: semantica/semantica-base/modelo/org-admin-ref.md
+          - PersonRef: semantica/semantica-base/modelo/person-ref.md
+          - LanguageTexts: semantica/semantica-base/modelo/language-texts.md
+      - DATA-RETRIEVE:
+          - Visión General: semantica/data-retrieve/index.md
+          - Endpoint: semantica/data-retrieve/endpoint-data-retrieve.md
+          - Guía De Implementación: semantica/data-retrieve/guia-implementacion.md
+          - Validaciones: semantica/data-retrieve/validaciones.md
+          - Errores Y Troubleshooting: semantica/data-retrieve/errores-troubleshooting.md
+          - Snippets De Código: semantica/data-retrieve/snippets-codigo.md
+          - Modelo De Datos:
+              - Campos Comunes: semantica/data-retrieve/data/campos-comunes.md
+              - Expediente: semantica/data-retrieve/data/expediente.md
+              - Notificación: semantica/data-retrieve/data/notificacion.md
+              - Registro Oficial: semantica/data-retrieve/data/registro-oficial.md
+              - Pago: semantica/data-retrieve/data/pago.md
+              - Cita: semantica/data-retrieve/data/cita.md
+              - Persona: semantica/data-retrieve/data/persona.md
+              - Servicio Administrativo: semantica/data-retrieve/data/servicio-administrativo.md
+              - Unidad Orgánica: semantica/data-retrieve/data/unidad-organica.md
+      - METADATA-SYNC:
+          - Visión General: semantica/metadata-sync/index.md
+          - Endpoint: semantica/metadata-sync/endpoint-sync-metadata.md
+          - Modelo:
+              - Pop Message After Sync: semantica/metadata-sync/modelo/pop-message-after-sync-spec.md
+              - Sync Metadata Item: semantica/metadata-sync/modelo/sync-metadata-from-admin-to-core-item.md
+      - PERSON-SYNC:
+          - Visión General: semantica/person-sync/index.md
+          - Push: semantica/person-sync/push.md
+          - Pull: semantica/person-sync/pull.md
+          - Endpoints Push:
+              - Person Push To Admin: semantica/person-sync/endpoints/push/endpoint-person-push-to-admin.md
+          - Endpoints Pull:
+              - Create Pull Job: semantica/person-sync/endpoints/pull/create-pull-from-admin-bespoke-job.md
+              - Fetch Persons Bespoke: semantica/person-sync/endpoints/pull/fetch-persons-bespoke-export-asset.md
+              - Fetch Persons Pregen: semantica/person-sync/endpoints/pull/fetch-persons-pregen-export-asset.md
+              - Get Pull Job: semantica/person-sync/endpoints/pull/get-pull-from-admin-bespoke-job.md
+          - Modelo Pull:
+              - Export Spec: semantica/person-sync/modelo/pull/export-spec.md
+          - Modelo Push:
+              - Person Hashes: semantica/person-sync/modelo/push/person-hashes.md
+      - Otra Documentación: semantica/otra-documentacion.md
   - Autenticación:
-      - Visión general: autenticacion/index.md
+      - Visión General: autenticacion/index.md
       - Cliente ↔ CORE DENA: autenticacion/client-core-dena.md
       - CORE DENA → Administración:
-          - Visión general: autenticacion/core-dena-administracion/index.md
+          - Visión General: autenticacion/core-dena-administracion/index.md
           - Modelo: autenticacion/core-dena-administracion/modelo.md
           - Servicios: autenticacion/core-dena-administracion/servicios.md
       - Administración → CORE DENA:
-          - Visión general: autenticacion/administracion-core-dena/index.md
-          - Modelo: autenticacion/administracion-core-dena/modelo.md
-          - Servicios: autenticacion/administracion-core-dena/servicios.md
-  - Semántica:
-      - Visión general: semantica/index.md
-      - Semántica Base:
-          - Visión general: semantica/semantica-base/index.md
-          - Modelo: semantica/semantica-base/modelo/index.md
-      - METADATA-SYNC: semantica/metadata-sync/index.md
-      - DATA-RETRIEVE: semantica/data-retrieve/index.md
-      - PERSON-SYNC:
-          - Visión general: semantica/person-sync/index.md
-          - PUSH: semantica/person-sync/modelo/push.md
-          - PULL: semantica/person-sync/modelo/pull.md
-      - Otra documentación: semantica/otra-documentacion.md
-  - Ejemplos de código: ejemplos-codigo/index.md
+          - Visión General: autenticacion/administracion-core-dena/index.md
+          - Endpoint Get-Token: autenticacion/administracion-core-dena/endpoint-get-token.md
+  - DevTools: devtools/index.md
+  - Ejemplos De Código: ejemplos-codigo/index.md
+  - Referencia:
+      - FAQ: referencia/faq.md
+      - Glosario: referencia/glosario.md
+      - Sistema De Versionado: referencia/sistema-versionado.md
+      - Limpieza De Versionado: referencia/limpieza-versionado.md
+      - Matriz De Compatibilidad: referencia/matriz-compatibilidad.md
+      - Troubleshooting: referencia/troubleshooting.md
+      - Changelog: referencia/changelog.md
   - Adjuntos: adjuntos/index.md
 
+markdown_extensions:
+  - abbr
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - docs/includes/abbreviations.md
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - toc:
+      permalink: true
+      toc_depth: 3
 
 plugins:
-  - search
-  - techdocs-core
+  - search:
+      lang: es
   - macros:
       include_yaml:
         - ./mkdocs-vars.yaml
+  - tags:
+      tags_file: referencia/tags.md
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/DENA-Euskadi
+      name: DENA en GitHub
+  tags:
+    Data-Retrieve: data-retrieve
+    Metadata-Sync: metadata-sync
+    Person-Sync: person-sync
+    Autenticación: autenticacion
+    Guía: guia
+    Referencia: referencia
+
+extra_css:
+  - stylesheets/extra.css

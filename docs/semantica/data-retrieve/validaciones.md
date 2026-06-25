@@ -182,7 +182,7 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 | `readedAt` | ❌ |
 | `urls` | ❌ (recomendado) |
 
-### Registro Oficial (`administrativeOfficialRegistryRecord`)
+### Registro Oficial (`administrativeOfficialRegisterRecord`)
 
 | Campo | Obligatorio |
 |-------|:-----------:|

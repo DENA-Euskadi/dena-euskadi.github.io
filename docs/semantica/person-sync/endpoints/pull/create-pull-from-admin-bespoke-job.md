@@ -18,10 +18,20 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
 ```json
 {
     "context": {
-        <Objeto de Contexto>
+        "interopRouteData": [
+            {
+                "denaComponentId": "DENA_POSTMAN",
+                "timestamp":"2026-06-10T15:37:57.5530000Z"
+            }
+        ],
+        "messageCorrelationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+        "messageType": "CREATE_PULL_ADMIN_BESPOKE",
+        "flowDirection": "REQUEST",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+        "originPartyId": "ADMIN-001",
+        "destinationPartyId": "DENA_INTEROP"
     },
     "data": {
-        "type": "createPullAdminBespokeRequestPayload",
         "orgAdminRef": {
             "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
         },
@@ -37,7 +47,7 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `CREATE_PULL_ADMIN_BESPOKE` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 
@@ -45,7 +55,6 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
 
 | Campo         | Tipo     | Obligatorio | Descripción |
 |---------------|----------|-------------|-------------|
-| `type`        | `String` | ✅ | `"createPullAdminBespokeRequestPayload"` |
 | `orgAdminRef` | [OrgAdminRef](../../../semantica-base/modelo/org-admin-ref.md) | ✅ | Referencia a la administración |
 | `exportSpec`  | [ExportSpec](../../modelo/pull/export-spec.md) | ✅ | Especificación de las personas que exportar y el formato de destino |
 
@@ -108,4 +117,4 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

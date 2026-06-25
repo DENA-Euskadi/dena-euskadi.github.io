@@ -1,34 +1,106 @@
-# Arquitectura
+# :material-cube-outline: Arquitectura
 
 ## Visión General
 
-DENA Interop es el sistema que permite la interoperabilidad con las distintas administraciones para facilitar a las personas usuarias, a traves de la aplicación cliente, del acceso a los datos que las administraciones ellas. La arquitectura se basa en distintos modulos que permiten la sincronización de metadatos, y obtención de datos por parte de la aplicación cliente. Los distintos modulos de detallan a continuación:
+DENA Interop es el sistema que permite la interoperabilidad con las distintas administraciones para facilitar a las personas usuarias, a través de la aplicación cliente, el acceso a los datos que las administraciones gestionan sobre ellas.
 
 ![Diagrama de arquitectura](../adjuntos/imagenes/DENA_Architecture.png)
 
-## Metadata Sync
+---
 
-El modulo Metadata Sync se encarga de recibir las actualizaciones de los distintos tipos de datos por parte de las administraciones. DENA solo almacenará los metadatos de actualización, consistentes en la fecha de ultima actualización para cada combinación de persona, tipo de dato y administración. Gracias a estos metadatos, la aplicación cliente podra saber cuando ha de realizar una nueva consulta a cada administración (a traves de DENA) para sincronizar los ultimos cambios que se hayan producido en la datos de la persona usuaria.
+## Módulos principales
 
-Para mantener estos metadatos actualizados, se provee a las administraciones a las administraciones de los mecanismos detallados en [Semantica Metadata-Sync](../semantica/metadata-sync/index.md)
+<div class="grid cards" markdown>
 
-## Data Retrieve
+-   :material-sync:{ .lg .middle } **Metadata Sync**
 
-Cuando la aplicación cliente detecte nuevos cambios en algún tipo de dato perteneciente a una administración, a traves de la descarga de los metadatos (Metadata Sync), esta solicitará a traves de DENA a la administración la descarga de los datos actualizados. Para ello, la administración deberá proveer a DENA una conexión a traves de la cual descargar estos datos.
+    ---
 
-En [Semantica Data-Retrieve](../semantica/data-retrieve/index.md) se detalla la especificación estandar a implementar por la administración para la obtención de los datos por parte de DENA.
+    Recibe notificaciones de las administraciones cuando hay cambios en datos de una persona. DENA almacena solo la fecha de última actualización por combinación persona + tipo de dato + administración.
 
-En caso de no ser posible la implementación de este estandar, desde DENA se desarrollará un conector no estandar, que permita la obtención de los datos a traves de los medios facilitados por la administración.
+    [:octicons-arrow-right-24: Semántica Metadata-Sync](../semantica/metadata-sync/index.md)
 
-## Person Sync
+-   :material-database-arrow-right:{ .lg .middle } **Data Retrieve**
 
-DENA solo deberá sincronizar los metadatos de las personas registradas que hayan dado su consentimiento para el tratamiento de estos datos. Por este motivo se requiere a las administraciones que creen y mantengan un listado de las personas registradas en DENA. La visión general de este modulo se detalla en [Semantica Person-Sync](../semantica/person-sync/index.md)
+    ---
 
-Para este cometido se proveen dos mecanismos:
+    Cuando la app cliente detecta cambios, solicita a la administración (a través de DENA) la descarga de los datos actualizados. La administración expone un endpoint estándar.
 
-- **PULL**: La administración solicitará a DENA los datos de personas que requiera mantener. Los medios de obtención de estos datos se detallan en [Semantica PULL](../semantica/person-sync/pull.md)
-- **PUSH**: DENA notificará proactivamente a la administración cuando se registre o se produzcan cambios en una persona. Las conexiones a implementar por la administración para la recepción de estas actualizaciones se detallan en [Semantica PUSH](../semantica/person-sync/push.md)
+    [:octicons-arrow-right-24: Semántica Data-Retrieve](../semantica/data-retrieve/index.md)
+
+-   :material-account-sync:{ .lg .middle } **Person Sync**
+
+    ---
+
+    Sincroniza el listado de personas registradas en DENA con las administraciones. Dos mecanismos: **Pull** (la administración consulta) y **Push** (DENA notifica).
+
+    [:octicons-arrow-right-24: Semántica Person-Sync](../semantica/person-sync/index.md)
+
+</div>
+
+---
+
+## Flujo general
+
+``` mermaid
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#FFFFFF"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
+    fontSize: "13px"
+    fontFamily: "Manrope, sans-serif"
+    actorBkg: "#f5d836"
+    actorBorder: "#1a4d1f"
+    actorTextColor: "#1a4d1f"
+    activationBkgColor: "#70d680"
+    activationBorderColor: "#1a4d1f"
+    sequenceNumberColor: "#1a4d1f"
+---
+sequenceDiagram
+    participant App as App Cliente
+    participant DENA as CORE DENA
+    participant Admin as Administración
+
+    Note over Admin,DENA: 1. Metadata Sync
+    Admin->>DENA: POST /syncMetadata (hay cambios)
+    DENA-->>Admin: 200 OK
+
+    Note over App,DENA: 2. App detecta cambios
+    App->>DENA: Consulta metadatos
+    DENA-->>App: Hay datos nuevos en Admin X
+
+    Note over DENA,Admin: 3. Data Retrieve
+    DENA->>Admin: POST /retrieveData (persona + tipo)
+    Admin-->>DENA: 200 OK + datos
+    DENA-->>App: Datos actualizados
+```
+
+---
+
+## Conector estándar vs. no estándar
+
+!!! tip "Endpoint estándar"
+
+    Si tu administración puede implementar el endpoint REST estándar (`POST /api/retrieveData`), la integración es directa y rápida.
+
+    [:octicons-arrow-right-24: Guía de implementación](../semantica/data-retrieve/guia-implementacion.md)
+
+!!! info "Conector a medida"
+
+    Si no es posible implementar el estándar, desde DENA se desarrollará un conector específico que se adapte a los medios facilitados por la administración (SOAP, ficheros, etc.).
+
+---
+
+## Documentación relacionada
+
+- [Diagramas (draw.io)](./diagramas.md)
+- [Otra documentación](./otra-documentacion.md)
+- [ADRs (Architecture Decision Records)]({{ repos.docs_main }}/ArchitectureDecisionRecords)
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

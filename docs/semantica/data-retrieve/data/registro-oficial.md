@@ -1,9 +1,9 @@
-# Registro Oficial (Official Registry Record)
+# :material-book-open-page-variant: Registro Oficial (Official Registry Record)
 
 > - **Versión:** `v0.3.26`
 > - **Fecha:** 2026-06-11
-> - **Test:** [DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecord.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/registry/DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecord.java)
-> - **Código:** [DN00AdministrativeOfficialRegistryRecord.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecord.java)
+> - **Test:** [DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecord.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/registry/DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecord.java)
+> - **Código:** [DN00AdministrativeOfficialRegistryRecord.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecord.java)
 
 ## Descripción
 
@@ -23,7 +23,7 @@ config:
     fontSize: "12px"
 ---
 flowchart LR
-    REG["<b>Registro Oficial</b><br/><i>administrativeOfficialRegistryRecord</i>"]
+    REG["<b>Registro Oficial</b><br/><i>administrativeOfficialRegisterRecord</i>"]
 
     REG --> EXP["procedureRecord<br/><i>oid · id</i>"]
     REG --> DATE["registeredAt"]
@@ -38,7 +38,7 @@ flowchart LR
     style STATE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
     style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
-    click EXP "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver Expediente"
+    click EXP "../expediente/" "Ver Expediente"
 ```
 
 | Color | Significado |
@@ -54,9 +54,9 @@ flowchart LR
 
 | Clase | Repositorio |
 |-------|-------------|
-| DN00AdministrativeOfficialRegistryRecord | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecord.java) |
-| DN00AdministrativeOfficialRegistryRecordState | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecordState.java) |
-| DN00AdministrativeOfficialRegistryRecordStateCode | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecordStateCode.java) |
+| DN00AdministrativeOfficialRegistryRecord | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecord.java) |
+| DN00AdministrativeOfficialRegistryRecordState | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecordState.java) |
+| DN00AdministrativeOfficialRegistryRecordStateCode | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecordStateCode.java) |
 
 ---
 
@@ -64,8 +64,8 @@ flowchart LR
 
 | Test | Repositorio |
 |------|-------------|
-| DN00AdminFileTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/registry/DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecord.java) |
-| DN00AdminFileStateTest | [Ver test](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/registry/DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecordState.java) |
+| DN00AdminFileTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/registry/DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecord.java) |
+| DN00AdminFileStateTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/registry/DN99DENATestMockObjFactoryForAdministrativeOfficialRegistryRecordState.java) |
 
 ---
 
@@ -73,16 +73,16 @@ flowchart LR
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
-| `type` | `String` | ✅ | `"administrativeOfficialRegistryRecord"` | Discriminador polimórfico |
+| `type` | `String` | ✅ | `"administrativeOfficialRegisterRecord"` | Discriminador polimórfico |
 | `oid` | `String` | ✅ | `"REG-OID-001"` | Identificador técnico único |
 | `id` | `String` | ✅ | `"REG-2024-00789"` | Identificador de negocio |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
+| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
 | `registeredAt` | `String` (ISO 8601) | ✅ | `"2024-04-10T08:30:00Z"` | Fecha/hora de registro |
 | `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Asunto del asiento registral |
-| `state` | `Object` | ✅ | *(ver [`DN00AdministrativeOfficialRegistryRecordState`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecordState.java))* | Estado actual |
+| `state` | `Object` | ✅ | *(ver [`DN00AdministrativeOfficialRegistryRecordState`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegistryModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegistryRecordState.java))* | Estado actual |
 | `state.stateCode` | `String` | ✅ | `"PRESENTED"` | Código de estado |
 | `state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"Presentado"}` | Descripción multiidioma |
-| `urls` | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
+| `urls` | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
 
 ---
 
@@ -100,7 +100,7 @@ flowchart LR
 
 ```json
 {
-  "type": "administrativeOfficialRegistryRecord",
+  "type": "administrativeOfficialRegisterRecord",
   "oid": "REG-OID-001",
   "id": "REG-2024-00789",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },

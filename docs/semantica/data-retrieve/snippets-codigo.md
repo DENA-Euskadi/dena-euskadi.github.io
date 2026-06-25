@@ -29,7 +29,7 @@ public class RetrieveDataController {
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
             case "RECORDS"     -> fetchRecords(personId);
             case "NOTICES"     -> fetchNotices(personId);
-            case "REGISTRY"    -> fetchRegistry(personId);
+            case "REGISTER"    -> fetchRegistry(personId);
             case "PAYMENTS"    -> fetchPayments(personId);
             case "SCHEDULE"    -> fetchSchedule(personId);
             case "PERSON_DATA" -> fetchPersonData(personId);
@@ -97,7 +97,7 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
     {
         "RECORDS"     => GetRecords(personId),
         "NOTICES"     => GetNotices(personId),
-        "REGISTRY"    => GetRegistry(personId),
+        "REGISTER"    => GetRegistry(personId),
         "PAYMENTS"    => GetPayments(personId),
         "SCHEDULE"    => GetSchedule(personId),
         "PERSON_DATA" => GetPersonData(personId),
@@ -142,7 +142,7 @@ async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
     fetchers = {
         "RECORDS": fetch_records,
         "NOTICES": fetch_notices,
-        "REGISTRY": fetch_registry,
+        "REGISTER": fetch_registry,
         "PAYMENTS": fetch_payments,
         "SCHEDULE": fetch_schedule,
         "PERSON_DATA": fetch_person_data,
@@ -203,7 +203,7 @@ app.post('/api/retrieveData', (req, res) => {
   const fetchers = {
     RECORDS: fetchRecords,
     NOTICES: fetchNotices,
-    REGISTRY: fetchRegistry,
+    REGISTER: fetchRegistry,
     PAYMENTS: fetchPayments,
     SCHEDULE: fetchSchedule,
     PERSON_DATA: fetchPersonData,
@@ -268,7 +268,7 @@ Route::post('/api/retrieveData', function (Request $request) {
     $dataItems = match ($dataTypeId) {
         'RECORDS'     => fetchRecords($personId),
         'NOTICES'     => fetchNotices($personId),
-        'REGISTRY'    => fetchRegistry($personId),
+        'REGISTER'    => fetchRegistry($personId),
         'PAYMENTS'    => fetchPayments($personId),
         'SCHEDULE'    => fetchSchedule($personId),
         'PERSON_DATA' => fetchPersonData($personId),

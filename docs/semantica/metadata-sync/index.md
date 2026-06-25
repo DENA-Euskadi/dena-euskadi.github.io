@@ -1,31 +1,52 @@
-# METADATA-SYNC
+# :material-sync: METADATA-SYNC
+
+> **Versión:** `v0.3.26` · **Fecha:** 2026-06-11
+
+---
 
 ## ¿Qué es?
 
-**Metadata-Sync** es el mecanismo mediante el cual las administraciones notifican a DENA cuando se producen cambios en algún dato asociado a una persona usuaria de DENA.
+**Metadata-Sync** es el mecanismo mediante el cual las administraciones notifican a DENA cuando se producen cambios en algún dato asociado a una persona usuaria.
 
-DENA solo almacenará los metadatos de actualización, consistentes en la fecha de ultima actualización para cada combinación de persona, tipo de dato y administración.
+``` mermaid
+sequenceDiagram
+    participant Admin as Administración
+    participant DENA as CORE DENA
+    participant App as App Cliente
 
-Gracias a estos metadatos, la aplicación cliente podra saber cuando ha de realizar una nueva consulta a cada administración (a traves de DENA) para sincronizar los ultimos cambios que se hayan producido en la datos de la persona usuaria.
+    Admin->>DENA: POST /syncMetadata (persona X tiene cambios)
+    DENA-->>Admin: 200 OK
+
+    Note over DENA: Almacena metadato: persona + tipo + fecha
+
+    App->>DENA: ¿Hay novedades?
+    DENA-->>App: Sí, Admin X tiene datos nuevos para ti
+```
+
+!!! info "Solo metadatos"
+
+    DENA **no almacena los datos en sí**, solo la fecha de última actualización por combinación de:
+
+    - Persona
+    - Tipo de dato
+    - Administración
+
+    Cuando la app cliente necesite los datos reales, los pedirá vía [Data-Retrieve](../data-retrieve/index.md).
 
 ---
 
 ## Documentación
 
-### Endpoint
-
 | Documento | Contenido |
-|-----------|-----------|
-| [endpoint-sync-metadata.md](./endpoint-sync-metadata.md) | Endpoint para la notificación de cambios en datos asociados a personas |
+|---|---|
+| [:octicons-arrow-right-24: Endpoint](./endpoint-sync-metadata.md) | Contrato REST para la notificación de cambios |
 
-### Postman
+---
 
-Colección y environment Postman en [`docs/adjuntos/postman/`](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman).
+!!! tip "Postman"
 
-### Documentación Swagger
-
-<!-- Enlace al Swagger / OpenAPI -->
+    Colección y environment Postman disponibles en [`docs/adjuntos/postman/`]({{ repos.docs_tree }}/docs/adjuntos/postman).
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.1.0 · 2025-02-28</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

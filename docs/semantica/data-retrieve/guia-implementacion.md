@@ -73,9 +73,9 @@ Los campos clave que debes interpretar:
 
 | Campo | Para qué sirve | Código fuente |
 |-------|----------------|---------------|
-| `context.subjectPerson.personId` | DNI/NIE de la persona cuyos datos se solicitan | [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.dataType.dataTypeId` | Tipo de dato solicitado (ver tabla abajo) | [`DN00DataTypeEnum`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | UUID para trazabilidad en logs | [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.personId` | DNI/NIE de la persona cuyos datos se solicitan | [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.dataType.dataTypeId` | Tipo de dato solicitado (ver tabla abajo) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.messageCorrelationId` | UUID para trazabilidad en logs | [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
 
 ### Tipos de dato (`dataTypeId`)
 
@@ -83,7 +83,7 @@ Los campos clave que debes interpretar:
 |-------|---------------------|--------|
 | `RECORDS` | Expedientes | [expediente.md](./data/expediente.md) |
 | `NOTICES` | Notificaciones | [notificacion.md](./data/notificacion.md) |
-| `REGISTRY` | Registros oficiales | [registro-oficial.md](./data/registro-oficial.md) |
+| `REGISTER` | Registros oficiales | [registro-oficial.md](./data/registro-oficial.md) |
 | `PAYMENTS` | Pagos (únicos + domiciliaciones) | [pago.md](./data/pago.md) |
 | `SCHEDULE` | Citas | [cita.md](./data/cita.md) |
 
@@ -229,7 +229,7 @@ Estados: `PENDING_TO_BE_READED_BY_DESTINATION`, `ACKNOWLEDGED_BY_DESTINATION`, `
 
 > Documentación completa: [notificacion.md](./data/notificacion.md)
 
-### 3.4 — Registro oficial (`REGISTRY`)
+### 3.4 — Registro oficial (`REGISTER`)
 
 ```json
 {
@@ -412,9 +412,9 @@ El token se obtiene automáticamente mediante **client credentials** contra tu s
 
 Puedes usar los mock factories del proyecto de tests para generar objetos de ejemplo:
 
-- [Tests de expediente](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
-- [Tests de notificación](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
-- [Tests de pago](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
+- [Tests de expediente]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
+- [Tests de notificación]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
+- [Tests de pago]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
 
 ---
 

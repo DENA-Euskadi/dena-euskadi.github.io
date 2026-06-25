@@ -15,7 +15,7 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 | JSON inválido en el body | Validar que el body es JSON válido antes de procesarlo |
 | Falta `context.subjectPerson.personId` | Campo obligatorio — verificar que se recibe |
 | Falta `context.dataType.dataTypeId` | Campo obligatorio — verificar que se recibe |
-| `dataTypeId` con valor no reconocido | Aceptar solo: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE`, `PERSON_DATA` |
+| `dataTypeId` con valor no reconocido | Aceptar solo: `RECORDS`, `NOTICES`, `REGISTER`, `PAYMENTS`, `SCHEDULE`, `PERSON_DATA` |
 
 ### 401 — No autorizado
 

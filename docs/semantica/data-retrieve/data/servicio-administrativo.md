@@ -1,11 +1,11 @@
-# Servicio Administrativo (Administrative Service)
+# :material-cog: Servicio Administrativo (Administrative Service)
 
 > - **Versión:** `v0.3.26`
 > - **Fecha:** 2026-06-11
-> - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java)
+> - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java)
 > - **Código:**
->   - [DN00AdmistrativeService.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java)
->   - [DN00AdministrativeServiceProcedure.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java)
+>   - [DN00AdmistrativeService.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java)
+>   - [DN00AdministrativeServiceProcedure.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java)
 
 ## Descripción
 
@@ -46,11 +46,11 @@ flowchart TD
     style ORG fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
     style REFS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
-    click EXP "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver Expediente"
-    click NOT "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/notificacion.md" "Ver Notificación"
-    click REG "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/registro-oficial.md" "Ver Registro Oficial"
-    click PAY "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver Pago"
-    click ORG "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/unidad-organica.md" "Ver Unidad Orgánica"
+    click EXP "../expediente/" "Ver Expediente"
+    click NOT "../notificacion/" "Ver Notificación"
+    click REG "../registro-oficial/" "Ver Registro Oficial"
+    click PAY "../pago/" "Ver Pago"
+    click ORG "../unidad-organica/" "Ver Unidad Orgánica"
 ```
 
 | Color | Significado |
@@ -67,26 +67,26 @@ flowchart TD
 
 | Clase | Repositorio |
 |-------|-------------|
-| DN00AdmistrativeService | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java) |
-| DN00AdministrativeServiceProcedure | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java) |
-| DN00AdmistrativeServiceObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceObjectBase.java) |
-| DN00AdministrativeServiceReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceReference.java) |
-| DN00AdministrativeServiceProcedureReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceProcedureReference.java) |
-| DN00AdministrativeServiceObjectReferenceBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceObjectReferenceBase.java) |
+| DN00AdmistrativeService | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java) |
+| DN00AdministrativeServiceProcedure | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java) |
+| DN00AdmistrativeServiceObjectBase | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceObjectBase.java) |
+| DN00AdministrativeServiceReference | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceReference.java) |
+| DN00AdministrativeServiceProcedureReference | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceProcedureReference.java) |
+| DN00AdministrativeServiceObjectReferenceBase | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceObjectReferenceBase.java) |
 
 ---
 
 ## 🧪 Tests y ejemplos
 
-> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test]({{ repos.interop_test_tree }})
 
 | Mock Factory | Repositorio |
 |--------------|-------------|
-| DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java) |
-| DN99DENATestMockObjFactoryForAdmistrativeService | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeService.java) |
-| DN99DENATestMockObjFactoryForAdministrativeServiceProcedure | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedure.java) |
-| DN99DENATestMockObjFactoryForAdministrativeServiceReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceReference.java) |
-| DN99DENATestMockObjFactoryForAdministrativeServiceProcedureReference | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedureReference.java) |
+| DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java) |
+| DN99DENATestMockObjFactoryForAdmistrativeService | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeService.java) |
+| DN99DENATestMockObjFactoryForAdministrativeServiceProcedure | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedure.java) |
+| DN99DENATestMockObjFactoryForAdministrativeServiceReference | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceReference.java) |
+| DN99DENATestMockObjFactoryForAdministrativeServiceProcedureReference | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdministrativeServiceProcedureReference.java) |
 
 ---
 
@@ -97,8 +97,8 @@ flowchart TD
 |-------|------|:-----------:|---------|-------------|
 | `serviceNameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Licencias de actividad"}` | Nombre del servicio |
 | `serviceUrls` | `Array` | ❌ | | URLs del catálogo de servicios |
-| `participatingOrgUnits` | `Array` | ❌ | *(ver [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Unidades orgánicas participantes |
-| `originRef` | `Object` | ✅ | *(ver [`DN00AdministrativeServiceReference`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceReference.java))* | Referencia en la administración de origen |
+| `participatingOrgUnits` | `Array` | ❌ | *(ver [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Unidades orgánicas participantes |
+| `originRef` | `Object` | ✅ | *(ver [`DN00AdministrativeServiceReference`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceReference.java))* | Referencia en la administración de origen |
 | `originRef.oid` | `String` | ❌ | `"SRV-OID-001"` | OID en el catálogo de origen |
 | `originRef.id` | `String` | ✅ | `"SRV-LIC-ACT"` | ID en el catálogo de origen |
 | `originRef.urls` | `Array` | ❌ | | URLs en el catálogo de origen |
@@ -118,8 +118,8 @@ flowchart TD
 |-------|------|:-----------:|---------|-------------|
 | `serviceNameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Nombre del procedimiento |
 | `serviceUrls` | `Array` | ❌ | | URLs del catálogo |
-| `participatingOrgUnits` | `Array` | ❌ | *(ver [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Unidades orgánicas participantes |
-| `originRef` | `Object` | ✅ | *(ver [`DN00AdministrativeServiceProcedureReference`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceProcedureReference.java))* | Referencia en la administración de origen |
+| `participatingOrgUnits` | `Array` | ❌ | *(ver [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Unidades orgánicas participantes |
+| `originRef` | `Object` | ✅ | *(ver [`DN00AdministrativeServiceProcedureReference`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceProcedureReference.java))* | Referencia en la administración de origen |
 | `originRef.oid` | `String` | ❌ | `"PROC-OID-001"` | OID en el catálogo de origen |
 | `originRef.id` | `String` | ✅ | `"PROC-LIC-APER"` | ID en el catálogo de origen |
 | `originRef.urls` | `Array` | ❌ | | URLs en el catálogo de origen |

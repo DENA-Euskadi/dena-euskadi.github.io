@@ -25,7 +25,7 @@ flowchart LR
     style HOW fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
     style LANG fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
-    click LANG "../semantica-base/modelo/language-texts.md" "Ver LanguageTexts"
+    click LANG "../../../semantica-base/modelo/language-texts/" "Ver LanguageTexts"
 ```
 
 | Color | Significado |
@@ -59,4 +59,4 @@ flowchart LR
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

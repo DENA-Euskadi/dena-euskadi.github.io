@@ -18,10 +18,20 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 ```json
 {
     "context": {
-        <Objeto de Contexto>
+        "interopRouteData": [
+            {
+                "denaComponentId": "DENA_POSTMAN",
+                "timestamp":"2026-06-11T14:55:01.7520000Z"
+            }
+        ],
+        "messageCorrelationId": "aa645a6e-66a0-4c02-a00f-81d484a4296a",
+        "messageType": "FETCH_BESPOKE_EXPORT_ASSET",
+        "flowDirection": "REQUEST",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+        "originPartyId": "ADMIN-001",
+        "destinationPartyId": "DENA_INTEROP"
     },
     "data": {
-        "operation": "fetchBespokeExportAssetRequestPayload",
         "jobOid": "F74724F6-65F6-4E01-B215-AB8CDA3FC42B"
     }
 }
@@ -29,7 +39,7 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_BESPOKE_EXPORT_ASSET` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 
@@ -37,7 +47,6 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 
 | Campo    | Tipo     | Obligatorio | Descripción |
 |----------|----------|-------------|-------------|
-| `type`   | `String` | ✅          | `"fetchBespokeExportAssetRequestPayload"` |
 | `jobOid` | `String` | ✅          | Identificador de la solicitud de la que descargar el resultado |
 
 ## Response exitosa (HTTP 200)
@@ -70,4 +79,4 @@ Datos binaros del fichero de exportación de usuario en el formato solicitado
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

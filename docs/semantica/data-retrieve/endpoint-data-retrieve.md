@@ -13,7 +13,7 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 ## Request
 
-> Clases Java: [`DN00PersonFetchInteropRequest`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/request/DN00PersonFetchInteropRequest.java) · [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java)
+> Clases Java: [`DN00PersonFetchInteropRequest`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/request/DN00PersonFetchInteropRequest.java) · [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java)
 
 ```json
 {
@@ -43,26 +43,26 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 | Campo | Obligatorio | Descripción |
 |-------|:-----------:|-------------|
-| `context.messageType` | ✅ | Tipo de mensaje (`PERSON_FETCH_DATA`). Ver [`DN00InteropMessageType`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
-| `context.dataType.dataTypeId` | ✅ | Tipo de dato: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE`. Ver [`DN00DataTypeEnum`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.flowDirection` | ✅ | Dirección del flujo: `REQUEST`. Ver [`DN00InteropFlowDirection`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
-| `context.originPartyId` | ❌ | Identificador del origen (ej: `DENA-CORE`). Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.destinationPartyId` | ❌ | Identificador del destino (ej: `ADMIN-001`). Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration.administrationId` | ❌ | Identificador de la administración. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration.dir3Code` | ❌ | Código DIR3. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.interopRouteData` | ❌ | Traza de componentes DENA. Ver [`DN00IteropRouteDataItem`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| `consentOid` | ❌ | OID del consentimiento otorgado. Ver [`DN00InteropMessageBase`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout (ej: `"30s"`). Ver [`DN00InteropProtocol`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
+| `context.messageType` | ✅ | Tipo de mensaje (`PERSON_FETCH_DATA`). Ver [`DN00InteropMessageType`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
+| `context.dataType.dataTypeId` | ✅ | Tipo de dato: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE`. Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.flowDirection` | ✅ | Dirección del flujo: `REQUEST`. Ver [`DN00InteropFlowDirection`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
+| `context.originPartyId` | ❌ | Identificador del origen (ej: `DENA-CORE`). Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.destinationPartyId` | ❌ | Identificador del destino (ej: `ADMIN-001`). Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.administration.administrationId` | ❌ | Identificador de la administración. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.administration.dir3Code` | ❌ | Código DIR3. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.interopRouteData` | ❌ | Traza de componentes DENA. Ver [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
+| `consentOid` | ❌ | OID del consentimiento otorgado. Ver [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
+| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
+| `protocol.timeOut` | ❌ | Timeout (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
 | `data` | ✅ | Payload de la petición |
 
 ---
 
 ## Response exitosa (HTTP 200)
 
-> Clases Java: [`DN00PersonFetchInteropResponse`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchInteropResponse.java) · [`DN00PersonFetchData`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchData.java)
+> Clases Java: [`DN00PersonFetchInteropResponse`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchInteropResponse.java) · [`DN00PersonFetchData`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchData.java)
 
 ```json
 {
@@ -161,7 +161,7 @@ Cada elemento del array `dataItems` es un objeto que hereda los [campos comunes]
 |--------|--------|---------------|
 | `administrativeServiceProcedureRecord` | Expediente | [expediente.md](./data/expediente.md) |
 | `administrativeNotice` | Notificación | [notificacion.md](./data/notificacion.md) |
-| `administrativeOfficialRegistryRecord` | Registro oficial | [registro-oficial.md](./data/registro-oficial.md) |
+| `administrativeOfficialRegisterRecord` | Registro oficial | [registro-oficial.md](./data/registro-oficial.md) |
 | `oneOffPayment` | Pago único | [pago.md](./data/pago.md) |
 | `directDebitPayment` | Domiciliación | [pago.md](./data/pago.md) |
 | `scheduleItem` | Cita | [cita.md](./data/cita.md) |
@@ -215,7 +215,7 @@ Objetos auxiliares referenciados:
 
 ```json
 {
-  "type": "administrativeOfficialRegistryRecord",
+  "type": "administrativeOfficialRegisterRecord",
   "oid": "REG-OID-001",
   "id": "REG-2024-00789",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },

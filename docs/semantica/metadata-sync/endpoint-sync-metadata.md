@@ -16,10 +16,20 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 {
     "context": {
-        <Objeto de Contexto>
+        "interopRouteData": [
+            {
+                "denaComponentId": "DENA_POSTMAN",
+                "timestamp":"2026-06-10T15:37:57.5530000Z"
+            }
+        ],
+        "messageCorrelationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+        "messageType": "ADMIN_SYNC_METADATA",
+        "flowDirection": "REQUEST",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+        "originPartyId": "ADMIN-001",
+        "destinationPartyId": "DENA_INTEROP"
     },
     "data": {
-        "ofType": "syncMetaDataFromAdminRequestPayload",
         "items": [
             {
                 "admin": {
@@ -47,7 +57,7 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `ADMIN_SYNC_METADATA` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 
@@ -55,7 +65,6 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 | Campo    | Tipo     | Obligatorio | Descripción |
 |----------|----------|-------------|-------------|
-| `ofType` | `String` | ✅ | `"syncMetaDataFromAdminRequestPayload"` |
 | `items`  | `Array`<[SyncMetaDataFromAdminToCOREItem](./modelo/sync-metadata-from-admin-to-core-item.md)>  | ✅ | Listado con los cambios en datos por persona y administración |
 
 ---
@@ -100,7 +109,7 @@ Authorization: Bearer <token> (si OAuth está configurado)
                             }
                         }
                     },
-                    "error": "The admin with ref=null;{{adminId}} could NOT be validated"
+                    "error": "The admin with ref=null;admin-A414 could NOT be validated"
                 }
             ]
         }
@@ -110,10 +119,10 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 ## Response de error (HTTP 4xx/5xx)
 
-```json
-
+```
+Error: The items to be synced cannot be null or empty
 ```
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

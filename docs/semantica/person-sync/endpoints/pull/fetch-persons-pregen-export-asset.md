@@ -18,10 +18,20 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 ```json
 {
     "context": {
-        <Objeto de Contexto>
+        "interopRouteData": [
+            {
+                "denaComponentId": "DENA_POSTMAN",
+                "timestamp":"2026-06-10T15:37:57.5530000Z"
+            }
+        ],
+        "messageCorrelationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+        "messageType": "FETCH_PREGEN_EXPORT_ASSET",
+        "flowDirection": "REQUEST",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+        "originPartyId": "ADMIN-001",
+        "destinationPartyId": "DENA_INTEROP"
     },
     "data": {
-        "type": "fetchPreGenExportAssetRequestPayload",
         "jobType": "ALL_PERSONS",
         "exportType": "SYNC",
         "fileFormat": "CSV",
@@ -32,7 +42,7 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_PREGEN_EXPORT_ASSET` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 
@@ -44,7 +54,7 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 | `jobType`    | `String` | ✅          | Tipo de fichero pregenerado. Valores posibles: <br> `ALL_PERSONS`: Todas las personas de cada hora <br> `UPDATED_PERSONS_SINCE_LAST_SUCCESSFUL_JOB`: Solo las personas actualizadas cada hora |
 | `exportType` | `String` | ✅          | `data` (Incluye todos los datos de cada persona) <br> `sync` (Solo incluye timestamps de creación/actualización) |
 | `fileFormat` | `String` | ✅          | Formato en el que descargar los datos. Valores posibles: `SQLITE`, `CSV`, `ZIP_OF_JSON` o `PARQUET` |
-| `hourOfDay`  | `String` | ✅          | Hora del día en que se han producido los cambios en las personas (00-23) |
+| `hourOfDay`  | `String` | ❌          | Hora del día en que se han producido los cambios en las personas (00-23) |
 
 ## Response exitosa (HTTP 200)
 
@@ -76,4 +86,4 @@ Datos binaros del fichero de exportación de usuario en el formato solicitado
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

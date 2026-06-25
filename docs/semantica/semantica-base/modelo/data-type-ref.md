@@ -1,17 +1,25 @@
-# DataTypeRef
+# :material-tag: DataTypeRef
 
 ## Descripción
 
-Objeto para referenciar a un tipo de dato gestionado por DENA. Ej: Expediente
+Objeto para referenciar a un tipo de dato gestionado por DENA (ej: Expediente, Notificación, Pago...).
+
+!!! info "Al menos uno obligatorio"
+
+    Se debe incluir `oid` **o** `id` (o ambos). Si se incluyen los dos, `oid` tiene prioridad.
+
+---
 
 ## Atributos JSON
 
-| Campo | Tipo     | Obligatorio | Descripción |
-|-------|----------|-------------|-------------|
-| `oid` | `String` | ❌*         | Identificador interno del tipo de dato. Obligatorio si no se incluye el campo `id` |
-| `id`  | `String` | ❌*         | Identificador textual del tipo de dato. Obligatorio si no se incluye el campo `oid` |
+| Campo | Tipo | Obligatorio | Descripción |
+|---|---|:---:|---|
+| `oid` | `String` | :material-close:* | Identificador interno del tipo de dato |
+| `id` | `String` | :material-close:* | Identificador textual del tipo de dato |
 
-## Ejemplo JSON
+---
+
+## Ejemplo
 
 ```json
 {
@@ -20,6 +28,18 @@ Objeto para referenciar a un tipo de dato gestionado por DENA. Ej: Expediente
 }
 ```
 
+---
+
+## Valores estándar de `id`
+
+| `id` | Tipo de dato |
+|---|---|
+| `RECORDS` | Expedientes |
+| `NOTICES` | Notificaciones |
+| `REGISTRY` | Registros oficiales |
+| `PAYMENTS` | Pagos |
+| `SCHEDULE` | Citas |
+
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

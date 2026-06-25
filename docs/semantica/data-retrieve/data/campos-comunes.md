@@ -1,9 +1,9 @@
-# Campos Comunes (Base Fields)
+# :material-database-outline: Campos Comunes (Base Fields)
 
 > - **Versión:** `v0.3.26`
 > - **Fecha:** 2026-06-11
-> - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
-> - **Código:** [DN00DENADataExchangedObjectBase.java](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
+> - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
+> - **Código:** [DN00DENADataExchangedObjectBase.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
 
 ## Descripción
 
@@ -171,13 +171,13 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
 |---------------|--------|-----------|
 | `administrativeServiceProcedureRecord` | Expediente | [expediente.md](./expediente.md) |
 | `administrativeNotice` | Notificación | [notificacion.md](./notificacion.md) |
-| `administrativeOfficialRegistryRecord` | Registro Oficial | [registro-oficial.md](./registro-oficial.md) |
+| `administrativeOfficialRegisterRecord` | Registro Oficial | [registro-oficial.md](./registro-oficial.md) |
 | `oneOffPayment` | Pago único | [pago.md](./pago.md) |
 | `directDebitPayment` | Domiciliación | [pago.md](./pago.md) |
 | `scheduleItem` | Cita | [cita.md](./cita.md) |
 | `personData` | Datos de persona | [persona.md](./persona.md) |
 
-Ver también: [`DN00DataTypeEnum.java`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) — enumerado con todos los tipos de datos disponibles.
+Ver también: [`DN00DataTypeEnum.java`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) — enumerado con todos los tipos de datos disponibles.
 
 
 
@@ -188,22 +188,22 @@ Ver también: [`DN00DataTypeEnum.java`](https://github.com/DENA-Euskadi/dena-com
 
 | Clase | Repositorio |
 |-------|-------------|
-| DN00DENADataExchangedObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) |
-| DN00OrgUnitReference | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) |
-| DN00OrgUnitReferenceWithRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java) |
-| DN00OrgUnitRole | [Ver código](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitRole.java) |
+| DN00DENADataExchangedObjectBase | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) |
+| DN00OrgUnitReference | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) |
+| DN00OrgUnitReferenceWithRole | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java) |
+| DN00OrgUnitRole | [Ver código]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitRole.java) |
 
 
 ---
 
 ## 🧪 Tests y ejemplos
 
-> Repositorio: [DENA-Euskadi/dena-interop-common-data-test](https://github.com/DENA-Euskadi/dena-interop-common-data-test)
+> Repositorio: [DENA-Euskadi/dena-interop-common-data-test]({{ repos.interop_test_tree }})
 
 | Mock Factory | Repositorio |
 |--------------|-------------|
-| DN99DENATestMockObjFactoryForDENADataExchangedObjectBase | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java) |
-| DN99DENATestMockObjFactoryForStateWithDescriptionBase | [Ver código](https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/develop/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForStateWithDescriptionBase.java) |
+| DN99DENATestMockObjFactoryForDENADataExchangedObjectBase | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java) |
+| DN99DENATestMockObjFactoryForStateWithDescriptionBase | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForStateWithDescriptionBase.java) |
 
 
 

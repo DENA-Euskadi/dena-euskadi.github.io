@@ -1,166 +1,178 @@
-# 📘 DENA — Documentación para Administraciones
+---
+hide:
+  - toc
+---
 
-> **Versión:** `v0.3.25`  
-> **Fecha de publicación:** 2026-06-10  
-> **Repositorio:** [DENA-Euskadi/dena-common-docs](https://github.com/DENA-Euskadi/dena-common-docs)
+# DENA Interop — Documentación para Administraciones
+
+<div class="grid cards" markdown>
+
+-   :material-rocket-launch:{ .lg .middle } **¿Primera vez aquí?**
+
+    ---
+
+    Checklist completo: desde instalar el entorno hasta tu primera integración funcionando.
+
+    [:octicons-arrow-right-24: Onboarding](./guia-inicio/onboarding.md)
+
+-   :material-swap-horizontal:{ .lg .middle } **Implementar integración**
+
+    ---
+
+    Endpoints estándar que tu administración debe exponer para comunicarse con DENA.
+
+    [:octicons-arrow-right-24: Semántica](./semantica/index.md)
+
+-   :material-shield-lock:{ .lg .middle } **Configurar autenticación**
+
+    ---
+
+    Flujos OAuth2 entre tu sistema y DENA (client_credentials).
+
+    [:octicons-arrow-right-24: Autenticación](./autenticacion/index.md)
+
+-   :material-wrench:{ .lg .middle } **Herramientas de testing**
+
+    ---
+
+    DevTools, Postman collections y test de conectividad bidireccional.
+
+    [:octicons-arrow-right-24: DevTools](./devtools/index.md)
+
+</div>
 
 ---
 
-## Descripción
+## ¿Qué es DENA?
 
-Documentación técnica y funcional del proyecto **DENA** dirigida a las administraciones públicas que se integran con la plataforma de interoperabilidad.
+**DENA** es la plataforma de interoperabilidad del Gobierno Vasco que permite a las personas usuarias acceder, desde una única aplicación, a los datos que las distintas administraciones públicas gestionan sobre ellas.
+
+``` mermaid
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#FFFFFF"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
+    fontSize: "14px"
+    fontFamily: "Manrope, sans-serif"
+---
+graph LR
+    A[Persona usuaria] -->|App DENA| B(CORE DENA)
+    B -->|Data-Retrieve| C[Administración A]
+    B -->|Data-Retrieve| D[Administración B]
+    C -->|Metadata-Sync| B
+    D -->|Metadata-Sync| B
+    B <-->|Person-Sync| C
+    B <-->|Person-Sync| D
+    
+    style A fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px
+    style B fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px
+    style C fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
+    style D fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
+```
 
 ---
 
-## 📑 Índice de contenido
+## :material-map-marker-path: ¿Qué necesitas hacer?
 
-### 🏗️ Arquitectura
+=== "Servir datos a DENA"
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Índice](./arquitectura/index.md) | Visión general de la arquitectura |
-| [Diagramas](./arquitectura/diagramas.md) | Diagramas de arquitectura del sistema |
-| [Otra documentación](./arquitectura/otra-documentacion.md) | Documentación complementaria |
+    Tu administración expone un endpoint REST para que DENA consulte datos de una persona.
 
-### 🔐 Autenticación
+    **Endpoint:** `POST /api/retrieveData`
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Índice](./autenticacion/index.md) | Visión general de autenticación |
-| [Cliente → CORE DENA](./autenticacion/client-core-dena.md) | Autenticación del cliente contra DENA |
-| [Administración → CORE DENA](./autenticacion/administracion-core-dena/index.md) | Autenticación de la administración contra DENA |
-| [CORE DENA → Administración](./autenticacion/core-dena-administracion/index.md) | Autenticación de DENA contra la administración |
+    [:octicons-arrow-right-24: Documentación Data-Retrieve](./semantica/data-retrieve/index.md)
 
-### 📐 Semántica para Administraciones
+=== "Notificar cambios"
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Índice](./semantica/index.md) | Visión general del modelo semántico |
-| **Data-Retrieve** | |
-| [↳ Índice Data-Retrieve](./semantica/data-retrieve/index.md) | Mecanismo de consulta de datos |
-| [↳ Endpoint](./semantica/data-retrieve/endpoint-data-retrieve.md) | Contrato REST del endpoint |
-| [↳ Validaciones](./semantica/data-retrieve/validaciones.md) | Reglas de formato y validación |
-| [↳ Errores](./semantica/data-retrieve/errores-troubleshooting.md) | Guía de errores y troubleshooting |
-| [↳ Snippets de código](./semantica/data-retrieve/snippets-codigo.md) | Implementación en Java, C#, Python, Node.js, PHP |
-| **Objetos de datos** | |
-| [↳ Campos comunes](./semantica/data-retrieve/data/campos-comunes.md) | Campos heredados por todos los objetos |
-| [↳ Expediente](./semantica/data-retrieve/data/expediente.md) | Expediente administrativo |
-| [↳ Notificación](./semantica/data-retrieve/data/notificacion.md) | Notificación / comunicación oficial |
-| [↳ Registro Oficial](./semantica/data-retrieve/data/registro-oficial.md) | Asiento registral |
-| [↳ Pago](./semantica/data-retrieve/data/pago.md) | Pago único y domiciliación |
-| [↳ Cita](./semantica/data-retrieve/data/cita.md) | Cita previa / elemento de agenda |
-| [↳ Servicio Administrativo](./semantica/data-retrieve/data/servicio-administrativo.md) | Servicio y procedimiento |
-| [↳ Unidad Orgánica](./semantica/data-retrieve/data/unidad-organica.md) | Unidad organizativa |
-| **Metadata-Sync** | |
-| [↳ Índice Metadata-Sync](./semantica/metadata-sync/index.md) | Sincronización de datos |
-| [↳ Endpoint](./semantica/metadata-sync/endpoint-sync-metadata.md) | Contrato REST del endpoint |
-| **Person-Sync** | |
-| [↳ Índice Person-Sync](./semantica/person-sync/index.md) | Sincronización de personas |
-| [↳ Pull](./semantica/person-sync/pull.md) | Modelo pull (administración → DENA) |
-| [↳ Push](./semantica/person-sync/push.md) | Modelo push (DENA → administración) |
-| **Semántica Base** | |
-| [↳ Índice](./semantica/semantica-base/index.md) | Modelo semántico base |
+    Tu sistema notifica a DENA cuando hay nuevos datos disponibles para una persona.
 
-### 🔧 DevTools
+    **Endpoint:** `POST /api/syncMetadata`
 
-| Herramienta | Descripción |
-|-------------|-------------|
-| [Índice](./devtools/index.md) | Herramientas de desarrollo para pruebas e integración |
-| [DENA DevTools Services](./devtools/index.md) | Herramienta web para testing de endpoints HTTP desde infraestructura DENA |
-| [DENA Admin Connection Test](https://github.com/DENA-Euskadi/dena-admin-conx-test) | Herramienta para realizar conexiones de prueba con DENA |
+    [:octicons-arrow-right-24: Documentación Metadata-Sync](./semantica/metadata-sync/index.md)
 
-### 💻 Ejemplos de código
+=== "Sincronizar personas"
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Índice](./ejemplos-codigo/index.md) | Proyecto Java de ejemplos |
+    Mantener actualizado el listado de personas registradas entre DENA y tu administración.
 
-### 📎 Adjuntos
+    **Mecanismos:** Pull (tú consultas) / Push (DENA te notifica)
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Índice](./adjuntos/index.md) | Colecciones Postman, imágenes y recursos |
-| [Colecciones Postman](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman) | Colecciones y environments para facilitar las pruebas de integración |
-| [→ Metadata-Sync](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman) | Colección para sincronización de metadatos |
-| [→ Person-Sync](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman) | Colección para sincronización de personas |
+    [:octicons-arrow-right-24: Documentación Person-Sync](./semantica/person-sync/index.md)
+
+=== "Probar conectividad"
+
+    Validar que la comunicación bidireccional entre tu infraestructura y DENA funciona.
+
+    ```bash
+    curl -X POST http://localhost:8082/api/conxTest \
+      -H "Content-Type: application/json" \
+      -d '{"environment": "PRE"}'
+    ```
+
+    [:octicons-arrow-right-24: Guía de comunicaciones](./guia-inicio/probar-comunicaciones.md)
 
 ---
 
-## 📦 Dependencias
+## :material-lightning-bolt: Inicio rápido
 
-### Framework Base
+!!! tip "5 minutos para validar tu entorno"
 
-| Librería | Versión | Propósito |
-|----------|---------|----------|
-| **Java** | `21+` | Versión mínima del JDK para toda la plataforma DENA |
-| **R01F Framework** | `0.3.25-SNAPSHOT` | Framework base con `OIDBaseMutable`, `LanguageTexts`, utilidades y servicios |
-| **Spring Framework** | `6.1.0` | Framework de aplicaciones empresariales |
-| **Jackson** | `2.15.2` | Serialización/deserialización JSON |
+    ```bash
+    # 1. Clonar el test de conectividad
+    git clone {{ repos.conx_test_clone }}
+    cd dena-admin-conx-test
 
-### Librerías de Desarrollo
+    # 2. Compilar y arrancar
+    mvn clean package -Pstandalone
+    java -jar denaAdminConxTestRESTApp/target/denaAdminConxTestRESTApp-*.war
 
-| Librería | Versión | Propósito |
-|----------|---------|----------|
-| **Lombok** | `1.18.34` | Simplificación de código con anotaciones (`@Getter`, `@Setter`, `@Accessors`) |
-| **SLF4J** | `2.0.9` | API de logging |
-| **JUnit 5** | `5.x` | Framework de pruebas unitarias |
-| **Mockito** | Latest | Framework de mocking para tests |
+    # 3. Verificar
+    curl http://localhost:8082/api/hello
 
-### Maven Plugins
-
-| Plugin | Versión | Propósito |
-|--------|---------|----------|
-| `maven-compiler-plugin` | `3.8.1` | Compilación de fuentes Java 21 |
-| `maven-surefire-plugin` | `3.0.0-M3` | Ejecución de tests unitarios |
-| `flatten-maven-plugin` | `1.1.0` | Gestión de versiones con `${revision}` |
-| `build-helper-maven-plugin` | `1.7` | Inclusión de recursos adicionales |
-| `versions-maven-plugin` | `2.7` | Gestión de versiones de dependencias |
-
-### Repositorios Maven
-
-| Repositorio | URL | Propósito |
-|-------------|-----|----------|
-| **Maven Central** | `https://repo.maven.apache.org/maven2` | Dependencias públicas estándar |
-| **Spring Milestones** | `https://repo.spring.io/milestone` | Dependencias de Spring Framework |
-| **EJIE Releases** | `https://bin.alm80.itbatera.euskadi.eus/repository/in-house-80-app-releases/` | Artefactos DENA y R01F estables |
-| **EJIE Snapshots** | `https://bin.alm80.itbatera.euskadi.eus/repository/in-house-80-app-snapshots/` | Artefactos DENA y R01F en desarrollo |
-| **EJIE Group** | `https://bin.alm80.itbatera.euskadi.eus/repository/in-house-80-app-group/` | Agregador de repositorios EJIE |
-
-### Profiles Maven
-
-- **Default Profile** - Para desarrollo local con versiones `SNAPSHOT`
-- **batsdlc Profile** - Para compilaciones en GitLab CI/CD con versiones específicas
+    # 4. Test contra DENA PRE
+    curl -X POST http://localhost:8082/api/conxTest \
+      -H "Content-Type: application/json" \
+      -d '{"environment": "PRE"}'
+    ```
 
 ---
 
-## Sobre esta documentación
+## :material-sitemap: Mapa de documentación
 
-Este repositorio recoge la documentación pública de DENA orientada a las administraciones que se integran con la plataforma:
-
-- **Arquitectura** — Diagramas y documentación de la estructura del sistema
-- **Autenticación** — Flujos OAuth2 entre los distintos actores (Cliente, CORE DENA, Administraciones)
-- **Semántica** — Modelo de datos, endpoints REST, validaciones y snippets de código
-- **DevTools** — Herramientas de desarrollo para facilitar las pruebas e integración con DENA
-- **Ejemplos de código** — Proyecto de referencia para implementar la integración
-- **Adjuntos** — Colecciones y environments Postman para facilitar las pruebas de integración, imágenes y recursos complementarios
+| Sección | Contenido |
+|---|---|
+| [:material-play-circle: Guía de inicio](./guia-inicio/onboarding.md) | Onboarding, instalación, comunicaciones, mock |
+| [:material-cube-outline: Arquitectura](./arquitectura/index.md) | Visión general, diagramas, módulos del sistema |
+| [:material-shield-lock: Autenticación](./autenticacion/index.md) | OAuth2 client_credentials, flujos Admin ↔ DENA |
+| [:material-code-braces: Semántica](./semantica/index.md) | Data-Retrieve, Metadata-Sync, Person-Sync |
+| [:material-wrench: DevTools](./devtools/index.md) | Herramienta web de testing HTTP desde DENA |
+| [:material-book-open-variant: Referencia](./referencia/faq.md) | FAQ, Glosario, Troubleshooting, Changelog, Matriz |
+| [:material-file-code: Ejemplos](./ejemplos-codigo/index.md) | Proyecto Java de referencia |
+| [:material-paperclip: Adjuntos](./adjuntos/index.md) | Postman collections, environments, imágenes |
 
 ---
 
-## Histórico de versiones
+## :material-server-network: Stack tecnológico
 
-| Versión | Fecha | Descripción |
-|---------|-------|-------------|
-| `v0.3.25` | 2026-06-10 | Documentación DATA-RETRIEVE, PERSON-SYNC, DATA-SYNC |
+| Componente | Versión |
+|---|---|
+| :fontawesome-brands-java: Java | 21+ |
+| :simple-spring: Spring Boot | 3.3.5 |
+| :simple-apachemaven: Maven | 3.9+ |
+| :material-code-json: Jackson | 2.19.x |
 
-
-
-
-
-
-
-
-
-
-<!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+
+!!! info "Entornos DENA"
+
+    | Entorno | Internet | Euskalsarea |
+    |---|---|---|
+    | **PRE** | `https://api-batera.pre.dena.eus` | `https://api-batera.pre.batera.euskalsarea.eus` |
+    | **PRO** | `https://api-batera.pro.dena.eus` | `https://api-batera.pro.batera.euskalsarea.eus` |
+
+---
+
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

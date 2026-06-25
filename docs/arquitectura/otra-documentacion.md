@@ -1,18 +1,15 @@
-# Otra documentación de arquitectura
+# :material-file-document-multiple: Otra documentación de arquitectura
 
-Documentos complementarios: decisiones técnicas, principios, restricciones, etc.
+Documentos complementarios: decisiones técnicas, principios y restricciones.
 
-> Las decisiones formales se registran como ADR en `ArchitectureDecisionRecords/`.
+---
 
+!!! info "Architecture Decision Records"
 
+    Las decisiones formales de arquitectura se registran como ADR en el directorio [`ArchitectureDecisionRecords/`]({{ repos.docs_main }}/ArchitectureDecisionRecords).
 
-
-
-
-
-
-
+    Formato utilizado: [MADR (Markdown Architectural Decision Records)](https://adr.github.io/madr/)
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

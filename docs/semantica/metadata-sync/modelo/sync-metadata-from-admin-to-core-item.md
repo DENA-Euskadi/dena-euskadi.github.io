@@ -31,10 +31,10 @@ flowchart LR
     style TYPE fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
     style MESSAGE fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
-    click ADMIN "../../semantica-base/modelo/org-admin-ref.md" "Ver OrgAdminRef"
-    click PERSON "../../semantica-base/modelo/person-ref.md" "Ver PersonRef"
-    click TYPE "../../semantica-base/modelo/data-type-ref.md" "Ver DataTypeRef"
-    click MESSAGE "./pop-message-after-sync-spec.md" "Ver PopMessageAfterSyncSpec"
+    click ADMIN "../../semantica-base/modelo/org-admin-ref/" "Ver OrgAdminRef"
+    click PERSON "../../semantica-base/modelo/person-ref/" "Ver PersonRef"
+    click TYPE "../../semantica-base/modelo/data-type-ref/" "Ver DataTypeRef"
+    click MESSAGE "../modelo/pop-message-after-sync-spec/" "Ver PopMessageAfterSyncSpec"
 ```
 
 | Color | Significado |
@@ -81,4 +81,4 @@ flowchart LR
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

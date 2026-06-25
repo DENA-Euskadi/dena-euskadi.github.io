@@ -1,8 +1,12 @@
-# Semántica Base
+# :material-shape: Semántica Base
 
-## Semantica servicios REST
+> **Versión:** `v0.3.26` · **Fecha:** 2026-06-11
 
-Todas las peticiones y respuestas de los servicios REST se realizaran con una estructura base igual, que contendra información de contexto, así como los datos concretos de dicha petición o respuesta. La estructura es la siguiente:
+---
+
+## Estructura de los servicios REST
+
+Todas las peticiones y respuestas de los servicios REST comparten una estructura base con información de **contexto** y **datos**:
 
 ```mermaid
 ---
@@ -16,24 +20,23 @@ config:
     fontSize: "12px"
 ---
 flowchart LR
-    ROOT["<b>REST Message</b>"]
-    
-    ROOT --> CONTEXT["<b>Context</b>"]
-    
-    ROOT --> DATA["<b>Data</b><br/><i>payload</i>"]
-    
-    CONTEXT --> MESSAGE_TYPE["<b>messageType</b><br/>String"]
-    CONTEXT --> DATA_TYPE["<b>dataType</b><br/>DataTypeRef"]
-    CONTEXT --> MESSAGE_CORRELATION_ID["<b>messageCorrelationId</b><br/>UUID"]
-    CONTEXT --> FLOW_DIRECTION["<b>flowDirection</b><br/>REQUEST/RESPONSE"]
-    CONTEXT --> ORIGIN_PARTY_ID["<b>originPartyId</b><br/>String"]
-    CONTEXT --> DESTINATION_PARTY_ID["<b>destinationPartyId</b><br/>String"]
-    CONTEXT --> SUBJECT_PERSON["<b>subjectPerson</b><br/>PersonRef"]
-    CONTEXT --> ADMINISTRATION["<b>administration</b><br/>OrgAdminRef"]
-    CONTEXT --> INTEROP_ROUTE_DATA["<b>interopRouteData</b><br/>Array"]
-    
+    ROOT["REST Message"]
+
+    ROOT --> CONTEXT["Context"]
+    ROOT --> DATA["Data<br/><i>payload</i>"]
+
+    CONTEXT --> MESSAGE_TYPE["messageType<br/>String"]
+    CONTEXT --> DATA_TYPE["dataType<br/>DataTypeRef"]
+    CONTEXT --> MESSAGE_CORRELATION_ID["messageCorrelationId<br/>UUID"]
+    CONTEXT --> FLOW_DIRECTION["flowDirection<br/>REQUEST/RESPONSE"]
+    CONTEXT --> ORIGIN_PARTY_ID["originPartyId<br/>String"]
+    CONTEXT --> DESTINATION_PARTY_ID["destinationPartyId<br/>String"]
+    CONTEXT --> SUBJECT_PERSON["subjectPerson<br/>PersonRef"]
+    CONTEXT --> ADMINISTRATION["administration<br/>OrgAdminRef"]
+    CONTEXT --> INTEROP_ROUTE_DATA["interopRouteData<br/>Array"]
+
     INTEROP_ROUTE_DATA --> IRDITEM["denaComponentId<br/>timestamp"]
-    
+
     style ROOT fill:#fff2cc,stroke:#d6b656,color:#000000,rx:8,ry:8
     style CONTEXT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
     style DATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
@@ -50,74 +53,111 @@ flowchart LR
 ```
 
 | Color | Significado |
-|-------|-------------|
-| 🟡 Amarillo | Estructura raíz (REST Message) |
-| 🔵 Azul claro | Objetos principales (Context y Data) |
-| 🔴 Rojo claro | Campos primitivos y referencias |
-| 🟣 Violeta | Arrays |
+|---|---|
+| :yellow_circle: Amarillo | Estructura raíz (REST Message) |
+| :blue_circle: Azul claro | Objetos principales (Context y Data) |
+| :red_circle: Rojo claro | Campos primitivos y referencias |
+| :purple_circle: Violeta | Arrays |
+
+---
 
 ## Ejemplo JSON
 
-```json
-{
-  "context": {
-    "interopRouteData": [
-        {
+!!! example "Estructura base de una petición"
+
+    ```json
+    {
+      "context": {
+        "interopRouteData": [
+          {
             "denaComponentId": "DENA_POSTMAN",
             "denaTS": 1779382284684
-        }
-    ],
-    "messageCorrelationId": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
-    "messageType": "CLIENT_LOGIN",
-    "flowDirection": "REQUEST",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-    "originPartyId": "DENA_POSTMAN",
-    "destinationPartyId": "DENA_INTEROP",
-    "clientDeviceOid": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" }
-  },
-  "data": {
-    <payload>
-  }
-}
-```
+          }
+        ],
+        "messageCorrelationId": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
+        "messageType": "CLIENT_LOGIN",
+        "flowDirection": "REQUEST",
+        "userAgent": "Mozilla/5.0 ...",
+        "originPartyId": "DENA_POSTMAN",
+        "destinationPartyId": "DENA_INTEROP",
+        "clientDeviceOid": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
+        "dataType": { "dataTypeId": "RECORDS" },
+        "subjectPerson": { "personId": "12345678A" },
+        "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" }
+      },
+      "data": {
+        ...
+      }
+    }
+    ```
 
-| Campo     | Tipo                | Obligatorio | Descripción |
-|-----------|---------------------|-------------|-------------|
-| `context` | [Context](#context) | ✅          | Objeto de contexto de la petición |
-| `data`    | `Objeto`            | ✅          | Payload de la petición o datos de la respuesta |
+---
+
+## Campos del mensaje
+
+| Campo | Tipo | Obligatorio | Descripción |
+|---|---|:---:|---|
+| `context` | [Context](#context) | :material-check: | Objeto de contexto de la petición |
+| `data` | `Objeto` | :material-check: | Payload de la petición o datos de la respuesta |
+
+---
 
 ## Context
 
-| Campo                  | Tipo           | Obligatorio | Descripción |
-|------------------------|----------------|-------------|-------------|
-| `interopRouteData`     | `Objeto`       | ✅          | Listado con los ids de cada componente por los que ha pasado la petición, y el timestamp que indica en que momento del tiempo llego a cada componente la llamada |
-| `messageCorrelationId` | `String(UUID)` | ✅          | Id de correlación para asociar todas las llamadas que se realicen debido a una petición, en formato UUID |
-| `messageType`          | `String`       | ✅          | Tipo de mensaje enviado en el objecto "data" |
-| `flowDirection`        | `String`       | ✅          | Indica si el mensaje es una petición (REQUEST) o respuesta (RESPONSE) |
-| `userAgent`            | `String`       | ✅          | User Agent del dispositivo en el que se origina la petición |
-| `originPartyId`        | `String`       | ✅          | Identificador del origen de la petición. Ej: DENA_WEBAPP |
-| `destinationPartyId`   | `String`       | ✅          | Identificador del destino de la petición. Ej: DENA_INTEROP |
-| `clientDeviceOid`      | `String`       | ❌          | Oid del dispositivo desde el que se inicia la petición |
-| `dataType`             | [DataTypeRef](./modelo/data-type-ref.md) | ❌          | Tipo de dato semantico que solicita o envía la petición, cuando sea aplicable |
-| `subjectPerson`        | [PersonRef](./modelo/person-ref.md) | ❌          | Referencia a la persona sobre la que se solicitan o envían datos, cuando sea aplicable |
-| `administration`       | [OrgAdminRef](./modelo/org-admin-ref.md) | ❌          | Referencia a la administración a la que se solicitan datos, cuando sea aplicable |
+| Campo | Tipo | Obligatorio | Descripción |
+|---|---|:---:|---|
+| `interopRouteData` | `Array` | :material-check: | Listado de componentes por los que ha pasado la petición con su timestamp |
+| `messageCorrelationId` | `String(UUID)` | :material-check: | Id de correlación para asociar todas las llamadas derivadas de una petición |
+| `messageType` | `String` | :material-check: | Tipo de mensaje enviado en el objeto `data` |
+| `flowDirection` | `String` | :material-check: | Indica si es petición (`REQUEST`) o respuesta (`RESPONSE`) |
+| `userAgent` | `String` | :material-check: | User Agent del dispositivo origen |
+| `originPartyId` | `String` | :material-check: | Identificador del origen (ej: `DENA_WEBAPP`) |
+| `destinationPartyId` | `String` | :material-check: | Identificador del destino (ej: `DENA_INTEROP`) |
+| `clientDeviceOid` | `String` | :material-close: | OID del dispositivo origen |
+| `dataType` | [DataTypeRef](./modelo/data-type-ref.md) | :material-close: | Tipo de dato semántico solicitado |
+| `subjectPerson` | [PersonRef](./modelo/person-ref.md) | :material-close: | Persona sobre la que se solicitan datos |
+| `administration` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Administración destino |
 
 ---
 
 ## Modelos comunes
 
-A continuación se detallan los modelos comunes utilizados en varios servicios REST:
+<div class="grid cards" markdown>
 
-| Modelo | Descripción |
-|--------|-------------|
-| [DataTypeRef](./modelo/data-type-ref.md) | Referencia a un tipo de dato |
-| [OrgAdminRef](./modelo/org-admin-ref.md) | Referencia a una administración |
-| [PersonRef](./modelo/person-ref.md) | Referencia a una persona |
-| [LanguageTexts](./modelo/language-texts.md) | Mensajes o textos en multiples idiomas |
+-   :material-tag:{ .lg .middle } **DataTypeRef**
+
+    ---
+
+    Referencia a un tipo de dato gestionado por DENA.
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/data-type-ref.md)
+
+-   :material-domain:{ .lg .middle } **OrgAdminRef**
+
+    ---
+
+    Referencia a una administración.
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/org-admin-ref.md)
+
+-   :material-account:{ .lg .middle } **PersonRef**
+
+    ---
+
+    Referencia a una persona registrada.
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/person-ref.md)
+
+-   :material-translate:{ .lg .middle } **LanguageTexts**
+
+    ---
+
+    Textos en múltiples idiomas (castellano, euskera, inglés).
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/language-texts.md)
+
+</div>
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

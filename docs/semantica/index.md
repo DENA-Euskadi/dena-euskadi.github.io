@@ -1,4 +1,4 @@
-# 📐 Semántica para las Administraciones
+# :material-code-braces: Semántica para las Administraciones
 
 Definición semántica de los objetos y servicios intercambiados entre **CORE DENA** y las **Administraciones Públicas**.
 
@@ -12,115 +12,121 @@ config:
   theme: base
   themeVariables:
     primaryColor: "#FFFFFF"
-    primaryTextColor: "#000000"
-    primaryBorderColor: "#CCCCCC"
-    lineColor: "#4A4A4A"
-    fontSize: "13px"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
+    fontSize: "14px"
+    fontFamily: "Manrope, sans-serif"
 ---
 flowchart TD
-    BASE["<b>Semántica Base</b><br/><i>Objetos comunes compartidos</i>"]
+    BASE["Semántica Base<br/><i>Objetos comunes compartidos</i>"]
 
-    BASE --> DR["<b>DATA-RETRIEVE</b><br/><i>Consulta de datos<br/>de persona ciudadana</i>"]
-    BASE --> DS["<b>METADATA-SYNC</b><br/><i>Sincronización de metadatos<br/>entre DENA y administraciones</i>"]
-    BASE --> PS["<b>PERSON-SYNC</b><br/><i>Sincronización de<br/>personas</i>"]
+    BASE --> DR["DATA-RETRIEVE<br/><i>Consulta de datos<br/>de persona ciudadana</i>"]
+    BASE --> DS["METADATA-SYNC<br/><i>Sincronización de metadatos<br/>entre DENA y administraciones</i>"]
+    BASE --> PS["PERSON-SYNC<br/><i>Sincronización de<br/>personas</i>"]
 
-    style BASE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:8,ry:8
-    style DR fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
-    style DS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
-    style PS fill:#d5e8d4,stroke:#82b366,color:#000000,rx:8,ry:8
-
-    click DR "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/index.md" "Ver DATA-RETRIEVE"
-    click DS "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/metadata-sync/index.md" "Ver METADATA-SYNC"
-    click PS "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/person-sync/index.md" "Ver PERSON-SYNC"
-    click BASE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/semantica-base/index.md" "Ver Semántica Base"
+    style BASE fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
+    style DR fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DS fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PS fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
 ```
 
 | Color | Significado |
-|-------|-------------|
-| 🟣 Violeta | Modelo base compartido |
-| 🟠 Naranja | DATA-RETRIEVE (consulta) |
-| 🔵 Azul claro | METADATA-SYNC (sincronización de metadatos) |
-| 🟢 Verde | PERSON-SYNC (sincronización de personas) |
+|---|---|
+| :purple_circle: Violeta | Modelo base compartido |
+| :orange_circle: Naranja | DATA-RETRIEVE (consulta) |
+| :blue_circle: Azul claro | METADATA-SYNC (sincronización de metadatos) |
+| :green_circle: Verde | PERSON-SYNC (sincronización de personas) |
 
 ---
 
-## 📑 Contenido
+## Módulos
 
-### Semántica Base
+<div class="grid cards" markdown>
 
-Objetos y definiciones compartidas por todas las semánticas.
+-   :material-database-arrow-right:{ .lg .middle } **DATA-RETRIEVE**
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Índice](./semantica-base/index.md) | Modelo base |
-| [Modelo](./semantica-base/modelo/index.md) | Definición de objetos base |
+    ---
+
+    DENA solicita datos de una persona a la administración. La administración expone un endpoint REST estándar.
+
+    [:octicons-arrow-right-24: Documentación](./data-retrieve/index.md)
+
+-   :material-sync:{ .lg .middle } **METADATA-SYNC**
+
+    ---
+
+    La administración notifica a DENA cuando hay cambios en datos de una persona.
+
+    [:octicons-arrow-right-24: Documentación](./metadata-sync/index.md)
+
+-   :material-account-sync:{ .lg .middle } **PERSON-SYNC**
+
+    ---
+
+    Sincronización del listado de personas registradas. Mecanismos Pull y Push.
+
+    [:octicons-arrow-right-24: Documentación](./person-sync/index.md)
+
+-   :material-shape:{ .lg .middle } **Semántica Base**
+
+    ---
+
+    Objetos y definiciones compartidas por todas las semánticas.
+
+    [:octicons-arrow-right-24: Documentación](./semantica-base/index.md)
+
+</div>
 
 ---
+
+## Índice detallado
 
 ### DATA-RETRIEVE
 
-Mecanismo mediante el cual DENA solicita datos de una persona ciudadana a la administración.
-
 | Documento | Descripción |
-|-----------|-------------|
-| [Índice](./data-retrieve/index.md) | Visión general, flujo y modelo de datos |
+|---|---|
+| [Visión general](./data-retrieve/index.md) | Flujo, modelo de datos y estructura |
 | [Endpoint](./data-retrieve/endpoint-data-retrieve.md) | Contrato REST: request, response, códigos HTTP |
-| [Validaciones](./data-retrieve/validaciones.md) | Reglas de formato, campos obligatorios, coherencia |
-| [Errores](./data-retrieve/errores-troubleshooting.md) | Guía de errores comunes y resolución |
-| [Snippets](./data-retrieve/snippets-codigo.md) | Implementación en Java, C#, Python, Node.js, PHP |
+| [Guía de implementación](./data-retrieve/guia-implementacion.md) | Paso a paso para la administración |
+| [Validaciones](./data-retrieve/validaciones.md) | Reglas de formato y campos obligatorios |
+| [Errores y troubleshooting](./data-retrieve/errores-troubleshooting.md) | Guía de errores comunes |
+| [Snippets de código](./data-retrieve/snippets-codigo.md) | Java, C#, Python, Node.js, PHP |
 
-**Objetos de datos:**
+??? note "Objetos de datos"
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Campos comunes](./data-retrieve/data/campos-comunes.md) | Campos heredados (oid, id, urls, refs) |
-| [Expediente](./data-retrieve/data/expediente.md) | Expediente administrativo |
-| [Notificación](./data-retrieve/data/notificacion.md) | Notificación / comunicación oficial |
-| [Registro Oficial](./data-retrieve/data/registro-oficial.md) | Asiento registral |
-| [Pago](./data-retrieve/data/pago.md) | Pago único y domiciliación |
-| [Cita](./data-retrieve/data/cita.md) | Cita previa / elemento de agenda |
-| [Servicio Administrativo](./data-retrieve/data/servicio-administrativo.md) | Servicio y procedimiento |
-| [Unidad Orgánica](./data-retrieve/data/unidad-organica.md) | Unidad organizativa |
-
----
+    | Objeto | Documento |
+    |---|---|
+    | Campos comunes | [campos-comunes.md](./data-retrieve/data/campos-comunes.md) |
+    | Expediente | [expediente.md](./data-retrieve/data/expediente.md) |
+    | Notificación | [notificacion.md](./data-retrieve/data/notificacion.md) |
+    | Registro Oficial | [registro-oficial.md](./data-retrieve/data/registro-oficial.md) |
+    | Pago | [pago.md](./data-retrieve/data/pago.md) |
+    | Cita | [cita.md](./data-retrieve/data/cita.md) |
+    | Servicio Administrativo | [servicio-administrativo.md](./data-retrieve/data/servicio-administrativo.md) |
+    | Unidad Orgánica | [unidad-organica.md](./data-retrieve/data/unidad-organica.md) |
 
 ### METADATA-SYNC
 
-Sincronización de datos entre DENA y las administraciones.
-
 | Documento | Descripción |
-|-----------|-------------|
-| [Índice](./metadata-sync/index.md) | Visión general |
-| [Endpoint](./semantica/metadata-sync/endpoint-sync-metadata.md) | Contrato REST del endpoint |
-
----
+|---|---|
+| [Visión general](./metadata-sync/index.md) | Flujo de notificación de cambios |
+| [Endpoint](./metadata-sync/endpoint-sync-metadata.md) | Contrato REST del endpoint |
 
 ### PERSON-SYNC
 
-Sincronización de datos de personas entre DENA y las administraciones.
-
 | Documento | Descripción |
-|-----------|-------------|
-| [Índice](./person-sync/index.md) | Visión general |
-| [Push](./person-sync/modelo/push.md) | Modelo push (DENA → administración) |
-| [Pull](./person-sync/modelo/pull.md) | Modelo pull (administración → DENA) |
+|---|---|
+| [Visión general](./person-sync/index.md) | Mecanismos Pull y Push |
+| [Push](./person-sync/push.md) | DENA → Administración |
+| [Pull](./person-sync/pull.md) | Administración → DENA |
 
 ---
 
-### Otra documentación
+## Otra documentación
 
-| Documento | Descripción |
-|-----------|-------------|
-| [Otra documentación](./otra-documentacion.md) | Documentación complementaria |
-
-
-
-
-
-
-
-
+- [Documentación complementaria](./otra-documentacion.md)
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

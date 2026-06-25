@@ -1,41 +1,80 @@
-# PERSON-SYNC
+# :material-account-sync: PERSON-SYNC
+
+> **Versión:** `v0.3.26` · **Fecha:** 2026-06-11
+
+---
 
 ## ¿Qué es?
 
-**Person-Sync** es el que mecanismo que permite a las administraciones sincronizar las personas registradas en DENA en sus sistemas y mantenerlos actualizados, para poder notificar a DENA las actualizaciones en los datos asociados a esas personas.
+**Person-Sync** permite a las administraciones sincronizar las personas registradas en DENA en sus sistemas, para poder notificar a DENA las actualizaciones en los datos asociados a esas personas.
 
-Para ello se ofrecen dos mecanismos:
- - [Pull](./pull.md): La administración se encargará de conectar con DENA y descargarse los datos de los usuarios. Se generarán periodicamente ficheros con los cambios incrementales para un periodo determinado de tiempo. Ademas, en caso de ser necesario, se ofrece la posibilidad de solicitar la generación de ficheros a medida, indicando los filtros a aplicar, como el horizonte temporal que se requiere.
- - [Push](./push.md): En caso de que la administración provea un endpoint para la notificación de cambios, se podrá configurar en DENA el envío de estos en el momento que se produzcan.
+``` mermaid
+---
+config:
+  theme: base
+  themeVariables:
+    primaryColor: "#FFFFFF"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
+    fontSize: "14px"
+    fontFamily: "Manrope, sans-serif"
+---
+graph LR
+    DENA[CORE DENA] -->|Push: notifica cambios| Admin[Administración]
+    Admin -->|Pull: descarga personas| DENA
+    
+    style DENA fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px
+    style Admin fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
+```
 
 ---
 
-## Documentación
+## Mecanismos
 
-### Endpoints Pull
+=== ":material-download: Pull (Administración → DENA)"
+
+    La administración se conecta a DENA y descarga los datos de personas.
+
+    - Ficheros pregenerados con cambios incrementales (periódicos)
+    - Posibilidad de solicitar ficheros a medida con filtros personalizados
+
+    [:octicons-arrow-right-24: Documentación Pull](./pull.md)
+
+=== ":material-upload: Push (DENA → Administración)"
+
+    DENA notifica proactivamente a la administración cuando se registra una persona nueva o se producen cambios.
+
+    - La administración expone un endpoint de recepción
+    - DENA envía la notificación en el momento del cambio
+
+    [:octicons-arrow-right-24: Documentación Push](./push.md)
+
+---
+
+## Endpoints
+
+### Pull
 
 | Documento | Contenido |
-|-----------|-----------|
-| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Endpoint de descarga de ficheros pregenerados |
-| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Endpoint de creación de solicitud de exportación a medida |
-| [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Endpoint de consulta de estado de solicitudes de exportación a medida |
-| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Endpoint de descarga de ficheros generados por solicitudes de exportación a medida |
+|---|---|
+| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Descarga de ficheros pregenerados |
+| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Solicitud de exportación a medida |
+| [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Consulta de estado de solicitudes |
+| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Descarga de ficheros a medida |
 
-### Endpoints Push
+### Push
 
 | Documento | Contenido |
-|-----------|-----------|
-| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Contrato del endpoint de envío de actualizaciones: request, response, ejemplos JSON y códigos HTTP |
+|---|---|
+| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Contrato del endpoint de recepción |
 
-### Postman
+---
 
-Colección y environment Postman en [`docs/adjuntos/postman/`](https://github.com/DENA-Euskadi/dena-common-docs/tree/main/docs/adjuntos/postman).
+!!! tip "Postman"
 
-### Documentación Swagger
-
-<!-- Enlace al Swagger / OpenAPI -->
-
+    Colección y environment Postman disponibles en [`docs/adjuntos/postman/`]({{ repos.docs_tree }}/docs/adjuntos/postman).
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

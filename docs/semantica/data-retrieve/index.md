@@ -1,7 +1,6 @@
-# DATA-RETRIEVE
+# :material-database-arrow-right: DATA-RETRIEVE
 
-> - **Versión:** `v0.3.26`
-> - **Fecha:** 2026-06-11
+> **Versión:** `v0.3.26` · **Fecha:** 2026-06-11
 
 ## ¿Qué es?
 
@@ -29,10 +28,11 @@ config:
   theme: base
   themeVariables:
     primaryColor: "#FFFFFF"
-    primaryTextColor: "#000000"
-    primaryBorderColor: "#CCCCCC"
-    lineColor: "#4A4A4A"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
     fontSize: "13px"
+    fontFamily: "Manrope, sans-serif"
     edgeLabelBackground: "#FFFFFF"
 ---
 flowchart LR
@@ -43,7 +43,7 @@ flowchart LR
 
     RECORD["Record\n(expediente)"]
     NOTICE["Administrative Notice\n(notificación)"]
-    REGISTRY["Official Registry\n(registros)"]
+    REGISTRY["Official Register\n(registros)"]
     PAYBASE["Payment BASE"]
     SCHEDULE["Schedule\n(calendario)"]
 
@@ -72,29 +72,29 @@ flowchart LR
     REGISTRY --> PROC
     PAYBASE --> PROC
 
-    click RECORD "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver documentación de Expediente"
-    click NOTICE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/notificacion.md" "Ver documentación de Notificación"
-    click REGISTRY "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/registro-oficial.md" "Ver documentación de Registro Oficial"
-    click PAYBASE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Pagos"
-    click ONEOFF "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Pago Único"
-    click DIRECTDEBIT "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Domiciliación"
-    click SCHEDULE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/cita.md" "Ver documentación de Cita"
-    click SRV "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/servicio-administrativo.md" "Ver documentación de Servicio"
-    click PROC "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/servicio-administrativo.md" "Ver documentación de Procedimiento"
-    click BASE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/campos-comunes.md" "Ver campos comunes heredados"
+    click RECORD "./data/expediente/" "Ver documentación de Expediente"
+    click NOTICE "./data/notificacion/" "Ver documentación de Notificación"
+    click REGISTRY "./data/registro-oficial/" "Ver documentación de Registro Oficial"
+    click PAYBASE "./data/pago/" "Ver documentación de Pagos"
+    click ONEOFF "./data/pago/" "Ver documentación de Pago Único"
+    click DIRECTDEBIT "./data/pago/" "Ver documentación de Domiciliación"
+    click SCHEDULE "./data/cita/" "Ver documentación de Cita"
+    click SRV "./data/servicio-administrativo/" "Ver documentación de Servicio"
+    click PROC "./data/servicio-administrativo/" "Ver documentación de Procedimiento"
+    click BASE "./data/campos-comunes/" "Ver campos comunes heredados"
 
-    style IFACE fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:10,ry:10
-    style BASE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:10,ry:10
-    style RECORD fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:10,ry:10
-    style NOTICE fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:10,ry:10
-    style REGISTRY fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:10,ry:10
-    style PAYBASE fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:10,ry:10
-    style SCHEDULE fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:10,ry:10
-    style ONEOFF fill:#f8cecc,stroke:#b85450,color:#000000,rx:10,ry:10
-    style DIRECTDEBIT fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:10,ry:10
-    style SRVBASE fill:#f5f5f5,stroke:#666666,color:#000000,rx:10,ry:10
-    style SRV fill:#f5f5f5,stroke:#666666,color:#000000,rx:10,ry:10
-    style PROC fill:#f5f5f5,stroke:#666666,color:#000000,rx:10,ry:10
+    style IFACE fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style BASE fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:10,ry:10
+    style RECORD fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style NOTICE fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style REGISTRY fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style PAYBASE fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style SCHEDULE fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style ONEOFF fill:#ffcccc,stroke:#d8704a,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style DIRECTDEBIT fill:#e1d5e7,stroke:#9673a6,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style SRVBASE fill:#f0f0f0,stroke:#7a8477,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style SRV fill:#f0f0f0,stroke:#7a8477,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
+    style PROC fill:#f0f0f0,stroke:#7a8477,color:#1a4d1f,stroke-width:2px,rx:10,ry:10
 ```
 
 | Color | Significado |
@@ -114,39 +114,39 @@ flowchart LR
 
 ## Documentación
 
-### Guía de implementación
+!!! tip "Empieza aquí"
 
-| Documento | Contenido |
-|-----------|----------|
-| [📖 **guia-implementacion.md**](./guia-implementacion.md) | **Guía paso a paso** para que una administración implemente el endpoint |
+    [:octicons-arrow-right-24: **Guía de implementación paso a paso**](./guia-implementacion.md) — Todo lo que necesitas para implementar el endpoint en tu administración.
 
 ### Endpoint
 
 | Documento | Contenido |
-|-----------|-----------|
-| [endpoint-data-retrieve.md](./endpoint-data-retrieve.md) | Contrato del endpoint: request, response, ejemplos JSON y códigos HTTP |
+|---|---|
+| [:octicons-arrow-right-24: Endpoint](./endpoint-data-retrieve.md) | Contrato REST: request, response, ejemplos JSON y códigos HTTP |
 
 ### Objetos de datos
 
-| Objeto | Descripción | Documento |
-|--------|-------------|-----------|
-| **Expediente** | Expediente administrativo en tramitación | [expediente.md](./data/expediente.md) |
-| **Notificación** | Notificación oficial o comunicación | [notificacion.md](./data/notificacion.md) |
-| **Registro Oficial** | Asiento registral de entrada/salida | [registro-oficial.md](./data/registro-oficial.md) |
-| **Pago** | Pago único o domiciliación bancaria | [pago.md](./data/pago.md) |
-| **Cita** | Cita previa o elemento de agenda | [cita.md](./data/cita.md) |
-| **Persona** | Datos de la persona ciudadana (contacto, dirección, bancarios) | [persona.md](./data/persona.md) |
-| **Servicio Administrativo** | Servicio y procedimiento | [servicio-administrativo.md](./data/servicio-administrativo.md) |
-| **Unidad Orgánica** | Unidad organizativa participante | [unidad-organica.md](./data/unidad-organica.md) |
+??? note "Ver todos los objetos de datos"
+
+    | Objeto | Descripción | Documento |
+    |---|---|---|
+    | **:material-folder-open: Expediente** | Expediente administrativo en tramitación | [expediente.md](./data/expediente.md) |
+    | **:material-email-open: Notificación** | Notificación oficial o comunicación | [notificacion.md](./data/notificacion.md) |
+    | **:material-book-open-page-variant: Registro Oficial** | Asiento registral de entrada/salida | [registro-oficial.md](./data/registro-oficial.md) |
+    | **:material-credit-card: Pago** | Pago único o domiciliación bancaria | [pago.md](./data/pago.md) |
+    | **:material-calendar-clock: Cita** | Cita previa o elemento de agenda | [cita.md](./data/cita.md) |
+    | **:material-account-circle: Persona** | Datos de la persona ciudadana | [persona.md](./data/persona.md) |
+    | **:material-cog: Servicio Administrativo** | Servicio y procedimiento | [servicio-administrativo.md](./data/servicio-administrativo.md) |
+    | **:material-office-building: Unidad Orgánica** | Unidad organizativa participante | [unidad-organica.md](./data/unidad-organica.md) |
 
 ### Guías complementarias
 
 | Documento | Contenido |
-|-----------|-----------|
-| [campos-comunes.md](./data/campos-comunes.md) | Campos heredados por todos los objetos (OID, ID, URLs, refs) |
-| [validaciones.md](./validaciones.md) | Reglas de validación, formatos y restricciones |
-| [errores-troubleshooting.md](./errores-troubleshooting.md) | Guía de errores comunes y resolución |
-| [snippets-codigo.md](./snippets-codigo.md) | Snippets de implementación en Java, C#, Python, Node.js y PHP |
+|---|---|
+| [:material-database-outline: Campos comunes](./data/campos-comunes.md) | Campos heredados por todos los objetos (OID, ID, URLs, refs) |
+| [Validaciones](./validaciones.md) | Reglas de validación, formatos y restricciones |
+| [Errores y troubleshooting](./errores-troubleshooting.md) | Guía de errores comunes y resolución |
+| [Snippets de código](./snippets-codigo.md) | Implementación en Java, C#, Python, Node.js y PHP |
 
 ---
 
@@ -163,7 +163,7 @@ flowchart LR
 |--------------|-----------------|
 | `RECORDS` | Expedientes |
 | `NOTICES` | Notificaciones |
-| `REGISTRY` | Registros oficiales |
+| `REGISTER` | Registros oficiales |
 | `PAYMENTS` | Pagos |
 | `SCHEDULE` | Citas |
 
@@ -179,10 +179,11 @@ config:
   theme: base
   themeVariables:
     primaryColor: "#FFFFFF"
-    primaryTextColor: "#000000"
-    primaryBorderColor: "#CCCCCC"
-    lineColor: "#4A4A4A"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
     fontSize: "12px"
+    fontFamily: "Manrope, sans-serif"
 ---
 flowchart LR
     ROOT["InteropMessage"] --> CTX["context"]
@@ -203,22 +204,22 @@ flowchart LR
     PROTOCOL --> PURLS["urls"]
     PROTOCOL --> PTO["timeOut"]
 
-    style ROOT fill:#1A3A6B,stroke:#0F2545,color:#FFFFFF,rx:8,ry:8
-    style CTX fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
-    style DATA fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
-    style CONSENT fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
-    style PROTOCOL fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
-    style MSGTYPE fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style DTYPE fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style CORR fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style FLOW fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style ORIGIN fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style DEST fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style PERSON fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style ADMIN fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style ROUTE fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style PURLS fill:#6A1B9A,stroke:#4A148C,color:#FFFFFF,rx:8,ry:8
-    style PTO fill:#6A1B9A,stroke:#4A148C,color:#FFFFFF,rx:8,ry:8
+    style ROOT fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
+    style CTX fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DATA fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style CONSENT fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PROTOCOL fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style MSGTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style CORR fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style FLOW fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ORIGIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DEST fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PERSON fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ADMIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ROUTE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PURLS fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PTO fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
 ```
 
 ```json
@@ -249,18 +250,18 @@ flowchart LR
 
 | Campo | Obligatorio | Descripción |
 |-------|:-----------:|-------------|
-| `context.messageType` | ✅ | Tipo de mensaje. Ver [`DN00InteropMessageType`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
-| `context.dataType.dataTypeId` | ✅ | Tipo de dato solicitado (`RECORDS`, `NOTICES`, etc.). Ver [`DN00DataTypeEnum`](https://github.com/DENA-Euskadi/dena-common-data-api/blob/develop/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.flowDirection` | ✅ | Dirección: `REQUEST` o `RESPONSE`. Ver [`DN00InteropFlowDirection`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
-| `context.originPartyId` | ❌ | Identificador del origen del mensaje. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.destinationPartyId` | ❌ | Identificador del destino del mensaje. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration` | ❌ | Referencia a la administración destino. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.interopRouteData` | ❌ | Traza de componentes. Ver [`DN00IteropRouteDataItem`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| `consentOid` | ❌ | OID del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`). Ver [`DN00InteropProtocol`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
+| `context.messageType` | ✅ | Tipo de mensaje. Ver [`DN00InteropMessageType`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
+| `context.dataType.dataTypeId` | ✅ | Tipo de dato solicitado (`RECORDS`, `NOTICES`, etc.). Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.flowDirection` | ✅ | Dirección: `REQUEST` o `RESPONSE`. Ver [`DN00InteropFlowDirection`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
+| `context.originPartyId` | ❌ | Identificador del origen del mensaje. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.destinationPartyId` | ❌ | Identificador del destino del mensaje. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.administration` | ❌ | Referencia a la administración destino. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.interopRouteData` | ❌ | Traza de componentes. Ver [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
+| `consentOid` | ❌ | OID del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
+| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
+| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
 | `data` | ✅ | Payload específico de la operación |
 
 ### Tipos de mensaje (`messageType`)
@@ -311,10 +312,11 @@ config:
   theme: base
   themeVariables:
     primaryColor: "#FFFFFF"
-    primaryTextColor: "#000000"
-    primaryBorderColor: "#CCCCCC"
-    lineColor: "#4A4A4A"
+    primaryTextColor: "#1a4d1f"
+    primaryBorderColor: "#70d680"
+    lineColor: "#1a4d1f"
     fontSize: "12px"
+    fontFamily: "Manrope, sans-serif"
 ---
 flowchart LR
     ROOT["InteropResponse"] --> CTX["context"]
@@ -334,27 +336,27 @@ flowchart LR
     ITEMS --> PAYMENT["Pago"]
     ITEMS --> SCHEDULE["Cita"]
 
-    click RECORD "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/expediente.md" "Ver documentación de Expediente"
-    click NOTICE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/notificacion.md" "Ver documentación de Notificación"
-    click REGISTRY "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/registro-oficial.md" "Ver documentación de Registro Oficial"
-    click PAYMENT "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/pago.md" "Ver documentación de Pagos"
-    click SCHEDULE "https://github.com/DENA-Euskadi/dena-common-docs/blob/main/docs/semantica/data-retrieve/data/cita.md" "Ver documentación de Cita"
+    click RECORD "./data/expediente/" "Ver documentación de Expediente"
+    click NOTICE "./data/notificacion/" "Ver documentación de Notificación"
+    click REGISTRY "./data/registro-oficial/" "Ver documentación de Registro Oficial"
+    click PAYMENT "./data/pago/" "Ver documentación de Pagos"
+    click SCHEDULE "./data/cita/" "Ver documentación de Cita"
 
-    style ROOT fill:#1A3A6B,stroke:#0F2545,color:#FFFFFF,rx:8,ry:8
-    style CTX fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
-    style DATA fill:#3D5A80,stroke:#2B4162,color:#FFFFFF,rx:8,ry:8
-    style CODE fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style ERRID fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style DETAILS fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style PERSON fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style DTYPE fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style ADMIN fill:#2E7D32,stroke:#1B5E20,color:#FFFFFF,rx:8,ry:8
-    style ITEMS fill:#E65100,stroke:#BF360C,color:#FFFFFF,rx:8,ry:8
-    style RECORD fill:#546E7A,stroke:#37474F,color:#FFFFFF,rx:8,ry:8
-    style NOTICE fill:#546E7A,stroke:#37474F,color:#FFFFFF,rx:8,ry:8
-    style REGISTRY fill:#546E7A,stroke:#37474F,color:#FFFFFF,rx:8,ry:8
-    style PAYMENT fill:#546E7A,stroke:#37474F,color:#FFFFFF,rx:8,ry:8
-    style SCHEDULE fill:#546E7A,stroke:#37474F,color:#FFFFFF,rx:8,ry:8
+    style ROOT fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
+    style CTX fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DATA fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style CODE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ERRID fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DETAILS fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PERSON fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ADMIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ITEMS fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
+    style RECORD fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style NOTICE fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style REGISTRY fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PAYMENT fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style SCHEDULE fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
 ```
 
 ```json
@@ -415,9 +417,9 @@ flowchart LR
 | SIA | Sistema de Información Administrativa (catálogo de servicios AGE) |
 | LanguageTexts | Objeto multiidioma con claves `SPANISH`, `BASQUE`, `ENGLISH` |
 | dataItems | Array de objetos de dominio devueltos por la administración |
-| consentOid | Identificador del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje. Ver [`DN00IteropRouteDataItem`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| messageCorrelationId | UUID que permite correlacionar request y response. Ver [`DN00InteropContext`](https://github.com/DENA-Euskadi/dena-common-interop-api/blob/develop/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| consentOid | Identificador del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
+| interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje. Ver [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
+| messageCorrelationId | UUID que permite correlacionar request y response. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
 
 
 

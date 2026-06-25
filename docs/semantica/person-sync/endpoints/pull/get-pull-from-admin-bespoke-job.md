@@ -3,7 +3,7 @@
 ## Endpoint
 
 ```
-POST /person-sync/api/admin/persons/sync/bespokes/{{jobOid}}
+POST /person-sync/api/admin/persons/sync/bespokes/12345-ABC-DEFG
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer <token> (si OAuth está configurado)
@@ -18,10 +18,20 @@ Consulta el estado de una solicitud de exportación.
 ```json
 {
     "context": {
-        <Objeto de Contexto>
+        "interopRouteData": [
+            {
+                "denaComponentId": "DENA_POSTMAN",
+                "timestamp":"2026-06-11T14:55:01.7520000Z"
+            }
+        ],
+        "messageCorrelationId": "aa645a6e-66a0-4c02-a00f-81d484a4296a",
+        "messageType": "GET_PULL_ADMIN_BESPOKE",
+        "flowDirection": "REQUEST",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
+        "originPartyId": "ADMIN-001",
+        "destinationPartyId": "DENA_INTEROP"
     },
     "data": {
-        "type": "getPullAdminBespokeRequestPayload",
         "jobOid": "F74724F6-65F6-4E01-B215-AB8CDA3FC42B"
     }
 }
@@ -29,7 +39,7 @@ Consulta el estado de una solicitud de exportación.
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `GET_PULL_ADMIN_BESPOKE` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 
@@ -37,7 +47,6 @@ Consulta el estado de una solicitud de exportación.
 
 | Campo    | Tipo     | Obligatorio | Descripción |
 |----------|----------|-------------|-------------|
-| `type`   | `String` | ✅          | `"getPullAdminBespokeRequestPayload"` |
 | `jobOid` | `String` | ✅          | Identificador de la solicitud sobre la que consultar el estado |
 
 ## Response exitosa (HTTP 200)
@@ -113,4 +122,4 @@ Consulta el estado de una solicitud de exportación.
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>

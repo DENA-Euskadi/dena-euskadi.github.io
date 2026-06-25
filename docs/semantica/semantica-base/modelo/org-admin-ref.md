@@ -1,17 +1,25 @@
-# OrgAdminRef
+# :material-domain: OrgAdminRef
 
 ## Descripción
 
-Objeto para referenciar a una administración por su oid o id.
+Objeto para referenciar a una administración por su `oid` o `id`.
+
+!!! info "Al menos uno obligatorio"
+
+    Se debe incluir `oid` **o** `id` (o ambos).
+
+---
 
 ## Atributos JSON
 
-| Campo | Tipo     | Obligatorio | Descripción |
-|-------|----------|-------------|-------------|
-| `oid` | `String` | ❌*         | Identificador interno de la administración. Obligatorio si no se incluye el campo `id` |
-| `id`  | `String` | ❌*         | Identificador textual de la administración. Obligatorio si no se incluye el campo `oid` |
+| Campo | Tipo | Obligatorio | Descripción |
+|---|---|:---:|---|
+| `oid` | `String` | :material-close:* | Identificador interno de la administración |
+| `id` | `String` | :material-close:* | Identificador textual de la administración |
 
-## Ejemplo JSON
+---
+
+## Ejemplo
 
 ```json
 {
@@ -22,4 +30,4 @@ Objeto para referenciar a una administración por su oid o id.
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.25 · 2026-06-10</sub>
+<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
