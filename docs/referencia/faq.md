@@ -12,7 +12,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
     2. **Conectividad HTTPS** hacia los endpoints de DENA (PRE y/o PRO)
     3. **Java 21+** y **Maven 3.9+** para compilar los proyectos de ejemplo/test
 
-    [:octicons-arrow-right-24: Guía de instalación](./guia-inicio/instalacion.md)
+    [:octicons-arrow-right-24: Guía de instalación](../guia-inicio/instalacion.md)
 
 ??? question "¿Qué endpoints tengo que implementar obligatoriamente?"
 
@@ -20,16 +20,16 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
 
     | Caso | Endpoint obligatorio |
     |---|---|
-    | DENA consulta datos de tu administración | `POST /api/retrieveData` ([Data-Retrieve](./semantica/data-retrieve/index.md)) |
-    | Notificas cambios a DENA | `POST` al endpoint DENA de [Metadata-Sync](./semantica/metadata-sync/index.md) |
-    | Recibes personas por Push | `POST /api/person-push` ([Person-Sync Push](./semantica/person-sync/push.md)) |
+    | DENA consulta datos de tu administración | `POST /api/retrieveData` ([Data-Retrieve](../semantica/data-retrieve/index.md)) |
+    | Notificas cambios a DENA | `POST` al endpoint DENA de [Metadata-Sync](../semantica/metadata-sync/index.md) |
+    | Recibes personas por Push | `POST /api/person-push` ([Person-Sync Push](../semantica/person-sync/push.md)) |
     | Descargas personas por Pull | Ninguno propio, solo llamas a DENA |
 
 ??? question "¿Puedo integrarme si mi sistema no es Java?"
 
     Sí. DENA usa **REST + JSON estándar**. Cualquier lenguaje que pueda hacer HTTP POST y devolver JSON es compatible.
 
-    Hay [snippets de código](./semantica/data-retrieve/snippets-codigo.md) en Java, C#, Python, Node.js y PHP.
+    Hay [snippets de código](../semantica/data-retrieve/snippets-codigo.md) en Java, C#, Python, Node.js y PHP.
 
 ??? question "¿Qué pasa si no puedo implementar el endpoint estándar?"
 
@@ -53,14 +53,14 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
     - Renovarlo ~60 segundos antes de expirar (leeway)
     - No solicitar un token nuevo en cada petición
 
-    [:octicons-arrow-right-24: Endpoint get-token](./autenticacion/administracion-core-dena/endpoint-get-token.md)
+    [:octicons-arrow-right-24: Endpoint get-token](../autenticacion/administracion-core-dena/endpoint-get-token.md)
 
 ??? question "¿Puedo usar mi propio IDP (Keycloak, ADFS, Cognito)?"
 
     Sí. Cuando DENA llama a tu administración (Data-Retrieve), tú proporcionas las credenciales y la URL de tu IDP.
     DENA usará `client_credentials` para obtener el token antes de llamarte.
 
-    [:octicons-arrow-right-24: CORE DENA → Administración](./autenticacion/core-dena-administracion/index.md)
+    [:octicons-arrow-right-24: CORE DENA → Administración](../autenticacion/core-dena-administracion/index.md)
 
 ---
 
@@ -132,7 +132,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
 
     Usa el componente [DENA Admin Connection Test]({{ repos.conx_test_tree }}).
 
-    [:octicons-arrow-right-24: Guía de comunicaciones](./guia-inicio/probar-comunicaciones.md)
+    [:octicons-arrow-right-24: Guía de comunicaciones](../guia-inicio/probar-comunicaciones.md)
 
 ---
 
@@ -140,7 +140,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
 
 ??? question "¿Puedo probar sin un sistema real detrás?"
 
-    Sí, usa el [Mock de Expedientes](./guia-inicio/mock-expedientes.md) que simula una administración con datos de ejemplo.
+    Sí, usa el [Mock de Expedientes](../guia-inicio/mock-expedientes.md) que simula una administración con datos de ejemplo.
 
 ??? question "¿Tenéis colecciones Postman?"
 
@@ -158,11 +158,16 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
 
 ??? question "¿A quién contacto si tengo un problema de integración?"
 
-    | Tipo | Canal |
+    **:material-email: Email de soporte DENA:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
+    
+    | Tipo de consulta | Qué incluir |
     |---|---|
-    | Dudas técnicas | Email equipo Factoría DENA |
-    | Bugs/Issues | Repositorio GitHub correspondiente |
-    | Credenciales/Accesos | Equipo de onboarding DENA |
+    | **Dudas técnicas** | Descripción del problema, logs relevantes, entorno (PRE/PRO) |
+    | **Problemas de conectividad** | Tests realizados, configuración de red, mensaje de error |
+    | **Credenciales/Accesos** | Administración solicitante, entorno, client_id si lo tienes |
+    | **Bugs/Issues** | Pasos para reproducir, comportamiento esperado vs real |
+    
+    :material-clock: **Tiempo de respuesta:** Consultas urgentes en horario laboral se atienden en menos de 4 horas.
 
 <!-- DENA-DOC-FOOTER -->
 ---

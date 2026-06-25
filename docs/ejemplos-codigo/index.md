@@ -34,6 +34,10 @@ Proyecto Java de referencia con ejemplos de integración para administraciones.
 
 ## Cómo usar (cuando esté disponible)
 
+!!! warning "Control de versiones en repositorios DENA"
+    
+    Al clonar cualquier repositorio de DENA, asegúrese de utilizar la etiqueta de versión apropiada mediante `git checkout <tag>` para garantizar la compatibilidad con su entorno de desarrollo y despliegue.
+
 ```bash
 git clone <url-repositorio-ejemplos>
 cd dena-data-codesamples

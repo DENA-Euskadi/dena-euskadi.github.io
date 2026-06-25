@@ -4,9 +4,25 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.3.31 <small>— 2026-06-25</small> { #v0331 }
+## v0.3.32 <small>— 2026-06-26</small> { #v0332 }
 
 !!! success "Actual"
+
+**Mejoras de documentación:**
+
+- :material-palette: Aplicación completa de colores corporativos DENA (#1D3328)
+- :material-image: Logo DENA redimensionado a 64px para mejor visibilidad
+- :material-view-grid: Página de entrada "Operativas DENA" con navegación visual
+- :material-cogs: Consolidación de secciones operativas en menú principal
+- :material-email: Integración de contacto de soporte (admin-digital-data-dena@ejie.eus)
+- :material-alert: Avisos de versión de repositorio en toda la documentación
+- :material-star: Consistencia visual con iconos Material Design
+- :material-navigation: Navegación simplificada sin emojis
+- :material-help: Página de contacto y soporte dedicada
+
+---
+
+## v0.3.31 <small>— 2026-06-25</small> { #v0331 }
 
 **Mejoras de documentación:**
 

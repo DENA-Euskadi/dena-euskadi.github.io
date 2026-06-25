@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Material Design Overrides for DENA Brand
+   ========================================================================== */
+
+/* --- Material Design color overrides --- */
+[data-md-color-primary="dena"] {
+  --md-primary-fg-color: var(--dena-primary);
+  --md-primary-fg-color--light: #8de49a;
+  --md-primary-fg-color--dark: var(--dena-primary-dark);
+  --md-accent-fg-color: var(--dena-accent);
+  --md-typeset-color: var(--dena-text-primary);
+}
+
+/* --- Base theme settings --- */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--dena-background);
+}
+
+/* --- Body and page background --- */
+body {
+  background-color: var(--dena-background);
+}
+
+/* --- Typography base --- */
+.md-typeset {
+  color: var(--dena-text-primary);
+  font-family: 'Manrope', sans-serif;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  color: var(--dena-text-primary);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+}
+
+/* --- Links --- */
+.md-typeset a {
+  color: var(--dena-primary);
+}
+
+.md-typeset a:hover {
+  color: var(--dena-primary-dark);
+}

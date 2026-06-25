@@ -58,6 +58,14 @@ graph LR
 
 </div>
 
+---
+
+!!! tip "Credenciales y configuración OAuth2"
+    
+    Para solicitar credenciales (`client_id` + `client_secret`) o resolver problemas de autenticación, contacta con el equipo DENA:
+    
+    **:material-email:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
+
 <!-- DENA-DOC-FOOTER -->
 ---
 <sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

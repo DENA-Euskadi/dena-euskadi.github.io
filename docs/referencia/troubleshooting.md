@@ -258,12 +258,17 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
 
 !!! tip "¿No encuentras tu error?"
 
-    Contacta al equipo de soporte DENA con:
-
+    Si el problema persiste o no encuentras tu error específico en esta guía:
+    
+    **:material-email: Contacta al equipo de soporte DENA:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
+    
+    Incluye en tu consulta:
+    
     - Mensaje de error completo
     - Logs relevantes
     - Entorno (PRE/PRO/local)
     - `messageCorrelationId` si lo tienes
+    - Información de contexto (qué estabas intentando hacer)
 
 <!-- DENA-DOC-FOOTER -->
 ---

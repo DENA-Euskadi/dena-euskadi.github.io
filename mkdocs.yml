@@ -7,34 +7,15 @@ theme:
   language: es
   custom_dir: docs/overrides
   palette:
-    - scheme: default
-      primary: dena
-      accent: teal
-      toggle:
-        icon: material/brightness-7
-        name: Modo oscuro
-    - scheme: slate
-      primary: dena
-      accent: teal
-      toggle:
-        icon: material/brightness-4
-        name: Modo claro
+    scheme: default
+    primary: dena
+    accent: teal
   font:
     text: Roboto
     code: Roboto Mono
   icon:
     logo: material/swap-horizontal-bold
-    repo: fontawesome/brands/github
-    tag:
-      home: material/home
-      guia: material/rocket-launch
-      arquitectura: material/cube-outline
-      semantica: material/code-braces
-      autenticacion: material/shield-lock
-      devtools: material/wrench
-      ejemplos: material/file-code
-      referencia: material/book-open-variant
-      adjuntos: material/paperclip
+    repo: material/github
     admonition:
       note: material/pencil
       tip: material/lightbulb
@@ -55,7 +36,6 @@ theme:
     - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
-    - navigation.indexes
     - navigation.footer
     - search.suggest
     - search.highlight
@@ -66,84 +46,43 @@ theme:
     - toc.follow
 
 nav:
-  - Home: index.md
-  - Guía De Inicio:
-      - Checklist De Onboarding: guia-inicio/onboarding.md
-      - Instalación Del Entorno: guia-inicio/instalacion.md
-      - Probar Comunicaciones: guia-inicio/probar-comunicaciones.md
-      - Mock De Expedientes: guia-inicio/mock-expedientes.md
-  - Arquitectura:
-      - Visión General: arquitectura/index.md
-      - Diagramas (Draw.io): arquitectura/diagramas.md
-      - Otra Documentación: arquitectura/otra-documentacion.md
-  - Semántica:
-      - Visión General: semantica/index.md
-      - Semántica Base:
-          - Visión General: semantica/semantica-base/index.md
-          - DataTypeRef: semantica/semantica-base/modelo/data-type-ref.md
-          - OrgAdminRef: semantica/semantica-base/modelo/org-admin-ref.md
-          - PersonRef: semantica/semantica-base/modelo/person-ref.md
-          - LanguageTexts: semantica/semantica-base/modelo/language-texts.md
-      - DATA-RETRIEVE:
-          - Visión General: semantica/data-retrieve/index.md
-          - Endpoint: semantica/data-retrieve/endpoint-data-retrieve.md
-          - Guía De Implementación: semantica/data-retrieve/guia-implementacion.md
-          - Validaciones: semantica/data-retrieve/validaciones.md
-          - Errores Y Troubleshooting: semantica/data-retrieve/errores-troubleshooting.md
-          - Snippets De Código: semantica/data-retrieve/snippets-codigo.md
-          - Modelo De Datos:
-              - Campos Comunes: semantica/data-retrieve/data/campos-comunes.md
-              - Expediente: semantica/data-retrieve/data/expediente.md
-              - Notificación: semantica/data-retrieve/data/notificacion.md
-              - Registro Oficial: semantica/data-retrieve/data/registro-oficial.md
-              - Pago: semantica/data-retrieve/data/pago.md
-              - Cita: semantica/data-retrieve/data/cita.md
-              - Persona: semantica/data-retrieve/data/persona.md
-              - Servicio Administrativo: semantica/data-retrieve/data/servicio-administrativo.md
-              - Unidad Orgánica: semantica/data-retrieve/data/unidad-organica.md
-      - METADATA-SYNC:
-          - Visión General: semantica/metadata-sync/index.md
-          - Endpoint: semantica/metadata-sync/endpoint-sync-metadata.md
-          - Modelo:
-              - Pop Message After Sync: semantica/metadata-sync/modelo/pop-message-after-sync-spec.md
-              - Sync Metadata Item: semantica/metadata-sync/modelo/sync-metadata-from-admin-to-core-item.md
-      - PERSON-SYNC:
-          - Visión General: semantica/person-sync/index.md
-          - Push: semantica/person-sync/push.md
-          - Pull: semantica/person-sync/pull.md
-          - Endpoints Push:
-              - Person Push To Admin: semantica/person-sync/endpoints/push/endpoint-person-push-to-admin.md
-          - Endpoints Pull:
-              - Create Pull Job: semantica/person-sync/endpoints/pull/create-pull-from-admin-bespoke-job.md
-              - Fetch Persons Bespoke: semantica/person-sync/endpoints/pull/fetch-persons-bespoke-export-asset.md
-              - Fetch Persons Pregen: semantica/person-sync/endpoints/pull/fetch-persons-pregen-export-asset.md
-              - Get Pull Job: semantica/person-sync/endpoints/pull/get-pull-from-admin-bespoke-job.md
-          - Modelo Pull:
-              - Export Spec: semantica/person-sync/modelo/pull/export-spec.md
-          - Modelo Push:
-              - Person Hashes: semantica/person-sync/modelo/push/person-hashes.md
-      - Otra Documentación: semantica/otra-documentacion.md
+  - Inicio: index.md
+  - Primeros Pasos:
+      - Checklist de Onboarding: guia-inicio/onboarding.md
+      - Instalación: guia-inicio/instalacion.md
+      - Pruebas de Conectividad: guia-inicio/probar-comunicaciones.md
+      - Configuración Mock: guia-inicio/mock-expedientes.md
   - Autenticación:
       - Visión General: autenticacion/index.md
-      - Cliente ↔ CORE DENA: autenticacion/client-core-dena.md
-      - CORE DENA → Administración:
-          - Visión General: autenticacion/core-dena-administracion/index.md
-          - Modelo: autenticacion/core-dena-administracion/modelo.md
-          - Servicios: autenticacion/core-dena-administracion/servicios.md
-      - Administración → CORE DENA:
-          - Visión General: autenticacion/administracion-core-dena/index.md
-          - Endpoint Get-Token: autenticacion/administracion-core-dena/endpoint-get-token.md
-  - DevTools: devtools/index.md
-  - Ejemplos De Código: ejemplos-codigo/index.md
-  - Referencia:
-      - FAQ: referencia/faq.md
-      - Glosario: referencia/glosario.md
-      - Sistema De Versionado: referencia/sistema-versionado.md
-      - Limpieza De Versionado: referencia/limpieza-versionado.md
-      - Matriz De Compatibilidad: referencia/matriz-compatibilidad.md
-      - Troubleshooting: referencia/troubleshooting.md
-      - Changelog: referencia/changelog.md
-  - Adjuntos: adjuntos/index.md
+      - DENA Llama a Tu Sistema: autenticacion/core-dena-administracion/index.md
+      - Tu Sistema Llama a DENA: autenticacion/administracion-core-dena/index.md
+  - Semántica:
+      - Visión General: semantica/index.md
+      - Tipos de Datos Disponibles:
+          - Campos Comunes: semantica/data-retrieve/data/campos-comunes.md
+          - Cita: semantica/data-retrieve/data/cita.md
+          - Expediente: semantica/data-retrieve/data/expediente.md
+          - Notificación: semantica/data-retrieve/data/notificacion.md
+          - Pago: semantica/data-retrieve/data/pago.md
+          - Persona: semantica/data-retrieve/data/persona.md
+          - Registro Oficial: semantica/data-retrieve/data/registro-oficial.md
+          - Servicio Administrativo: semantica/data-retrieve/data/servicio-administrativo.md
+          - Unidad Orgánica: semantica/data-retrieve/data/unidad-organica.md
+      - Modelos Base:
+          - Data Type Ref: semantica/semantica-base/modelo/data-type-ref.md
+          - Language Texts: semantica/semantica-base/modelo/language-texts.md
+          - Org Admin Ref: semantica/semantica-base/modelo/org-admin-ref.md
+          - Person Ref: semantica/semantica-base/modelo/person-ref.md
+  - Operativas: operativas/index.md
+  - Herramientas:
+      - DevTools Web: devtools/index.md
+      - Ejemplos de Código: ejemplos-codigo/index.md
+      - Recursos Postman: adjuntos/index.md
+  - Ayuda y Referencia:
+      - Preguntas Frecuentes: referencia/faq.md
+      - Resolver Problemas: referencia/troubleshooting.md
+      - Glosario de Términos: referencia/glosario.md
+      - Contacto y Soporte: referencia/contacto.md
 
 markdown_extensions:
   - abbr
@@ -183,15 +122,25 @@ plugins:
   - macros:
       include_yaml:
         - ./mkdocs-vars.yaml
-  - tags:
-      tags_file: referencia/tags.md
+  - tags
+
+extra_css:
+  - stylesheets/01-variables.css
+  - stylesheets/02-material-overrides.css
+  - stylesheets/03-header-navigation.css
+  - stylesheets/04-ui-elements.css
+  - stylesheets/05-content-elements.css
+  - stylesheets/06-mermaid-diagrams.css
 
 extra:
   generator: false
   social:
-    - icon: fontawesome/brands/github
+    - icon: material/github
       link: https://github.com/DENA-Euskadi
       name: DENA en GitHub
+    - icon: material/email
+      link: mailto:admin-digital-data-dena@ejie.eus
+      name: Contacto Soporte DENA
   tags:
     Data-Retrieve: data-retrieve
     Metadata-Sync: metadata-sync
@@ -199,6 +148,8 @@ extra:
     Autenticación: autenticacion
     Guía: guia
     Referencia: referencia
+  support:
+    email: admin-digital-data-dena@ejie.eus
 
 extra_css:
   - stylesheets/extra.css

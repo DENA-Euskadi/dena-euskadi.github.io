@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Navigation and UI Elements
+   ========================================================================== */
+
+/* --- Navegación lateral --- */
+.md-nav__link {
+  font-weight: 500;
+  font-family: 'Manrope', sans-serif;
+}
+
+.md-nav__link--active,
+.md-nav__link:active {
+  color: var(--dena-primary) !important;
+  font-weight: 700;
+}
+
+.md-nav__link:hover {
+  font-weight: 600;
+}
+
+/* --- Botones --- */
+.md-button {
+  background-color: var(--dena-primary) !important;
+  border-color: var(--dena-primary) !important;
+  color: var(--dena-header-text) !important;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+}
+
+.md-button:hover {
+  background-color: var(--dena-primary-dark) !important;
+  border-color: var(--dena-primary-dark) !important;
+}
+
+.md-button--primary {
+  background-color: var(--dena-primary) !important;
+  color: var(--dena-header-text) !important;
+}
+
+/* --- Buscador --- */
+.md-search__input {
+  background-color: rgba(252, 254, 251, 0.15);
+  color: var(--dena-text-primary) !important;
+  font-family: 'Manrope', sans-serif;
+}
+
+.md-search__input::placeholder {
+  color: rgba(29, 51, 40, 0.7) !important;
+}
+
+.md-search-result__teaser {
+  color: var(--dena-text-primary) !important;
+}
+
+.md-search-result__title {
+  color: var(--dena-text-primary) !important;
+}
+
+/* --- Smooth scroll --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Abbreviation tooltips --- */
+abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}

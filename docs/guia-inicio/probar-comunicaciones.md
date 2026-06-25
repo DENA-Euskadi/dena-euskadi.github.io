@@ -39,6 +39,10 @@ sequenceDiagram
 
 ## Paso 1: Desplegar el componente
 
+!!! warning "Verificación de versión del repositorio"
+    
+    Antes de proceder con la clonación, verifique que está utilizando la versión correcta del repositorio. Consulte con el equipo DENA cuál es la versión recomendada para su entorno de trabajo y utilice el comando `git checkout <version>` después de la clonación.
+
 === ":material-application-brackets: Standalone (recomendado)"
 
     ```bash

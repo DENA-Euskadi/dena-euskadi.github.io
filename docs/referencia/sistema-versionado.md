@@ -16,6 +16,10 @@ Ver código fuente: [dena-connector-base-rest](https://gitlab-q.batsdlc.itbatera
 
 ### Artefactos Maven Versionados
 
+!!! warning "Gestión de versiones de dependencias"
+    
+    Al especificar dependencias Maven de componentes DENA, siempre verifique que la versión seleccionada sea compatible con su entorno de despliegue. Consulte la matriz de compatibilidad antes de actualizar versiones en producción.
+
 ```xml
 <!-- Dependencia con versión específica -->
 <dependency>
@@ -96,6 +100,10 @@ La nueva funcionalidad está disponible en:
 ```
 
 ### Guía de Instalación
+
+!!! warning "Verificación de compatibilidad de versiones"
+    
+    Antes de proceder con la instalación de cualquier componente DENA, asegúrese de que la versión seleccionada sea compatible con la infraestructura de destino y las versiones de otros componentes ya desplegados.
 
 ```markdown
 ## Instalar Conector Demo v0.3.30-SNAPSHOT

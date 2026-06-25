@@ -1,0 +1,93 @@
+/* ==========================================================================
+   DENA Header and Navigation
+   ========================================================================== */
+
+/* --- Header principal --- */
+.md-header {
+  background-color: var(--dena-header-bg) !important;
+  color: var(--dena-header-text) !important;
+  font-family: 'Manrope', sans-serif;
+  min-height: 76px;  /* Altura optimizada para logo de 64px */
+  padding: 0 .6rem;
+}
+
+/* --- Logo DENA más grande --- */
+.md-header__title {
+  color: var(--dena-header-text) !important;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.md-header__button.md-logo {
+  padding: 0;
+  margin: 0;
+}
+
+.md-header__button.md-logo img {
+  height: 64px !important;  /* Logo muy prominente */
+  width: auto;
+  max-width: none;
+  padding: 4px 0;
+}
+
+/* --- Navegación por pestañas --- */
+.md-tabs {
+  background-color: var(--dena-header-bg) !important;
+  color: var(--dena-header-text) !important;
+  font-family: 'Manrope', sans-serif;
+}
+
+.md-tabs__link {
+  color: var(--dena-header-text) !important;
+  opacity: 0.9;
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.md-tabs__link:hover {
+  color: var(--dena-header-text) !important;
+  opacity: 1;
+  font-weight: 700;
+  transform: translateY(-1px);
+  filter: brightness(1.2);
+  text-shadow: 0 0 8px rgba(252, 254, 251, 0.3);
+}
+
+.md-tabs__link--active {
+  color: var(--dena-header-text) !important;
+  opacity: 1;
+  font-weight: 700;
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* --- Elementos interactivos del header --- */
+.md-header__button {
+  color: var(--dena-header-text) !important;
+}
+
+.md-header__option {
+  color: var(--dena-header-text) !important;
+}
+
+.md-source {
+  color: var(--dena-header-text) !important;
+}
+
+.md-source__icon {
+  color: var(--dena-header-text) !important;
+}
+
+/* --- Espaciado personalizado para pestañas --- */
+.md-tabs__item {
+  font-size: 0.85rem;
+  padding: 0 1rem;
+}
+
+.md-tabs__list {
+  display: flex;
+  justify-content: space-evenly;
+}

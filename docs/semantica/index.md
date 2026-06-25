@@ -127,6 +127,14 @@ flowchart TD
 
 - [Documentación complementaria](./otra-documentacion.md)
 
+---
+
+!!! question "Dudas técnicas sobre implementación"
+    
+    Para consultas sobre especificaciones semánticas, formatos de datos o implementación de endpoints:
+    
+    **:material-email:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
+
 <!-- DENA-DOC-FOOTER -->
 ---
 <sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

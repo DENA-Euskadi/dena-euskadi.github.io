@@ -1,0 +1,100 @@
+/* ==========================================================================
+   Content Elements - Admonitions, Badges, Cards
+   ========================================================================== */
+
+/* --- Elementos de acento (warnings) --- */
+.md-typeset .admonition.warning {
+  border-color: var(--dena-accent);
+}
+
+.md-typeset .admonition.warning > .admonition-title {
+  background-color: var(--dena-accent);
+  color: var(--dena-text-primary);
+}
+
+/* --- Elementos de error --- */
+.md-typeset .admonition.danger {
+  border-color: var(--dena-terracotta-500);
+}
+
+.md-typeset .admonition.danger > .admonition-title {
+  background-color: var(--dena-terracotta-500);
+  color: var(--dena-white-25);
+}
+
+/* --- Admonition personalizado DENA endpoint --- */
+.md-typeset .admonition.dena-endpoint,
+.md-typeset details.dena-endpoint {
+  border-color: var(--dena-primary);
+}
+
+.md-typeset .dena-endpoint > .admonition-title,
+.md-typeset .dena-endpoint > summary {
+  background-color: rgba(112, 214, 128, 0.1);
+}
+
+/* --- Grid Cards hover effect --- */
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > ol > li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > ol > li {
+  transition: all 0.2s ease;
+}
+
+/* --- Status badges --- */
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge--available {
+  background-color: #c8e6c9;
+  color: #1b5e20;
+}
+
+.status-badge--coming-soon {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.status-badge--deprecated {
+  background-color: #ffcdd2;
+  color: #b71c1c;
+}
+
+/* --- HTTP method badges --- */
+.http-method {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--md-code-font-family);
+  letter-spacing: 0.5px;
+}
+
+.http-method--get { background: #e3f2fd; color: #1565c0; }
+.http-method--post { background: #e8f5e9; color: #2e7d32; }
+.http-method--put { background: #fff3e0; color: #e65100; }
+.http-method--delete { background: #fce4ec; color: #c62828; }
+
+/* --- Version badge in footer --- */
+.dena-version-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--dena-primary);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+}

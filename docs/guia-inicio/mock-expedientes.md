@@ -41,6 +41,10 @@ graph LR
 
 ### Compilar y arrancar
 
+!!! warning "Selección de versión del repositorio"
+    
+    Asegúrese de clonar y seleccionar la versión correcta del repositorio del mock que sea compatible con la versión de DENA que está utilizando. Consulte la documentación de versiones antes de proceder.
+
 ```bash
 # Clonar el repositorio del mock
 git clone <url-repositorio-mock-expedientes>

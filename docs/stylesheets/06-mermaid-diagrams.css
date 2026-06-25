@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Mermaid Diagrams - DENA Theme Integration
+   ========================================================================== */
+
+/* --- Base responsive settings --- */
+.mermaid {
+  overflow-x: auto;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- DENA Typography for Mermaid --- */
+.mermaid .node text {
+  font-family: 'Manrope', sans-serif !important;
+  font-weight: 500;
+}
+
+.mermaid .edge-label text {
+  font-family: 'Manrope', sans-serif !important;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.mermaid .sequence-actor {
+  font-family: 'Manrope', sans-serif !important;
+}
+
+.mermaid .note {
+  font-family: 'Manrope', sans-serif !important;
+}
+
+/* --- DENA Colors for Mermaid (Light Mode) --- */
+[data-md-color-scheme="default"] .mermaid text {
+  fill: var(--dena-green-950) !important;
+}
+
+[data-md-color-scheme="default"] .mermaid .node rect,
+[data-md-color-scheme="default"] .mermaid .node circle,
+[data-md-color-scheme="default"] .mermaid .node ellipse,
+[data-md-color-scheme="default"] .mermaid .node polygon {
+  fill: #f9f9f9 !important;
+  stroke: var(--dena-green-950) !important;
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="default"] .mermaid .sequence-actor-border {
+  stroke: var(--dena-green-950) !important;
+  stroke-width: 2px !important;
+}

@@ -2,11 +2,15 @@
    DENA Corporate Theme - Official Brand Guidelines
    ========================================================================== */
 
+/* ==========================================================================
+   DENA Corporate Theme - Official Brand Guidelines
+   ========================================================================== */
+
 /* --- DENA Official Color Palette --- */
 :root {
   /* Paleta principal */
   --dena-green-500: #70d680;      /* Color principal de marca */
-  --dena-green-950: #1a4d1f;      /* Verde oscuro corporativo para textos */
+  --dena-green-950: #1D3328;      /* Verde oscuro corporativo REAL */
   
   /* Paleta secundaria */
   --dena-black-950: #0f1f0f;      /* Verde extremadamente oscuro */
@@ -15,21 +19,31 @@
   --dena-terracotta-500: #d8704a; /* Terracota para errores */
   --dena-neutral-500: #7a8477;    /* Gris con dominante verde */
   
-  /* Variables aplicadas */
+  /* Variables aplicadas - MODO CLARO */
   --dena-primary: var(--dena-green-500);
   --dena-primary-dark: var(--dena-green-950);
   --dena-text-primary: var(--dena-green-950);
   --dena-background: var(--dena-white-25);
   --dena-accent: var(--dena-yellow-500);
+  --dena-header-bg: #1D3328;
+  --dena-header-text: var(--dena-white-25);
 }
 
+/* Variables para MODO OSCURO */
 [data-md-color-scheme="slate"] {
-  --dena-background: var(--dena-black-950);
+  --dena-background: #121b15;      /* Fondo muy oscuro con matiz verde */
   --dena-text-primary: var(--dena-white-25);
+  --dena-primary: #8de49a;         /* Verde más claro para mejor contraste */
+  --dena-primary-dark: var(--dena-green-500);
+  --dena-header-bg: #0a1f0f;       /* Header aún más oscuro en modo oscuro */
+  --dena-header-text: var(--dena-white-25);
+  --dena-accent: #f7dc5c;          /* Amarillo más brillante para modo oscuro */
 }
 
 /* --- DENA Official Typography: Manrope --- */
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 
 :root {
   --md-text-font: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -38,17 +52,28 @@
 
 /* --- Material Design overrides for DENA brand --- */
 [data-md-color-primary="dena"] {
-  --md-primary-fg-color: var(--dena-green-500);
+  --md-primary-fg-color: var(--dena-primary);
   --md-primary-fg-color--light: #8de49a;
-  --md-primary-fg-color--dark: var(--dena-green-950);
-  --md-accent-fg-color: var(--dena-yellow-500);
-  --md-typeset-color: var(--dena-green-950);
+  --md-primary-fg-color--dark: var(--dena-primary-dark);
+  --md-accent-fg-color: var(--dena-accent);
+  --md-typeset-color: var(--dena-text-primary);
+}
+
+/* Variables específicas para modo oscuro */
+[data-md-color-scheme="slate"][data-md-color-primary="dena"] {
+  --md-primary-fg-color: var(--dena-primary);
+  --md-primary-fg-color--light: #a8e8b5;
+  --md-primary-fg-color--dark: var(--dena-green-500);
+  --md-accent-fg-color: var(--dena-accent);
+  --md-typeset-color: var(--dena-text-primary);
+  --md-default-bg-color: var(--dena-background);
+  --md-default-fg-color: var(--dena-text-primary);
 }
 
 /* --- Header y navegación con identidad DENA --- */
 .md-header {
-  background-color: var(--dena-green-500) !important;
-  color: var(--dena-white-25) !important;
+  background-color: var(--dena-header-bg) !important;
+  color: var(--dena-header-text) !important;
   font-family: 'Manrope', sans-serif;
 }
 
@@ -65,15 +90,15 @@
 }
 
 .md-header__button.md-logo img {
-  height: 48px !important;  /* Logo más grande */
+  height: 64px !important;  /* Logo muy prominente */
   width: auto;
   max-width: none;
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 /* Ajustar espacio del header para logo más grande */
 .md-header {
-  min-height: 64px;
+  min-height: 76px;  /* Altura optimizada para logo de 64px */
   padding: 0 .6rem;
 }
 
@@ -82,33 +107,48 @@
 }
 
 .md-tabs {
-  background-color: var(--dena-green-500) !important;
-  color: var(--dena-white-25) !important;
+  background-color: var(--dena-header-bg) !important;
+  color: var(--dena-header-text) !important;
   font-family: 'Manrope', sans-serif;
 }
 
 .md-tabs__link {
-  color: var(--dena-white-25) !important;
+  color: var(--dena-header-text) !important;
   opacity: 0.9;
-  font-weight: 600; /* Más peso para mayor visibilidad */
-  text-transform: capitalize; /* Primera letra en mayúscula */
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 16px;
+  transition: all 0.2s ease;
 }
 
 .md-tabs__link:hover {
-  color: var(--dena-white-25) !important;
+  color: var(--dena-header-text) !important;
   opacity: 1;
-  font-weight: 700; /* Aún más peso en hover */
+  font-weight: 700;
 }
 
 .md-tabs__link--active {
-  color: var(--dena-white-25) !important;
+  color: var(--dena-header-text) !important;
   opacity: 1;
-  font-weight: 700; /* Peso máximo para elemento activo */
+  font-weight: 700;
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-/* --- Textos principales con verde oscuro corporativo --- */
+/* --- Efectos hover para navegación --- */
+.md-tabs__link:hover {
+  color: var(--dena-header-text) !important;
+  opacity: 1;
+  font-weight: 700;
+  transform: translateY(-1px);
+  filter: brightness(1.2);
+  text-shadow: 0 0 8px rgba(252, 254, 251, 0.3);
+}
+
+/* --- Textos principales con colores adaptativos --- */
 .md-typeset {
-  color: var(--dena-green-950);
+  color: var(--dena-text-primary);
   font-family: 'Manrope', sans-serif;
 }
 
@@ -118,63 +158,63 @@
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
-  color: var(--dena-green-950);
+  color: var(--dena-text-primary);
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
 }
 
-/* --- Enlaces con colores DENA --- */
+/* --- Enlaces con colores DENA adaptativos --- */
 .md-typeset a {
-  color: var(--dena-green-500);
+  color: var(--dena-primary);
 }
 
 .md-typeset a:hover {
-  color: var(--dena-green-950);
+  color: var(--dena-primary-dark);
 }
 
 /* --- Navegación lateral --- */
 .md-nav__link {
-  font-weight: 500; /* Texto más llamativo */
+  font-weight: 500;
   font-family: 'Manrope', sans-serif;
 }
 
 .md-nav__link--active,
 .md-nav__link:active {
-  color: var(--dena-green-500);
-  font-weight: 700; /* Más peso para elementos activos */
+  color: var(--dena-primary) !important;
+  font-weight: 700;
 }
 
 .md-nav__link:hover {
-  font-weight: 600; /* Peso intermedio en hover */
+  font-weight: 600;
 }
 
 /* --- Botones con identidad DENA --- */
 .md-button {
-  background-color: var(--dena-green-500) !important;
-  border-color: var(--dena-green-500) !important;
-  color: var(--dena-white-25) !important;
+  background-color: var(--dena-primary) !important;
+  border-color: var(--dena-primary) !important;
+  color: var(--dena-header-text) !important;
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
 }
 
 .md-button:hover {
-  background-color: var(--dena-green-950) !important;
-  border-color: var(--dena-green-950) !important;
+  background-color: var(--dena-primary-dark) !important;
+  border-color: var(--dena-primary-dark) !important;
 }
 
 .md-button--primary {
-  background-color: var(--dena-green-500) !important;
-  color: var(--dena-white-25) !important;
+  background-color: var(--dena-primary) !important;
+  color: var(--dena-header-text) !important;
 }
 
 /* --- Elementos de acento con amarillo DENA --- */
 .md-typeset .admonition.warning {
-  border-color: var(--dena-yellow-500);
+  border-color: var(--dena-accent);
 }
 
 .md-typeset .admonition.warning > .admonition-title {
-  background-color: var(--dena-yellow-500);
-  color: var(--dena-green-950);
+  background-color: var(--dena-accent);
+  color: var(--dena-text-primary);
 }
 
 /* --- Elementos de error con terracota DENA --- */
@@ -190,43 +230,56 @@
 /* --- Buscador con identidad DENA --- */
 .md-search__input {
   background-color: rgba(252, 254, 251, 0.15);
-  color: var(--dena-green-950) !important; /* Texto en verde oscuro */
+  color: var(--dena-text-primary) !important;
   font-family: 'Manrope', sans-serif;
 }
 
 .md-search__input::placeholder {
-  color: rgba(26, 77, 31, 0.7) !important; /* Placeholder en verde oscuro con transparencia */
+  color: rgba(29, 51, 40, 0.7) !important;
+}
+
+/* Placeholder para modo oscuro */
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: rgba(252, 254, 251, 0.7) !important;
 }
 
 /* Resultados del buscador */
 .md-search-result__teaser {
-  color: var(--dena-green-950) !important;
+  color: var(--dena-text-primary) !important;
 }
 
 .md-search-result__title {
-  color: var(--dena-green-950) !important;
+  color: var(--dena-text-primary) !important;
 }
 
 /* --- Elementos interactivos --- */
+.md-header__button {
+  color: var(--dena-header-text) !important;
+}
+
 .md-header__option {
-  color: var(--dena-white-25) !important;
+  color: var(--dena-header-text) !important;
 }
 
 .md-source {
-  color: var(--dena-white-25) !important;
+  color: var(--dena-header-text) !important;
 }
 
 .md-source__icon {
-  color: var(--dena-white-25) !important;
+  color: var(--dena-header-text) !important;
 }
 
-/* --- Fondo de página con blanco roto DENA --- */
+/* --- Fondo de página con colores DENA adaptativos --- */
 body {
-  background-color: var(--dena-white-25);
+  background-color: var(--dena-background);
 }
 
 [data-md-color-scheme="default"] {
-  --md-default-bg-color: var(--dena-white-25);
+  --md-default-bg-color: var(--dena-background);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-default-bg-color: var(--dena-background);
 }
 
 /* ==========================================================================
@@ -338,7 +391,14 @@ abbr {
 
 /* --- Navigation tabs: custom spacing --- */
 .md-tabs__item {
-  font-size: 0.8rem;
+  font-size: 0.85rem; /* Ligeramente mayor para acomodar emojis */
+  padding: 0 1rem; /* Mayor padding horizontal */
+}
+
+/* Espaciado específico para pestañas con emojis */
+.md-tabs__list {
+  display: flex;
+  justify-content: space-evenly; /* Distribuye uniformemente las pestañas */
 }
 
 /* --- Smooth scroll for TOC --- */
@@ -383,115 +443,88 @@ html {
 }
 
 /* Ensure Mermaid diagrams are accessible in both themes */
-[data-md-color-scheme="slate"] .mermaid text {
-  fill: var(--dena-white-25) !important;
+[data-md-color-scheme="default"] .mermaid {
+  /* Modo claro - colores estándar */
 }
 
 [data-md-color-scheme="default"] .mermaid text {
   fill: var(--dena-green-950) !important;
 }
 
-/* ==========================================================================
-   Navigation Icons using CSS
-   ========================================================================== */
-
-/* Navigation link icons - more specific selectors */
-.md-nav__item .md-nav__link::before {
-  margin-right: 8px;
-  vertical-align: middle;
-  font-size: 16px;
-  width: 20px;
-  display: inline-block;
-  text-align: center;
+[data-md-color-scheme="default"] .mermaid .node rect,
+[data-md-color-scheme="default"] .mermaid .node circle,
+[data-md-color-scheme="default"] .mermaid .node ellipse,
+[data-md-color-scheme="default"] .mermaid .node polygon {
+  fill: #f9f9f9 !important;
+  stroke: var(--dena-green-950) !important;
+  stroke-width: 2px !important;
 }
 
-/* Main tabs icons */
-.md-tabs__item:nth-child(1) .md-tabs__link::before { content: "🏠"; }
-.md-tabs__item:nth-child(2) .md-tabs__link::before { content: "🚀"; }
-.md-tabs__item:nth-child(3) .md-tabs__link::before { content: "📦"; }
-.md-tabs__item:nth-child(4) .md-tabs__link::before { content: "💻"; }
-.md-tabs__item:nth-child(5) .md-tabs__link::before { content: "🔐"; }
-.md-tabs__item:nth-child(6) .md-tabs__link::before { content: "🔧"; }
-.md-tabs__item:nth-child(7) .md-tabs__link::before { content: "📄"; }
-.md-tabs__item:nth-child(8) .md-tabs__link::before { content: "📚"; }
-.md-tabs__item:nth-child(9) .md-tabs__link::before { content: "📎"; }
-
-/* Sidebar navigation icons - General pages */
-.md-nav--secondary .md-nav__item .md-nav__link[href$="/index.md"]::before,
-.md-nav--primary .md-nav__item .md-nav__link[href$="/index.md"]::before { content: "👁️"; }
-
-/* Guía de inicio icons */
-.md-nav__item .md-nav__link[href*="onboarding.md"]::before { content: "✅"; }
-.md-nav__item .md-nav__link[href*="instalacion.md"]::before { content: "⬇️"; }
-.md-nav__item .md-nav__link[href*="probar-comunicaciones.md"]::before { content: "🔗"; }
-.md-nav__item .md-nav__link[href*="mock-expedientes.md"]::before { content: "📊"; }
-
-/* Arquitectura icons */
-.md-nav__item .md-nav__link[href*="diagramas.md"]::before { content: "📐"; }
-.md-nav__item .md-nav__link[href*="otra-documentacion.md"]::before { content: "📚"; }
-
-/* Semántica base icons */
-.md-nav__item .md-nav__link[href*="data-type-ref.md"]::before { content: "🏷️"; }
-.md-nav__item .md-nav__link[href*="org-admin-ref.md"]::before { content: "🏢"; }
-.md-nav__item .md-nav__link[href*="person-ref.md"]::before { content: "👤"; }
-.md-nav__item .md-nav__link[href*="language-texts.md"]::before { content: "🌐"; }
-
-/* Data-retrieve icons */
-.md-nav__item .md-nav__link[href*="endpoint-data-retrieve.md"]::before { content: "🔌"; }
-.md-nav__item .md-nav__link[href*="guia-implementacion.md"]::before { content: "🔨"; }
-.md-nav__item .md-nav__link[href*="validaciones.md"]::before { content: "✔️"; }
-.md-nav__item .md-nav__link[href*="errores-troubleshooting.md"]::before { content: "🐛"; }
-.md-nav__item .md-nav__link[href*="snippets-codigo.md"]::before { content: "📝"; }
-
-/* Data type specific icons */
-.md-nav__item .md-nav__link[href*="expediente.md"]::before { content: "📁"; }
-.md-nav__item .md-nav__link[href*="notificacion.md"]::before { content: "📧"; }
-.md-nav__item .md-nav__link[href*="registro-oficial.md"]::before { content: "📋"; }
-.md-nav__item .md-nav__link[href*="pago.md"]::before { content: "💳"; }
-.md-nav__item .md-nav__link[href*="cita.md"]::before { content: "📅"; }
-.md-nav__item .md-nav__link[href*="persona.md"]::before { content: "👤"; }
-.md-nav__item .md-nav__link[href*="servicio-administrativo.md"]::before { content: "⚙️"; }
-.md-nav__item .md-nav__link[href*="unidad-organica.md"]::before { content: "🏢"; }
-.md-nav__item .md-nav__link[href*="campos-comunes.md"]::before { content: "📋"; }
-
-/* Metadata sync icons */
-.md-nav__item .md-nav__link[href*="endpoint-sync-metadata.md"]::before { content: "🔄"; }
-.md-nav__item .md-nav__link[href*="pop-message-after-sync-spec.md"]::before { content: "💬"; }
-.md-nav__item .md-nav__link[href*="sync-metadata-from-admin-to-core-item.md"]::before { content: "🔄"; }
-
-/* Person sync icons */
-.md-nav__item .md-nav__link[href*="push.md"]::before { content: "⬆️"; }
-.md-nav__item .md-nav__link[href*="pull.md"]::before { content: "⬇️"; }
-.md-nav__item .md-nav__link[href*="endpoint-person-push-to-admin.md"]::before { content: "👤➡️"; }
-.md-nav__item .md-nav__link[href*="create-pull-from-admin-bespoke-job.md"]::before { content: "➕"; }
-.md-nav__item .md-nav__link[href*="fetch-persons-bespoke-export-asset.md"]::before { content: "📥"; }
-.md-nav__item .md-nav__link[href*="fetch-persons-pregen-export-asset.md"]::before { content: "📦"; }
-.md-nav__item .md-nav__link[href*="get-pull-from-admin-bespoke-job.md"]::before { content: "👁️"; }
-.md-nav__item .md-nav__link[href*="export-spec.md"]::before { content: "📤"; }
-.md-nav__item .md-nav__link[href*="person-hashes.md"]::before { content: "#️⃣"; }
-
-/* Authentication icons */
-.md-nav__item .md-nav__link[href*="client-core-dena.md"]::before { content: "📱"; }
-.md-nav__item .md-nav__link[href*="modelo.md"]::before { content: "📊"; }
-.md-nav__item .md-nav__link[href*="servicios.md"]::before { content: "⚙️"; }
-.md-nav__item .md-nav__link[href*="endpoint-get-token.md"]::before { content: "🔑"; }
-
-/* Reference icons */
-.md-nav__item .md-nav__link[href*="faq.md"]::before { content: "❓"; }
-.md-nav__item .md-nav__link[href*="glosario.md"]::before { content: "📖"; }
-.md-nav__item .md-nav__link[href*="matriz-compatibilidad.md"]::before { content: "🔢"; }
-.md-nav__item .md-nav__link[href*="troubleshooting.md"]::before { content: "🐞"; }
-.md-nav__item .md-nav__link[href*="changelog.md"]::before { content: "📅"; }
-
-/* DevTools and Ejemplos */
-.md-nav__item .md-nav__link[href*="devtools"]::before { content: "🔧"; }
-.md-nav__item .md-nav__link[href*="ejemplos-codigo"]::before { content: "📄"; }
-.md-nav__item .md-nav__link[href*="adjuntos"]::before { content: "📎"; }
-
-/* Responsive adjustments */
-@media screen and (max-width: 768px) {
-    .md-nav__item .md-nav__link::before {
-        font-size: 14px;
-        margin-right: 6px;
-    }
+/* Modo oscuro - tema completo para Mermaid */
+[data-md-color-scheme="slate"] .mermaid {
+  background-color: transparent !important;
+  filter: invert(0) !important;
 }
+
+[data-md-color-scheme="slate"] .mermaid text {
+  fill: var(--dena-white-25) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .node rect,
+[data-md-color-scheme="slate"] .mermaid .node circle,
+[data-md-color-scheme="slate"] .mermaid .node ellipse,
+[data-md-color-scheme="slate"] .mermaid .node polygon {
+  fill: #2a3f2e !important;  /* Verde oscuro */
+  stroke: var(--dena-primary) !important;  /* Verde claro */
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .edge-line,
+[data-md-color-scheme="slate"] .mermaid .flowchart-link {
+  stroke: var(--dena-primary) !important;
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .arrowheads {
+  fill: var(--dena-primary) !important;
+  stroke: var(--dena-primary) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .sequence-actor-border {
+  stroke: var(--dena-primary) !important;
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .sequence-actor {
+  fill: #2a3f2e !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .note {
+  fill: #1a2f1e !important;
+  stroke: var(--dena-accent) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .label {
+  color: var(--dena-white-25) !important;
+  fill: var(--dena-white-25) !important;
+}
+
+/* Diagramas de flujo específicos */
+[data-md-color-scheme="slate"] .mermaid .flowchart .node {
+  fill: #2a3f2e !important;
+  stroke: var(--dena-primary) !important;
+}
+
+/* Diagramas de secuencia específicos */
+[data-md-color-scheme="slate"] .mermaid .messageText {
+  fill: var(--dena-white-25) !important;
+  stroke: none !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .activation0,
+[data-md-color-scheme="slate"] .mermaid .activation1,
+[data-md-color-scheme="slate"] .mermaid .activation2 {
+  fill: #1a2f1e !important;
+  stroke: var(--dena-primary) !important;
+}
+

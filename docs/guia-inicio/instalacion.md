@@ -18,6 +18,10 @@ Guía para preparar tu entorno de desarrollo y poder trabajar con los repositori
 
 ## 1. Clonar los repositorios
 
+!!! warning "Selección de versión"
+    
+    Es fundamental verificar y seleccionar la versión adecuada del repositorio según el entorno de destino. Utilice las etiquetas de versión (tags) correspondientes al entorno donde realizará el despliegue. Consulte la [matriz de compatibilidad](../referencia/matriz-compatibilidad.md) para determinar la versión correcta.
+
 ```bash
 # Repositorio principal de documentación
 git clone {{ repos.docs_clone }}

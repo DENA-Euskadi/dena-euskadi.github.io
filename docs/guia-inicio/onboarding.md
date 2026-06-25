@@ -21,9 +21,11 @@ Guía paso a paso desde "me han dado acceso" hasta "tengo mi integración funcio
 - [ ] Recibir la URL del token endpoint (Keycloak DENA)
 - [ ] Confirmar el entorno asignado (PRE/PRO)
 
-!!! info "Contacto"
+!!! info "Contacto para credenciales y soporte"
 
-    Las credenciales las proporciona el equipo de onboarding DENA durante la fase de alta de la administración.
+    **:material-email: Contacto DENA:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
+    
+    Las credenciales las proporciona el equipo DENA durante la fase de alta de la administración. Para cualquier duda sobre el proceso de onboarding o problemas técnicos, contacta con el equipo de soporte.
 
 ---
 

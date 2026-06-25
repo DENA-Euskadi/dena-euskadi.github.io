@@ -118,6 +118,10 @@ graph LR
 
 ## :material-lightning-bolt: Inicio rápido
 
+!!! warning "Verificar versión del repositorio"
+    
+    Asegúrese de utilizar la versión correcta del repositorio antes de proceder con la clonación. La versión recomendada para el entorno de trabajo actual es la etiquetada como estable en el repositorio.
+
 !!! tip "5 minutos para validar tu entorno"
 
     ```bash
@@ -172,6 +176,12 @@ graph LR
     |---|---|---|
     | **PRE** | `https://api-batera.pre.dena.eus` | `https://api-batera.pre.batera.euskalsarea.eus` |
     | **PRO** | `https://api-batera.pro.dena.eus` | `https://api-batera.pro.batera.euskalsarea.eus` |
+
+!!! question "Soporte técnico"
+    
+    Para consultas técnicas, problemas de integración o solicitud de credenciales:
+    
+    **:material-email:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
 
 ---
 
