@@ -2,7 +2,7 @@
 # Uso en markdown: {{ dena.version }}
 
 dena:
-  version: "0.3.30"
+  version: "PUBLIC-v0.3.31"
   date: "2026-06-23"
   java_version: "21+"
   maven_version: "3.9+"
@@ -11,27 +11,27 @@ dena:
 repos:
   # URLs base para GitHub
   docs_main: "https://github.com/DENA-Euskadi/dena-common-docs/tree/main"
-  docs_blob: "https://github.com/DENA-Euskadi/dena-common-docs/blob/PUBLIC-v0.3.30-SNAPSHOT"
-  docs_tree: "https://github.com/DENA-Euskadi/dena-common-docs/tree/PUBLIC-v0.3.30-SNAPSHOT"
+  docs_blob: "https://github.com/DENA-Euskadi/dena-common-docs/blob/PUBLIC-v0.3.31"
+  docs_tree: "https://github.com/DENA-Euskadi/dena-common-docs/tree/PUBLIC-v0.3.31"
   
   # URL base para MkDocs renderizado
   docs_site: "https://dena-euskadi.github.io/dena-common-docs"
   
   # Repositorios de código con sus tags específicos  
-  conx_test_tree: "https://github.com/DENA-Euskadi/dena-admin-conx-test/tree/PUBLIC-v1.0.0"
-  conx_test_blob: "https://github.com/DENA-Euskadi/dena-admin-conx-test/blob/PUBLIC-v1.0.0"
+  conx_test_tree: "https://github.com/DENA-Euskadi/dena-admin-conx-test/tree/PUBLIC-DEV-v0.3.25-SNAPSHOT"
+  conx_test_blob: "https://github.com/DENA-Euskadi/dena-admin-conx-test/blob/PUBLIC-DEV-v0.3.25-SNAPSHOT"
   
-  common_api_tree: "https://github.com/DENA-Euskadi/dena-common-api/tree/PUBLIC-v0.3.30-SNAPSHOT"
-  common_api_blob: "https://github.com/DENA-Euskadi/dena-common-api/blob/PUBLIC-v0.3.30-SNAPSHOT"
+  common_api_tree: "https://github.com/DENA-Euskadi/dena-common-api/tree/PUBLIC-v0.3.30"
+  common_api_blob: "https://github.com/DENA-Euskadi/dena-common-api/blob/PUBLIC-v0.3.30"
   
-  common_data_api_tree: "https://github.com/DENA-Euskadi/dena-common-data-api/tree/PUBLIC-v0.3.30-SNAPSHOT"
-  common_data_api_blob: "https://github.com/DENA-Euskadi/dena-common-data-api/blob/PUBLIC-v0.3.30-SNAPSHOT"
+  common_data_api_tree: "https://github.com/DENA-Euskadi/dena-common-data-api/tree/PUBLIC-v0.3.30"
+  common_data_api_blob: "https://github.com/DENA-Euskadi/dena-common-data-api/blob/PUBLIC-v0.3.30"
   
-  common_interop_api_tree: "https://github.com/DENA-Euskadi/dena-common-interop-api/tree/PUBLIC-v0.3.30-SNAPSHOT"
-  common_interop_api_blob: "https://github.com/DENA-Euskadi/dena-common-interop-api/blob/PUBLIC-v0.3.30-SNAPSHOT"
+  common_interop_api_tree: "https://github.com/DENA-Euskadi/dena-common-interop-api/tree/PUBLIC-v0.3.30"
+  common_interop_api_blob: "https://github.com/DENA-Euskadi/dena-common-interop-api/blob/PUBLIC-v0.3.30"
   
-  interop_test_tree: "https://github.com/DENA-Euskadi/dena-interop-common-data-test/tree/PUBLIC-v0.3.30-SNAPSHOT"
-  interop_test_blob: "https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/PUBLIC-v0.3.30-SNAPSHOT"
+  interop_test_tree: "https://github.com/DENA-Euskadi/dena-interop-common-data-test/tree/PUBLIC-v0.3.30"
+  interop_test_blob: "https://github.com/DENA-Euskadi/dena-interop-common-data-test/blob/PUBLIC-v0.3.30"
   
   # Para clones
   docs_clone: "https://github.com/DENA-Euskadi/dena-common-docs.git"
