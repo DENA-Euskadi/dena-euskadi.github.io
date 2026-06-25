@@ -1,7 +1,7 @@
 # :material-email-open: Notificación (Administrative Notice)
 
-> - **Versión:** `v0.3.26`
-> - **Fecha:** 2026-06-11
+> - **Versión:** `v{{ dena.version }}`
+> - **Fecha:** {{ dena.date }}
 > - **Test:** [DN99DENATestMockObjFactoryForAdministrativeNotice.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
 > - **Código:** [DN00AdministrativeNotice.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNotice.java)
 
@@ -171,4 +171,4 @@ flowchart LR
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

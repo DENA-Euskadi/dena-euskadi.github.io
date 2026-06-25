@@ -1,6 +1,6 @@
 # :material-database-arrow-right: DATA-RETRIEVE
 
-> **Versión:** `v0.3.26` · **Fecha:** 2026-06-11
+> **Versión:** `v{{ dena.version }}` · **Fecha:** {{ dena.date }}
 
 ## ¿Qué es?
 
@@ -432,4 +432,4 @@ flowchart LR
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

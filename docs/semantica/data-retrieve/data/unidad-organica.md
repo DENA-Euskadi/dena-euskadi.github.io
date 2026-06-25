@@ -1,7 +1,7 @@
 # :material-office-building: Unidad Orgánica (Org Unit)
 
-> - **Versión:** `v0.3.26`
-> - **Fecha:** 2026-06-11
+> - **Versión:** `v{{ dena.version }}`
+> - **Fecha:** {{ dena.date }}
 > - **Test:** [DN99DENATestMockObjFactoryForOrgUnitReference.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForOrgUnitReference.java)
 > - **Código:** [DN00OrgUnitReference.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java)
 
@@ -135,4 +135,4 @@ flowchart LR
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

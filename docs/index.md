@@ -175,4 +175,4 @@ graph LR
 
 ---
 
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

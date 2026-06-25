@@ -1,7 +1,7 @@
 # :material-credit-card: Pago (Payment)
 
-> - **Versión:** `v0.3.26`
-> - **Fecha:** 2026-06-11
+> - **Versión:** `v{{ dena.version }}`
+> - **Fecha:** {{ dena.date }}
 > - **Test:** [DN99DENATestMockObjFactoryForOneOffPayment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
 > - **Código:**
 >   - [DN00OneOffPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java)
@@ -341,4 +341,4 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

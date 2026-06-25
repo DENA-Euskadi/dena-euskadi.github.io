@@ -345,4 +345,4 @@ El token se obtiene automáticamente mediante client credentials.
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

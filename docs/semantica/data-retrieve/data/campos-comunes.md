@@ -1,7 +1,7 @@
 # :material-database-outline: Campos Comunes (Base Fields)
 
-> - **Versión:** `v0.3.26`
-> - **Fecha:** 2026-06-11
+> - **Versión:** `v{{ dena.version }}`
+> - **Fecha:** {{ dena.date }}
 > - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
 > - **Código:** [DN00DENADataExchangedObjectBase.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
 
@@ -212,4 +212,4 @@ Ver también: [`DN00DataTypeEnum.java`]({{ repos.common_data_api_blob }}/denaCom
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

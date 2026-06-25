@@ -1,7 +1,7 @@
 # :material-cog: Servicio Administrativo (Administrative Service)
 
-> - **Versión:** `v0.3.26`
-> - **Fecha:** 2026-06-11
+> - **Versión:** `v{{ dena.version }}`
+> - **Fecha:** {{ dena.date }}
 > - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceObjectBase.java)
 > - **Código:**
 >   - [DN00AdmistrativeService.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java)
@@ -205,4 +205,4 @@ Servicio Administrativo
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

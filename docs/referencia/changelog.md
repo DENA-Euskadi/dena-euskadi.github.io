@@ -4,9 +4,21 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.3.26 <small>— 2026-06-11</small> { #v0326 }
+## v0.3.31 <small>— 2026-06-25</small> { #v0331 }
 
 !!! success "Actual"
+
+**Mejoras de documentación:**
+
+- :material-refresh: Variables centralizadas actualizadas en `mkdocs-vars.yaml`
+- :material-refresh: Todos los footers migrados a variables `{{ dena.version }}` y `{{ dena.date }}`
+- :material-refresh: Headers de versión en documentación semántica usando variables
+- :material-plus: Mantenibilidad mejorada: cambios de versión desde un solo archivo
+- :material-bug: Corrección de inconsistencias de versionado en documentación
+
+---
+
+## v0.3.26 <small>— 2026-06-11</small> { #v0326 }
 
 **Mejoras de documentación:**
 
@@ -69,4 +81,4 @@ Historial de versiones de la documentación DENA.
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

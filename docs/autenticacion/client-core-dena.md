@@ -53,4 +53,4 @@ La autenticación entre la aplicación cliente y DENA utiliza OAuth 2.0. El toke
 
 <!-- DENA-DOC-FOOTER -->
 ---
-<sub>DENA Docs v0.3.26 · 2026-06-11</sub>
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>
