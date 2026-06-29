@@ -10,9 +10,7 @@ theme:
     scheme: default
     primary: dena
     accent: teal
-  font:
-    text: Roboto
-    code: Roboto Mono
+  font: false
   icon:
     logo: material/swap-horizontal-bold
     repo: material/github
@@ -27,8 +25,8 @@ theme:
       question: material/help-circle
       example: material/test-tube
       abstract: material/clipboard-text
-  logo: adjuntos/logos/Dena_RGB_Calado_H.png
-  favicon: adjuntos/logos/Dena_RGB_Calado_H.png
+  logo: adjuntos/logos/Dena_RGB_NegativoColor_H.png
+  favicon: adjuntos/logos/Dena_RGB_NegativoColor_H.png
   features:
     - navigation.instant
     - navigation.tracking
