@@ -1,6 +1,6 @@
 site_name: 'DENA Interop - Documentación para Administraciones'
 site_description: 'Documentación técnica y funcional del proyecto DENA para administraciones públicas integradoras'
-site_url: 'https://DENA-Euskadi.github.io/dena-common-docs'
+site_url: 'https://DENA-Euskadi.github.io/'
 
 theme:
   name: material
