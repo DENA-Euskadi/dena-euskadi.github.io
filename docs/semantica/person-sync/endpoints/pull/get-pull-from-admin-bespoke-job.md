@@ -39,7 +39,7 @@ Consulta el estado de una solicitud de exportación.
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `GET_PULL_ADMIN_BESPOKE` |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `GET_PULL_ADMIN_BESPOKE` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 

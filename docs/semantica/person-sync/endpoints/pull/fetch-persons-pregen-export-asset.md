@@ -42,7 +42,7 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_PREGEN_EXPORT_ASSET` |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_PREGEN_EXPORT_ASSET` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 

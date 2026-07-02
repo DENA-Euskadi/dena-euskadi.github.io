@@ -47,7 +47,7 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
+| `context` | [Context](../../../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 ## Data

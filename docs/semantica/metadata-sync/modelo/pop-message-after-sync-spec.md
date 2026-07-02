@@ -41,7 +41,7 @@ flowchart LR
 | Campo    | Tipo     | Obligatorio | Descripción |
 |----------|----------|-------------|-------------|
 | `how`    | `String` | ✅          | Indicación de como se mostrará el mensaje a la persona usuaria. Valores posibles: <br> `PUSH_TO_CLIENT_AT_CORE`: El mensaje se notificara por PUSH al cliente <br> `AT_CLIENT_AFTER_SYNC`: El mensaje se mostrara tras realizar una sincronización desde el cliente |
-| `messageByLang` | [LanguageTexts](../semantica-base/modelo/language-texts.md) | ✅ | Mapa clave-valor con el mensaje en los distintos idiomas posibles |
+| `messageByLang` | [LanguageTexts](../../semantica-base/modelo/language-texts.md) | ✅ | Mapa clave-valor con el mensaje en los distintos idiomas posibles |
 
 ---
 

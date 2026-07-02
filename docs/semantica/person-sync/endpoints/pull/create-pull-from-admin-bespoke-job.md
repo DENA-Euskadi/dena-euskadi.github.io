@@ -47,7 +47,7 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `CREATE_PULL_ADMIN_BESPOKE` |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `CREATE_PULL_ADMIN_BESPOKE` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 

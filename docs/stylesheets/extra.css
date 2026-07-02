@@ -528,3 +528,21 @@ html {
   stroke: var(--dena-primary) !important;
 }
 
+
+/* --- Logos institucionales en footer --- */
+.dena-footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.2rem 1rem;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  border-top: 1px solid #e0e0e0;
+}
+
+.dena-footer-logos img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}

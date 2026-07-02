@@ -39,7 +39,7 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_BESPOKE_EXPORT_ASSET` |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_BESPOKE_EXPORT_ASSET` |
 | `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
 
 
