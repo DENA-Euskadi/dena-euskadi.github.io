@@ -107,7 +107,7 @@ Antes de contactar, verifica si tu duda se resuelve en:
 
 ### Enlaces de Interés
 
-- [Documentación Oficial DENA](/)
+- [Documentación Oficial DENA](../index.md)
 - [GitHub Organizacional](https://github.com/DENA-Euskadi)
 - [Postman Collections](../adjuntos/index.md)
 

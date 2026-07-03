@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
+  <!-- Ikurriña: Basque flag -->
+  <!-- White background -->
+  <rect width="60" height="40" fill="#fff"/>
+  <!-- Green diagonal cross (Saint Andrew's cross) -->
+  <line x1="0" y1="0" x2="60" y2="40" stroke="#007A33" stroke-width="10"/>
+  <line x1="60" y1="0" x2="0" y2="40" stroke="#007A33" stroke-width="10"/>
+  <!-- Red background (over diagonals) -->
+  <polygon points="30,0 60,0 60,40 30,40" fill="#D52B1E" opacity="0"/>
+  <rect width="60" height="40" fill="#D52B1E" style="mix-blend-mode:multiply" opacity="0"/>
+  <!-- Red field behind the cross arms -->
+  <polygon points="0,0 60,0 60,40 0,40" fill="#D52B1E" opacity="0"/>
+  <!-- Proper ikurriña: red base, green diagonals, white cross -->
+  <!-- Red base -->
+  <rect width="60" height="40" fill="#D52B1E"/>
+  <!-- Green diagonal (top-left to bottom-right) -->
+  <line x1="0" y1="0" x2="60" y2="40" stroke="#007A33" stroke-width="11"/>
+  <!-- Green diagonal (top-right to bottom-left) -->
+  <line x1="60" y1="0" x2="0" y2="40" stroke="#007A33" stroke-width="11"/>
+  <!-- White vertical bar -->
+  <rect x="24" y="0" width="12" height="40" fill="#fff"/>
+  <!-- White horizontal bar -->
+  <rect x="0" y="14" width="60" height="12" fill="#fff"/>
+</svg>

@@ -91,7 +91,7 @@ flowchart LR
 | `priority` | `String` | ❌ | `"NORMAL"` | Prioridad |
 | `subject` | `LanguageTexts` | ✅ | `{"SPANISH":"Cita renovación DNI"}` | Asunto de la cita |
 | `details` | `LanguageTexts` | ❌ | `{"SPANISH":"Traer foto reciente"}` | Detalles adicionales |
-| `location` | `Object` | ❌ | *(ver [Ubicación](#ubicación-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Ubicación (recomendado) |
+| `location` | `Object` | ❌ | *(ver [Ubicación](#ubicacion-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Ubicación (recomendado) |
 | `urls` | `Array` | ❌ | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
 
 ---
@@ -107,7 +107,7 @@ flowchart LR
 
 ---
 
-## Ubicación (`location`)
+## Ubicación (`location`) { #ubicacion-location }
 
 | Campo | Tipo | Obligatorio | Descripción |
 |-------|------|:-----------:|-------------|

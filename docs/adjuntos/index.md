@@ -72,7 +72,7 @@ adjuntos/
 
 Todos los recursos están disponibles en:
 
-:material-github: [DENA-Euskadi/dena-common-docs/tree/{{ tags.dena_common_docs }}/docs/adjuntos]({{ repos.docs_tree }}/docs/adjuntos)
+:material-github: [DENA-Euskadi/dena-common-docs/docs/adjuntos]({{ repos.docs_tree }}/docs/adjuntos)
 
 <!-- DENA-DOC-FOOTER -->
 ---

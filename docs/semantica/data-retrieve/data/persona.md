@@ -135,11 +135,11 @@ flowchart LR
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
-| `mainAddress` | `Object` | ❌ | *(ver [Dirección](#dirección-mainaddress--cada-elemento-de-otheraddressesaddresses))* | Dirección principal |
+| `mainAddress` | `Object` | ❌ | *(ver [Dirección](#direccion-mainaddress--cada-elemento-de-otheraddressesaddresses))* | Dirección principal |
 | `otherAddresses` | `Object` | ❌ | | Otras direcciones |
 | `otherAddresses.addresses` | `Array` | ❌ | | Lista de direcciones adicionales |
 
-### Dirección ([`mainAddress`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Address.java) / cada elemento de `otherAddresses.addresses`)
+### Dirección (`mainAddress` / cada elemento de `otherAddresses.addresses`) { #direccion-mainaddress--cada-elemento-de-otheraddressesaddresses }
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|

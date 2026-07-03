@@ -50,6 +50,10 @@ nav:
       - Instalación: guia-inicio/instalacion.md
       - Pruebas de Conectividad: guia-inicio/probar-comunicaciones.md
       - Configuración Mock: guia-inicio/mock-expedientes.md
+  - Arquitectura:
+      - Visión General: arquitectura/index.md
+      - Diagramas: arquitectura/diagramas.md
+      - Otra Documentación: arquitectura/otra-documentacion.md
   - Autenticación:
       - Visión General: autenticacion/index.md
       - DENA Llama a Tu Sistema: autenticacion/core-dena-administracion/index.md
@@ -116,7 +120,97 @@ markdown_extensions:
 
 plugins:
   - search:
-      lang: es
+      lang:
+        - es
+        - en
+        - eu
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      languages:
+        - locale: es
+          default: true
+          name: 🇪🇸 Castellano
+          build: true
+        - locale: en
+          name: 🇬🇧 English
+          build: true
+          nav_translations:
+            Inicio: Home
+            Primeros Pasos: Getting Started
+            Checklist de Onboarding: Onboarding Checklist
+            Instalación: Installation
+            Pruebas de Conectividad: Connectivity Tests
+            Configuración Mock: Mock Configuration
+            Arquitectura: Architecture
+            Visión General: Overview
+            Diagramas: Diagrams
+            Otra Documentación: Other Documentation
+            Autenticación: Authentication
+            DENA Llama a Tu Sistema: DENA Calls Your System
+            Tu Sistema Llama a DENA: Your System Calls DENA
+            Semántica: Semantics
+            Tipos de Datos Disponibles: Available Data Types
+            Campos Comunes: Common Fields
+            Cita: Appointment
+            Expediente: Record
+            Notificación: Notification
+            Pago: Payment
+            Persona: Person
+            Registro Oficial: Official Registry
+            Servicio Administrativo: Administrative Service
+            Unidad Orgánica: Organizational Unit
+            Modelos Base: Base Models
+            Operativas: Operations
+            Herramientas: Tools
+            DevTools Web: Web DevTools
+            Ejemplos de Código: Code Examples
+            Recursos Postman: Postman Resources
+            Ayuda y Referencia: Help & Reference
+            Preguntas Frecuentes: FAQ
+            Resolver Problemas: Troubleshooting
+            Glosario de Términos: Glossary
+            Contacto y Soporte: Contact & Support
+        - locale: eu
+          name: Euskara
+          build: true
+          nav_translations:
+            Inicio: Hasiera
+            Primeros Pasos: Lehen Urratsak
+            Checklist de Onboarding: Onboarding Egiaztapen-zerrenda
+            Instalación: Instalazioa
+            Pruebas de Conectividad: Konektibitate Probak
+            Configuración Mock: Mock Konfigurazioa
+            Arquitectura: Arkitektura
+            Visión General: Ikuspegi Orokorra
+            Diagramas: Diagramak
+            Otra Documentación: Beste Dokumentazioa
+            Autenticación: Autentifikazioa
+            DENA Llama a Tu Sistema: DENA-k Zure Sistemari Deitzen Dio
+            Tu Sistema Llama a DENA: Zure Sistemak DENA-ri Deitzen Dio
+            Semántica: Semantika
+            Tipos de Datos Disponibles: Datu Mota Eskuragarriak
+            Campos Comunes: Eremu Komunak
+            Cita: Hitzordua
+            Expediente: Espedientea
+            Notificación: Jakinarazpena
+            Pago: Ordainketa
+            Persona: Pertsona
+            Registro Oficial: Erregistro Ofiziala
+            Servicio Administrativo: Administrazio Zerbitzua
+            Unidad Orgánica: Unitate Organikoa
+            Modelos Base: Oinarrizko Ereduak
+            Operativas: Operatibak
+            Herramientas: Tresnak
+            DevTools Web: Web DevTools
+            Ejemplos de Código: Kode Adibideak
+            Recursos Postman: Postman Baliabideak
+            Ayuda y Referencia: Laguntza eta Erreferentzia
+            Preguntas Frecuentes: Ohiko Galderak
+            Resolver Problemas: Arazoen Konponketa
+            Glosario de Términos: Terminoen Glosarioa
+            Contacto y Soporte: Kontaktua eta Laguntza
   - macros:
       include_yaml:
         - ./mkdocs-vars.yaml
@@ -132,6 +226,16 @@ extra_css:
 
 extra:
   generator: false
+  alternate:
+    - name: 🇪🇸 Castellano
+      link: /
+      lang: es
+    - name: 🇬🇧 English
+      link: /en/
+      lang: en
+    - name: Euskara
+      link: /eu/
+      lang: eu
   social:
     - icon: material/github
       link: https://github.com/DENA-Euskadi

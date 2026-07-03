@@ -2,3 +2,4 @@
 # Instalar con: pip install -r requirements.txt
 mkdocs-material>=9.5,<10
 mkdocs-macros-plugin>=1.0
+mkdocs-static-i18n>=1.2,<2
