@@ -72,6 +72,21 @@
   color: #b71c1c;
 }
 
+[data-md-color-scheme="slate"] .status-badge--available {
+  background-color: #1b5e20;
+  color: #c8e6c9;
+}
+
+[data-md-color-scheme="slate"] .status-badge--coming-soon {
+  background-color: #e65100;
+  color: #fff3e0;
+}
+
+[data-md-color-scheme="slate"] .status-badge--deprecated {
+  background-color: #b71c1c;
+  color: #ffcdd2;
+}
+
 /* --- HTTP method badges --- */
 .http-method {
   display: inline-block;
@@ -88,6 +103,11 @@
 .http-method--put { background: #fff3e0; color: #e65100; }
 .http-method--delete { background: #fce4ec; color: #c62828; }
 
+[data-md-color-scheme="slate"] .http-method--get { background: #1565c0; color: #e3f2fd; }
+[data-md-color-scheme="slate"] .http-method--post { background: #2e7d32; color: #e8f5e9; }
+[data-md-color-scheme="slate"] .http-method--put { background: #e65100; color: #fff3e0; }
+[data-md-color-scheme="slate"] .http-method--delete { background: #c62828; color: #fce4ec; }
+
 /* --- Version badge in footer --- */
 .dena-version-badge {
   display: inline-block;
@@ -97,4 +117,53 @@
   color: white;
   font-size: 0.7rem;
   font-weight: 600;
+}
+
+/* --- Logos institucionales en footer --- */
+.dena-footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.2rem 1rem;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  border-top: 1px solid #e0e0e0;
+}
+
+.dena-footer-logos img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* --- Logos administraciones en footer --- */
+.dena-footer-admins {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  border-top: 1px solid #e0e0e0;
+}
+
+.dena-footer-admins-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.dena-footer-admins-grid img,
+.dena-footer-admins-eudel img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.dena-footer-admins-eudel {
+  display: flex;
+  align-items: center;
 }

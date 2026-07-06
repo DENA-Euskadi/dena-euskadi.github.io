@@ -50,3 +50,69 @@
   stroke: var(--dena-green-950) !important;
   stroke-width: 2px !important;
 }
+
+/* --- DENA Colors for Mermaid (Dark Mode) --- */
+[data-md-color-scheme="slate"] .mermaid {
+  background-color: transparent !important;
+  filter: invert(0) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid text {
+  fill: var(--dena-white-25) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .node rect,
+[data-md-color-scheme="slate"] .mermaid .node circle,
+[data-md-color-scheme="slate"] .mermaid .node ellipse,
+[data-md-color-scheme="slate"] .mermaid .node polygon {
+  fill: #2a3f2e !important;
+  stroke: var(--dena-primary) !important;
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .edge-line,
+[data-md-color-scheme="slate"] .mermaid .flowchart-link {
+  stroke: var(--dena-primary) !important;
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .arrowheads {
+  fill: var(--dena-primary) !important;
+  stroke: var(--dena-primary) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .sequence-actor-border {
+  stroke: var(--dena-primary) !important;
+  stroke-width: 2px !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .sequence-actor {
+  fill: #2a3f2e !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .note {
+  fill: #1a2f1e !important;
+  stroke: var(--dena-accent) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .label {
+  color: var(--dena-white-25) !important;
+  fill: var(--dena-white-25) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .flowchart .node {
+  fill: #2a3f2e !important;
+  stroke: var(--dena-primary) !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .messageText {
+  fill: var(--dena-white-25) !important;
+  stroke: none !important;
+}
+
+[data-md-color-scheme="slate"] .mermaid .activation0,
+[data-md-color-scheme="slate"] .mermaid .activation1,
+[data-md-color-scheme="slate"] .mermaid .activation2 {
+  fill: #1a2f1e !important;
+  stroke: var(--dena-primary) !important;
+}

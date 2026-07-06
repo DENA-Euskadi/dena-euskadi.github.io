@@ -11,6 +11,20 @@
   --md-typeset-color: var(--dena-text-primary);
 }
 
+[data-md-color-scheme="slate"][data-md-color-primary="dena"] {
+  --md-primary-fg-color: var(--dena-primary);
+  --md-primary-fg-color--light: #a8e8b5;
+  --md-primary-fg-color--dark: var(--dena-green-500);
+  --md-accent-fg-color: var(--dena-accent);
+  --md-typeset-color: var(--dena-text-primary);
+  --md-default-bg-color: var(--dena-background);
+  --md-default-fg-color: var(--dena-text-primary);
+}
+
+[data-md-color-scheme="slate"] .md-search__input::placeholder {
+  color: rgba(252, 254, 251, 0.7) !important;
+}
+
 /* --- Base theme settings --- */
 [data-md-color-scheme="default"] {
   --md-default-bg-color: var(--dena-background);

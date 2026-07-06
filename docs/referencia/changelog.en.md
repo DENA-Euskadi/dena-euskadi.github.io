@@ -4,9 +4,23 @@ DENA documentation version history.
 
 ---
 
-## v0.3.32 <small>— 2026-06-26</small> { #v0332 }
+## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
 
 !!! success "Current"
+
+**Documentation improvements:**
+
+- :material-palette: CSS reorganised into numbered files `01`–06 by responsibility
+- :material-refresh: `extra.css` migrated to numbered files; legacy file emptied
+- :material-image: Administration logos added to footer (Ayto. Bilbao, Donosti, Vitoria, DFA, DFB, DFG, EUDEL)
+- :material-format-size: Footer logo size increased to 60px
+- :material-bug: Fixed missing dark mode variables in `01-variables.css`, `02-material-overrides.css` and `06-mermaid-diagrams.css`
+- :material-bug: Mass correction `registry` → `register` in `registro-oficial.md` (es/en/eu)
+- :material-web: Manrope typography migrated from local font to Google Fonts
+
+---
+
+## v0.3.32 <small>— 2026-06-26</small> { #v0332 }
 
 **Documentation improvements:**
 

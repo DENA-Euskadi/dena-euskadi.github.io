@@ -4,9 +4,23 @@ DENA dokumentazioaren bertsio-historia.
 
 ---
 
-## v0.3.32 <small>— 2026-06-26</small> { #v0332 }
+## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
 
 !!! success "Unekoa"
+
+**Dokumentazio-hobekuntzak:**
+
+- :material-palette: CSS fitxategi zenbakituetan (`01`–06) berrantolatuta erantzukizunaren arabera
+- :material-refresh: `extra.css` fitxategi zenbakituetara migratuta; legacy fitxategia hustu
+- :material-image: Administrazioen logoak footer-ean gehituta (Ayto. Bilbao, Donosti, Vitoria, DFA, DFB, DFG, EUDEL)
+- :material-format-size: Footer-eko logoen tamaina 60px-era handitu
+- :material-bug: Dark mode aldagai faltsuak zuzendu `01-variables.css`, `02-material-overrides.css` eta `06-mermaid-diagrams.css`-en
+- :material-bug: `registry` → `register` zuzenketaren masibo `registro-oficial.md`-n (es/en/eu)
+- :material-web: Manrope tipografia tokiko fontetik Google Fonts-era migratuta
+
+---
+
+## v0.3.32 <small>— 2026-06-26</small> { #v0332 }
 
 **Dokumentazio-hobekuntzak:**
 

@@ -252,6 +252,3 @@ extra:
     Referencia: referencia
   support:
     email: admin-digital-data-dena@ejie.eus
-
-extra_css:
-  - stylesheets/extra.css
