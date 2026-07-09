@@ -1,4 +1,4 @@
-# :material-checkbox-multiple-marked: Onboarding Egiaztapen-zerrenda
+# :material-checkbox-multiple-marked: onboardinga Egiaztapen-zerrenda
 
 Urratsez urratseko gida "sarbidea eman didate"-tik "nire integrazioa martxan dago"-ra.
 
@@ -25,7 +25,7 @@ Urratsez urratseko gida "sarbidea eman didate"-tik "nire integrazioa martxan dag
 
     **:material-email: DENA Kontaktua:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
     
-    Kredentzialak DENA taldeak ematen ditu administrazioaren alta-fasean. Onboarding prozesuari edo arazo teknikoei buruzko edozein zalantzatarako, jarri harremanetan laguntza-taldearekin.
+    Kredentzialak DENA taldeak ematen ditu administrazioaren alta-fasean. onboardinga prozesuari edo arazo teknikoei buruzko edozein zalantzatarako, jarri harremanetan laguntza-taldearekin.
 
 ---
 
@@ -67,8 +67,8 @@ Urratsez urratseko gida "sarbidea eman didate"-tik "nire integrazioa martxan dag
 ## :material-numeric-6-circle: Autentifikazioa probatu
 
 - [ ] Zure kredentzialekin token bat lortu
-- [ ] Token-a sartu DENA-ri egiten dizkiozun deietan
-- [ ] DENA-k deitzen badizu: zure IDP-a konfiguratu eta kredentzialak eman DENA-ri
+- [ ] Token-a sartu DENAri egiten dizkiozun deietan
+- [ ] DENAk zure endpoint-arekin konektatzen duela egiaztatu
 - [ ] Dei autentifikatuak funtzionatzen dutela egiaztatu
 
 [:octicons-arrow-right-24: Autentifikazioa](../autenticacion/index.md)
@@ -77,7 +77,7 @@ Urratsez urratseko gida "sarbidea eman didate"-tik "nire integrazioa martxan dag
 
 ## :material-numeric-7-circle: End-to-end balioztatu PRE-n
 
-- [ ] DENA-k zure endpoint erreala deitzen du proba-pertsona batekin
+- [ ] DENAk zure endpoint erreala deitzen du proba-pertsona batekin
 - [ ] Erantzuna CORE-ra behar bezala iristen dela egiaztatu
 - [ ] Metadata-Sync probatu aplikagarria bada
 - [ ] Person-Sync probatu aplikagarria bada
@@ -95,7 +95,7 @@ Urratsez urratseko gida "sarbidea eman didate"-tik "nire integrazioa martxan dag
 
 !!! success "Integrazioa osatuta!"
 
-    Urrats guztiak gainditutakoan, zure administrazioa DENA-rekin integratuta egongo da eta erabiltzaileek beren datuak atzitu ahal izango dituzte aplikaziotik.
+    Urrats guztiak gainditutakoan, zure administrazioa DENArekin integratuta egongo da eta erabiltzaileek beren datuak atzitu ahal izango dituzte aplikaziotik.
 
 <!-- DENA-DOC-FOOTER -->
 ---

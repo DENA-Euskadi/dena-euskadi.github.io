@@ -43,7 +43,7 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
 
     - Egiaztatu firewall-arauak azpiegitura-taldearekin
     - Konfiguratu proxy-a: `export https_proxy=http://proxy:3128`
-    - Eskatu trafiko-irekiera DENA-ren IP-etara
+    - Eskatu trafiko-irekiera DENAren IP-etara
 
 ??? failure "SSL/TLS handshake error"
 
@@ -168,7 +168,7 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
 
 ??? failure "Erantzunaren timeout-a"
 
-    **Sintoma:** DENA-k timeout jasotzen du zure endpoint-a deitzean.
+    **Sintoma:** DENAk timeout jasotzen du zure endpoint-a deitzean.
 
     **Kausa posibleak:**
 
@@ -268,7 +268,7 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
     - Log garrantzitsuak
     - Ingurunea (PRE/PRO/local)
     - `messageCorrelationId` baduzu
-    - Testuinguru-informazioa (zer egiten saiatzen zinen)
+    - Testuinguru-informazioa (zer egin nahi zenuen?)
 
 <!-- DENA-DOC-FOOTER -->
 ---

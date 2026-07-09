@@ -2,7 +2,7 @@
 
 ## Deskribapena
 
-DENA-ren erabiltzaile bati lotutako administrazio batek kudeatutako datu batean gertatutako aldaketaren irudikapena.
+DENAren erabiltzaile bati lotutako administrazio batek kudeatutako datu batean gertatutako aldaketaren irudikapena.
 
 ```mermaid
 ---

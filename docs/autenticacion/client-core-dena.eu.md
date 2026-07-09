@@ -1,6 +1,6 @@
 # :material-cellphone-link: Bezeroa ↔ DENA CORE
 
-Bezero aplikazioaren eta DENA-ren arteko autentifikazioak OAuth 2.0 erabiltzen du. Lortutako token-a deietan sartzen da `Authorization: Bearer <token>` goiburuaren bidez.
+Bezero aplikazioaren eta DENAren arteko autentifikazioak OAuth 2.0 erabiltzen du. Lortutako token-a deietan sartzen da `Authorization: Bearer <token>` goiburuaren bidez.
 
 ---
 
@@ -8,7 +8,7 @@ Bezero aplikazioaren eta DENA-ren arteko autentifikazioak OAuth 2.0 erabiltzen d
 
 === ":material-shield-key: Giltza (lehen sarbidea)"
 
-    Lehen sarbidean, erabiltzaileak **Giltza**-rekin autentifikatzen du. DENA-k Giltza token-a balioztatzen du eta bere OAuth token propioa sortzen du komunikaziorako.
+    Lehen sarbidean, erabiltzaileak **Giltza**-rekin autentifikatzen du. DENAk Giltza token-a balioztatzen du eta bere OAuth token propioa sortzen du komunikaziorako.
 
     ![Giltza autentifikazio fluxua](../adjuntos/imagenes/login-giltza.png)
 

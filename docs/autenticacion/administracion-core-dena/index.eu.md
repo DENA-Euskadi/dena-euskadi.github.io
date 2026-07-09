@@ -6,7 +6,7 @@
 
 ## Zer da?
 
-Administrazio batek DENA-ri eskaera bat egiten dionean, OAuth 2.0 token bat sartu behar du `Authorization: Bearer <token>` goiburuan.
+Administrazio batek DENAri eskaera bat egiten dionean, OAuth 2.0 token bat sartu behar du `Authorization: Bearer <token>` goiburuan.
 
 ``` mermaid
 sequenceDiagram
@@ -26,7 +26,7 @@ sequenceDiagram
 
 !!! info "Beharrezko kredentzialak"
 
-    DENA-k administrazioari honako hauek emango dizkio:
+    DENAk administrazioari honako hauek emango dizkio:
 
     - `client_id` — Bezeroaren identifikadorea
     - `client_secret` — Bezeroaren sekretua

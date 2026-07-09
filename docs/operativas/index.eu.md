@@ -10,7 +10,7 @@ Atal honek administrazioek DENA plataformarekin integratzeko inplementa ditzaket
     
     ---
     
-    Inplementatu endpoint-ak DENA-k zure administrazioaren datuak eskaeran kontsulta ditzan.
+    Inplementatu endpoint-ak DENAk zure administrazioaren datuak eskaeran kontsulta ditzan.
     
     [:octicons-arrow-right-24: Joan Datuak Zerbitzatura](../semantica/data-retrieve/index.md)
 
@@ -18,7 +18,7 @@ Atal honek administrazioek DENA plataformarekin integratzeko inplementa ditzaket
     
     ---
     
-    Jakinarazi DENA-ri zure administrazioaren metadatuetan aldaketak daudenean.
+    Jakinarazi DENAri zure administrazioaren metadatuetan aldaketak daudenean.
     
     [:octicons-arrow-right-24: Joan Aldaketak Jakinarazira](../semantica/metadata-sync/index.md)
 
@@ -34,9 +34,9 @@ Atal honek administrazioek DENA plataformarekin integratzeko inplementa ditzaket
 
 ## Gomendatutako Fluxua
 
-1. **Hasi Datuak Zerbitzatuz** - Oinarrizko operatiba da, DENA-k zure administrazioaren informazioa atzitzea ahalbidetzen duena
+1. **Hasi Datuak Zerbitzatuz** - Oinarrizko operatiba da, DENAk zure administrazioaren informazioa atzitzea ahalbidetzen duena
 2. **Inplementatu Aldaketak Jakinarazi** - DENA denbora errealean eguneraketez informatuta mantentzeko  
 3. **Konfiguratu Pertsonak Sinkronizatu** - Datu pertsonaletan koherentzia mantentzeko
 
 !!! tip "Nondik hasi?"
-    DENA-rekin zure lehen integrazioa bada, **Datuak Zerbitzatu**-rekin hastea gomendatzen dizugu, edozein integraziorako oinarrizkoena eta beharrezkoena den operatiba baita.
+    DENArekin zure lehen integrazioa bada, **Datuak Zerbitzatu**-rekin hastea gomendatzen dizugu, edozein integraziorako oinarrizkoena eta beharrezkoena den operatiba baita.

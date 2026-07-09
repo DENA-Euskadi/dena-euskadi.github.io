@@ -1,6 +1,6 @@
 # :material-upload: PERSON-SYNC — PUSH
 
-DENA-k modu proaktiboan jakinarazten dio administrazioari pertsona berri bat erregistratzen denean edo bere datuetan aldaketak gertatzen direnean.
+DENAk modu proaktiboan jakinarazten dio administrazioari pertsona berri bat erregistratzen denean edo bere datuetan aldaketak gertatzen direnean.
 
 ---
 
@@ -23,7 +23,7 @@ sequenceDiagram
 !!! info "Endpoint bat inplementatu"
 
     Administrazioak aldaketaren xehetasunak jasotzeko gai den REST endpoint bat eskaini behar du.
-    DENA-k endpoint hau deituko du pertsona baten alta edo aldaketa gertatzen den bakoitzean.
+    DENAk endpoint hau deituko du pertsona baten alta edo aldaketa gertatzen den bakoitzean.
 
 ---
 

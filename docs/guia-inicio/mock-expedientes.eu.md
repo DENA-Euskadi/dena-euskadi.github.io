@@ -1,6 +1,6 @@
 # :material-test-tube: Espedienteen Mock-a
 
-Gida DENA-rekin integrazio-probak egiteko espedienteen mock-a zabaldu eta erabiltzeko.
+DENArekin integrazio-probak egiteko espedienteen mock-a zabaldu eta erabiltzeko gida.
 
 ---
 
@@ -29,7 +29,7 @@ graph LR
 
 ---
 
-## Zabalpena
+## zabaltzea
 
 ### Eskakizunak
 
@@ -163,7 +163,7 @@ curl -X POST http://localhost:8086/api/connector/retrieveData \
 
 ---
 
-## Proba-datu-basearekin konexioa (aukerakoa)
+## Proba datu basearekin konexioa (aukerakoa)
 
 !!! info "Datu dinamikoak H2-rekin"
 

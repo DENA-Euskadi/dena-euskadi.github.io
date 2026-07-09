@@ -1,6 +1,6 @@
 # :material-cog: Instalazioa eta ingurunearen konfigurazioa
 
-Zure garapen-ingurunea prestatzeko eta DENA biltegiekin lan egiteko gida.
+Zure garapen-ingurunea prestatzeko eta DENAren biltegiekin lan egiteko gida.
 
 ---
 
@@ -28,7 +28,7 @@ git clone {{ repos.docs_clone }}
 cd dena-common-docs
 git checkout v0.3.26
 
-# Konektibitate testa (zure ingurunea balidatzeko)
+# Konektibitate testa (zure ingurunea baliozkotu)
 git clone {{ repos.conx_test_clone }}
 cd dena-admin-conx-test
 git checkout v1.0.0
@@ -88,7 +88,7 @@ mvn clean compile -s ~/.m2/settings-dena.xml -Pbatsdlc
 mvn package -Pstandalone
 ```
 
-!!! success "✓ Ingurunea zuzena"
+!!! success "✓ Ingurune zuzena"
 
     Konpilazioak `BUILD SUCCESS`-ekin amaitzen badu, zure ingurunea ondo konfiguratuta dago.
 
@@ -100,7 +100,7 @@ mvn package -Pstandalone
 
 ---
 
-## 4. DENA-rekiko konektibitatea egiaztatu
+## 4. DENArekiko konektibitatea egiaztatu
 
 ```bash
 java -jar denaAdminConxTestRESTApp/target/denaAdminConxTestRESTApp-v1.0.0.war
@@ -158,7 +158,7 @@ curl http://localhost:8082/api/hello
 
     ---
 
-    Zure azpiegituraren eta DENA-ren arteko norabide biko konektibitatea balidatu.
+    Zure azpiegituraren eta DENAren arteko norabide biko konektibitatea baliozkotu.
 
     [:octicons-arrow-right-24: Komunikazioak probatu](./probar-comunicaciones.md)
 

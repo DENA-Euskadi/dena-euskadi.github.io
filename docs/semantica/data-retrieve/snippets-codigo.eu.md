@@ -2,7 +2,7 @@
 
 ## Deskribapena
 
-Kode-adibideak `POST /api/retrieveData` endpoint-a programazio-lengoaia ezberdinetan inplementatzeko. Snippet bakoitzak eskaera nola jaso, testuinguruaren eremu nagusiak nola atera eta erantzuna DENA-k espero duen formatuan nola itzuli erakusten du.
+Kode-adibideak `POST /api/retrieveData` endpoint-a programazio-lengoaia ezberdinetan inplementatzeko. Snippet bakoitzak eskaera nola jaso, testuinguruaren eremu nagusiak nola atera eta erantzuna DENAk espero duen formatuan nola itzuli erakusten du.
 
 ---
 

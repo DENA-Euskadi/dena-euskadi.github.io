@@ -13,13 +13,13 @@ hide:
 
     Egiaztapen-zerrenda osoa: ingurunea instalatzetik zure lehen integrazioa martxan jarri arte.
 
-    [:octicons-arrow-right-24: Onboarding](./guia-inicio/onboarding.md)
+    [:octicons-arrow-right-24: onboardinga](./guia-inicio/onboarding.md)
 
 -   :material-swap-horizontal:{ .lg .middle } **Integrazioa inplementatu**
 
     ---
 
-    Zure administrazioak DENA-rekin komunikatzeko esposatu behar dituen endpoint estandarrak.
+    Zure administrazioak DENArekin komunikatzeko erakutsi behar duen endpoint estandarra.
 
     [:octicons-arrow-right-24: Semantika](./semantica/index.md)
 
@@ -27,7 +27,7 @@ hide:
 
     ---
 
-    OAuth2 fluxuak zure sistemaren eta DENA-ren artean (client_credentials).
+    OAuth2 fluxuak zure sistemaren eta DENAren artean (client_credentials).
 
     [:octicons-arrow-right-24: Autentifikazioa](./autenticacion/index.md)
 
@@ -45,7 +45,7 @@ hide:
 
 ## Zer da DENA?
 
-**DENA** Eusko Jaurlaritzaren elkarreragingarritasun-plataforma da, herritarrei aplikazio bakar batetik administrazio publiko ezberdinek haiei buruz kudeatzen dituzten datuetara sarbidea ematen diena.
+**DENA** Eusko Jaurlaritzaren elkarreragingarritasun-plataforma da, herritarrei aplikazio bakar batetik sarbidea ematen diena administrazio publikoek haiei buruz kudeatzen dituzten datuetara.
 
 ``` mermaid
 ---
@@ -60,7 +60,7 @@ config:
     fontFamily: "Manrope, sans-serif"
 ---
 graph LR
-    A[Pertsona erabiltzailea] -->|DENA App| B(DENA CORE)
+    A[Erabiltzailea] -->|DENA App| B(DENA CORE)
     B -->|Data-Retrieve| C[A Administrazioa]
     B -->|Data-Retrieve| D[B Administrazioa]
     C -->|Metadata-Sync| B
@@ -78,9 +78,9 @@ graph LR
 
 ## :material-map-marker-path: Zer egin behar duzu?
 
-=== "Datuak DENA-ri eman"
+=== "Datuak DENAri eman"
 
-    Zure administrazioak REST endpoint bat esposatzen du DENA-k pertsona baten datuak kontsulta ditzan.
+    Zure administrazioak REST endpoint bat erakusten du DENAk pertsona baten datuak kontsulta ditzan.
 
     **Endpoint-a:** `POST /api/retrieveData`
 
@@ -88,7 +88,7 @@ graph LR
 
 === "Aldaketak jakinarazi"
 
-    Zure sistemak DENA-ri jakinarazten dio pertsona batentzat datu berriak daudela eskuragarri.
+    Zure sistemak DENAri jakinarazten dio pertsona batentzat datu berriak daudela eskuragarri.
 
     **Endpoint-a:** `POST /api/syncMetadata`
 
@@ -96,15 +96,15 @@ graph LR
 
 === "Pertsonak sinkronizatu"
 
-    DENA-ren eta zure administrazioaren artean erregistratutako pertsonen zerrenda eguneratuta mantendu.
+    DENAren eta zure administrazioaren artean erregistratutako pertsonen zerrenda eguneratuta mantendu.
 
-    **Mekanismoak:** Pull (zuk kontsultatzen duzu) / Push (DENA-k jakinarazten dizu)
+    **Mekanismoak:** Pull (zuk kontsultatzen duzu) / Push (DENAk jakinarazten dizu)
 
     [:octicons-arrow-right-24: Person-Sync Dokumentazioa](./semantica/person-sync/index.md)
 
 === "Konektibitatea probatu"
 
-    Zure azpiegituraren eta DENA-ren arteko norabide biko komunikazioa funtzionatzen duela balioztatu.
+    Zure azpiegituraren eta DENAren arteko norabide biko komunikazioa funtzionatzen duela balioztatu.
 
     ```bash
     curl -X POST http://localhost:8082/api/conxTest \
@@ -112,7 +112,7 @@ graph LR
       -d '{"environment": "PRE"}'
     ```
 
-    [:octicons-arrow-right-24: Komunikazio gida](./guia-inicio/probar-comunicaciones.md)
+    [:octicons-arrow-right-24: Komunikazioak gida](./guia-inicio/probar-comunicaciones.md)
 
 ---
 
@@ -122,7 +122,7 @@ graph LR
     
     Ziurtatu biltegiaren bertsio zuzena erabiltzen duzula klonazioarekin aurrera egin aurretik. Lan-ingurune honetarako gomendatutako bertsioa biltegian egonkor gisa etiketatutakoa da.
 
-!!! tip "5 minutu zure ingurunea balidatzeko"
+!!! tip "5 minutu zure ingurunea baliozkotu"
 
     ```bash
     # 1. Konektibitate testa klonatu
@@ -136,7 +136,7 @@ graph LR
     # 3. Egiaztatu
     curl http://localhost:8082/api/hello
 
-    # 4. DENA PRE-ren aurkako proba
+    # 4. DENA PREren aurkako proba
     curl -X POST http://localhost:8082/api/conxTest \
       -H "Content-Type: application/json" \
       -d '{"environment": "PRE"}'
@@ -148,11 +148,11 @@ graph LR
 
 | Atala | Edukia |
 |---|---|
-| [:material-play-circle: Hasierako gida](./guia-inicio/onboarding.md) | Onboarding, instalazioa, komunikazioak, mock |
+| [:material-play-circle: Hasierako gida](./guia-inicio/onboarding.md) | onboardinga, instalazioa, komunikazioak, mock |
 | [:material-cube-outline: Arkitektura](./arquitectura/index.md) | Ikuspegi orokorra, diagramak, sistemaren moduluak |
 | [:material-shield-lock: Autentifikazioa](./autenticacion/index.md) | OAuth2 client_credentials, Admin ↔ DENA fluxuak |
 | [:material-code-braces: Semantika](./semantica/index.md) | Data-Retrieve, Metadata-Sync, Person-Sync |
-| [:material-wrench: DevTools](./devtools/index.md) | DENA-tik HTTP probak egiteko web tresna |
+| [:material-wrench: DevTools](./devtools/index.md) | DENAtik HTTP probak egiteko web tresna |
 | [:material-book-open-variant: Erreferentzia](./referencia/faq.md) | FAQ, Glosarioa, Troubleshooting, Changelog, Matrizea |
 | [:material-file-code: Adibideak](./ejemplos-codigo/index.md) | Java erreferentzia proiektua |
 | [:material-paperclip: Eranskinak](./adjuntos/index.md) | Postman bildumak, inguruneak, irudiak |

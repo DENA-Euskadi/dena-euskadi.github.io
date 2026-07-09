@@ -6,7 +6,7 @@
 
 ## Zer da?
 
-**Person-Sync**-ek administrazioei DENA-n erregistratutako pertsonak beren sistemetan sinkronizatzeko aukera ematen die, pertsona horiei lotutako datuetako eguneraketak DENA-ri jakinarazi ahal izateko.
+**Person-Sync**-ek administrazioei DENAn erregistratutako pertsonak beren sistemetan sinkronizatzeko aukera ematen die, pertsona horiei lotutako datuetako eguneraketak DENAri jakinarazi ahal izateko.
 
 ``` mermaid
 ---
@@ -34,7 +34,7 @@ graph LR
 
 === ":material-download: Pull (Administrazioa → DENA)"
 
-    Administrazioa DENA-ra konektatzen da eta pertsonen datuak deskargatzen ditu.
+    Administrazioa DENAra konektatzen da eta pertsonen datuak deskargatzen ditu.
 
     - Aldaketa inkrementalekin aurrez sortutako fitxategiak (aldizka)
     - Iragazki pertsonalizatuekin neurri-fitxategiak eskatzeko aukera
@@ -43,10 +43,10 @@ graph LR
 
 === ":material-upload: Push (DENA → Administrazioa)"
 
-    DENA-k modu proaktiboan jakinarazten dio administrazioari pertsona berri bat erregistratzen denean edo aldaketak gertatzen direnean.
+    DENAk modu proaktiboan jakinarazten dio administrazioari pertsona berri bat erregistratzen denean edo aldaketak gertatzen direnean.
 
     - Administrazioak jasotze-endpoint bat eskaintzen du
-    - DENA-k jakinarazpena bidaltzen du aldaketaren unean
+    - DENAk jakinarazpena bidaltzen du aldaketaren unean
 
     [:octicons-arrow-right-24: Push dokumentazioa](./push.md)
 

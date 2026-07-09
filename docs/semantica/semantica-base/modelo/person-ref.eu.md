@@ -2,7 +2,7 @@
 
 ## Deskribapena
 
-DENA-n erregistratutako pertsona bati bere `oid` edo `id` bidez erreferentzia egiteko objektua (IFZ, AIZ, etab.).
+DENAn erregistratutako pertsona bati bere `oid` edo `id` bidez erreferentzia egiteko objektua (IFZ, AIZ, etab.).
 
 !!! info "Gutxienez bat derrigorrez"
 

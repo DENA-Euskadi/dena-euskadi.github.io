@@ -46,8 +46,8 @@ flowchart LR
 | Kolorea | Esanahia |
 |---------|----------|
 | 🟠 Laranja | Objektu nagusia (Jakinarazpena) |
-| 🟡 Hori | Beste objektu baten erreferentzia (Espedientea) |
-| 🟣 More | Enumak / egoerak / motak |
+| 🟡 Horia | Beste objektu baten erreferentzia (Espedientea) |
+| 🟣 Morea | Enumak / egoerak / motak |
 | 🔵 Urdin argia | Datu-eremuak |
 
 ---

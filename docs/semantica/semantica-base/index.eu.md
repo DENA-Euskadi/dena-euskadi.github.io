@@ -128,7 +128,7 @@ flowchart LR
 
     ---
 
-    DENA-k kudeatutako datu mota baten erreferentzia.
+    DENAk kudeatutako datu mota baten erreferentzia.
 
     [:octicons-arrow-right-24: Ikusi eredua](./modelo/data-type-ref.md)
 

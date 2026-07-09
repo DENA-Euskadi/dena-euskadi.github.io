@@ -2,7 +2,7 @@
 
 ## Ikuspegi Orokorra
 
-DENA Interop administrazio ezberdinekin elkarreragingarritasuna ahalbidetzen duen sistema da, pertsona erabiltzaileei, bezero aplikazioaren bidez, administrazioek haiei buruz kudeatzen dituzten datuetara sarbidea emateko.
+DENA Interop administrazio ezberdinekin elkarreragingarritasuna ahalbidetzen duen sistema da, erabiltzaileei, bezero aplikazioaren bidez, administrazioek haiei buruz kudeatzen dituzten datuetara sarbidea emateko.
 
 ![Arkitektura diagrama](../adjuntos/imagenes/DENA_Architecture.png)
 
@@ -16,7 +16,7 @@ DENA Interop administrazio ezberdinekin elkarreragingarritasuna ahalbidetzen due
 
     ---
 
-    Administrazioen jakinarazpenak jasotzen ditu pertsona baten datuetan aldaketak daudenean. DENA-k azken eguneratze-data soilik gordetzen du pertsona + datu mota + administrazio konbinazio bakoitzeko.
+    Administrazioen jakinarazpenak jasotzen ditu pertsona baten datuetan aldaketak daudenean. DENAk azken eguneratze-data soilik gordetzen du pertsona + datu mota + administrazio konbinazio bakoitzeko.
 
     [:octicons-arrow-right-24: Metadata-Sync Semantika](../semantica/metadata-sync/index.md)
 
@@ -24,7 +24,7 @@ DENA Interop administrazio ezberdinekin elkarreragingarritasuna ahalbidetzen due
 
     ---
 
-    Bezero aplikazioak aldaketak detektatzen dituenean, administrazioari (DENA bidez) eguneratutako datuak deskargatzeko eskatzen dio. Administrazioak endpoint estandar bat esposatzen du.
+    Bezero aplikazioak aldaketak detektatzen dituenean, administrazioari (DENA bidez) eguneratutako datuak deskargatzeko eskatzen dio. Administrazioak endpoint estandar bat erakusten du.
 
     [:octicons-arrow-right-24: Data-Retrieve Semantika](../semantica/data-retrieve/index.md)
 
@@ -32,7 +32,7 @@ DENA Interop administrazio ezberdinekin elkarreragingarritasuna ahalbidetzen due
 
     ---
 
-    DENA-n erregistratutako pertsonen zerrenda administrazioekin sinkronizatzen du. Bi mekanismo: **Pull** (administrazioak kontsultatzen du) eta **Push** (DENA-k jakinarazten du).
+    DENAn erregistratutako pertsonen zerrenda administrazioekin sinkronizatzen du. Bi mekanismo: **Pull** (administrazioak kontsultatzen du) eta **Push** (DENAk jakinarazten du).
 
     [:octicons-arrow-right-24: Person-Sync Semantika](../semantica/person-sync/index.md)
 
@@ -91,14 +91,14 @@ sequenceDiagram
 
 !!! info "Konektore pertsonalizatua"
 
-    Estandarra inplementatzea posible ez bada, DENA-tik administrazioak eskainitako bitartekoetara (SOAP, fitxategiak, etab.) egokitutako konektore espezifiko bat garatuko da.
+    Estandarra inplementatzea posible ez bada, DENAtik administrazioak eskainitako bitartekoetara (SOAP, fitxategiak, etab.) egokitutako konektore espezifiko bat garatuko da.
 
 ---
 
-## Dokumentazio erlazionatua
+## erlazionatutako dokumentazioa
 
 - [Diagramak (draw.io)](./diagramas.md)
-- [Beste dokumentazioa](./otra-documentacion.md)
+- [bestelako dokumentazioa](./otra-documentacion.md)
 - [ADRak (Architecture Decision Records)]({{ repos.docs_main }}/ArchitectureDecisionRecords)
 
 <!-- DENA-DOC-FOOTER -->

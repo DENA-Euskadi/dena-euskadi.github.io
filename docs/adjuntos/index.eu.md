@@ -1,6 +1,6 @@
 # :material-paperclip: Eranskinak
 
-DENA-ren dokumentazio teknikoaren baliabide osagarriak.
+DENAren dokumentazio teknikoaren baliabide osagarriak.
 
 ---
 
@@ -26,7 +26,7 @@ DENA-ren dokumentazio teknikoaren baliabide osagarriak.
 
 1. Collection eta environment-a Postman-en inportatu
 2. Ingurune-aldagaiak konfiguratu (URLak, kredentzialak)
-3. Eskaerak exekutatu integrazioa balidatzeko
+3. Eskaerak exekutatu integrazioa baliozkotu
 
 ---
 

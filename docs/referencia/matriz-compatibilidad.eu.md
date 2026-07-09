@@ -8,8 +8,8 @@ Zein endpoint dira nahitaezkoak edo aukerakoak zure integrazio-motaren arabera?
 
 | Gaitasuna | Data-Retrieve | Metadata-Sync | Person-Sync Pull | Person-Sync Push |
 |---|:---:|:---:|:---:|:---:|
-| **DENA-k nire administrazioaren datuak kontsultatzen ditu** | :material-check-bold:{ title="Nahitaezkoa" } | :material-minus:{ title="Aukerakoa" } | :material-minus:{ title="Aukerakoa" } | :material-minus:{ title="Aukerakoa" } |
-| **DENA-ri jakinarazten diot aldaketak daudenean** | :material-close:{ title="Ez da aplikagarria" } | :material-check-bold:{ title="Nahitaezkoa" } | :material-minus:{ title="Aukerakoa" } | :material-minus:{ title="Aukerakoa" } |
+| **DENAk nire administrazioaren datuak kontsultatzen ditu** | :material-check-bold:{ title="Nahitaezkoa" } | :material-minus:{ title="Aukerakoa" } | :material-minus:{ title="Aukerakoa" } | :material-minus:{ title="Aukerakoa" } |
+| **DENAri jakinarazten diot aldaketak daudenean** | :material-close:{ title="Ez da aplikagarria" } | :material-check-bold:{ title="Nahitaezkoa" } | :material-minus:{ title="Aukerakoa" } | :material-minus:{ title="Aukerakoa" } |
 | **Pertsonen zerrenda mantentzen dut (batch)** | :material-close:{ title="Ez da aplikagarria" } | :material-close:{ title="Ez da aplikagarria" } | :material-check-bold:{ title="Nahitaezkoa" } | :material-close:{ title="Ez da aplikagarria" } |
 | **Pertsonak denbora errealean jasotzen ditut** | :material-close:{ title="Ez da aplikagarria" } | :material-close:{ title="Ez da aplikagarria" } | :material-close:{ title="Ez da aplikagarria" } | :material-check-bold:{ title="Nahitaezkoa" } |
 | **Integrazio osoa** | :material-check-bold:{ title="Nahitaezkoa" } | :material-check-bold:{ title="Nahitaezkoa" } | :material-check-bold:{ title="Nahitaezkoa" } | :material-minus:{ title="Aukerakoa" } |

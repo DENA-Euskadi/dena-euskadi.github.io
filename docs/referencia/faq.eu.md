@@ -1,12 +1,12 @@
 # :material-frequently-asked-questions: Maiz egiten diren galderak (FAQ)
 
-Administrazio integratzaileen galdera ohikoenen erantzunak.
+Administrazio integratzaileen zalantza ohikoenei erantzunak.
 
 ---
 
 ## Integrazio orokorra
 
-??? question "Zer behar dut DENA-rekin integratzen hasteko?"
+??? question "Zer behar dut DENArekin integratzen hasteko?"
 
     1. **OAuth2 kredentzialak** DENA taldeak emandakoak (`client_id` + `client_secret`)
     2. **HTTPS konektibitatea** DENA endpoint-etara (PRE eta/edo PRO)
@@ -20,20 +20,20 @@ Administrazio integratzaileen galdera ohikoenen erantzunak.
 
     | Kasua | Derrigorrezko endpoint-a |
     |---|---|
-    | DENA-k zure administrazioko datuak kontsultatzen ditu | `POST /api/retrieveData` ([Data-Retrieve](../semantica/data-retrieve/index.md)) |
-    | DENA-ri aldaketak jakinarazten dizkiozu | `POST` DENA-ren [Metadata-Sync](../semantica/metadata-sync/index.md) endpoint-era |
+    | DENAk zure administrazioko datuak kontsultatzen ditu | `POST /api/retrieveData` ([Data-Retrieve](../semantica/data-retrieve/index.md)) |
+    | DENAri aldaketak jakinarazten dizkiozu | `POST` DENAren [Metadata-Sync](../semantica/metadata-sync/index.md) endpoint-era |
     | Pertsonak Push bidez jasotzen dituzu | `POST /api/person-push` ([Person-Sync Push](../semantica/person-sync/push.md)) |
-    | Pertsonak Pull bidez deskargatzen dituzu | Zurerik ez, DENA-ri deitu besterik ez |
+    | Pertsonak Pull bidez deskargatzen dituzu | Zurerik ez, DENAri deitu besterik ez |
 
 ??? question "Nire sistema Java ez bada integra al naiteke?"
 
-    Bai. DENA-k **REST + JSON estandarra** erabiltzen du. HTTP POST eskaerak egin eta JSON itzul dezakeen edozein hizkuntza bateragarria da.
+    Bai. DENAk **REST + JSON estandarra** erabiltzen du. HTTP POST eskaerak egin eta JSON itzul dezakeen edozein hizkuntza bateragarria da.
 
     [Kode-zatiak](../semantica/data-retrieve/snippets-codigo.md) daude Java, C#, Python, Node.js eta PHP-n.
 
 ??? question "Zer gertatzen da endpoint estandarra inplementatu ezin badut?"
 
-    DENA-k zure sistemara egokitutako **konektore pertsonalizatu** bat garatuko du (SOAP, fitxategiak, API propioa...).
+    DENAk zure sistemara egokitutako **konektore pertsonalizatu** bat garatuko du (SOAP, fitxategiak, API propioa...).
     Koordinatzeko, jarri harremanetan DENA taldearekin.
 
 ---
@@ -45,7 +45,7 @@ Administrazio integratzaileen galdera ohikoenen erantzunak.
     Kredentzialak (`client_id` eta `client_secret`) DENA taldeak ematen ditu onboarding prozesuan.
     Administrazio eta ingurune bakoitzarentzat espezifikoak dira (PRE/PRO).
 
-??? question "Zenbat irauten du tokenak? Berritu behar al dut?"
+??? question "Zenbat irauten du tokenak? Berritu egin behar al dut?"
 
     Normalean **5 minutu** (`expires_in: 300`). Gomendatzen da:
 
@@ -58,7 +58,7 @@ Administrazio integratzaileen galdera ohikoenen erantzunak.
 ??? question "Nire IDP propioa erabil al dezaket (Keycloak, ADFS, Cognito)?"
 
     Bai. DENA zure administrazioari deitzen dionean (Data-Retrieve), zuk ematen dituzu kredentzialak eta zure IDP-ren URLa.
-    DENA-k `client_credentials` erabiliko du zu deitu aurretik tokena lortzeko.
+    DENAk `client_credentials` erabiliko du zu deitu aurretik tokena lortzeko.
 
     [:octicons-arrow-right-24: CORE DENA → Administrazioa](../autenticacion/core-dena-administracion/index.md)
 
@@ -119,13 +119,13 @@ Administrazio integratzaileen galdera ohikoenen erantzunak.
 
 ## Konektibitatea eta sarea
 
-??? question "Zein IP-etatik deitzen du DENA-k nire sistemara?"
+??? question "Zein IP-etatik deitzen du DENAk nire sistemara?"
 
     Ingurunearen araberakoa da. Jarri harremanetan DENA taldearekin zure firewallean baimendu behar duzun IP-tartea lortzeko.
 
 ??? question "SSL ziurtagiria behar al dut nire endpoint-erako?"
 
-    Bai. DENA-k **HTTPS** bidez bakarrik konektatzen du. Zure endpoint-ak ziurtagiri baliodun bat izan behar du
+    Bai. DENAk **HTTPS** bidez bakarrik konektatzen du. Zure endpoint-ak ziurtagiri baliodun bat izan behar du
     (CA ezagun batek edo euskalsarea-ren barne CA-k emandakoa, sare horretan bazaude).
 
 ??? question "Nola egiaztatzen dut konektibitatea martxan jarri aurretik?"
@@ -138,7 +138,7 @@ Administrazio integratzaileen galdera ohikoenen erantzunak.
 
 ## Tresnak
 
-??? question "Benetako sistema bat atzean gabe proba al dezaket?"
+??? question "Atzean benetako sistema bat izan gabe probatu dezaket?"
 
     Bai, erabili [Espedienteen Moka](../guia-inicio/mock-expedientes.md), adibide-datuekin administrazio bat simulatzen duena.
 
@@ -156,7 +156,7 @@ Administrazio integratzaileen galdera ohikoenen erantzunak.
 
 ## Laguntza
 
-??? question "Norekin harremanetan jartzen naiz integrazio-arazo bat badut?"
+??? question "Norekin jarri naiteke harremanetan integrazio arazo bat badut?"
 
     **:material-email: DENA laguntza-emaila:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
     

@@ -52,7 +52,7 @@ flowchart LR
 |---------|----------|
 | 🟠 Laranja | Objektu nagusia (Espedientea) |
 | ⚪ Grisa | Testuinguru hierarkikoa (Zerbitzua / Prozedura) |
-| 🟣 More | Enumak / egoerak |
+| 🟣 Morea | Enumak / egoerak |
 | 🔵 Urdin argia | Datu-eremuak |
 
 ---

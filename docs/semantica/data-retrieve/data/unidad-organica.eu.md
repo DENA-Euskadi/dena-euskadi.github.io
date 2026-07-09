@@ -33,9 +33,9 @@ flowchart LR
 
 | Kolorea | Esanahia |
 |---------|----------|
-| 🟢 Berde | Objektu nagusia (Unitate Organikoa) |
+| 🟢 Berdea | Objektu nagusia (Unitate Organikoa) |
 | 🔵 Urdin argia | Datu-eremuak (orgUnit) |
-| 🟣 More | Enumak (rolak) |
+| 🟣 Morea | Enumak (rolak) |
 
 ---
 
@@ -123,7 +123,7 @@ flowchart LR
 
 ## Administrazioarentzako oharrak
 
-- `orgUnit.id` eta `orgUnit.displayNameByLanguage` derrigorrez dira.
+- `orgUnit.id` eta `orgUnit.displayNameByLanguage` derrigorrezkoak dira.
 - `orgUnit.dir3Id` aukerakoa da, baina gomendatzen da unitateak DIR3 kodea esleituta badu.
 - `displayNameByLanguage`-k gutxienez `SPANISH` eta `BASQUE` testua sartu behar du.
 - Unitate bera rol desberdinekin ager daiteke zerbitzu/prozedura desberdinetan.

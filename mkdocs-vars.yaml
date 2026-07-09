@@ -2,8 +2,8 @@
 # Uso en markdown: {{ dena.version }}
 
 dena:
-  version: "0.3.38"
-  date: "2026-07-06"
+  version: "0.3.39"
+  date: "2026-07-09"
   java_version: "21+"
   maven_version: "3.9+"
   
@@ -11,8 +11,8 @@ dena:
 repos:
   # URLs base para GitHub
   docs_main: "https://github.com/DENA-Euskadi/dena-common-docs/tree/main"
-  docs_blob: "https://github.com/DENA-Euskadi/dena-common-docs/blob/PUBLIC-v0.3.38"
-  docs_tree: "https://github.com/DENA-Euskadi/dena-common-docs/tree/PUBLIC-v0.3.38"
+  docs_blob: "https://github.com/DENA-Euskadi/dena-common-docs/blob/PUBLIC-v0.3.39"
+  docs_tree: "https://github.com/DENA-Euskadi/dena-common-docs/tree/PUBLIC-v0.3.39"
   
   # URL base para MkDocs renderizado
   docs_site: "https://dena-euskadi.github.io/dena-common-docs"

@@ -16,8 +16,8 @@ Content-Type: application/x-www-form-urlencoded
     | Eremua | Mota | Derrigorrezkoa | Deskribapena |
     |---|---|:---:|---|
     | `grant_type` | `String` | :material-check: | `client_credentials` |
-    | `client_id` | `String` | :material-check: | DENA-k hornitu duen bezero identifikadorea |
-    | `client_secret` | `String` | :material-check: | DENA-k hornitu duen bezero sekretua |
+    | `client_id` | `String` | :material-check: | DENAk hornitu duen bezero identifikadorea |
+    | `client_secret` | `String` | :material-check: | DENAk hornitu duen bezero sekretua |
 
 === "curl adibidea"
 
@@ -78,7 +78,7 @@ Content-Type: application/x-www-form-urlencoded
 
 ## Token-aren erabilera
 
-!!! example "DENA-ri egindako deietan sartu"
+!!! example "DENAri egindako deietan sartu"
 
     ```http
     POST /api/syncMetadata

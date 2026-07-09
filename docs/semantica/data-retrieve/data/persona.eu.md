@@ -7,7 +7,7 @@
 
 ## Deskribapena
 
-**PersonData** ereduak (`DN00PersonData`) administrazioaren eta DENA-ren artean trukatutako herritarren datuak adierazten ditu: kontaktu-informazioa, helbideak eta banku-datuak.
+**PersonData** ereduak (`DN00PersonData`) administrazioaren eta DENAren artean trukatutako herritarren datuak adierazten ditu: kontaktu-informazioa, helbideak eta banku-datuak.
 
 `DN00DENADataExchangedObjectBase` hedatzen du (DATA-RETRIEVE ereduaren objektu trukatu nagusia da).
 

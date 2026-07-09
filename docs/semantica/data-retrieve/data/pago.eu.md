@@ -14,7 +14,7 @@ Espediente bati lotutako ordainketa-betebehar bat adierazten du. Bi modalitate:
 - **Ordainketa bakarra** (`oneOffPayment`) — Likidazio puntuala (tasa, prezio publikoa, zehapena)
 - **Helbideratze bankarioa** (`directDebitPayment`) — Aldizkako kargu errepikakorra
 
-> Ikusi ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
 
 ```mermaid
 ---
@@ -329,7 +329,7 @@ flowchart LR
 
 ## Ohar garrantzitsuak
 
-- `directDebitData.startDate` eremuak helbideratzea noiz eman zen alta adierazten du (JSON-en `"startDate"` gisa serializatzen da, ez `"setAt"` gisa).
+- `directDebitData.startDate` eremuak helbideratzea altan noiz eman zen adierazten du (JSON-en `"startDate"` gisa serializatzen da, ez `"setAt"` gisa).
 - Ordainketa bakarretan `data.at` eremuak ordainketa prozesatu zen une zehatza adierazten du (soilik garrantzitsua `forStatus` ≠ `PENDING` denean).
 - `data.messageByLang` eremuak hizkuntza anitzeko mezu azaltzaile bat sartzeko aukera ematen du, errore edo baztertze egoeretan erabilgarria.
 - Hitzorduek (`scheduleItem`) EZ dute ordainketekin loturarik. Ordainketak beti espediente baten menpekoak dira (`procedureRecord`).

@@ -1,6 +1,6 @@
-# :material-connection: DENA-rekiko komunikazioak probatu
+# :material-connection: DENArekiko komunikazioak probatu
 
-Urratsez urratseko gida zure administrazioaren eta DENA-ren arteko norabide biko konektibitatea balioztatzeko.
+Urratsez urratseko gida zure administrazioaren eta DENAren arteko norabide biko konektibitatea balioztatzeko.
 
 ---
 
@@ -22,8 +22,8 @@ sequenceDiagram
 
 | Norabidea | Deskribapena |
 |---|---|
-| **Administrazioa → DENA** | Zure sistemak DENA-ren endpoint-ak atzitu ditzake (PRE/PRO) |
-| **DENA → Administrazioa** | DENA-k zuk eskaintzen dituzun endpoint-ak atzitu ditzake |
+| **Administrazioa → DENA** | Zure sistemak DENAren endpoint-ak atzitu ditzake (PRE/PRO) |
+| **DENA → Administrazioa** | DENAk zuk eskaintzen dituzun endpoint-ak atzitu ditzake |
 
 ---
 
@@ -118,7 +118,7 @@ curl -X POST http://localhost:8082/api/conxTest \
 
 ## 4. urratsa: DENA → Administrazioa balioztatu
 
-DENA-k zure `/api/hello` endpoint-a deituko du. Egiaztatu eskuragarri dagoela:
+DENAk zure `/api/hello` endpoint-a deituko du. Egiaztatu eskuragarri dagoela:
 
 ```bash
 curl http://localhost:8082/api/hello
@@ -134,7 +134,7 @@ curl http://localhost:8082/api/hello
 
 !!! warning "DENA saretik irisgarritasuna"
 
-    DENA-k zure sistemara iritsi ahal izateko, portuak DENA saretik irisgarria izan behar du.
+    DENAk zure sistemara iritsi ahal izateko, portuak DENA saretik irisgarria izan behar du.
     Koordinatu azpiegitura-taldearekin firewall-arauak ireki behar badira.
 
 ---
@@ -146,7 +146,7 @@ curl http://localhost:8082/api/hello
 | :material-check-circle:{ .green } Osagaia martxan | `curl http://localhost:8082/api/hello` | JSON agurrarekin |
 | :material-arrow-right: Admin → DENA PRE | `POST /api/conxTest {"environment":"PRE"}` | Status 200 |
 | :material-arrow-right: Admin → DENA PRO | `POST /api/conxTest {"environment":"PRO"}` | Status 200 |
-| :material-arrow-left: DENA → Admin | DENA-k zure `/api/hello` deitzen du | JSON agurrarekin |
+| :material-arrow-left: DENA → Admin | DENAk zure `/api/hello` deitzen du | JSON agurrarekin |
 
 ---
 

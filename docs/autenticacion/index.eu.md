@@ -36,7 +36,7 @@ graph LR
 
     ---
 
-    Bezero aplikazioaren autentifikazioa DENA-ren aurka Giltza edo WebAuthn erabiliz.
+    Bezero aplikazioaren autentifikazioa DENAren aurka Giltza edo WebAuthn erabiliz.
 
     [:octicons-arrow-right-24: Xehetasunak ikusi](./client-core-dena.md)
 
@@ -44,7 +44,7 @@ graph LR
 
     ---
 
-    Administrazioak OAuth2 token bat lortzen du DENA-ri eskaerak bidaltzeko (adib.: Metadata-Sync).
+    Administrazioak OAuth2 token bat lortzen du DENAri eskaerak bidaltzeko (adib.: Metadata-Sync).
 
     [:octicons-arrow-right-24: Xehetasunak ikusi](./administracion-core-dena/index.md)
 
@@ -52,7 +52,7 @@ graph LR
 
     ---
 
-    DENA-k OAuth2 token bat lortzen du administrazioaren datuak kontsultatzeko (adib.: Data-Retrieve).
+    DENAk OAuth2 token bat lortzen du administrazioaren datuak kontsultatzeko (adib.: Data-Retrieve).
 
     [:octicons-arrow-right-24: Xehetasunak ikusi](./core-dena-administracion/index.md)
 

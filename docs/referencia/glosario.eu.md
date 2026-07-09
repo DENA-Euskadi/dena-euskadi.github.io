@@ -30,7 +30,7 @@ DENA dokumentazioan erabiltzen diren termino tekniko eta funtzionalen definizioa
 ## D
 
 `Data-Retrieve`
-:   DENA-k administrazio bati pertsona baten datuak eskatzen dizkion mekanismoa.
+:   DENAk administrazio bati pertsona baten datuak eskatzen dizkion mekanismoa.
 
 `dataItems`
 :   Administrazioak Data-Retrieve erantzunean itzultzen dituen domeinu-objektuen arraya.
@@ -103,7 +103,7 @@ DENA dokumentazioan erabiltzen diren termino tekniko eta funtzionalen definizioa
 :   Interop mezu baten `data` eremuan bidalitako mezu-mota (adib.: `PERSON_FETCH_DATA`, `CLIENT_LOGIN`).
 
 `Metadata-Sync`
-:   Administrazioek DENA-ri pertsonen datuetako aldaketak jakinarazten dizkioten mekanismoa.
+:   Administrazioek DENAri pertsonen datuetako aldaketak jakinarazten dizkioten mekanismoa.
 
 ---
 
@@ -133,16 +133,16 @@ DENA dokumentazioan erabiltzen diren termino tekniko eta funtzionalen definizioa
 ## P
 
 `Person-Sync`
-:   DENA-n erregistratutako pertsonen zerrendaren sinkronizazio-mekanismoa administrazioekin.
+:   DENAn erregistratutako pertsonen zerrendaren sinkronizazio-mekanismoa administrazioekin.
 
 `PersonRef`
 :   Pertsona baterako erreferentzia-objektua bere `oid` edo `id` (NIF/NIE) bidez.
 
 `Pull`
-:   Sinkronizazio-eredua non administrazioa DENA-ra konektatzen den pertsonen datuak deskargatzeko.
+:   Sinkronizazio-eredua non administrazioa DENAra konektatzen den pertsonen datuak deskargatzeko.
 
 `Push`
-:   Sinkronizazio-eredua non DENA-k modu proaktiboan jakinarazten dion administrazioari pertsonetan dauden aldaketei buruz.
+:   Sinkronizazio-eredua non DENAk modu proaktiboan jakinarazten dion administrazioari pertsonetan dauden aldaketei buruz.
 
 ---
 

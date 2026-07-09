@@ -1,6 +1,6 @@
 # :material-download: PERSON-SYNC — PULL
 
-Administrazioa DENA-ra konektatzen da eta erregistratutako pertsonen datuak deskargatzen ditu.
+Administrazioa DENAra konektatzen da eta erregistratutako pertsonen datuak deskargatzen ditu.
 
 ---
 

@@ -1,6 +1,6 @@
 # :material-email: Kontaktua eta Laguntza
 
-Kontsulta teknikoetarako, kredentzial-eskaereetarako eta DENA-ren laguntza orokorrerako kontaktu-informazioa.
+Kontsulta teknikoetarako, kredentzial-eskaereetarako eta DENAren laguntza orokorrerako kontaktu-informazioa.
 
 ---
 
@@ -31,7 +31,7 @@ Kontsulta teknikoetarako, kredentzial-eskaereetarako eta DENA-ren laguntza oroko
 - [ ] Errorearen **log osoak**
 - [ ] Arazoa **erreproduzitzeko urratsak**
 - [ ] **messageCorrelationId** erabilgarri badago
-- [ ] **Konfigurazio garrantzitsua** (kredentzialik gabe)
+- [ ] Gertatzen denaren testuingurua
 
 ### Kredentzial-eskaereetarako
 
@@ -67,7 +67,7 @@ Gurekin harremanetan jarri aurretik, egiaztatu zure zalantza hauetan ebazten den
 
 <div class="grid cards" markdown>
 
--   :material-account-question:{ .lg .middle } **Onboarding**
+-   :material-account-question:{ .lg .middle } **onboardinga**
 
     ---
     

@@ -2,7 +2,7 @@
 
 ## Deskribapena
 
-DENA-ren erabiltzaileen datu-esportazio eskaeraren zehaztapena, esportatu beharreko datuak, aplikatu beharreko iragazkiak eta helburu-formatua adieraziz.
+DENAren erabiltzaileen datu-esportazio eskaeraren zehaztapena, esportatu beharreko datuak, aplikatu beharreko iragazkiak eta helburu-formatua adieraziz.
 
 ```mermaid
 ---
@@ -33,7 +33,7 @@ flowchart LR
 | Kolorea | Esanahia |
 |---------|----------|
 | 🟠 Laranja | Objektu nagusia (ExportSpec) |
-| 🟣 More | Enumak / egoerak |
+| 🟣 Morea | Enumak / egoerak |
 | 🔵 Urdin argia | Datu-eremuak |
 
 ---

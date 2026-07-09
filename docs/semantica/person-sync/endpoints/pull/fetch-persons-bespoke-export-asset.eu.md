@@ -11,7 +11,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ## Deskribapena
 
-DENA-ren erabiltzaileen esportazio-eskaera baten emaitza deskargatzen du adierazitako formatuan.
+DENAren erabiltzaileen esportazio-eskaera baten emaitza deskargatzen du adierazitako formatuan.
 
 ## Eskaera
 

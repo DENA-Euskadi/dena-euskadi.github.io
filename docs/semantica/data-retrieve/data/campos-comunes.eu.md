@@ -39,10 +39,10 @@ flowchart LR
 
 | Kolorea | Esanahia |
 |---------|----------|
-| 🟣 More | Oinarrizko klase abstraktua |
+| 🟣 Morea | Oinarrizko klase abstraktua |
 | 🔵 Urdin argia | Derrigorrezko eremuak (oid, id) |
 | 🟢 Berde | Sarbide-URLak |
-| 🟡 Hori | Aukerako eremuak (DENA-k automatikoki osatutako erreferentziak) |
+| 🟡 Horia | Aukerako eremuak (DENAk automatikoki osatutako erreferentziak) |
 
 ---
 
@@ -53,14 +53,14 @@ flowchart LR
 | `oid` | `String` | ✅ | Administrazioaren sistemak esleitutako identifikatzaile tekniko bakarra |
 | `id` | `String` | ✅ | Negozio-identifikatzaile irakurgarria (administrazioak esleitua) |
 | `urls` | `Array` | ❌ | Egoitza elektronikoko objekturako sarbide-URLak |
-| `originAdminRef` | `Object` | ❌ | Jatorrizko administrazioaren erreferentzia. Ez bada ematen, DENA-k automatikoki osatzen du |
-| `aboutPersonRef` | `Object` | ❌ | Objektuak aipatzen duen pertsonaren erreferentzia. Ez bada ematen, DENA-k automatikoki osatzen du |
+| `originAdminRef` | `Object` | ❌ | Jatorrizko administrazioaren erreferentzia. Ez bada ematen, DENAk automatikoki osatzen du |
+| `aboutPersonRef` | `Object` | ❌ | Objektuak aipatzen duen pertsonaren erreferentzia. Ez bada ematen, DENAk automatikoki osatzen du |
 
 ---
 
 ## `originAdminRef`-en xehetasuna
 
-Datua sortzen duen administrazioa identifikatzen du. Aukerakoa da DENA-k eskaeraren testuingurutik ondorioztatu dezakeelako.
+Datua sortzen duen administrazioa identifikatzen du. Aukerakoa da DENAk eskaeraren testuingurutik ondorioztatu dezakeelako.
 
 ```json
 {
@@ -73,14 +73,14 @@ Datua sortzen duen administrazioa identifikatzen du. Aukerakoa da DENA-k eskaera
 
 | Eremua | Mota | Deskribapena |
 |--------|------|--------------|
-| `administrationId` | `String` | DENA-ko administrazioaren identifikatzailea |
+| `administrationId` | `String` | DENAko administrazioaren identifikatzailea |
 | `dir3Code` | `String` | Administrazioaren DIR3 kodea |
 
 ---
 
 ## `aboutPersonRef`-en xehetasuna
 
-Datuak aipatzen duen herritarra identifikatzen du. Aukerakoa da DENA-k eskaeraren testuinguruko `personId`-rekin osatzen duelako.
+Datuak aipatzen duen herritarra identifikatzen du. Aukerakoa da DENAk eskaeraren testuinguruko `personId`-rekin osatzen duelako.
 
 ```json
 {
@@ -158,7 +158,7 @@ Egoitza elektronikoko objekturako sarbidea ematen duten URLen array-a. Elementu 
 
 ## Administrazioarentzako oharrak
 
-- `originAdminRef` eta `aboutPersonRef` eremuak **aukerakoak** dira. Administrazioak ez baditu sartzen, DENA-k automatikoki osatuko ditu eskaeraren testuingurutik.
+- `originAdminRef` eta `aboutPersonRef` eremuak **aukerakoak** dira. Administrazioak ez baditu sartzen, DENAk automatikoki osatuko ditu eskaeraren testuingurutik.
 - Gomendatzen da gutxienez `default` tag-arekin URL bat sartzea onartutako hizkuntza bakoitzeko (gaztelania eta euskera gutxienez).
 - `oid` eremua bakarra izan behar da administrazioaren sisteman objektu mota horretarako.
 - `id` eremua herritarrak ezagutzen duen negozio-identifikatzailea izan behar da (adib.: egoitzan ikusgai dagoen espediente-zenbakia).

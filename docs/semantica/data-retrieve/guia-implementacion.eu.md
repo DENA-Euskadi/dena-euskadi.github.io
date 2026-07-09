@@ -54,7 +54,7 @@ sequenceDiagram
 
 ## 1. urratsa — Kontratua ulertu
 
-DENA-k `POST` eskaera bat bidaliko du formatu honekin:
+DENAk `POST` eskaera bat bidaliko du formatu honekin:
 
 ```json
 {
@@ -382,7 +382,7 @@ Ordainketetan, erabili tag gehigarriak:
 
 ## 7. urratsa — Autentifikazioa (aukerakoa)
 
-Zure administrazioak autentifikazioa eskatzen badu, DENA-k OAuth2 token bat bidaliko du goiburuan:
+Zure administrazioak autentifikazioa eskatzen badu, DENAk OAuth2 token bat bidaliko du goiburuan:
 
 ```
 Authorization: Bearer <access_token>
@@ -436,14 +436,14 @@ Test proiektuko mock factory-ak erabil ditzakezu adibide-objektuak sortzeko:
 ## Fluxuaren laburpena
 
 ```
-1. DENA-k POST /api/retrieveData bidaltzen du
+1. DENAk POST /api/retrieveData bidaltzen du
 2. Zure sistemak:
    a. personId irakurtzen du → pertsona identifikatzen du
    b. dataTypeId irakurtzen du → zer datu eskatu jakiten du
    c. Barne-sistemak kontsultatzen ditu
    d. Datuak DENA eredura eraldatzen ditu
    e. dataItems[]-rekin erantzuna eraikitzen du
-3. DENA-k datuak jasotzen ditu eta pertsonari aurkezten dizkio
+3. DENAk datuak jasotzen ditu eta pertsonari aurkezten dizkio
 ```
 
 ---

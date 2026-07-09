@@ -6,7 +6,7 @@
 
 ## Zer da?
 
-**Metadata-Sync** administrazioek DENA-ri jakinarazteko mekanismoa da, erabiltzaile bati lotutako edozein datutan aldaketak gertatzen direnean.
+**Metadata-Sync** administrazioek DENAri jakinarazteko mekanismoa da, erabiltzaile bati lotutako edozein datutan aldaketak gertatzen direnean.
 
 ``` mermaid
 sequenceDiagram
@@ -25,7 +25,7 @@ sequenceDiagram
 
 !!! info "Metadatuak soilik"
 
-    DENA-k **ez ditu datuak berak gordetzen**, azken eguneratzearen data bakarrik, konbinazio honen arabera:
+    DENAk **ez ditu datuak berak gordetzen**, azken eguneratzearen data bakarrik, konbinazio honen arabera:
 
     - Pertsona
     - Datu mota

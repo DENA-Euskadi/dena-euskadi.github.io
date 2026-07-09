@@ -2,7 +2,7 @@
 
 ## Deskribapena
 
-DENA-k kudeatutako datu mota bati erreferentzia egiteko objektua (adib. Espedientea, Jakinarazpena, Ordainketa...).
+DENAk kudeatutako datu mota bati erreferentzia egiteko objektua (adib. Espedientea, Jakinarazpena, Ordainketa...).
 
 !!! info "Gutxienez bat derrigorrez"
 

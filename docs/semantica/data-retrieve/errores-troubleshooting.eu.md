@@ -22,8 +22,8 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 | Kausa | Konponbidea |
 |-------|-------------|
 | OAuth2 tokena falta da | Egiaztatu `Authorization: Bearer <token>` goiburua dagoela |
-| Tokena iraungita | DENA-k tokenak automatikoki berritzen ditu; irauten badu, berrikusi client credentials konfigurazioa |
-| Tokena baliogabea | Egiaztatu endpoint-ak DENA-n konfiguratutako baimena-zerbitzari berdinaren aurka balioztatzen duela |
+| Tokena iraungita | DENAk tokenak automatikoki berritzen ditu; irauten badu, berrikusi client credentials konfigurazioa |
+| Tokena baliogabea | Egiaztatu endpoint-ak DENAn konfiguratutako baimena-zerbitzari berdinaren aurka balioztatzen duela |
 
 ### 404 — Pertsona ez da aurkitu
 
@@ -70,9 +70,9 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 
 ### `dataItems`-eko formatu-errore ohikoak
 
-| Errorea | Sintoma DENA-n | Konponbidea |
+| Errorea | Sintoma DENAn | Konponbidea |
 |---------|----------------|-------------|
-| `type` eremua falta da objektu batean | DENA-k ezin du objektua deserializatu | Beti sartu `type` eremua balio zuzenarekin |
+| `type` eremua falta da objektu batean | DENAk ezin du objektua deserializatu | Beti sartu `type` eremua balio zuzenarekin |
 | Data formatu okerrean | Analisi-errorea | Erabili ISO 8601: `2024-03-15T10:30:00Z` |
 | `LocalDate` data ordurekin | Analisi-errorea | Erabili soilik `YYYY-MM-DD` ordurik gabeko data-eremuetarako |
 | `LanguageTexts` hizkuntza-gako baliogabearekin | Testua ez da erakusten | Erabili `SPANISH`, `BASQUE` edo `ENGLISH` (maiuskulaz) |
@@ -87,7 +87,7 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 
 | Arazoa | Diagnostikoa | Konponbidea |
 |--------|--------------|-------------|
-| DENA-k ezin du endpoint-era konektatu | Timeout edo connection refused | Egiaztatu endpoint-a DENA-ren saretik eskuragarri dagoela |
+| DENAk ezin du endpoint-era konektatu | Timeout edo connection refused | Egiaztatu endpoint-a DENAren saretik eskuragarri dagoela |
 | SSL ziurtagiri baliogabea | TLS handshake errorea | Erabili CA ezagun batek emandako ziurtagiri balioduna |
 | Erantzuna oso motela | Timeout (30s lehenespenez) | Optimizatu kontsultak; kontuan hartu paginazioa datu asko badaude |
 | Erantzuna oso handia | Memoria-errorea | Mugatu `dataItems` gehieneko arrazoizko batera (< 1000 elementu) |
@@ -108,7 +108,7 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 
 ## Inplementazio-zerrenda
 
-DENA-rekin konektatu aurretik, egiaztatu:
+DENArekin konektatu aurretik, egiaztatu:
 
 - [ ] Endpoint-ak `POST` onartzen du `Content-Type: application/json`-rekin
 - [ ] Endpoint-ak `Content-Type: application/json` itzultzen du

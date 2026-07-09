@@ -15,7 +15,7 @@ Java erreferentzia proiektua administrazioentzako integrazio adibideekin.
 | Adibidea | Semantika | Deskribapena |
 |---|---|---|
 | Data-Retrieve oinarrizkoa | DATA-RETRIEVE | Espedienteak itzultzen dituen gutxieneko endpoint-a |
-| Metadata-Sync | METADATA-SYNC | Aldaketen jakinarazpena DENA-ri |
+| Metadata-Sync | METADATA-SYNC | Aldaketen jakinarazpena DENAri |
 | Person-Sync Pull | PERSON-SYNC | Pertsonen fitxategiaren deskarga |
 | Person-Sync Push | PERSON-SYNC | Pertsonen jakinarazpenen jasoketa |
 | OAuth2 Autentifikazioa | Autentifikazioa | Token-en lorpena eta erabilera |
@@ -36,7 +36,7 @@ Java erreferentzia proiektua administrazioentzako integrazio adibideekin.
 
 !!! warning "DENA biltegietan bertsio kontrola"
     
-    DENA-ren edozein biltegi klonatzean, ziurtatu bertsio etiketa egokia erabiltzen duzula `git checkout <tag>` bidez, zure garapen eta hedapen ingurunearekin bateragarritasuna bermatzeko.
+    DENAren edozein biltegi klonatzean, ziurtatu bertsio etiketa egokia erabiltzen duzula `git checkout <tag>` bidez, zure garapen eta hedapen ingurunearekin bateragarritasuna bermatzeko.
 
 ```bash
 git clone <adibide-biltegiaren-url>

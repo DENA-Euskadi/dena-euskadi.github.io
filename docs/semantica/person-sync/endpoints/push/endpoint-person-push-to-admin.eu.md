@@ -58,7 +58,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 | `personHashes`   | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Pertsonaren izen eta abizenen hashak identifikazio ezegokigarrirako |
 | `createDate`     | `ISO 8601 Date` | ✅ | Sorrera-data |
 | `lastUpdateDate` | `ISO 8601 Date` | ❌ | Azken eguneratze-data |
-| `syncEvent`      | `String` | ✅ | Gertatu den gertaera. Balio posibleak: <br> `CREATED`: Pertsona berria erregistratua <br> `DELETED`: Pertsona DENA-tik ezabatua <br> `UPDATED`: Pertsonaren datuak eguneratuta <br> `ID_CHANGED`: Pertsonaren identifikatzailea aldatuta |
+| `syncEvent`      | `String` | ✅ | Gertatu den gertaera. Balio posibleak: <br> `CREATED`: Pertsona berria erregistratua <br> `DELETED`: Pertsona DENAtik ezabatua <br> `UPDATED`: Pertsonaren datuak eguneratuta <br> `ID_CHANGED`: Pertsonaren identifikatzailea aldatuta |
 
 ---
 
@@ -135,7 +135,7 @@ Tokena automatikoki lortzen da client credentials bidez.
 
 1. `POST` endpoint bat esposatu `application/json` onartzen eta itzultzen duena
 2. `data.personRef` interpretatu pertsona identifikatzeko
-3. DENA-n erregistratutako pertsonen datu-basea eguneratu jasotako informazioarekin
+3. DENAn erregistratutako pertsonen datu-basea eguneratu jasotako informazioarekin
 4. HTTP kode estandarrak errespetatu
 5. 30 segundotan baino gutxiagoan erantzun
 6. Erabili `code: "OK"` erantzun arrakastatsuetan eta `code: "CLIENT_ERR"` edo `code: "SERVER_ERR"` erroreetan

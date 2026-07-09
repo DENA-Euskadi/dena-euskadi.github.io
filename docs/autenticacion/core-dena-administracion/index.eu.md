@@ -1,6 +1,6 @@
 # :material-arrow-left-bold: DENA CORE → Administrazioa
 
-DENA-k administrazio bati dei bat egiten dionean autentifikazio estandarra **OAuth 2.0 client_credentials** da.
+DENAk administrazio bati dei bat egiten dionean autentifikazio estandarra **OAuth 2.0 client_credentials** da.
 
 ---
 
@@ -22,15 +22,15 @@ sequenceDiagram
 
 ## Zer behar du administrazioak?
 
-!!! info "DENA-ri eman"
+!!! info "DENAri eman"
 
-    Administrazioak DENA-ri kredentzial hauek eman behar dizkio:
+    Administrazioak DENAri kredentzial hauek eman behar dizkio:
 
-    - `client_id` — DENA-ren bezero identifikadorea
+    - `client_id` — DENAren bezero identifikadorea
     - `client_secret` — Lotutako sekretua
     - **Token URLa** — Token-a lortzeko endpoint-a (adib.: Keycloak, Cognito, ADFS...)
 
-    DENA-k kredentzial hauek erabiliko ditu administrazioaren endpoint-era dei bakoitza egin aurretik token bat lortzeko.
+    DENAk kredentzial hauek erabiliko ditu administrazioaren endpoint-era dei bakoitza egin aurretik token bat lortzeko.
 
 ---
 

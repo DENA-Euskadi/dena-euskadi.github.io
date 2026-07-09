@@ -138,7 +138,7 @@ flowchart LR
   "priority": "NORMAL",
   "subject": {
     "SPANISH": "Cita previa para renovación de DNI",
-    "BASQUE": "NAN berritzeko aurretiko hitzordua"
+    "BASQUE": "NANa berritzeko aurretiko hitzordua"
   },
   "details": {
     "SPANISH": "Traer fotografía reciente y DNI anterior",

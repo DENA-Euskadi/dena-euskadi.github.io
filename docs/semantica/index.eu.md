@@ -21,7 +21,7 @@ config:
 flowchart TD
     BASE["Oinarrizko Semantika<br/><i>Partekatutako objektu komunak</i>"]
 
-    BASE --> DR["DATA-RETRIEVE<br/><i>Herritar pertsonaren<br/>datu kontsulta</i>"]
+    BASE --> DR["DATA-RETRIEVE<br/><i>Herritarraren<br/>datu kontsulta</i>"]
     BASE --> DS["METADATA-SYNC<br/><i>Metadatuen sinkronizazioa<br/>DENA eta administrazioen artean</i>"]
     BASE --> PS["PERSON-SYNC<br/><i>Pertsonen<br/>sinkronizazioa</i>"]
 
@@ -48,7 +48,7 @@ flowchart TD
 
     ---
 
-    DENA-k pertsona baten datuak eskatzen dizkio administrazioari. Administrazioak REST endpoint estandar bat esposatzen du.
+    DENAk pertsona baten datuak eskatzen dizkio administrazioari. Administrazioak REST endpoint estandar bat erakusten du.
 
     [:octicons-arrow-right-24: Dokumentazioa](./data-retrieve/index.md)
 
@@ -56,7 +56,7 @@ flowchart TD
 
     ---
 
-    Administrazioak DENA-ri jakinarazten dio pertsona baten datuetan aldaketak daudenean.
+    Administrazioak DENAri jakinarazten dio pertsona baten datuetan aldaketak daudenean.
 
     [:octicons-arrow-right-24: Dokumentazioa](./metadata-sync/index.md)
 
@@ -123,7 +123,7 @@ flowchart TD
 
 ---
 
-## Beste dokumentazioa
+## bestelako dokumentazioa
 
 - [Dokumentazio osagarria](./otra-documentacion.md)
 

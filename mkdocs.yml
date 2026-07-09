@@ -178,17 +178,17 @@ plugins:
           nav_translations:
             Inicio: Hasiera
             Primeros Pasos: Lehen Urratsak
-            Checklist de Onboarding: Onboarding Egiaztapen-zerrenda
+            Checklist de Onboarding: Onboardinga Egiaztapen-zerrenda
             Instalación: Instalazioa
             Pruebas de Conectividad: Konektibitate Probak
             Configuración Mock: Mock Konfigurazioa
             Arquitectura: Arkitektura
             Visión General: Ikuspegi Orokorra
             Diagramas: Diagramak
-            Otra Documentación: Beste Dokumentazioa
+            Otra Documentación: Bestelako dokumentazioa
             Autenticación: Autentifikazioa
-            DENA Llama a Tu Sistema: DENA-k Zure Sistemari Deitzen Dio
-            Tu Sistema Llama a DENA: Zure Sistemak DENA-ri Deitzen Dio
+            DENA Llama a Tu Sistema: DENAk Zure Sistemari Deitzen Dio
+            Tu Sistema Llama a DENA: Zure Sistemak DENAri Deitzen Dio
             Semántica: Semantika
             Tipos de Datos Disponibles: Datu Mota Eskuragarriak
             Campos Comunes: Eremu Komunak

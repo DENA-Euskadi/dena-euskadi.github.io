@@ -1,4 +1,4 @@
-# :material-file-document-plus: Beste dokumentazio semantikoa
+# :material-file-document-plus: bestelako dokumentazio semantikoa
 
 Aurreko ataletan sartzen ez den semantikari buruzko dokumentazio osagarria.
 

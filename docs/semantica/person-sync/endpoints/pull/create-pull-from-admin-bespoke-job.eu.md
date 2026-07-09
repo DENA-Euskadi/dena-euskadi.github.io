@@ -11,7 +11,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ## Deskribapena
 
-DENA-ren erabiltzaileen zerrenda baten esportazio-eskaera sortzen du modu asinkronoan prozesatzeko.
+DENAren erabiltzaileen zerrenda baten esportazio-eskaera sortzen du modu asinkronoan prozesatzeko.
 
 ## Eskaera
 

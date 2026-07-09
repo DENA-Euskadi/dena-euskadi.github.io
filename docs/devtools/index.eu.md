@@ -1,6 +1,6 @@
 # :material-wrench: DevTools
 
-Administrazio publikoentzat DENA-rekin probak eta integrazioa errazten dituzten garapen-tresnak.
+Administrazio publikoentzat DENArekin probak eta integrazioa errazten dituzten garapen-tresnak.
 
 ---
 
@@ -20,7 +20,7 @@ Administrazio publikoentzat DENA-rekin probak eta integrazioa errazten dituzten 
 
     ---
 
-    Admin ↔ DENA norabide biko konektibitatea balidatzeko osagai hedagarria.
+    Admin ↔ DENA norabide biko konektibitatea baliozkotu osagai hedagarria.
 
     [:octicons-arrow-right-24: Biltegia]({{ repos.conx_test_tree }})
 
@@ -90,10 +90,10 @@ Administrazio publikoentzat DENA-rekin probak eta integrazioa errazten dituzten 
 
 | Kasua | Deskribapena |
 |---|---|
-| DENA-tik probak | Tanzú-tik administrazioetara konektibitatea probatu |
+| DENAtik probak | Tanzú-tik administrazioetara konektibitatea probatu |
 | Endpoint-en baliozkotzea | Administrazioaren zerbitzuak eskuragarri daudela egiaztatu |
 | Debugging | Konektibitate edo formatu arazoak diagnostikatu |
-| Autentifikazio probak | Token-ak, ziurtagiriak eta kredentzialak balidatu |
+| Autentifikazio probak | Token-ak, ziurtagiriak eta kredentzialak baliozkotu |
 
 ---
 
@@ -103,7 +103,7 @@ Administrazio publikoentzat DENA-rekin probak eta integrazioa errazten dituzten 
 
     **Biltegia:** [DENA-Euskadi/dena-admin-conx-test]({{ repos.conx_test_tree }})
 
-    Administrazioaren azpiegituran hedatzeko tresna, norabide biko konektibitatea balidatzeko.
+    Administrazioaren azpiegituran hedatzeko tresna, norabide biko konektibitatea baliozkotu.
 
     [:octicons-arrow-right-24: Erabilera gida osoa](../guia-inicio/probar-comunicaciones.md)
 
@@ -121,7 +121,7 @@ Administrazio publikoentzat DENA-rekin probak eta integrazioa errazten dituzten 
 | Eskakizuna | Xehetasuna |
 |---|---|
 | :fontawesome-brands-java: Java | 21+ |
-| :material-shield-key: OAuth2 kredentzialak | DENA-k emandakoak |
+| :material-shield-key: OAuth2 kredentzialak | DENAk emandakoak |
 | :material-lock: HTTPS konektibitatea | DENA inguruneetara |
 
 ---

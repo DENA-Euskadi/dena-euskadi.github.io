@@ -7,7 +7,7 @@
 
 ## Deskribapena
 
-Erregistro ofizial bateko sarrera edo irteera erregistro-idazpena adierazten du, espediente bati lotuta.
+Espediente bati lotutako erregistro ofizial bateko sarrera edo irteera-erregistroko idazpena adierazten du.
 
 > Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
 
@@ -44,8 +44,8 @@ flowchart LR
 | Kolorea | Esanahia |
 |---------|----------|
 | 🟠 Laranja | Objektu nagusia (Erregistro Ofiziala) |
-| 🟡 Hori | Beste objektu baten erreferentzia (Espedientea) |
-| 🟣 More | Enumak / egoerak |
+| 🟡 Horia | Beste objektu baten erreferentzia (Espedientea) |
+| 🟣 Morea | Enumak / egoerak |
 | 🔵 Urdin argia | Datu-eremuak |
 
 ---
