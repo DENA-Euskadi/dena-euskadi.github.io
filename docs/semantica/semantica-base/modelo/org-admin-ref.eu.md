@@ -1,28 +1,26 @@
-# :material-domain: OrgAdminRef (DenaOrgRef)
+# :material-domain: OrgAdminRef
 
 ## Deskribapena
 
-[DenaObjectRef](./object-ref.md)-ren espezializazioa, **administrazio** bati buruzko gutxieneko datuekin. DENAn administrazio bat modu bakarra identifikatzeko beharrezko informazioa dauka.
+**Administrazio** baten erreferentzia. [DenaObjectRef](./object-ref.md)-en espezializazioa da (zehazki `DN00DENAObjectWithIDRefBase`-rena): `oid` eta `id` heredatzen ditu, eta `dir3Id` eremu propioa gehitzen du.
+
+Klasea: `DN00OrgAdminRef`.
 
 !!! info "Bidalketa sinplifikatua"
-    Administrazio batek informazio hau bidaltzen duenean, **nahikoa da identifikazio-eremu bat bidaltzea** (`orgId`, `officialId` edo `objectOid`). DENAk gainerakoa bere barne-direktorio entitateetatik lor dezake.
+    Administrazio batek erreferentzia hau bidaltzen duenean, identifikazio-eremuetako bat nahikoa da (`oid`, `id` edo `dir3Id`). DENAk gainerakoa bere barneko entitate-direktoriotik lortzen du.
 
 ---
 
-## JSON Atributuak
+## JSON atributuak
 
-| Eremua | Mota | Derrigorrezkoa | Deskribapena |
+| Eremua | Mota | Nahitaezkoa | Deskribapena |
 |---|---|:---:|---|
-| `orgId` | `ID` | :material-close:* | Administrazioaren identifikatzailea (adib. NIF) |
-| `officialId` | `ID` | :material-close:* | Administrazioaren DIR3 kodea |
-| `objectOid` | `OID` | :material-close:* | DENAren antolaketa-moduluko objektuaren identifikatzaile bakarra |
-| `createTS` | `TimeStamp` | :material-close: | Objektua DENAn sortu zen unea |
-| `lastUpdateTS` | `TimeStamp` | :material-close: | Azken aldaketaren unea |
-| `deleteTS` | `TimeStamp` | :material-close: | Objektua ezabatu zen unea (aplikagarria bada) |
-| `url` | `URL` | :material-close: | Administrazioaren datu osoen URLa |
+| `oid` | `OID` | :material-close:* | Administrazioaren identifikatzaile bakarra DENAren antolakuntza-moduluan |
+| `id` | `ID` | :material-close:* | Administrazioaren identifikatzailea (adib. NIF) |
+| `dir3Id` | `ID` | :material-close:* | Administrazioaren DIR3 kodea |
 
-!!! info "Gutxienez bat derrigorrezkoa"
-    `orgId`, `officialId` edo `objectOid`-etik gutxienez bat sartu behar da.
+!!! note "* Gutxienez bat"
+    `oid`, `id` edo `dir3Id`-etako bat gutxienez sartu behar da.
 
 ---
 
@@ -30,29 +28,28 @@
 
 ```json
 {
-  "orgId": "S4833001C",
-  "officialId": "EA0000001",
-  "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2",
-  "createTS": 1670374400,
-  "lastUpdateTS": 1680500000,
-  "url": "https://interop.api.dena.eus/orgs/6AE83A0C-2202-4666-9857-3334C14663A2"
+  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+  "id": "S4833001C",
+  "dir3Id": "EA0000001"
 }
 ```
 
 ---
 
-## Erabilera sinplifikatua
+## Antolakuntza-egitura
 
-Mezu gehienetarako, formatu murriztua nahikoa da:
+**Antolakuntza-egitura** bat (organigrama hierarkikoa) bidali behar denean, erreferentzia-`Array` bat bidal daiteke, non ordenak maila hierarkikoa markatzen duen:
+
+- `[0]` elementua: antolakuntzaren lehen maila
+- `[1]` elementua: bigarren maila
+- ...
 
 ```json
-{
-  "id": "admin-A414",
-  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
-}
+[
+  { "id": "S4833001C", "dir3Id": "EA0000001" },
+  { "id": "S4811001J", "dir3Id": "EA0041020" }
+]
 ```
-
-non `id` → `orgId` eta `oid` → `objectOid`.
 
 <!-- DENA-DOC-FOOTER -->
 ---

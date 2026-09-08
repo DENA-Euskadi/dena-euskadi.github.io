@@ -26,13 +26,15 @@ flowchart LR
     BASE --> OID["oid<br/><i>Identificador técnico único</i>"]
     BASE --> ID["id<br/><i>Identificador de negocio</i>"]
     BASE --> URLS["urls[]<br/><i>url · language · tags</i>"]
-    BASE --> ADMIN["originAdminRef<br/><i>administrationId · dir3Code</i>"]
-    BASE --> PERSON["aboutPersonRef<br/><i>personId</i>"]
+    BASE --> CHANGED["lastChangedAt<br/><i>última modificación en origen</i>"]
+    BASE --> ADMIN["originAdmin<br/><i>oid · id · dir3Id</i>"]
+    BASE --> PERSON["aboutPerson<br/><i>oid · id</i>"]
 
     style BASE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:8,ry:8
     style OID fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style ID fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style URLS fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style CHANGED fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style ADMIN fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
     style PERSON fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
 ```
@@ -50,49 +52,55 @@ flowchart LR
 
 | Campo | Tipo | Obligatorio | Descripción |
 |-------|------|:-----------:|-------------|
-| `oid` | `String` | ✅ | Identificador técnico único asignado por el sistema de la administración |
-| `id` | `String` | ✅ | Identificador de negocio legible (asignado por la administración) |
+| `oid` | `OID` | ✅ | Identificador técnico único asignado por el sistema de la administración |
+| `id` | `ID` | ✅ | Identificador de negocio legible (asignado por la administración) |
 | `urls` | `Array` | ❌ | URLs de acceso al objeto en la sede electrónica |
-| `originAdminRef` | `Object` | ❌ | Referencia a la administración de origen. Si no se proporciona, DENA lo completa automáticamente |
-| `aboutPersonRef` | `Object` | ❌ | Referencia a la persona sobre la que trata el objeto. Si no se proporciona, DENA lo completa automáticamente |
+| `lastChangedAt` | `Instant` | ✅ | Última modificación del dato en el origen. **Muy importante**: DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED en la UI |
+| `originAdmin` | `OrgAdminRef` | ❌ | Referencia a la administración de origen. Si no se proporciona, DENA la completa automáticamente |
+| `aboutPerson` | `PersonRef` | ❌ | Referencia a la persona sobre la que trata el objeto. Si no se proporciona, DENA la completa automáticamente |
 
 ---
 
-## Detalle de `originAdminRef`
+## Detalle de `lastChangedAt`
 
-Identifica la administración que genera el dato. Es opcional porque DENA puede inferirlo del contexto de la petición.
+Instante (formato ISO 8601) de la última modificación del dato **en el sistema de origen de la administración**. Es un campo clave: DENA-CORE lo compara con la última vez que ese tipo de dato fue recuperado de la administración para decidir el estado NEW/UPDATED/UNCHANGED que muestra la UI. Si `lastChangedAt` es más reciente que la última recuperación, el dato se marca como NEW/UPDATED.
 
 ```json
 {
-  "originAdminRef": {
-    "administrationId": "ADMIN-001",
-    "dir3Code": "EA0000001"
+  "lastChangedAt": "2026-08-19T08:07:56.742Z"
+}
+```
+
+---
+
+## Detalle de `originAdmin`
+
+Identifica la administración que genera el dato. Es una [OrgAdminRef](../../semantica-base/modelo/org-admin-ref.md). Es opcional porque DENA puede inferirla del contexto de la petición.
+
+```json
+{
+  "originAdmin": {
+    "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+    "id": "S4833001C",
+    "dir3Id": "EA0000001"
   }
 }
 ```
 
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `administrationId` | `String` | Identificador de la administración en DENA |
-| `dir3Code` | `String` | Código DIR3 de la administración |
-
 ---
 
-## Detalle de `aboutPersonRef`
+## Detalle de `aboutPerson`
 
-Identifica a la persona ciudadana a la que se refiere el dato. Es opcional porque DENA lo completa con el `personId` del contexto de la petición.
+Identifica a la persona a la que se refiere el dato. Es una [PersonRef](../../semantica-base/modelo/person-ref.md). Es opcional porque DENA la completa con la persona del contexto de la petición.
 
 ```json
 {
-  "aboutPersonRef": {
-    "personId": "12345678A"
+  "aboutPerson": {
+    "oid": "DAA35E71-5B28-44BF-9DAE-A412E1CEC538",
+    "id": "12345678A"
   }
 }
 ```
-
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `personId` | `String` | DNI/NIE/NIF de la persona |
 
 ---
 
@@ -140,12 +148,15 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
-  "originAdminRef": {
-    "administrationId": "ADMIN-001",
-    "dir3Code": "EA0000001"
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "originAdmin": {
+    "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+    "id": "S4833001C",
+    "dir3Id": "EA0000001"
   },
-  "aboutPersonRef": {
-    "personId": "12345678A"
+  "aboutPerson": {
+    "oid": "DAA35E71-5B28-44BF-9DAE-A412E1CEC538",
+    "id": "12345678A"
   },
   "urls": [
     { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
@@ -158,7 +169,7 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
 
 ## Notas para la administración
 
-- Los campos `originAdminRef` y `aboutPersonRef` son **opcionales**. Si la administración no los incluye, DENA los completará automáticamente a partir del contexto de la petición.
+- Los campos `originAdmin` y `aboutPerson` son **opcionales**. Si la administración no los incluye, DENA los completará automáticamente a partir del contexto de la petición.
 - Se recomienda incluir al menos una URL con tag `default` por cada idioma soportado (castellano y euskera como mínimo).
 - El campo `oid` debe ser único dentro del sistema de la administración para ese tipo de objeto.
 - El campo `id` debe ser el identificador de negocio que la persona ciudadana reconoce (ej: número de expediente visible en la sede).

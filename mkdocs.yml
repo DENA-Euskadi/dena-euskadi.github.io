@@ -54,6 +54,7 @@ nav:
       - Otra Documentación: arquitectura/otra-documentacion.md
   - Seguridad y Autenticación:
       - Visión General: seguridad/index.md
+      - Modelo de Usuarios: seguridad/modelo-usuarios.md
       - Tu Sistema Llama a DENA: autenticacion/administracion-core-dena/index.md
       - DENA Llama a Tu Sistema: autenticacion/core-dena-administracion/index.md
   - Operativas:
@@ -194,6 +195,7 @@ plugins:
             Diagramas: Diagrams
             Otra Documentación: Other Documentation
             Seguridad y Autenticación: Security & Authentication
+            Modelo de Usuarios: User Model
             Tu Sistema Llama a DENA: Your System Calls DENA
             DENA Llama a Tu Sistema: DENA Calls Your System
             Operativas: Operations
@@ -241,6 +243,7 @@ plugins:
             Diagramas: Diagramak
             Otra Documentación: Bestelako dokumentazioa
             Seguridad y Autenticación: Segurtasuna eta Autentifikazioa
+            Modelo de Usuarios: Erabiltzaile Eredua
             Tu Sistema Llama a DENA: Zure Sistemak DENAri Deitzen Dio
             DENA Llama a Tu Sistema: DENAk Zure Sistemari Deitzen Dio
             Operativas: Operatibak

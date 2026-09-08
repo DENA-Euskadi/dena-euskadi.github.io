@@ -1,55 +1,63 @@
 # :material-message-text: Mezu Motak
 
-Orri honek DENAren elkarreragingarritasun-mezuen egituran barnean erabiltzen diren datu motak dokumentatzen ditu.
+Orri honek DENAren **interop message**-aren egituran erabiltzen diren motak dokumentatzen ditu (`DN00InteropContext` eta `DN00InteropMessageData`).
 
 ---
 
-## DenaFlowDirection
+## DN00InteropFlowDirection
 
-Elkarrizketan mezuaren norabidea adierazten duen Enum-a.
+Mezuaren norabidea adierazten duen Enum-a. Ez da modu independentean gordetzen: mezu motatik eratortzen da.
 
 | Balioa | Deskribapena |
 |---|---|
-| `REQ` | Eskaera (request) |
-| `RES` | Eskaera baten erantzuna (response) |
+| `REQUEST` | Eskaera |
+| `RESPONSE` | Eskaera baten erantzuna |
 
 ---
 
-## DenaMessageType
+## DN00InteropMessageType
 
-Elkarreragingarritasun-operazio mota identifikatzen duen Enum-a. Fluxu bakoitzak bere mezu motak ditu:
+Elkarreragingarritasun-operazio mota identifikatzen duen Enum-a. Hauek dira enum-aren benetako balioak:
 
-| Fluxua | Jatorria | Helmuga | Balioa | Deskribapena |
-|---|---|---|---|---|
-| Person-Sync | DENA-CORE | Admin | `DENA_USER_SYNC_PUSH` | Pertsonen alta/baja jakinarazpena |
-| Metadata-Sync | Client | DENA-CORE | `UI_META_DATA_SYNC` | UIren metadatuen sinkronizazioa |
-| Metadata-Sync | Admin | DENA-CORE | `ADMIN_SYNC_PUSH` | Administraziotik bidalitako aldaketak (PUSH) |
-| Metadata-Sync | DENA-CORE | Admin | `DENA_SYNC_PULL` | Administrazioari aldaketak eskatzea (PULL) |
-| Data-Retrieve | Client | DENA-CORE | `UI_DATA_RETRIEVE` | UItik datuak eskatzea |
-| Data-Retrieve | DENA-CORE | Admin | `DENA_DATA_RETRIEVE` | Administrazioari datuak eskatzea |
+| Balioa | Esparrua |
+|---|---|
+| `CLIENT_LOGIN`, `CLIENT_LOGIN_DEMO` | Bezeroaren login-a |
+| `CLIENT_PASSKEY_REGISTER_INIT` / `CLIENT_PASSKEY_REGISTER_FINISH` | Passkey erregistroa |
+| `CLIENT_PASSKEY_LOGIN_INIT` / `CLIENT_PASSKEY_LOGIN_FINISH` | Passkey bidezko login-a |
+| `CLIENT_PASSKEY_CLEAN_CREDENTIALS` | Passkey kredentzialen garbiketa |
+| `CLIENT_INIT_REQ` / `CLIENT_INIT_RESP` | Bezeroaren hasieratzea |
+| `CLIENT_SRMD_SYNC_REQ` / `CLIENT_SRMD_SYNC_RESP` | Metadata-Sync (SRMD) bezerotik |
+| `ADMIN_SRMD_SYNC_REQ` / `ADMIN_SRMD_SYNC_RESP` | Metadata-Sync (SRMD) administraziotik |
+| `CLIENT_RETRIEVE_REQ` / `CLIENT_RETRIEVE_RESP` | Data-Retrieve bezerotik |
+| `PERSON_FETCH_DATA` | Pertsona baten datuak berreskuratzea |
+| `ADMIN_PERSON_PULL_BESPOKE_CREATE_REQ` | Person-Sync Pull: bespoke job-a sortzea |
+| `ADMIN_PERSON_PULL_BESPOKE_FETCH` | Person-Sync Pull: bespoke job-a kontsultatzea |
+| `ADMIN_PERSON_BESPOKE_EXPORT_ASSET_FETCH` | Bespoke asset-aren deskarga |
+| `ADMIN_PERSON_PREGEN_EXPORT_ASSET_FETCH` | Aurrez sortutako asset-aren deskarga |
+| `PERSON_ADMIN_SEARCH` | Pertsonen bilaketa administrazioak eginda |
+| `PERSON_ADMIN_HEAD` | Pertsonaren HEAD kontsulta administrazioak eginda |
 
 ---
 
-## DenaInteropRouteDataItem
+## DN00IteropRouteDataItem
 
-Elkarreragingarritasun-mezu bat DENA osagai batetik igarotzen den bakoitzean, `interopRouteData` array-an **aztarna bat** uzten du. Informazio hau batez ere auditoria eta arazketa helbururako erabiltzen da.
+Mezu bat DENA osagai batetik igarotzen den bakoitzean, `interopRouteData` array-an **aztarna bat** uzten du. Auditoria eta arazketa helbururako erabiltzen da.
 
 ### Atributuak
 
 | Eremua | Mota | Deskribapena |
 |---|---|---|
-| `denaComponentId` | `ID` | DENA osagaiaren identifikatzailea |
-| `timeStamp` | `TimeStamp` | Mezua osagaitik igaro zen unea |
+| `denaComponentId` | `DN00InteropComponent` | DENA osagaiaren identifikatzailea |
+| `timestamp` | `Instant` (ISO 8601) | Mezua osagaitik igaro zen unea |
 
-### Osagai identifikatzaile ezagunak
+### Osagai identifikatzaileak
 
-| ID | Osagaia |
+| Balioa | Osagaia |
 |---|---|
-| `mobileApp` | DENA app mugikorra |
-| `webApp` | DENA web aplikazioa |
-| `apiGateway` | API Gateway |
-| `denaCORE` | DENA-CORE (modulu zentrala) |
-| `connector` | Administrazioaren konektorea |
+| `CLIENT_INSTALLMENT` | Bezeroaren instalazioa (DENA-APP) |
+| `DENA_CORE` | DENA-CORE (modulu zentrala) |
+| `DENA_ADMIN_CONNECTOR` | Administrazioaren konektorea |
+| `ADMIN` | Administrazioaren sistema |
 
 ### Adibidea
 
@@ -57,44 +65,18 @@ Elkarreragingarritasun-mezu bat DENA osagai batetik igarotzen den bakoitzean, `i
 {
   "interopRouteData": [
     {
-      "denaComponentId": "mobileApp",
-      "timeStamp": 1670374400
+      "denaComponentId": "CLIENT_INSTALLMENT",
+      "timestamp": "2026-08-18T11:28:47.523Z"
     },
     {
-      "denaComponentId": "denaCORE",
-      "timeStamp": 1670374401
+      "denaComponentId": "DENA_CORE",
+      "timestamp": "2026-08-18T11:28:47.601Z"
     },
     {
-      "denaComponentId": "connector",
-      "timeStamp": 1670374402
+      "denaComponentId": "DENA_ADMIN_CONNECTOR",
+      "timestamp": "2026-08-18T11:28:47.688Z"
     }
   ]
-}
-```
-
----
-
-## DenaPersonAndConsentGiven
-
-Pertsonaren gutxieneko datuak emandako baimen baten datuekin konbinatzen dituen egitura.
-
-| Eremua | Mota | Deskribapena |
-|---|---|---|
-| `personRef` | [DenaPersonRef](./person-ref.md) | Pertsonaren gutxieneko datuak (oid, id, alta-data, etab.) |
-| `consentRef` | `DenaConsentRef` | Baimenaren erreferentzia (oid, url, etab.) |
-
-### Adibidea
-
-```json
-{
-  "personRef": {
-    "personId": "12345678A",
-    "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2"
-  },
-  "consentRef": {
-    "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentURL": "https://interop.api.dena.eus/consent/db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
-  }
 }
 ```
 

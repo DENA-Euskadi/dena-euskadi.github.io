@@ -4,9 +4,9 @@
 
 ---
 
-## Estructura de los servicios REST
+## Estructura del interop message
 
-Todas las peticiones y respuestas de los servicios REST comparten una estructura base con información de **contexto** y **datos**:
+Todas las peticiones y respuestas comparten la estructura del **interop message** (`DN00InteropMessageBase`), compuesta por tres bloques: **context**, **protocol** y **payload**.
 
 ```mermaid
 ---
@@ -20,44 +20,46 @@ config:
     fontSize: "12px"
 ---
 flowchart LR
-    ROOT["REST Message"]
+    ROOT["InteropMessage"]
 
-    ROOT --> CONTEXT["Context"]
-    ROOT --> DATA["Data<br/><i>payload</i>"]
+    ROOT --> CONTEXT["context"]
+    ROOT --> PROTOCOL["protocol"]
+    ROOT --> PAYLOAD["payload"]
 
-    CONTEXT --> MESSAGE_TYPE["messageType<br/>String"]
-    CONTEXT --> DATA_TYPE["dataType<br/>DataTypeRef"]
-    CONTEXT --> MESSAGE_CORRELATION_ID["messageCorrelationId<br/>UUID"]
-    CONTEXT --> FLOW_DIRECTION["flowDirection<br/>REQUEST/RESPONSE"]
-    CONTEXT --> ORIGIN_PARTY_ID["originPartyId<br/>String"]
-    CONTEXT --> DESTINATION_PARTY_ID["destinationPartyId<br/>String"]
+    CONTEXT --> MESSAGE["message"]
+    CONTEXT --> ORIGIN_CI["originClientInstallment"]
+    CONTEXT --> ORIGIN_ADMIN["originAdmin<br/>OrgAdminRef"]
+    CONTEXT --> DEST_ADMIN["destinationAdmin<br/>OrgAdminRef"]
     CONTEXT --> SUBJECT_PERSON["subjectPerson<br/>PersonRef"]
-    CONTEXT --> ADMINISTRATION["administration<br/>OrgAdminRef"]
-    CONTEXT --> INTEROP_ROUTE_DATA["interopRouteData<br/>Array"]
+    CONTEXT --> DATA_TYPE["dataType<br/>DataTypeRef"]
+    CONTEXT --> USER_AGENT["userAgent<br/>String"]
 
-    INTEROP_ROUTE_DATA --> IRDITEM["denaComponentId<br/>timestamp"]
+    MESSAGE --> M_TYPE["type<br/>MessageType"]
+    MESSAGE --> M_CORR["correlationId<br/>UUID"]
+    MESSAGE --> M_ROUTE["interopRouteData<br/>Array"]
 
     style ROOT fill:#fff2cc,stroke:#d6b656,color:#000000,rx:8,ry:8
     style CONTEXT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
-    style DATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
-    style MESSAGE_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style DATA_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style MESSAGE_CORRELATION_ID fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style FLOW_DIRECTION fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style ORIGIN_PARTY_ID fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style DESTINATION_PARTY_ID fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style PROTOCOL fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
+    style PAYLOAD fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
+    style MESSAGE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
+    style ORIGIN_CI fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style ORIGIN_ADMIN fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style DEST_ADMIN fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
     style SUBJECT_PERSON fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style ADMINISTRATION fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style INTEROP_ROUTE_DATA fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
-    style IRDITEM fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style DATA_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style USER_AGENT fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style M_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style M_CORR fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style M_ROUTE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
 ```
 
 | Color | Significado |
 |---|---|
-| :yellow_circle: Amarillo | Estructura raíz (REST Message) |
-| :blue_circle: Azul claro | Objetos principales (Context y Data) |
-| :red_circle: Rojo claro | Campos primitivos y referencias |
-| :purple_circle: Violeta | Arrays |
+| :yellow_circle: Amarillo | Estructura raíz (InteropMessage) |
+| :blue_circle: Azul claro | Bloques principales (context, protocol, payload) |
+| :purple_circle: Violeta | Objeto `message` anidado |
+| :red_circle: Rojo claro | Campos y referencias |
 
 ---
 
@@ -68,24 +70,24 @@ flowchart LR
     ```json
     {
       "context": {
-        "interopRouteData": [
-          {
-            "denaComponentId": "DENA_POSTMAN",
-            "denaTS": 1779382284684
-          }
-        ],
-        "messageCorrelationId": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
-        "messageType": "CLIENT_LOGIN",
-        "flowDirection": "REQUEST",
-        "userAgent": "Mozilla/5.0 ...",
-        "originPartyId": "DENA_POSTMAN",
-        "destinationPartyId": "DENA_INTEROP",
-        "clientDeviceOid": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
-        "dataType": { "dataTypeId": "RECORDS" },
-        "subjectPerson": { "personId": "12345678A" },
-        "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" }
+        "message": {
+          "type": "CLIENT_RETRIEVE_REQ",
+          "correlationId": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
+          "interopRouteData": [
+            {
+              "denaComponentId": "CLIENT_INSTALLMENT",
+              "timestamp": "2026-08-18T11:28:47.523Z"
+            }
+          ]
+        },
+        "originClientInstallment": "8B5AE78A-7D42-4069-A626-959BB07276C5",
+        "destinationAdmin": { "id": "admin-id", "oid": "..." },
+        "subjectPerson": { "id": "12345678A", "oid": "..." },
+        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
+        "userAgent": "Mozilla/5.0 ..."
       },
-      "data": {
+      "protocol": { ... },
+      "payload": {
         ...
       }
     }
@@ -97,50 +99,56 @@ flowchart LR
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `context` | [Context](#context) | :material-check: | Objeto de contexto de la petición |
-| `data` | `Objeto` | :material-check: | Payload de la petición o datos de la respuesta |
+| `context` | [Context](#context) | :material-check: | Objeto de contexto del mensaje (`DN00InteropContext`) |
+| `protocol` | [DENAProtocol](./modelo/protocol.md) | :material-close: | Información de protocolo (URLs, timeout) |
+| `payload` | `Objeto` | :material-check: | Payload de la petición o datos de la respuesta |
+
+!!! note "El payload es genérico"
+    En `DN00InteropMessageBase` el payload es genérico (`<P>`) y se marshaliza como `payload`. El contenido concreto depende de cada operación.
 
 ---
 
 ## Context
 
+El contexto (`DN00InteropContext`) agrupa metadatos del mensaje. Los datos de tipo de mensaje van anidados en el objeto `message` (`DN00InteropMessageData`).
+
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `interopRouteData` | `Array` | :material-check: | Listado de componentes por los que ha pasado la petición con su timestamp |
-| `messageCorrelationId` | `String(UUID)` | :material-check: | Id de correlación para asociar todas las llamadas derivadas de una petición |
-| `messageType` | `String` | :material-check: | Tipo de mensaje enviado en el objeto `data` |
-| `flowDirection` | `String` | :material-check: | Indica si es petición (`REQUEST`) o respuesta (`RESPONSE`) |
-| `userAgent` | `String` | :material-check: | User Agent del dispositivo origen |
-| `originPartyId` | `String` | :material-check: | Identificador del origen (ej: `DENA_WEBAPP`) |
-| `destinationPartyId` | `String` | :material-check: | Identificador del destino (ej: `DENA_INTEROP`) |
-| `clientDeviceOid` | `String` | :material-close: | OID del dispositivo origen |
-| `dataType` | [DataTypeRef](./modelo/data-type-ref.md) | :material-close: | Tipo de dato semántico solicitado |
+| `message.type` | `DN00InteropMessageType` | :material-check: | Tipo de operación (ver [Tipos de Mensaje](./modelo/message-types.md)) |
+| `message.correlationId` | `UUID` | :material-check: | Id de correlación para asociar todas las llamadas derivadas de una petición |
+| `message.interopRouteData` | `Array` | :material-close: | Componentes por los que ha pasado el mensaje, con su timestamp |
+| `originClientInstallment` | `OID` | :material-close: | Instalación cliente de origen (DENA-APP) |
+| `originAdmin` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Administración de origen |
+| `destinationAdmin` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Administración destino |
 | `subjectPerson` | [PersonRef](./modelo/person-ref.md) | :material-close: | Persona sobre la que se solicitan datos |
-| `administration` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Administración destino |
+| `dataType` | [DataTypeRef](./modelo/data-type-ref.md) | :material-close: | Tipo de dato semántico solicitado |
+| `userAgent` | `String` | :material-close: | User Agent del origen |
+
+!!! info "`flowDirection` es derivado"
+    La dirección del flujo (`REQUEST`/`RESPONSE`) no es un campo almacenado del contexto: se deriva del `message.type`.
 
 ---
 
 ## Estructura completa del mensaje
 
-Un mensaje DENA tiene la siguiente estructura general:
+Un interop message tiene la siguiente estructura:
 
 ```json
 {
   "context": { ... },       // Metadatos de contexto (obligatorio)
   "protocol": { ... },      // Información de protocolo (opcional)
-  "consent": { ... },       // Base habilitante (solo en Data-Retrieve)
-  "status": { ... },        // Estado de respuesta (solo en responses)
-  "data": { ... }           // Payload (obligatorio)
+  "payload": { ... }        // Payload (obligatorio)
 }
 ```
 
 | Bloque | Presencia | Descripción |
 |---|---|---|
-| `context` | Siempre | Identificación, correlación, tipo de operación |
-| `protocol` | Cuando necesario | URLs, timeouts, hashes, tokens |
-| `consent` | Solo Data-Retrieve | Referencia al consentimiento/habilitación normativa |
-| `status` | Solo respuestas | Resultado del procesamiento |
-| `data` | Siempre | Datos de la petición o respuesta |
+| `context` | Siempre | Identificación, correlación, tipo de operación, origen/destino |
+| `protocol` | Cuando necesario | URLs, timeout |
+| `payload` | Siempre | Datos de la petición o respuesta |
+
+!!! note "Respuestas"
+    En los mensajes de respuesta el estado del procesamiento se representa con los campos `code`, `errorId` y `details`. Ver [Status](./modelo/status.md).
 
 ---
 
@@ -160,11 +168,11 @@ Información de protocolo: URLs de callback, timeouts, hashes.
 
 ---
 
-## Consent (DENAConsent)
+## Consentimiento (consentOid)
 
-Referencia a la base habilitante (consentimiento/habilitación normativa) que respalda una petición Data-Retrieve.
+En las peticiones, el consentimiento que respalda la operación se referencia por su OID (`consentOid`). Ver el detalle en la página de consentimiento.
 
-[:octicons-arrow-right-24: Ver DENAConsent](./modelo/consent.md)
+[:octicons-arrow-right-24: Ver consentOid](./modelo/consent.md)
 
 ---
 
@@ -195,7 +203,7 @@ Principios, ciclo de vida y API del sistema de consentimientos de DENA.
 
     ---
 
-    Tipo base: OID, timestamps, URL de cualquier objeto DENA.
+    Tipo base: OID (y el ID en la especialización) de cualquier objeto DENA.
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/object-ref.md)
 
@@ -211,7 +219,7 @@ Principios, ciclo de vida y API del sistema de consentimientos de DENA.
 
     ---
 
-    Referencia a una administración (orgId, DIR3, OID...).
+    Referencia a una administración (`oid`, `id`, `dir3Id`).
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/org-admin-ref.md)
 
@@ -219,7 +227,7 @@ Principios, ciclo de vida y API del sistema de consentimientos de DENA.
 
     ---
 
-    Referencia a una persona registrada (personId, OID...).
+    Referencia a una persona registrada (`oid`, `id`).
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/person-ref.md)
 
@@ -235,7 +243,7 @@ Principios, ciclo de vida y API del sistema de consentimientos de DENA.
 
     ---
 
-    FlowDirection, MessageType, RouteDataItem, PersonAndConsentGiven.
+    FlowDirection, MessageType, RouteDataItem.
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/message-types.md)
 

@@ -14,8 +14,10 @@ Object for referencing a data type managed by DENA (e.g. Record, Notification, P
 
 | Field | Type | Mandatory | Description |
 |---|---|:---:|---|
-| `oid` | `String` | :material-close:* | Internal identifier of the data type |
-| `id` | `String` | :material-close:* | Textual identifier of the data type |
+| `oid` | `OID` | :material-close:* | Internal identifier of the data type (`DN00DataTypeOID`) |
+| `id` | `ID` | :material-close:* | Textual identifier of the data type (`DN00DataTypeID`) |
+
+Class: `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`), a specialization of `DN00DENAObjectWithIDRefBase`.
 
 ---
 
@@ -30,15 +32,19 @@ Object for referencing a data type managed by DENA (e.g. Record, Notification, P
 
 ---
 
-## Standard values of `id`
+## Values of the `DN00DataTypeEnum` enum
 
-| `id` | Data type |
-|---|---|
-| `RECORDS` | Records |
-| `NOTICES` | Notifications |
-| `REGISTER` | Official registrations |
-| `PAYMENTS` | Payments |
-| `SCHEDULE` | Appointments |
+The DATA-RETRIEVE data types are defined in the `DN00DataTypeEnum` enum. Each type's `id` value matches the marshallTypeId of the corresponding data object:
+
+| Enum value | `id` (marshallTypeId) | Data object |
+|---|---|---|
+| `ADMINISTRATIVE_NOTICE` | `administrativeNotice` | Notification |
+| `ADMINISTRATIVE_RECORD` | `administrativeServiceProcedureRecord` | Record |
+| `ADMINISTRATIVE_REGISTER` | `administrativeOfficialRegisterRecord` | Official register |
+| `PAYMENT_ONE_OFF_PAYMENT` | `oneOffPayment` | One-off payment |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | `directDebitPayment` | Direct debit |
+| `SCHEDULE` | `scheduleItem` | Appointment |
+| `PERSON_DATA` | `personData` | Person data |
 
 <!-- DENA-DOC-FOOTER -->
 ---

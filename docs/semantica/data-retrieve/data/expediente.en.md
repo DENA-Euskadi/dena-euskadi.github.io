@@ -9,7 +9,7 @@
 
 Represents an administrative record linked to a service and procedure. It is the central object of the model: notifications, registrations and payments depend on it.
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

@@ -16,20 +16,23 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```json
 {
     "context": {
-        "interopRouteData": [
-            {
-                "denaComponentId": "DENA_POSTMAN",
-                "timestamp":"2026-06-10T15:37:57.5530000Z"
-            }
-        ],
-        "messageCorrelationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
-        "messageType": "ADMIN_SYNC_METADATA",
-        "flowDirection": "REQUEST",
+        "message": {
+            "type": "ADMIN_SYNC_METADATA",
+            "correlationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_POSTMAN",
+                    "timestamp": "2026-06-10T15:37:57.5530000Z"
+                }
+            ]
+        },
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-        "originPartyId": "ADMIN-001",
-        "destinationPartyId": "DENA_INTEROP"
+        "originAdmin": {
+            "id": "admin-A414",
+            "dir3Id": "EA0000001"
+        }
     },
-    "data": {
+    "payload": {
         "items": [
             {
                 "admin": {
@@ -42,6 +45,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
                 "ofType": {
                     "id": "administrativeNotice"
                 },
+                "fromDataOriginInstance": "DEFAULT",
                 "popMessageAfterSync": {
                     "how": "AT_CLIENT_AFTER_SYNC",
                     "messageByLang": {
@@ -57,15 +61,26 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 | Eremua    | Mota                                           | Derrigorrez | Deskribapena |
 |-----------|------------------------------------------------|:-----------:|--------------|
-| `context` | [Context](../semantica-base/index.md)          | ✅          | Eskaeraren testuinguru-objektua, `ADMIN_SYNC_METADATA` balioarekin messageType barne |
-| `data`    | [Data](#data)                                  | ✅          | Eskaeraren payload-a |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Eskaeraren testuinguru-objektua, `message.type` `ADMIN_SYNC_METADATA` balioarekin |
+| `payload` | [Payload](#payload)                            | ✅          | Eskaeraren payload-a |
 
 
-## Data
+## Payload
 
 | Eremua   | Mota     | Derrigorrez | Deskribapena |
 |----------|----------|:-----------:|--------------|
 | `items`  | `Array`<[SyncMetaDataFromAdminToCOREItem](./modelo/sync-metadata-from-admin-to-core-item.md)>  | ✅ | Pertsona eta administrazioko datu-aldaketen zerrenda |
+
+Elementu bakoitzak `DN00SyncMetaDataFromAdminToCOREItem` modeloa jarraitzen du:
+
+| Eremua                   | Mota                          | Derrigorrez | Deskribapena |
+|--------------------------|-------------------------------|:-----------:|--------------|
+| `admin`                  | `OrgAdminRef` (`oid`/`id`/`dir3Id`) | ✅ | Aldaketaren jatorrizko administrazioa |
+| `aboutPerson`            | `PersonRef` (`oid`/`id`)      | ✅          | Datuak zein pertsonarenak diren |
+| `someDataWasUpdatedAt`   | `Instant` (ISO 8601)          | ✅          | Administrazioaren aldean izandako azken aldaketaren unea |
+| `ofType`                 | `DataTypeRef` (`oid`/`id`)    | ✅          | Datu mota (marshallTypeId, adib. `administrativeNotice`) |
+| `fromDataOriginInstance` | `String`                      | ❌          | Datuaren jatorrizko instantzia (lehenetsia `DEFAULT`) |
+| `popMessageAfterSync`    | `PopMessageAfterSyncAdminSpec`| ❌          | Sinkronizazioaren ondoren bezeroan erakusteko mezu aukerakoa |
 
 ---
 
@@ -75,16 +90,18 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 {
     "code": "OK",
     "context": {
-        "flowDirection": "RESPONSE",
-        "interopRouteData": [
-            {
-                "denaComponentId": "DENA_INTEROP_ADMIN_SYNC",
-                "timestamp": "2026-05-27T15:54:58.8973112Z"
-            }
-        ],
-        "messageCorrelationId": "6750E08A-58F0-433D-900F-253529AAD25E"
+        "message": {
+            "type": "ADMIN_SYNC_METADATA",
+            "correlationId": "6750E08A-58F0-433D-900F-253529AAD25E",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_INTEROP_ADMIN_SYNC",
+                    "timestamp": "2026-05-27T15:54:58.8973112Z"
+                }
+            ]
+        }
     },
-    "data": {
+    "payload": {
         "processingInfo": {
             "transactionOid": "EA2C9ECD-DC48-48D0-B863-963D9468F042",
             "receivedItemsCount": 1,
@@ -101,6 +118,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
                         "ofType": {
                             "id": "administrativeNotice"
                         },
+                        "fromDataOriginInstance": "DEFAULT",
                         "popMessageAfterSync": {
                             "how": "AT_CLIENT_AFTER_SYNC",
                             "messageByLang": {

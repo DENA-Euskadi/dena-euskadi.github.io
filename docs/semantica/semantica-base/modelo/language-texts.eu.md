@@ -8,11 +8,15 @@ Gako-balio mapa hizkuntza ezberdinetan testuak sartzeko. Zerbitzu-izenetan, proz
 
 ## JSON atributuak
 
+Gakoa `Language` enum-aren balio bat da. Balio erabilgarriak hauek dira:
+
 | Gakoa | Mota | Deskribapena |
 |---|---|---|
 | `SPANISH` | `String` | Testua gaztelaniaz |
 | `BASQUE` | `String` | Testua euskaraz |
-| `ENGLISH` | `String` | Testua ingelesez (aukerakoa) |
+| `ENGLISH` | `String` | Testua ingelesez |
+| `FRENCH` | `String` | Testua frantsesez |
+| `DEUTCH` | `String` | Testua alemanez |
 
 ---
 

@@ -1,11 +1,11 @@
-# :material-shield-check: DENAConsent
+# :material-shield-check: Consentimiento (consentOid)
 
 ## Descripción
 
-Objeto que contiene la referencia a la **base habilitante** (consentimiento o habilitación normativa) que respalda una petición de interoperabilidad.
+El consentimiento (o base habilitante) que respalda una petición se referencia por su **OID**. En el modelo de código, el consentimiento se transmite como un único campo `consentOid` (tipo `DN00ConsentOID`) en la base de las peticiones (`DN00InteropRequestMessageBase`).
 
-!!! warning "Solo en Data-Retrieve"
-    El bloque `consent` únicamente está presente en los mensajes de **recuperación de datos** (Data-Retrieve). Permite a la administración verificar que existe una base que habilita el intercambio de datos de la persona.
+!!! info "Presente en todas las peticiones"
+    `consentOid` forma parte de la base de las peticiones de interoperabilidad, no solo de Data-Retrieve. Su presencia efectiva depende de si la operación requiere base habilitante.
 
 ---
 
@@ -13,9 +13,7 @@ Objeto que contiene la referencia a la **base habilitante** (consentimiento o ha
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `consentOid` | `OID` | :material-check: | Identificador único del consentimiento en el repositorio común |
-| `consentURL` | `URL` | :material-check: | URL donde la parte receptora puede encontrar y descargar los detalles del consentimiento |
-| `consentData` | `Object` | :material-close: | Algunos detalles del consentimiento (cuándo se otorgó, por qué medio, hasta cuándo, etc.) |
+| `consentOid` | `OID` (`DN00ConsentOID`) | :material-close: | Identificador único del consentimiento en el repositorio de consentimientos |
 
 ---
 
@@ -23,36 +21,17 @@ Objeto que contiene la referencia a la **base habilitante** (consentimiento o ha
 
 ```json
 {
-  "consent": {
-    "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentURL": "https://interop.api.dena.eus/consent/db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentData": {
-      "grantedAt": "2025-06-15T10:30:00.000Z",
-      "expiresAt": "2026-06-15T10:30:00.000Z",
-      "grantedVia": "DENA_APP_ENROLLMENT"
-    }
-  }
+  "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
 }
 ```
 
 ---
 
-## Verificación por la administración
+## Verificación
 
-La administración puede, en cualquier momento, acceder a `consentURL` para:
+El modelo actual solo transporta el OID del consentimiento. El detalle del consentimiento (cuándo se otorgó, vigencia, etc.) se gestiona en el repositorio de consentimientos de DENA; la API de consulta de ese repositorio está pendiente de definición.
 
-1. Descargar todos los detalles del consentimiento
-2. Obtener un **justificante firmado** emitido por el repositorio común
-3. Verificar que el consentimiento sigue vigente
-
-!!! tip "Verificación opcional"
-    DENA-CORE ya verifica la existencia de la base habilitante antes de enviar la petición. La administración puede confiar en este mecanismo o verificar adicionalmente si lo considera necesario.
-
----
-
-## Relación con el ciclo de vida del consentimiento
-
-Para más detalle sobre cómo se gestionan los consentimientos en DENA, consulta: [:octicons-arrow-right-24: Consentimientos](../consentimientos.md)
+Para más contexto sobre el ciclo de vida del consentimiento, consulta: [:octicons-arrow-right-24: Consentimientos](../consentimientos.md)
 
 <!-- DENA-DOC-FOOTER -->
 ---

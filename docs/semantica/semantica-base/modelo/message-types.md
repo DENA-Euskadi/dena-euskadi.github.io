@@ -1,55 +1,63 @@
 # :material-message-text: Tipos de Mensaje
 
-Esta página documenta los tipos de dato utilizados internamente en la estructura de los mensajes de interoperabilidad DENA.
+Esta página documenta los tipos usados en la estructura del **interop message** de DENA (`DN00InteropContext` y `DN00InteropMessageData`).
 
 ---
 
-## DenaFlowDirection
+## DN00InteropFlowDirection
 
-Enum que indica la dirección del mensaje en la conversación.
+Enum que indica la dirección del mensaje. No se almacena de forma independiente: se deriva del tipo de mensaje.
 
 | Valor | Descripción |
 |---|---|
-| `REQ` | Petición (request) |
-| `RES` | Respuesta a una petición (response) |
+| `REQUEST` | Petición |
+| `RESPONSE` | Respuesta a una petición |
 
 ---
 
-## DenaMessageType
+## DN00InteropMessageType
 
-Enum que identifica el tipo de operación de interoperabilidad. Cada flujo tiene sus propios tipos de mensaje:
+Enum que identifica el tipo de operación de interoperabilidad. Estos son los valores reales del enum:
 
-| Flujo | Origen | Destino | Valor | Descripción |
-|---|---|---|---|---|
-| Person-Sync | DENA-CORE | Admin | `DENA_USER_SYNC_PUSH` | Notificación de alta/baja de personas |
-| Metadata-Sync | Client | DENA-CORE | `UI_META_DATA_SYNC` | Sincronización de metadatos desde la UI |
-| Metadata-Sync | Admin | DENA-CORE | `ADMIN_SYNC_PUSH` | Envío de cambios desde la administración (PUSH) |
-| Metadata-Sync | DENA-CORE | Admin | `DENA_SYNC_PULL` | Solicitud de cambios a la administración (PULL) |
-| Data-Retrieve | Client | DENA-CORE | `UI_DATA_RETRIEVE` | Solicitud de datos desde la UI |
-| Data-Retrieve | DENA-CORE | Admin | `DENA_DATA_RETRIEVE` | Solicitud de datos a la administración |
+| Valor | Ámbito |
+|---|---|
+| `CLIENT_LOGIN`, `CLIENT_LOGIN_DEMO` | Login del cliente |
+| `CLIENT_PASSKEY_REGISTER_INIT` / `CLIENT_PASSKEY_REGISTER_FINISH` | Registro de passkey |
+| `CLIENT_PASSKEY_LOGIN_INIT` / `CLIENT_PASSKEY_LOGIN_FINISH` | Login con passkey |
+| `CLIENT_PASSKEY_CLEAN_CREDENTIALS` | Limpieza de credenciales passkey |
+| `CLIENT_INIT_REQ` / `CLIENT_INIT_RESP` | Inicialización del cliente |
+| `CLIENT_SRMD_SYNC_REQ` / `CLIENT_SRMD_SYNC_RESP` | Metadata-Sync (SRMD) desde el cliente |
+| `ADMIN_SRMD_SYNC_REQ` / `ADMIN_SRMD_SYNC_RESP` | Metadata-Sync (SRMD) desde la administración |
+| `CLIENT_RETRIEVE_REQ` / `CLIENT_RETRIEVE_RESP` | Data-Retrieve desde el cliente |
+| `PERSON_FETCH_DATA` | Recuperación de datos de una persona |
+| `ADMIN_PERSON_PULL_BESPOKE_CREATE_REQ` | Person-Sync Pull: crear job bespoke |
+| `ADMIN_PERSON_PULL_BESPOKE_FETCH` | Person-Sync Pull: consultar job bespoke |
+| `ADMIN_PERSON_BESPOKE_EXPORT_ASSET_FETCH` | Descarga de asset bespoke |
+| `ADMIN_PERSON_PREGEN_EXPORT_ASSET_FETCH` | Descarga de asset pregenerado |
+| `PERSON_ADMIN_SEARCH` | Búsqueda de personas por la administración |
+| `PERSON_ADMIN_HEAD` | Consulta HEAD de persona por la administración |
 
 ---
 
-## DenaInteropRouteDataItem
+## DN00IteropRouteDataItem
 
-Cada vez que un mensaje de interoperabilidad pasa por un componente de DENA, este **deja una traza** en el array `interopRouteData`. Esta información se usa principalmente para auditoría y depuración.
+Cada vez que un mensaje pasa por un componente de DENA, este **deja una traza** en el array `interopRouteData`. Se usa para auditoría y depuración.
 
 ### Atributos
 
 | Campo | Tipo | Descripción |
 |---|---|---|
-| `denaComponentId` | `ID` | Identificador del componente DENA |
-| `timeStamp` | `TimeStamp` | Instante en el que el mensaje pasó por el componente |
+| `denaComponentId` | `DN00InteropComponent` | Identificador del componente DENA |
+| `timestamp` | `Instant` (ISO 8601) | Instante en el que el mensaje pasó por el componente |
 
-### Identificadores de componentes conocidos
+### Identificadores de componentes
 
-| ID | Componente |
+| Valor | Componente |
 |---|---|
-| `mobileApp` | Aplicación móvil DENA |
-| `webApp` | Aplicación web DENA |
-| `apiGateway` | API Gateway |
-| `denaCORE` | DENA-CORE (módulo central) |
-| `connector` | Conector de administración |
+| `CLIENT_INSTALLMENT` | Instalación cliente (DENA-APP) |
+| `DENA_CORE` | DENA-CORE (módulo central) |
+| `DENA_ADMIN_CONNECTOR` | Conector de administración |
+| `ADMIN` | Sistema de la administración |
 
 ### Ejemplo
 
@@ -57,44 +65,18 @@ Cada vez que un mensaje de interoperabilidad pasa por un componente de DENA, est
 {
   "interopRouteData": [
     {
-      "denaComponentId": "mobileApp",
-      "timeStamp": 1670374400
+      "denaComponentId": "CLIENT_INSTALLMENT",
+      "timestamp": "2026-08-18T11:28:47.523Z"
     },
     {
-      "denaComponentId": "denaCORE",
-      "timeStamp": 1670374401
+      "denaComponentId": "DENA_CORE",
+      "timestamp": "2026-08-18T11:28:47.601Z"
     },
     {
-      "denaComponentId": "connector",
-      "timeStamp": 1670374402
+      "denaComponentId": "DENA_ADMIN_CONNECTOR",
+      "timestamp": "2026-08-18T11:28:47.688Z"
     }
   ]
-}
-```
-
----
-
-## DenaPersonAndConsentGiven
-
-Estructura que combina datos mínimos de una persona con datos de un consentimiento otorgado.
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `personRef` | [DenaPersonRef](./person-ref.md) | Datos mínimos de la persona (oid, dni, fecha alta, etc.) |
-| `consentRef` | `DenaConsentRef` | Referencia de un consentimiento (oid, url, etc.) |
-
-### Ejemplo
-
-```json
-{
-  "personRef": {
-    "personId": "12345678A",
-    "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2"
-  },
-  "consentRef": {
-    "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentURL": "https://interop.api.dena.eus/consent/db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
-  }
 }
 ```
 

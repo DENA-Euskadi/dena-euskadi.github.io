@@ -2,21 +2,27 @@
 
 ## Deskribapena
 
-DENAko edozein **objektu** erreferentziatzeko oinarrizko mota (pertsona, baimena, administrazioa, etab.). DENAko objektu orok gutxienez identifikatzaile bakarra, bizi-zikloko timestamp-ak eta sarbide-URL bat ditu.
+DENAren edozein **objektu** erreferentziatzeko oinarrizko mota (pertsona, administrazioa, datu mota, etab.). DENAn objektu-erreferentzia oro, gutxienez, bere OIDaren bidez identifikatzen da.
 
-`DenaObjectRef` [DenaOrgRef](./org-admin-ref.md) eta [DenaPersonRef](./person-ref.md) heredatzen duten oinarrizko klasea da.
+Erreferentzien hierarkiak bi oinarri-maila ditu:
+
+| Maila | Klasea | Zer ematen du |
+|---|---|---|
+| OID bidezko erreferentzia | `DN00DENAObjectRefBase` | `oid` eremua |
+| OID + ID bidezko erreferentzia | `DN00DENAObjectWithIDRefBase` | `id` eremua gehitzen du |
+
+Erreferentzia konkretuak `DN00DENAObjectWithIDRefBase`-tik heredatzen dira: [PersonRef](./person-ref.md), [OrgAdminRef](./org-admin-ref.md) eta [DataTypeRef](./data-type-ref.md).
 
 ---
 
-## JSON Atributuak
+## JSON atributuak
 
-| Eremua | Mota | Derrigorrezkoa | Deskribapena |
+| Eremua | Mota | Nahitaezkoa | Deskribapena |
 |---|---|:---:|---|
-| `objectOid` | `OID` | :material-check: | Objektuaren identifikatzaile bakarra DENAn |
-| `createTS` | `TimeStamp` | :material-close: | Objektua DENAn sortu zen unea |
-| `lastUpdateTS` | `TimeStamp` | :material-close: | Azken aldaketaren unea |
-| `deleteTS` | `TimeStamp` | :material-close: | Objektua ezabatu zen unea (aplikagarria bada) |
-| `url` | `URL` | :material-close: | Objektuaren datu osoen URLa (baimena behar du) |
+| `oid` | `OID` | :material-check: | Objektuaren identifikatzaile bakarra DENAn |
+
+!!! info "`id` espezializazioarekin dator"
+    `DN00DENAObjectRefBase`-k `oid` bakarrik definitzen du. `id` eremua (negozio-identifikatzailea) `DN00DENAObjectWithIDRefBase` tarteko klaseak ematen du, eta hortik heredatzen dute erreferentzia konkretuek.
 
 ---
 
@@ -24,11 +30,7 @@ DENAko edozein **objektu** erreferentziatzeko oinarrizko mota (pertsona, baimena
 
 ```json
 {
-  "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2",
-  "createTS": 1670374400,
-  "lastUpdateTS": 1680500000,
-  "deleteTS": null,
-  "url": "https://interop.api.dena.eus/objects/6AE83A0C-2202-4666-9857-3334C14663A2"
+  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
 }
 ```
 
@@ -38,21 +40,29 @@ DENAko edozein **objektu** erreferentziatzeko oinarrizko mota (pertsona, baimena
 
 <div class="grid cards" markdown>
 
--   :material-domain:{ .lg .middle } **DenaOrgRef**
+-   :material-account:{ .lg .middle } **PersonRef**
 
     ---
 
-    DenaObjectRef hedatzen du administrazioaren datuekin.
+    Pertsona baten erreferentzia (`oid` + `id`).
 
-    [:octicons-arrow-right-24: Eredua ikusi](./org-admin-ref.md)
+    [:octicons-arrow-right-24: Ikusi eredua](./person-ref.md)
 
--   :material-account:{ .lg .middle } **DenaPersonRef**
+-   :material-domain:{ .lg .middle } **OrgAdminRef**
 
     ---
 
-    DenaObjectRef hedatzen du pertsonaren datuekin.
+    Administrazio baten erreferentzia (`oid` + `id` + `dir3Id`).
 
-    [:octicons-arrow-right-24: Eredua ikusi](./person-ref.md)
+    [:octicons-arrow-right-24: Ikusi eredua](./org-admin-ref.md)
+
+-   :material-tag-outline:{ .lg .middle } **DataTypeRef**
+
+    ---
+
+    Datu mota baten erreferentzia (`oid` + `id`).
+
+    [:octicons-arrow-right-24: Ikusi eredua](./data-type-ref.md)
 
 </div>
 

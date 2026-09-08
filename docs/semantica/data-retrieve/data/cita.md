@@ -11,7 +11,7 @@ Representa un elemento de agenda o cita previa. Puede ser una cita con duración
 
 > **Nota:** A diferencia de los demás objetos (notificación, registro, pago), las citas son **independientes de expedientes**. No tienen campo `procedureRecord`.
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -116,9 +116,7 @@ flowchart LR
 | `administrativeAreaLevel3` | `Object` | ❌ | Municipio (`id`, `name`) |
 | `zipCode` | `String` | ❌ | Código postal |
 | `address` | `String` | ❌ | Dirección |
-| `directionsByLanguage` | `LanguageTexts` | ❌ | Indicaciones de acceso multiidioma (serializado como `"address"` en JSON — ver nota) |
-
-> **Nota:** En el modelo actual, tanto `address` (String) como `directionsByLanguage` (LanguageTexts) se serializan con el nombre JSON `"address"` debido a un bug conocido en el código. Se recomienda usar solo uno de los dos campos hasta que se corrija.
+| `directionsByLanguage` | `LanguageTexts` | ❌ | Indicaciones de acceso multiidioma |
 
 ---
 

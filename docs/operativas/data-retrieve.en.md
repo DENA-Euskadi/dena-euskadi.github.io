@@ -118,18 +118,22 @@ public class AdminAppointmentsController {
 
 ### Example: returned JSON
 
-The complete response includes the DENA interop message structure (context + data). The data items go inside `data.dataItems`:
+The complete response includes the DENA interop message structure (context + payload). The data items go inside `payload.dataItems`:
 
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "SCHEDULE" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "48291038Z" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
+      ]
+    },
+    "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
+    "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [
       {
         "id": "appointment123",
@@ -157,33 +161,29 @@ The complete response includes the DENA interop message structure (context + dat
 
 ??? note "Complete message structure (with all base semantics fields)"
 
-    In a real response, the message may include additional protocol, consent and traceability fields that DENA manages automatically. Your administration only needs to worry about the `data.dataItems` block, but the complete structure is shown below for reference:
+    In a real response, the message may include additional protocol and traceability fields that DENA manages automatically. Your administration only needs to worry about the `payload.dataItems` block, but the complete structure is shown below for reference:
 
     ```json
     {
       "context": {
-        "messageType": "PERSON_FETCH_DATA",
-        "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-        "flowDirection": "RESPONSE",
-        "originPartyId": "MI-ADMIN",
-        "destinationPartyId": "DENA-CORE",
+        "message": {
+          "type": "PERSON_FETCH_DATA",
+          "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+          "interopRouteData": [
+            { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-08-19T08:07:55.100Z" },
+            { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
+          ]
+        },
+        "originAdmin": { "oid": "ADMIN-OID-001", "id": "MI-ADMIN", "dir3Id": "EA0000001" },
         "userAgent": "MiAdmin/1.0 data-provider/1.0 (soporte@miadmin.eus)",
-        "dataType": { "dataTypeId": "SCHEDULE" },
-        "subjectPerson": { "personId": "48291038Z" },
-        "administration": { "administrationId": "MI-ADMIN", "dir3Code": "EA0000001" },
-        "interopRouteData": [
-          { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-08-19T08:07:55.100Z" },
-          { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
-        ]
+        "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
+        "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
       },
       "protocol": {
         "urls": [],
         "timeOut": "30s"
       },
-      "consent": {
-        "consentOid": "CONSENT-OID-2026-001"
-      },
-      "data": {
+      "payload": {
         "dataItems": [
           {
             "id": "appointment123",

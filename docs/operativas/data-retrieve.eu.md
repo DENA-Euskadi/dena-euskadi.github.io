@@ -118,18 +118,22 @@ public class AdminAppointmentsController {
 
 ### Adibidea: itzulitako JSONa
 
-Erantzun osoak DENAren interop mezuaren egitura dauka (context + data). Datu elementuak `data.dataItems` barruan doaz:
+Erantzun osoak DENAren interop mezuaren egitura dauka (context + payload). Datu elementuak `payload.dataItems` barruan doaz:
 
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "SCHEDULE" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "48291038Z" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
+      ]
+    },
+    "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
+    "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [
       {
         "id": "appointment123",
@@ -157,33 +161,29 @@ Erantzun osoak DENAren interop mezuaren egitura dauka (context + data). Datu ele
 
 ??? note "Mezuaren egitura osoa (oinarrizko semantikaren eremu guztiekin)"
 
-    Erantzun erreal batean, mezuak protokolo, adostasun eta trazabilitate eremu gehigarriak izan ditzake, DENAk automatikoki kudeatzen dituenak. Zure administrazioak `data.dataItems` blokea soilik arduratu behar du, baina jarraian egitura osoa erakusten da erreferentzia gisa:
+    Erantzun erreal batean, mezuak protokolo eta trazabilitate eremu gehigarriak izan ditzake, DENAk automatikoki kudeatzen dituenak. Zure administrazioak `payload.dataItems` blokea soilik arduratu behar du, baina jarraian egitura osoa erakusten da erreferentzia gisa:
 
     ```json
     {
       "context": {
-        "messageType": "PERSON_FETCH_DATA",
-        "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-        "flowDirection": "RESPONSE",
-        "originPartyId": "MI-ADMIN",
-        "destinationPartyId": "DENA-CORE",
+        "message": {
+          "type": "PERSON_FETCH_DATA",
+          "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+          "interopRouteData": [
+            { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-08-19T08:07:55.100Z" },
+            { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
+          ]
+        },
+        "originAdmin": { "oid": "ADMIN-OID-001", "id": "MI-ADMIN", "dir3Id": "EA0000001" },
         "userAgent": "MiAdmin/1.0 data-provider/1.0 (soporte@miadmin.eus)",
-        "dataType": { "dataTypeId": "SCHEDULE" },
-        "subjectPerson": { "personId": "48291038Z" },
-        "administration": { "administrationId": "MI-ADMIN", "dir3Code": "EA0000001" },
-        "interopRouteData": [
-          { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-08-19T08:07:55.100Z" },
-          { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
-        ]
+        "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
+        "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
       },
       "protocol": {
         "urls": [],
         "timeOut": "30s"
       },
-      "consent": {
-        "consentOid": "CONSENT-OID-2026-001"
-      },
-      "data": {
+      "payload": {
         "dataItems": [
           {
             "id": "appointment123",

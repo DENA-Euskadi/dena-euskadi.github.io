@@ -13,9 +13,9 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 | Kausa | Konponbidea |
 |-------|-------------|
 | Body-ko JSON baliogabea | Egiaztatu body-a JSON balioduna dela prozesatu aurretik |
-| `context.subjectPerson.personId` falta da | Derrigorrezko eremua — egiaztatu jasotzen dela |
-| `context.dataType.dataTypeId` falta da | Derrigorrezko eremua — egiaztatu jasotzen dela |
-| `dataTypeId` ezagutzen ez den balioarekin | Onartu soilik: `RECORDS`, `NOTICES`, `REGISTER`, `PAYMENTS`, `SCHEDULE`, `PERSON_DATA` |
+| `context.subjectPerson.id` falta da | Derrigorrezko eremua — egiaztatu jasotzen dela |
+| `context.dataType.id` falta da | Derrigorrezko eremua — egiaztatu jasotzen dela |
+| `dataType.id` ezagutzen ez den balioarekin | Onartu soilik: `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData` |
 
 ### 401 — Baimenik gabe
 
@@ -29,8 +29,8 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 
 | Kausa | Konponbidea |
 |-------|-------------|
-| `personId` ez dago administrazioaren sisteman | Itzuli HTTP 404 errore-body estandarrarekin |
-| `personId` formatua ez da ezagutzen | Onartu NAN (8 zifra + letra), AIZ (X/Y/Z + 7 zifra + letra) eta IFZ |
+| `subjectPerson.id` ez dago administrazioaren sisteman | Itzuli HTTP 404 errore-body estandarrarekin |
+| `subjectPerson.id` formatua ez da ezagutzen | Onartu NAN (8 zifra + letra), AIZ (X/Y/Z + 7 zifra + letra) eta IFZ |
 
 ---
 
@@ -41,12 +41,14 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "personOid:...." }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Pertsona ez da sisteman aurkitu" }
@@ -112,14 +114,14 @@ DENArekin konektatu aurretik, egiaztatu:
 
 - [ ] Endpoint-ak `POST` onartzen du `Content-Type: application/json`-rekin
 - [ ] Endpoint-ak `Content-Type: application/json` itzultzen du
-- [ ] `context.subjectPerson.personId` zuzen interpretatzen da
-- [ ] `context.dataType.dataTypeId` zuzen interpretatzen da
+- [ ] `context.subjectPerson.id` zuzen interpretatzen da
+- [ ] `context.dataType.id` zuzen interpretatzen da
 - [ ] `dataItems`-eko objektu guztiek `type` eremua dute
 - [ ] Hizkuntz anitzeko testuek gutxienez `SPANISH` eta `BASQUE` dituzte
 - [ ] Datak ISO 8601 formatuan daude
 - [ ] Zenbatekoak zenbakiak dira (ez stringak)
 - [ ] URLak HTTPS baliodun dira
-- [ ] `{ "data": { "dataItems": [] }, "code": "OK" }` itzultzen da daturik ez dagoenean
+- [ ] `{ "payload": { "dataItems": [] }, "code": "OK" }` itzultzen da daturik ez dagoenean
 - [ ] HTTP 200 itzultzen da zerrenda hutsa denean ere
 - [ ] HTTP errore-kodeak zuzen erabiltzen dira (400, 401, 404, 500)
 - [ ] `code: "OK"` erabiltzen da arrakastaren kasuan eta `code: "CLIENT_ERR"` / `code: "SERVER_ERR"` erroreen kasuan
@@ -131,7 +133,7 @@ DENArekin konektatu aurretik, egiaztatu:
 
 Gida hau berrikusi ondoren erroreak irauten badu, jarri harremanetan DENA taldearekin honako hau emanez:
 
-1. Eskaeraren `messageCorrelationId`
+1. Eskaeraren `context.message.correlationId`
 2. Itzulitako HTTP kodea
 3. Erantzunaren body-a (aplikatzen bada)
 4. Zerbitzariaren logak timestamp-arekin

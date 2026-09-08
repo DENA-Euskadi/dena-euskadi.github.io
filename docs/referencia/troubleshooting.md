@@ -128,10 +128,10 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
 
     **Causas posibles:**
 
-    - Falta `context.messageType`
-    - Falta `context.subjectPerson.personId`
-    - Falta `context.dataType.dataTypeId`
-    - Falta `context.flowDirection`
+    - Falta `context.message.type`
+    - Falta `context.subjectPerson.id`
+    - Falta `context.dataType.id`
+    - Falta `context.message.correlationId`
 
     **Solución:**
 
@@ -140,13 +140,14 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
     ```json
     {
       "context": {
-        "messageType": "PERSON_FETCH_DATA",
-        "dataType": { "dataTypeId": "RECORDS" },
-        "messageCorrelationId": "uuid-here",
-        "flowDirection": "REQUEST",
-        "subjectPerson": { "personId": "12345678A" }
+        "message": {
+          "type": "PERSON_FETCH_DATA",
+          "correlationId": "uuid-here"
+        },
+        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DTYPE-OID-RECORDS" },
+        "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
       },
-      "data": {}
+      "payload": {}
     }
     ```
 
@@ -157,13 +158,13 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
     **Causas posibles:**
 
     - La persona no tiene datos del tipo solicitado
-    - El `personId` no existe en el sistema de la administración
-    - El `dataTypeId` no es reconocido
+    - El `subjectPerson.id` no existe en el sistema de la administración
+    - El `dataType.id` no es reconocido
 
     **Solución:**
 
-    - Verificar que el `personId` existe en tu sistema
-    - Verificar que el `dataTypeId` coincide con los tipos que tu administración gestiona
+    - Verificar que el `subjectPerson.id` existe en tu sistema
+    - Verificar que el `dataType.id` coincide con los tipos que tu administración gestiona
     - Esto puede ser un comportamiento correcto (persona sin expedientes, por ejemplo)
 
 ??? failure "Timeout en la respuesta"
@@ -188,7 +189,7 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
 
 ??? failure "Missing required context fields"
 
-    **Síntoma:** `{"status": 400, "message": "Missing required context fields: context.messageType..."}`
+    **Síntoma:** `{"status": 400, "message": "Missing required context fields: context.message.type..."}`
 
     **Causas posibles:**
 
@@ -199,11 +200,10 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
 
     Campos obligatorios en el body:
 
-    - `context.messageCorrelationId`
-    - `context.messageType`
-    - `context.flowDirection`
-    - `context.originPartyId`
-    - `context.destinationPartyId`
+    - `context.message.type`
+    - `context.message.correlationId`
+    - `context.message.interopRouteData`
+    - `context.originClientInstallment` u `context.originAdmin` (según el origen del mensaje)
 
 ??? failure "Hash mismatch (X-DENA-Data-Digest)"
 
@@ -267,7 +267,7 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
     - Mensaje de error completo
     - Logs relevantes
     - Entorno (PRE/PRO/local)
-    - `messageCorrelationId` si lo tienes
+    - `message.correlationId` si lo tienes
     - Información de contexto (qué estabas intentando hacer)
 
 <!-- DENA-DOC-FOOTER -->

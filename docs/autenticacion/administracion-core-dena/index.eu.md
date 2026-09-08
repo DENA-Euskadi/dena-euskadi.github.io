@@ -103,7 +103,7 @@ Tokenaz gain, DENA-ri egindako dei bakoitzak segurtasun-goiburuak sartu behar di
 |---|---|---|
 | `Authorization` | Aurreko urratsean lortutako JWT tokena | `Bearer eyJhbGciOiJSUzI1NiIs...` |
 | `Content-Type` | Eduki-mota | `application/json` |
-| `X-DENA-Message-Correlation-ID` | Zure sistemak eskaera honetarako sortutako UUID bakarra. Fluxu osoan mantentzen da trazabilitaterako | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
+| `X-DENA-Message-Correlation-Id` | Zure sistemak eskaera honetarako sortutako UUID bakarra. Fluxu osoan mantentzen da trazabilitaterako | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
 | `X-DENA-This-TimeStamp` | Zure sistemak eskaera abiarazten duen EPOCH unea (milisegundotan) | `1724500500000` |
 | `X-DENA-Data-Digest` | Mezuaren gorputzaren SHA-256 hash-a (ikus behean nola sortu) | `sha-256=2251f5ac60e4...` |
 
@@ -117,7 +117,7 @@ Tokenaz gain, DENA-ri egindako dei bakoitzak segurtasun-goiburuak sartu behar di
 
 ### Segurtasun-eremuen sorrera
 
-#### X-DENA-Message-Correlation-ID
+#### X-DENA-Message-Correlation-Id
 
 Sortu UUID v4 ausazko bat eskaera bakoitzeko. ID hau DENA-n zehar prozesatze osoan mantentzen da eta logetan agertzen da arazketa errazteko.
 
@@ -185,7 +185,7 @@ curl -X POST "https://api-batera.pre.dena.eus/srmd/" \
   -H "Authorization: Bearer ${TOKEN}" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
-  -H "X-DENA-Message-Correlation-ID: ${CORRELATION_ID}" \
+  -H "X-DENA-Message-Correlation-Id: ${CORRELATION_ID}" \
   -H "X-DENA-This-TimeStamp: ${TIMESTAMP}" \
   -H "X-DENA-Data-Digest: ${DATA_DIGEST}" \
   -H "User-Agent: NireAdmin/1.0 srmd-sender/1.0 (laguntza@nireadmin.eus)" \

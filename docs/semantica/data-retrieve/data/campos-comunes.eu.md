@@ -26,13 +26,15 @@ flowchart LR
     BASE --> OID["oid<br/><i>Identifikatzaile tekniko bakarra</i>"]
     BASE --> ID["id<br/><i>Negozio-identifikatzailea</i>"]
     BASE --> URLS["urls[]<br/><i>url · language · tags</i>"]
-    BASE --> ADMIN["originAdminRef<br/><i>administrationId · dir3Code</i>"]
-    BASE --> PERSON["aboutPersonRef<br/><i>personId</i>"]
+    BASE --> CHANGED["lastChangedAt<br/><i>azken aldaketa jatorrian</i>"]
+    BASE --> ADMIN["originAdmin<br/><i>oid · id · dir3Id</i>"]
+    BASE --> PERSON["aboutPerson<br/><i>oid · id</i>"]
 
     style BASE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:8,ry:8
     style OID fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style ID fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style URLS fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style CHANGED fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style ADMIN fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
     style PERSON fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
 ```
@@ -50,49 +52,55 @@ flowchart LR
 
 | Eremua | Mota | Derrigorrez | Deskribapena |
 |--------|------|:-----------:|--------------|
-| `oid` | `String` | ✅ | Administrazioaren sistemak esleitutako identifikatzaile tekniko bakarra |
-| `id` | `String` | ✅ | Negozio-identifikatzaile irakurgarria (administrazioak esleitua) |
+| `oid` | `OID` | ✅ | Administrazioaren sistemak esleitutako identifikatzaile tekniko bakarra |
+| `id` | `ID` | ✅ | Negozio-identifikatzaile irakurgarria (administrazioak esleitua) |
 | `urls` | `Array` | ❌ | Egoitza elektronikoko objekturako sarbide-URLak |
-| `originAdminRef` | `Object` | ❌ | Jatorrizko administrazioaren erreferentzia. Ez bada ematen, DENAk automatikoki osatzen du |
-| `aboutPersonRef` | `Object` | ❌ | Objektuak aipatzen duen pertsonaren erreferentzia. Ez bada ematen, DENAk automatikoki osatzen du |
+| `lastChangedAt` | `Instant` | ✅ | Datuaren azken aldaketa jatorrian. **Oso garrantzitsua**: DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
+| `originAdmin` | `OrgAdminRef` | ❌ | Jatorrizko administrazioaren erreferentzia. Ez bada ematen, DENAk automatikoki osatzen du |
+| `aboutPerson` | `PersonRef` | ❌ | Objektuak aipatzen duen pertsonaren erreferentzia. Ez bada ematen, DENAk automatikoki osatzen du |
 
 ---
 
-## `originAdminRef`-en xehetasuna
+## `lastChangedAt`-en xehetasuna
 
-Datua sortzen duen administrazioa identifikatzen du. Aukerakoa da DENAk eskaeraren testuingurutik ondorioztatu dezakeelako.
+Datuaren azken aldaketaren unea (ISO 8601 formatua) **administrazioaren jatorrizko sisteman**. Eremu gakoa da: DENA-COREk administrazioari datu-mota hori azken aldiz berreskuratu zitzaion unearekin alderatzen du, UIan erakusten den NEW/UPDATED/UNCHANGED egoera erabakitzeko. `lastChangedAt` azken berreskuratzea baino berriagoa bada, datua NEW/UPDATED gisa markatzen da.
 
 ```json
 {
-  "originAdminRef": {
-    "administrationId": "ADMIN-001",
-    "dir3Code": "EA0000001"
+  "lastChangedAt": "2026-08-19T08:07:56.742Z"
+}
+```
+
+---
+
+## `originAdmin`-en xehetasuna
+
+Datua sortzen duen administrazioa identifikatzen du. [OrgAdminRef](../../semantica-base/modelo/org-admin-ref.md) bat da. Aukerakoa da DENAk eskaeraren testuingurutik ondorioztatu dezakeelako.
+
+```json
+{
+  "originAdmin": {
+    "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+    "id": "S4833001C",
+    "dir3Id": "EA0000001"
   }
 }
 ```
 
-| Eremua | Mota | Deskribapena |
-|--------|------|--------------|
-| `administrationId` | `String` | DENAko administrazioaren identifikatzailea |
-| `dir3Code` | `String` | Administrazioaren DIR3 kodea |
-
 ---
 
-## `aboutPersonRef`-en xehetasuna
+## `aboutPerson`-en xehetasuna
 
-Datuak aipatzen duen herritarra identifikatzen du. Aukerakoa da DENAk eskaeraren testuinguruko `personId`-rekin osatzen duelako.
+Datuak aipatzen duen herritarra identifikatzen du. [PersonRef](../../semantica-base/modelo/person-ref.md) bat da. Aukerakoa da DENAk eskaeraren testuinguruko pertsonarekin osatzen duelako.
 
 ```json
 {
-  "aboutPersonRef": {
-    "personId": "12345678A"
+  "aboutPerson": {
+    "oid": "DAA35E71-5B28-44BF-9DAE-A412E1CEC538",
+    "id": "12345678A"
   }
 }
 ```
-
-| Eremua | Mota | Deskribapena |
-|--------|------|--------------|
-| `personId` | `String` | Pertsonaren NAN/AIZ/IFZ |
 
 ---
 
@@ -140,12 +148,15 @@ Egoitza elektronikoko objekturako sarbidea ematen duten URLen array-a. Elementu 
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
-  "originAdminRef": {
-    "administrationId": "ADMIN-001",
-    "dir3Code": "EA0000001"
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "originAdmin": {
+    "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+    "id": "S4833001C",
+    "dir3Id": "EA0000001"
   },
-  "aboutPersonRef": {
-    "personId": "12345678A"
+  "aboutPerson": {
+    "oid": "DAA35E71-5B28-44BF-9DAE-A412E1CEC538",
+    "id": "12345678A"
   },
   "urls": [
     { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
@@ -158,7 +169,7 @@ Egoitza elektronikoko objekturako sarbidea ematen duten URLen array-a. Elementu 
 
 ## Administrazioarentzako oharrak
 
-- `originAdminRef` eta `aboutPersonRef` eremuak **aukerakoak** dira. Administrazioak ez baditu sartzen, DENAk automatikoki osatuko ditu eskaeraren testuingurutik.
+- `originAdmin` eta `aboutPerson` eremuak **aukerakoak** dira. Administrazioak ez baditu sartzen, DENAk automatikoki osatuko ditu eskaeraren testuingurutik.
 - Gomendatzen da gutxienez `default` tag-arekin URL bat sartzea onartutako hizkuntza bakoitzeko (gaztelania eta euskera gutxienez).
 - `oid` eremua bakarra izan behar da administrazioaren sisteman objektu mota horretarako.
 - `id` eremua herritarrak ezagutzen duen negozio-identifikatzailea izan behar da (adib.: egoitzan ikusgai dagoen espediente-zenbakia).

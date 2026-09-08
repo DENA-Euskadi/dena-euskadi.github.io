@@ -2,7 +2,7 @@
 
 ## Deskribapena
 
-**Mezu-trukeko protokoloaren informazioa** duen objektua. Osagaien arteko komunikazioaren barne-funtzionamendurako beharrezko datuak eskaintzen ditu.
+**Mezu-trukeko protokoloaren informazioa** duen objektua. Osagaien arteko komunikazioaren barne-funtzionamendurako beharrezko datuak eskaintzeko erabiltzen da.
 
 Barne hartzen du:
 
@@ -12,7 +12,7 @@ Barne hartzen du:
 - Tokenak
 
 !!! info "HATEOAS"
-    `protocol`-eko URL bildumak [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) (Hypermedia as the Engine of Application State) antzeko funtzionaltasuna ahalbidetzen du.
+    `protocol`-eko URL bildumak [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) (Hypermedia as the Engine of Application State) antzeko funtzionaltasuna eskaintzen du.
 
 ---
 
@@ -21,7 +21,9 @@ Barne hartzen du:
 | Eremua | Mota | Derrigorrezkoa | Deskribapena |
 |---|---|:---:|---|
 | `urls` | [UrlCollection](../../../arquitectura/tipos-dato-base.md#urls) | :material-close: | ID bidez indexatutako URL bilduma, entitate hartzaileak funtzionaltasuna emateko interpretatu behar duena |
-| `timeOutMillis` | `Integer` | :material-close: | Mezuaren jasotzea eta prozesatzea burutzeko gehienezko denbora milisegundotan |
+| `timeOut` | `TimeLapse` | :material-close: | Mezua jaso zenetik prozesatzea burutzeko denbora-muga (`TimeLapse` formatua, adib. `"30s"`, `"1m"`) |
+
+Klasea: `DN00InteropProtocol` (`@MarshallType(as="protocol")`).
 
 ---
 
@@ -40,7 +42,7 @@ Barne hartzen du:
         "url": "https://interop.api.dena.eus/consent/verify"
       }
     ],
-    "timeOutMillis": 30000
+    "timeOut": "30s"
   }
 }
 ```
@@ -51,9 +53,9 @@ Barne hartzen du:
 
 | Kasua | `protocol`-en erabilera |
 |---|---|
-| Dei asinkronoa | Zerbitzariak erantzuna itzuliko duen callback URLa barne hartzen du |
-| Baimenen egiaztapena | Administrazioak baimen bat egiazta dezakeen URLa barne hartzen du |
-| Denbora-kontrola | Prozesamendurako gehienezko timeout-a ezartzen du |
+| Dei asinkronoa | Zerbitzariak erantzuna itzuliko duen callback URLa barne hartzen da |
+| Baimenen egiaztapena | Administrazioak baimen bat egiazta dezakeen URLa barne hartzen da |
+| Denbora-kontrola | Prozesamendurako gehienezko timeout-a ezartzen da |
 
 <!-- DENA-DOC-FOOTER -->
 ---

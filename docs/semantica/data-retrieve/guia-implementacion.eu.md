@@ -40,12 +40,12 @@ sequenceDiagram
     CONN->>ADMIN: POST /api/retrieveData<br/>Authorization: Bearer token<br/>Content-Type: application/json
     activate ADMIN
     Note over ADMIN: OAuth2 tokena balioztatu
-    Note over ADMIN: personId + dataTypeId atera
+    Note over ADMIN: subjectPerson.id + dataType.id atera
     ADMIN->>SYS: Pertsona-datuak kontsultatu
     SYS-->>ADMIN: Barne-datuak
     Note over ADMIN: DENA eredura eraldatu
     Note over ADMIN: Erantzuna eraiki
-    ADMIN-->>CONN: HTTP 200<br/>{code: "OK", data: {dataItems: [...]}}
+    ADMIN-->>CONN: HTTP 200<br/>{code: "OK", payload: {dataItems: [...]}}
     deactivate ADMIN
     CONN-->>GW: Datu normalizatuak
 ```
@@ -59,13 +59,15 @@ DENAk `POST` eskaera bat bidaliko du formatu honekin:
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": { }
+  "payload": { }
 }
 ```
 
@@ -73,19 +75,19 @@ Interpretatu behar dituzun eremu nagusiak:
 
 | Eremua | Zertarako balio duen | Iturburu-kodea |
 |--------|----------------------|----------------|
-| `context.subjectPerson.personId` | Datuak eskatzen diren pertsonaren NAN/AIZ | [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.dataType.dataTypeId` | Eskatutako datu mota (ikusi beheko taula) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | UUID log trazabilitaterako | [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.id` | Datuak eskatzen diren pertsonaren NAN/AIZ | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.dataType.id` | Eskatutako datu mota (ikusi beheko taula) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.message.correlationId` | UUID log trazabilitaterako | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
-### Datu motak (`dataTypeId`)
+### Datu motak (`dataType.id`)
 
 | Balioa | Zer itzuli behar duzun | Eredua |
 |--------|------------------------|--------|
-| `RECORDS` | Espedienteak | [expediente.md](./data/expediente.md) |
-| `NOTICES` | Jakinarazpenak | [notificacion.md](./data/notificacion.md) |
-| `REGISTER` | Erregistro ofizialak | [registro-oficial.md](./data/registro-oficial.md) |
-| `PAYMENTS` | Ordainketak (bakarrak + domiziliazioak) | [pago.md](./data/pago.md) |
-| `SCHEDULE` | Hitzorduak | [cita.md](./data/cita.md) |
+| `administrativeServiceProcedureRecord` | Espedienteak | [expediente.md](./data/expediente.md) |
+| `administrativeNotice` | Jakinarazpenak | [notificacion.md](./data/notificacion.md) |
+| `administrativeOfficialRegisterRecord` | Erregistro ofizialak | [registro-oficial.md](./data/registro-oficial.md) |
+| `oneOffPayment` | Ordainketak (bakarrak + domiziliazioak) | [pago.md](./data/pago.md) |
+| `scheduleItem` | Hitzorduak | [cita.md](./data/cita.md) |
 
 > Endpoint-aren zehaztapen osoa: [endpoint-data-retrieve.md](./endpoint-data-retrieve.md)
 
@@ -107,9 +109,9 @@ public class RetrieveDataController {
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<InteropResponse> retrieveData(@RequestBody InteropRequest request) {
 
-        // 1. personId eta dataTypeId atera
-        String personId = request.getContext().getSubjectPerson().getPersonId();
-        String dataTypeId = request.getContext().getDataType().getDataTypeId();
+        // 1. Pertsonaren id eta datu-mota atera
+        String personId = request.getContext().getSubjectPerson().getId();
+        String dataTypeId = request.getContext().getDataType().getId();
 
         // 2. Barne-datuak kontsultatu
         List<Object> items = fetchDataFromInternalSystems(personId, dataTypeId);
@@ -130,8 +132,8 @@ public class RetrieveDataController : ControllerBase
     [HttpPost("retrieveData")]
     public IActionResult RetrieveData([FromBody] InteropRequest request)
     {
-        var personId = request.Context.SubjectPerson.PersonId;
-        var dataTypeId = request.Context.DataType.DataTypeId;
+        var personId = request.Context.SubjectPerson.Id;
+        var dataTypeId = request.Context.DataType.Id;
 
         var items = FetchDataFromInternalSystems(personId, dataTypeId);
 
@@ -144,8 +146,8 @@ public class RetrieveDataController : ControllerBase
 
 ```javascript
 app.post('/api/retrieveData', (req, res) => {
-  const { personId } = req.body.context.subjectPerson;
-  const { dataTypeId } = req.body.context.dataType;
+  const { id: personId } = req.body.context.subjectPerson;
+  const { id: dataTypeId } = req.body.context.dataType;
 
   const items = fetchDataFromInternalSystems(personId, dataTypeId);
 
@@ -321,13 +323,15 @@ Erantzunak egitura hau izan behar du:
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "ESKAERAREN-UUID",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "ESKAERAREN-UUID",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [ ... ]
   },
   "code": "OK"
@@ -397,15 +401,15 @@ Tokena automatikoki lortzen da **client credentials** bidez zure baimena-zerbitz
 ### Balioztatze-zerrenda
 
 - [ ] Endpoint-ak `POST /api/retrieveData` onartzen du `Content-Type: application/json`-rekin
-- [ ] `context.subjectPerson.personId` zuzen interpretatzen du
-- [ ] `context.dataType.dataTypeId` zuzen interpretatzen du
+- [ ] `context.subjectPerson.id` zuzen interpretatzen du
+- [ ] `context.dataType.id` zuzen interpretatzen du
 - [ ] HTTP 200 itzultzen du `dataItems: []`-rekin daturik ez dagoenean
 - [ ] Objektu guztiek `oid` eta `id` dituzte
 - [ ] Testuek gutxienez `SPANISH` eta `BASQUE` dituzte
 - [ ] Datak ISO 8601 formatuan daude (`2024-03-15T10:30:00Z`)
 - [ ] Egoerek ereduan definitutako kode zehatzak erabiltzen dituzte
 - [ ] `code` eremua erantzunean dago (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
-- [ ] Eskaerako `messageCorrelationId` erantzunean itzultzen da
+- [ ] Eskaerako `context.message.correlationId` erantzunean itzultzen da
 - [ ] Erantzun-denbora < 30 segundokoa da
 
 ### Test-tresnak
@@ -438,8 +442,8 @@ Test proiektuko mock factory-ak erabil ditzakezu adibide-objektuak sortzeko:
 ```
 1. DENAk POST /api/retrieveData bidaltzen du
 2. Zure sistemak:
-   a. personId irakurtzen du → pertsona identifikatzen du
-   b. dataTypeId irakurtzen du → zer datu eskatu jakiten du
+   a. subjectPerson.id irakurtzen du → pertsona identifikatzen du
+   b. dataType.id irakurtzen du → zer datu eskatu jakiten du
    c. Barne-sistemak kontsultatzen ditu
    d. Datuak DENA eredura eraldatzen ditu
    e. dataItems[]-rekin erantzuna eraikitzen du

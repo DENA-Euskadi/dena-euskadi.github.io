@@ -11,7 +11,7 @@ Agenda-elementu bat edo aurretiko hitzordu bat adierazten du. Iraupena duen hitz
 
 > **Oharra:** Beste objektuekin alderatuta (jakinarazpena, erregistroa, ordainketa), hitzorduak **espedienteetatik independenteak** dira. Ez dute `procedureRecord` eremurik.
 
-> Ikusi ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ikusi ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -116,9 +116,7 @@ flowchart LR
 | `administrativeAreaLevel3` | `Object` | ❌ | Udalerria (`id`, `name`) |
 | `zipCode` | `String` | ❌ | Posta-kodea |
 | `address` | `String` | ❌ | Helbidea |
-| `directionsByLanguage` | `LanguageTexts` | ❌ | Sarbide-argibide eleaniztun (JSON-en `"address"` gisa serializatua — ikusi oharra) |
-
-> **Oharra:** Egungo ereduan, bai `address` (String) bai `directionsByLanguage` (LanguageTexts) `"address"` JSON izenarekin serializatzen dira kodean dagoen bug ezagun batengatik. Bi eremuetatik bakarra erabiltzea gomendatzen da hau konpondu arte.
+| `directionsByLanguage` | `LanguageTexts` | ❌ | Sarbide-argibide eleaniztun |
 
 ---
 

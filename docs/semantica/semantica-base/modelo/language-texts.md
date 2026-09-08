@@ -8,11 +8,15 @@ Mapa clave-valor para incluir textos en diferentes idiomas. Se utiliza en nombre
 
 ## Atributos JSON
 
+La clave es un valor del enum `Language`. Los valores disponibles son:
+
 | Clave | Tipo | Descripción |
 |---|---|---|
 | `SPANISH` | `String` | Texto en castellano |
 | `BASQUE` | `String` | Texto en euskera |
-| `ENGLISH` | `String` | Texto en inglés (opcional) |
+| `ENGLISH` | `String` | Texto en inglés |
+| `FRENCH` | `String` | Texto en francés |
+| `DEUTCH` | `String` | Texto en alemán |
 
 ---
 

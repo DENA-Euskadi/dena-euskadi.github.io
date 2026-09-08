@@ -11,7 +11,7 @@ Represents a schedule item or appointment. It can be an appointment with a durat
 
 > **Note:** Unlike other objects (notification, registry, payment), appointments are **independent of records**. They do not have a `procedureRecord` field.
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -116,9 +116,7 @@ flowchart LR
 | `administrativeAreaLevel3` | `Object` | ❌ | Municipality (`id`, `name`) |
 | `zipCode` | `String` | ❌ | Postal code |
 | `address` | `String` | ❌ | Address |
-| `directionsByLanguage` | `LanguageTexts` | ❌ | Multilingual access directions (serialized as `"address"` in JSON — see note) |
-
-> **Note:** In the current model, both `address` (String) and `directionsByLanguage` (LanguageTexts) are serialized with the JSON name `"address"` due to a known bug in the code. It is recommended to use only one of the two fields until this is fixed.
+| `directionsByLanguage` | `LanguageTexts` | ❌ | Multilingual access directions |
 
 ---
 

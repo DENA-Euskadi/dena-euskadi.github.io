@@ -14,8 +14,10 @@ Objeto para referenciar a un tipo de dato gestionado por DENA (ej: Expediente, N
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `oid` | `String` | :material-close:* | Identificador interno del tipo de dato |
-| `id` | `String` | :material-close:* | Identificador textual del tipo de dato |
+| `oid` | `OID` | :material-close:* | Identificador interno del tipo de dato (`DN00DataTypeOID`) |
+| `id` | `ID` | :material-close:* | Identificador textual del tipo de dato (`DN00DataTypeID`) |
+
+Clase: `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`), especialización de `DN00DENAObjectWithIDRefBase`.
 
 ---
 
@@ -30,15 +32,19 @@ Objeto para referenciar a un tipo de dato gestionado por DENA (ej: Expediente, N
 
 ---
 
-## Valores estándar de `id`
+## Valores del enum `DN00DataTypeEnum`
 
-| `id` | Tipo de dato |
-|---|---|
-| `RECORDS` | Expedientes |
-| `NOTICES` | Notificaciones |
-| `REGISTER` | Registros oficiales |
-| `PAYMENTS` | Pagos |
-| `SCHEDULE` | Citas |
+Los tipos de dato de DATA-RETRIEVE se definen en el enum `DN00DataTypeEnum`. El valor de `id` de cada tipo coincide con el marshallTypeId del objeto de datos correspondiente:
+
+| Valor de enum | `id` (marshallTypeId) | Objeto de dato |
+|---|---|---|
+| `ADMINISTRATIVE_NOTICE` | `administrativeNotice` | Notificación |
+| `ADMINISTRATIVE_RECORD` | `administrativeServiceProcedureRecord` | Expediente |
+| `ADMINISTRATIVE_REGISTER` | `administrativeOfficialRegisterRecord` | Registro oficial |
+| `PAYMENT_ONE_OFF_PAYMENT` | `oneOffPayment` | Pago único |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | `directDebitPayment` | Domiciliación |
+| `SCHEDULE` | `scheduleItem` | Cita |
+| `PERSON_DATA` | `personData` | Datos de persona |
 
 <!-- DENA-DOC-FOOTER -->
 ---

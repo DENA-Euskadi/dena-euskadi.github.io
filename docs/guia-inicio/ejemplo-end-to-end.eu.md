@@ -111,7 +111,7 @@ curl -s -X POST "${DENA_URL}/srmd/" \
 
 DENA-k zure sistemara deituko du pertsonak bere datuak ikusi behar dituenean. Zure endpointak:
 
-1. `POST` bat jaso behar du `personId` eta `dataTypeId` batekin
+1. `POST` bat jaso behar du pertsonaren id-arekin (`subjectPerson.id`) eta datu-motarekin (`dataType.id`)
 2. Zure datu-basea kontsultatu
 3. Datuak DENA formatuan itzuli
 
@@ -120,13 +120,15 @@ DENA-k zure sistemara deituko du pertsonak bere datuak ikusi behar dituenean. Zu
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": {}
+  "payload": {}
 }
 ```
 
@@ -135,13 +137,15 @@ DENA-k zure sistemara deituko du pertsonak bere datuak ikusi behar dituenean. Zu
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [
       {
         "oid": "EXP-2026-001",
@@ -192,13 +196,15 @@ curl -s -X POST http://localhost:8080/api/retrieveData \
   -H "Accept: application/json" \
   -d '{
     "context": {
-      "messageType": "PERSON_FETCH_DATA",
-      "dataType": { "dataTypeId": "RECORDS" },
-      "messageCorrelationId": "test-001",
-      "flowDirection": "REQUEST",
-      "subjectPerson": { "personId": "12345678A" }
+      "message": {
+        "type": "PERSON_FETCH_DATA",
+        "correlationId": "test-001",
+        "interopRouteData": []
+      },
+      "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+      "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
     },
-    "data": {}
+    "payload": {}
   }' | jq .
 ```
 
@@ -208,8 +214,7 @@ curl -s -X POST http://localhost:8080/api/retrieveData \
 - [ ] `dataItems` array bat da (hutsik daturik ez badago)
 - [ ] Elementu bakoitzak `oid`, `id`, `lastChangedAt` ditu
 - [ ] Testuek `SPANISH` eta `BASQUE` barne hartzen dute
-- [ ] Eskaeran dagoen `messageCorrelationId` erantzunean mantentzen da
-- [ ] `flowDirection` `RESPONSE` da
+- [ ] Eskaeran dagoen `context.message.correlationId` erantzunean mantentzen da
 - [ ] Egoitza elektronikoaren URLak hizkuntza bakoitzeko sartuta daude
 - [ ] Erantzun-denbora < 30 segundo
 

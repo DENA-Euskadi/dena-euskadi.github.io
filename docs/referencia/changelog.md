@@ -4,9 +4,32 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.5.1 <small>— 2026-09-08</small> { #v051 }
+## v0.5.2 <small>— 2026-09-07</small> { #v052 }
 
 !!! success "Actual"
+
+**Sincronización de la documentación con la revisión de código 0.4.16 del API común DENA.**
+
+Contenido nuevo:
+
+- :material-plus: `arquitectura/arquitectura-servicios.md`: documentado el proxy REST base del cliente (`DN00ClientAPIRESTServiceProxyBase`) y la interfaz de marca de proxies CORE (`DN00IsDENACOREServiceProxy`), con su comportamiento (marshalling JSON, reintentos configurables)
+- :material-plus: Nueva página del modelo de usuarios del security context (`seguridad/modelo-usuarios.md`): documentado el nuevo usuario de sistema de administración (`DN00DENAAdminSystemUser`) junto a los usuarios de persona y de gestión
+
+Correcciones frente al código 0.4.16:
+
+- :material-refresh: Modelo de refs (object-ref, person-ref, org-admin-ref, data-type-ref): campos reales `oid`/`id`/`dir3Id`; eliminados campos inexistentes (`objectOid`, `createTS`, `lastUpdateTS`, `deleteTS`, `url`, `personId`, `orgId`, `officialId`)
+- :material-refresh: Modelo de interop message: estructura real `context` + `protocol` + `payload`; `context.message.{type,correlationId,interopRouteData}`; `flowDirection` derivado; simplificación (eliminada `__DN00IsInteropMessagePayload`)
+- :material-refresh: Modelo de datos data-retrieve: `originAdmin`/`aboutPerson` (antes `*Ref`), añadido `lastChangedAt`
+- :material-refresh: Semántica base: `status` (code/errorId/details), `consentOid`, `sync-types` (`DN00SyncMetaDataFromAdminToCOREItem`), http-headers y language-texts alineados con el código
+- :material-refresh: Enlaces de código y ejemplos JSON (ES/EN/EU) actualizados al modelo real
+
+Traducciones:
+
+- :material-translate: Traducidas a EN y EU las páginas que solo existían en ES (arquitectura-servicios, configuracion, tipos-dato-base, data-retrieve/index)
+
+---
+
+## v0.5.1 <small>— 2026-09-08</small> { #v051 }
 
 **Documentación completa de Person-Sync extraída de DENA-Architecture.docx y DENA-CORE-Services_for_admins.docx.**
 
@@ -32,8 +55,6 @@ Limpieza:
 ---
 
 ## v0.5.0 <small>— 2026-08-24</small> { #v050 }
-
-!!! success "Actual"
 
 **Mejora integral de documentacion: estructura, contenido, consistencia y traducciones.**
 

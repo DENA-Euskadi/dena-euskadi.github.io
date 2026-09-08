@@ -13,29 +13,28 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ## Eskaera
 
-> Java klaseak: [`DN00PersonFetchInteropRequest`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/request/DN00PersonFetchInteropRequest.java) · [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java)
+> Testuinguruaren Java klasea: [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java)
 
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "originPartyId": "DENA-CORE",
-    "destinationPartyId": "ADMIN-001",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" },
-    "interopRouteData": [
-      { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-    ]
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
+      ]
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
+    "originClientInstallment": "CLIENT-INSTALLMENT-OID-001",
+    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001", "dir3Id": "EA0000001" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
   },
-  "consentOid": "CONSENT-OID-2024-001",
   "protocol": {
     "urls": [],
     "timeOut": "30s"
   },
-  "data": {
+  "payload": {
     "person": "PERSON-OID-001"
   }
 }
@@ -43,38 +42,41 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 | Eremua | Nahitaezkoa | Deskribapena |
 |-------|:-----------:|-------------|
-| `context.messageType` | ✅ | Mezu-mota (`PERSON_FETCH_DATA`). Ikusi [`DN00InteropMessageType`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
-| `context.dataType.dataTypeId` | ✅ | Datu-mota: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE`. Ikusi [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | ✅ | Trazabilitaterako korrelazio UUID-a. Ikusi [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.flowDirection` | ✅ | Fluxuaren norabidea: `REQUEST`. Ikusi [`DN00InteropFlowDirection`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
-| `context.originPartyId` | ❌ | Jatorriaren identifikatzailea (adib.: `DENA-CORE`). Ikusi [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.destinationPartyId` | ❌ | Helmugarenaren identifikatzailea (adib.: `ADMIN-001`). Ikusi [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.personId` | ✅ | Pertsonaren DNI/NIE/NIF. Ikusi [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration.administrationId` | ❌ | Administrazioaren identifikatzailea. Ikusi [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration.dir3Code` | ❌ | DIR3 kodea. Ikusi [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.interopRouteData` | ❌ | DENA osagaien traza. Ikusi [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| `consentOid` | ❌ | Emandako baimenaren OID-a. Ikusi [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| `protocol.urls` | ❌ | Protokoloaren txantiloi URLak. Ikusi [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout-a (adib.: `"30s"`). Ikusi [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `data` | ✅ | Eskaeraren payload-a |
+| `context.message.type` | ✅ | Mezu-mota (`PERSON_FETCH_DATA`). Ikusi [`DN00InteropMessageType`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageType.java) |
+| `context.message.correlationId` | ✅ | Trazabilitaterako korrelazio UUID-a. Ikusi [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
+| `context.message.interopRouteData` | ❌ | DENA osagaien traza. Ikusi [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
+| `context.dataType.id` | ✅ | Datu-mota (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ikusi [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.dataType.oid` | ❌ | Datu-motaren OID-a (DataTypeRef). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.originClientInstallment` | ❌ | Jatorrizko bezero-instalazioaren OID-a (mezua bezero-gailu batek bidaltzen duenean). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin.oid` | ❌ | Helmugako administrazioaren OID-a (OrgAdminRef). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin.id` | ❌ | Helmugako administrazioaren identifikatzailea. Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin.dir3Id` | ❌ | Helmugako administrazioaren DIR3 kodea. Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.id` | ✅ | Pertsonaren DNI/NIE/NIF (PersonRef). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.oid` | ❌ | Pertsonaren OID-a. Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `protocol.urls` | ❌ | Protokoloaren txantiloi URLak. Ikusi [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
+| `protocol.timeOut` | ❌ | Timeout-a (adib.: `"30s"`). Ikusi [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
+| `payload` | ✅ | Eskaeraren payload-a |
+
+> Fluxuaren norabidea (`REQUEST`/`RESPONSE`) mezu-motatik eratorritako balioa da eta ez da JSON-ean serializatzen. Ikusi [`DN00InteropFlowDirection`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropFlowDirection.java)
 
 ---
 
 ## Erantzun arrakastatsua (HTTP 200)
 
-> Java klaseak: [`DN00PersonFetchInteropResponse`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchInteropResponse.java) · [`DN00PersonFetchData`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchData.java)
+> Erantzunaren egoera: `code` (`DN00InteropResponseStatus`), `errorId` eta `details`. Ikusi [Status](../semantica-base/modelo/status.md)
 
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" },
+    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [
       {
         "type": "administrativeServiceProcedureRecord",
@@ -114,13 +116,14 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
   },
-  "data": { "dataItems": [] },
+  "payload": { "dataItems": [] },
   "code": "OK"
 }
 ```
@@ -130,12 +133,13 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }
@@ -155,7 +159,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ## Objektu-motak `dataItems`-en
 
-`dataItems` arrayaren elementu bakoitza [eremu komunak](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`) heredatzen dituen objektu bat da eta eremu espezifikoak gehitzen ditu bere motaren arabera:
+`dataItems` arrayaren elementu bakoitza [eremu komunak](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) heredatzen dituen objektu bat da eta eremu espezifikoak gehitzen ditu bere motaren arabera:
 
 | `type` | Objektua | Dokumentazioa |
 |--------|--------|---------------|
@@ -307,8 +311,8 @@ Tokena automatikoki lortzen da client credentials bidez.
 ## Administrazioarentzako eskakizunak
 
 1. `application/json` onartzen eta itzultzen duen `POST` endpoint bat eskaini
-2. `context.subjectPerson.personId` interpretatu pertsona identifikatzeko
-3. `context.dataType.dataTypeId` interpretatu datu-mota iragazteko
+2. `context.subjectPerson.id` interpretatu pertsona identifikatzeko
+3. `context.dataType.id` interpretatu datu-mota iragazteko
 4. Objektuak eredu semantikoaren formatuan itzuli
 5. Hizkuntza anitzeko testuak sartu (gaztelania eta euskara gutxienez)
 6. Egoitza elektronikorako URLak sartu ahal denean
@@ -323,7 +327,7 @@ Tokena automatikoki lortzen da client credentials bidez.
 
 | Dokumentua | Edukia |
 |-----------|----------|
-| [campos-comunes.md](./data/campos-comunes.md) | Objektu guztiek heredatzen dituzten eremuak (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`) |
+| [campos-comunes.md](./data/campos-comunes.md) | Objektu guztiek heredatzen dituzten eremuak (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) |
 | [expediente.md](./data/expediente.md) | Espediente administratiboa |
 | [notificacion.md](./data/notificacion.md) | Jakinarazpena / komunikazioa |
 | [registro-oficial.md](./data/registro-oficial.md) | Erregistro-sarrera |

@@ -9,7 +9,7 @@
 
 Espediente bati lotutako erregistro ofizial bateko sarrera edo irteera-erregistroko idazpena adierazten du.
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

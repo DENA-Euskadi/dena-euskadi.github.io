@@ -24,22 +24,22 @@ public class DenaRetrieveDataController {
     public ResponseEntity<Map<String, Object>> retrieveData(
             @RequestBody Map<String, Object> request) {
 
-        // 1. Extraer personId y dataTypeId del context
+        // 1. Extraer id de persona y de dataType del context
         Map<String, Object> context = (Map<String, Object>) request.get("context");
         Map<String, String> subjectPerson = (Map<String, String>) context.get("subjectPerson");
         Map<String, String> dataType = (Map<String, String>) context.get("dataType");
 
-        String personId = subjectPerson.get("personId");
-        String dataTypeId = dataType.get("dataTypeId");
+        String personId = subjectPerson.get("id");
+        String dataTypeId = dataType.get("id");
 
         // 2. Consultar datos segun tipo
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
-            case "RECORDS"  -> fetchRecords(personId);
-            case "NOTICES"  -> fetchNotices(personId);
-            case "REGISTER" -> fetchRegistry(personId);
-            case "PAYMENTS" -> fetchPayments(personId);
-            case "SCHEDULE" -> fetchSchedule(personId);
-            default         -> List.of();
+            case "administrativeServiceProcedureRecord"    -> fetchRecords(personId);
+            case "administrativeNotice"                    -> fetchNotices(personId);
+            case "administrativeOfficialRegisterRecord"    -> fetchRegistry(personId);
+            case "oneOffPayment", "directDebitPayment"     -> fetchPayments(personId);
+            case "scheduleItem"                            -> fetchSchedule(personId);
+            default                                        -> List.of();
         };
 
         // 3. Construir response
@@ -91,13 +91,13 @@ public class DenaRetrieveDataController {
 
     private Map<String, Object> buildResponse(Map<String, Object> requestContext,
                                                List<Map<String, Object>> dataItems) {
-        // Copiar context cambiando flowDirection a RESPONSE
+        // Reutilizar el context de la peticion; el sentido del flujo lo
+        // determina el propio tipo de mensaje (context.message.type)
         Map<String, Object> responseContext = new HashMap<>(requestContext);
-        responseContext.put("flowDirection", "RESPONSE");
 
         return Map.of(
             "context", responseContext,
-            "data", Map.of("dataItems", dataItems),
+            "payload", Map.of("dataItems", dataItems),
             "code", "OK"
         );
     }

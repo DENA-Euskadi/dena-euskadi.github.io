@@ -14,8 +14,10 @@ DENAk kudeatutako datu mota bati erreferentzia egiteko objektua (adib. Espedient
 
 | Eremua | Mota | Derrigorrez | Deskribapena |
 |---|---|:---:|---|
-| `oid` | `String` | :material-close:* | Datu motaren barne-identifikatzailea |
-| `id` | `String` | :material-close:* | Datu motaren testu-identifikatzailea |
+| `oid` | `OID` | :material-close:* | Datu motaren barne-identifikatzailea (`DN00DataTypeOID`) |
+| `id` | `ID` | :material-close:* | Datu motaren testu-identifikatzailea (`DN00DataTypeID`) |
+
+Klasea: `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`), `DN00DENAObjectWithIDRefBase`-ren espezializazioa.
 
 ---
 
@@ -30,15 +32,19 @@ DENAk kudeatutako datu mota bati erreferentzia egiteko objektua (adib. Espedient
 
 ---
 
-## `id`-ren balio estandarrak
+## `DN00DataTypeEnum` enum-aren balioak
 
-| `id` | Datu mota |
-|---|---|
-| `RECORDS` | Espedienteak |
-| `NOTICES` | Jakinarazpenak |
-| `REGISTER` | Erregistro ofizialak |
-| `PAYMENTS` | Ordainketak |
-| `SCHEDULE` | Hitzorduak |
+DATA-RETRIEVE datu motak `DN00DataTypeEnum` enum-ean definitzen dira. Mota bakoitzaren `id` balioak dagokion datu-objektuaren marshallTypeId-arekin bat egiten du:
+
+| Enum balioa | `id` (marshallTypeId) | Datu-objektua |
+|---|---|---|
+| `ADMINISTRATIVE_NOTICE` | `administrativeNotice` | Jakinarazpena |
+| `ADMINISTRATIVE_RECORD` | `administrativeServiceProcedureRecord` | Espedientea |
+| `ADMINISTRATIVE_REGISTER` | `administrativeOfficialRegisterRecord` | Erregistro ofiziala |
+| `PAYMENT_ONE_OFF_PAYMENT` | `oneOffPayment` | Ordainketa bakarra |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | `directDebitPayment` | Helbideratzea |
+| `SCHEDULE` | `scheduleItem` | Hitzordua |
+| `PERSON_DATA` | `personData` | Pertsonaren datuak |
 
 <!-- DENA-DOC-FOOTER -->
 ---

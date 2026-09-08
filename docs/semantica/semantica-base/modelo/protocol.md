@@ -21,7 +21,9 @@ Incluye:
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
 | `urls` | [UrlCollection](../../../arquitectura/tipos-dato-base.md#urls) | :material-close: | Colección de URLs indexadas por ID que la entidad receptora debe interpretar para proporcionar funcionalidad |
-| `timeOutMillis` | `Integer` | :material-close: | Límite en milisegundos desde la recepción del mensaje para completar su procesado |
+| `timeOut` | `TimeLapse` | :material-close: | Tiempo límite desde la recepción del mensaje para completar su procesado (formato `TimeLapse`, p. ej. `"30s"`, `"1m"`) |
+
+Clase: `DN00InteropProtocol` (`@MarshallType(as="protocol")`).
 
 ---
 
@@ -40,7 +42,7 @@ Incluye:
         "url": "https://interop.api.dena.eus/consent/verify"
       }
     ],
-    "timeOutMillis": 30000
+    "timeOut": "30s"
   }
 }
 ```

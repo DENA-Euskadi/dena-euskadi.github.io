@@ -16,21 +16,20 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 {
   "context": {
-    "messageType": "PERSON_PUSH_TO_ADMIN",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "originPartyId": "DENA-CORE",
-    "destinationPartyId": "ADMIN-001",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" },
-    "interopRouteData": [
-      { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-    ]
+    "message": {
+      "type": "PERSON_PUSH_TO_ADMIN",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
+      ]
+    },
+    "destinationAdmin": { "oid": "6AE83A0C-2202-4666-9857-3334C14663A2", "id": "ADMIN-001", "dir3Id": "EA0000001" },
+    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
   },
-  "consentOid": "CONSENT-OID-2024-001",
-  "data": {
+  "payload": {
     "personRef": {
-        "id": "12345678A"
+        "id": "12345678A",
+        "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C"
     },
     "personHashes": {
         "nameHash": "abcde",
@@ -47,10 +46,10 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../../../semantica-base/index.md) | ✅          | Objeto de contexto de la petición |
-| `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
+| `context` | [Context](../../../semantica-base/index.md) | ✅          | Objeto de contexto de la petición. Incluye `message.type`, `destinationAdmin` (OrgAdminRef) y `subjectPerson` (PersonRef) |
+| `payload` | [Payload](#payload)                            | ✅          | Payload de la petición |
 
-## Data
+## Payload
 
 | Campo            | Tipo     | Obligatorio | Descripción |
 |------------------|----------|-------------|-------------|
@@ -60,6 +59,9 @@ Authorization: Bearer <token> (si OAuth está configurado)
 | `lastUpdateDate` | `ISO 8601 Date` | ❌ | Fecha de ultima actualización |
 | `syncEvent`      | `String` | ✅ | Evento producido. Valores posibles: <br> `CREATED`: Nueva persona registrada <br> `DELETED`: Persona eliminada de DENA <br> `UPDATED`: Datos de la persona actualizados <br> `ID_CHANGED`: Identificador de la persona modificado |
 
+!!! note "Sobre `message.type`"
+    El valor `PERSON_PUSH_TO_ADMIN` no existe todavía en el enum `DN00InteropMessageType` del código 0.4.16 (los tipos definidos son flujos ADMIN → DENA-CORE). Se mantiene aquí como identificador del flujo DENA-CORE → administración a la espera de que se añada el tipo real correspondiente.
+
 ---
 
 ## Response exitosa (HTTP 200)
@@ -67,12 +69,13 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 {
   "context": {
-    "messageType": "PERSON_PUSH_TO_ADMIN",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_PUSH_TO_ADMIN",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
   },
-  "data": null,
+  "payload": null,
   "code": "OK"
 }
 ```
@@ -82,12 +85,13 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 {
   "context": {
-    "messageType": "PERSON_PUSH_TO_ADMIN",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_PUSH_TO_ADMIN",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }
@@ -134,7 +138,7 @@ El token se obtiene automáticamente mediante client credentials.
 ## Requisitos para la administración
 
 1. Exponer un endpoint `POST` que acepte y devuelva `application/json`
-2. Interpretar `data.personRef` para identificar a la persona
+2. Interpretar `payload.personRef` para identificar a la persona
 3. Actualizar su base de datos de personas registradas en DENA con la información recibida
 4. Respetar los códigos HTTP estándar
 5. Responder en menos de 30 segundos

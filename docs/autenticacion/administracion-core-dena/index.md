@@ -103,7 +103,7 @@ Ademas del token, cada llamada a DENA debe incluir cabeceras de seguridad que ga
 |---|---|---|
 | `Authorization` | Token JWT obtenido en el paso anterior | `Bearer eyJhbGciOiJSUzI1NiIs...` |
 | `Content-Type` | Tipo de contenido | `application/json` |
-| `X-DENA-Message-Correlation-ID` | UUID unico generado por tu sistema para esta peticion. Se mantiene en todo el flujo para trazabilidad | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
+| `X-DENA-Message-Correlation-Id` | UUID unico generado por tu sistema para esta peticion. Se mantiene en todo el flujo para trazabilidad | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
 | `X-DENA-This-TimeStamp` | Instante EPOCH (milisegundos) en el que tu sistema inicia la peticion | `1724500500000` |
 | `X-DENA-Data-Digest` | Hash SHA-256 del body del mensaje (ver generacion mas abajo) | `sha-256=2251f5ac60e4...` |
 
@@ -117,7 +117,7 @@ Ademas del token, cada llamada a DENA debe incluir cabeceras de seguridad que ga
 
 ### Generacion de los campos de seguridad
 
-#### X-DENA-Message-Correlation-ID
+#### X-DENA-Message-Correlation-Id
 
 Genera un UUID v4 aleatorio por cada peticion. Este ID se mantiene durante todo el procesamiento en DENA y aparece en los logs para facilitar la depuracion.
 
@@ -185,7 +185,7 @@ curl -X POST "https://api-batera.pre.dena.eus/srmd/" \
   -H "Authorization: Bearer ${TOKEN}" \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
-  -H "X-DENA-Message-Correlation-ID: ${CORRELATION_ID}" \
+  -H "X-DENA-Message-Correlation-Id: ${CORRELATION_ID}" \
   -H "X-DENA-This-TimeStamp: ${TIMESTAMP}" \
   -H "X-DENA-Data-Digest: ${DATA_DIGEST}" \
   -H "User-Agent: MiAdmin/1.0 srmd-sender/1.0 (soporte@miadmin.eus)" \

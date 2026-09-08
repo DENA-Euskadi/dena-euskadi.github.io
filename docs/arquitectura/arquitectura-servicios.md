@@ -452,6 +452,57 @@ graph LR
     style FileStore fill:#fff3e0,stroke:#ff6f00
 ```
 
+---
+
+## El proxy REST del cliente
+
+Cuando la **Java API** invoca un método de negocio, la llamada se traduce en una petición HTTP contra la REST-API de DENA-CORE. Esa traducción (construcción de la URL, serialización del payload a JSON, envío HTTP y deserialización de la respuesta) la centraliza una **clase base de proxy REST** que todas las implementaciones concretas de proxy heredan.
+
+### Clase base
+
+`DN00ClientAPIRESTServiceProxyBase` es la clase abstracta que sirve de base a los proxies REST del cliente. Encapsula tres elementos:
+
+| Elemento | Responsabilidad |
+|---|---|
+| Ejecutor HTTP reintentable | Envía las peticiones y **reintenta** las que fallan (p. ej. por problemas de red). Mantiene un **pool de conexiones reutilizable**, por lo que debe compartirse entre todos los proxies. |
+| Marshaller de model objects | Serializa y deserializa los [model objects] a/desde JSON. |
+| URL base | URL raíz del servicio REST, sobre la que se componen los endpoints concretos de cada recurso. |
+
+Las peticiones se emiten con estas características por defecto:
+
+- Cabeceras `Content-Type: application/json` y `Accept: application/json`
+- **Timeouts por defecto** del ejecutor
+- **2 reintentos** ante fallo
+- **Idempotency key** por defecto
+- Protocolo **HTTPS** al componer la URL a partir de host y path
+
+Métodos de ayuda protegidos que usan las subclases:
+
+```java
+// POST con cuerpo JSON, respuesta como String
+protected String _executeJsonPOSTRequest(Url url, String jsonBody);
+
+// POST con cuerpo JSON, respuesta deserializada a un tipo T
+protected <T> T _executeJsonPOSTRequest(Url url, String jsonBody,
+                                        BodyHandler<T> responseBodyHandler,
+                                        Class<T> responseType);
+
+// GET, respuesta como String
+protected String _executeJSONGETRequest(Url url);
+
+// GET, respuesta deserializada a un tipo T
+protected <T> T _executeJSONGETRequest(Url url,
+                                       BodyHandler<T> responseBodyHandler,
+                                       Class<T> responseType);
+```
+
+!!! note "Interrupciones"
+    Si el hilo que ejecuta la petición HTTP es interrumpido, el proxy **restaura el flag de interrupción** del hilo y propaga el error como `IOException`. Restaurar el flag es lo que permite que los pools de hilos (por ejemplo `ExecutorService`) se apaguen correctamente.
+
+### Interfaz de marca de proxies CORE
+
+`DN00IsDENACOREServiceProxy` es una **interfaz de marca** (sin métodos) que extiende `IsProxyToCoreService`. Sirve para identificar de forma homogénea los proxies que hablan con servicios de DENA-CORE.
+
 <!-- DENA-DOC-FOOTER -->
 ---
 <sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

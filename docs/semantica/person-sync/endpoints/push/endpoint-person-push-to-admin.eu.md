@@ -16,21 +16,20 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```json
 {
   "context": {
-    "messageType": "PERSON_PUSH_TO_ADMIN",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "originPartyId": "DENA-CORE",
-    "destinationPartyId": "ADMIN-001",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" },
-    "interopRouteData": [
-      { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-    ]
+    "message": {
+      "type": "PERSON_PUSH_TO_ADMIN",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
+      ]
+    },
+    "destinationAdmin": { "oid": "6AE83A0C-2202-4666-9857-3334C14663A2", "id": "ADMIN-001", "dir3Id": "EA0000001" },
+    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
   },
-  "consentOid": "CONSENT-OID-2024-001",
-  "data": {
+  "payload": {
     "personRef": {
-        "id": "12345678A"
+        "id": "12345678A",
+        "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C"
     },
     "personHashes": {
         "nameHash": "abcde",
@@ -47,10 +46,10 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 | Eremua    | Mota                                           | Derrigorrez | Deskribapena |
 |-----------|------------------------------------------------|:-----------:|--------------|
-| `context` | [Context](../../../semantica-base/index.md) | ✅          | Eskaeraren testuinguru-objektua |
-| `data`    | [Data](#data)                                  | ✅          | Eskaeraren payload-a |
+| `context` | [Context](../../../semantica-base/index.md) | ✅          | Eskaeraren testuinguru-objektua. `message.type`, `destinationAdmin` (OrgAdminRef) eta `subjectPerson` (PersonRef) barne hartzen ditu |
+| `payload` | [Payload](#payload)                            | ✅          | Eskaeraren payload-a |
 
-## Data
+## Payload
 
 | Eremua           | Mota     | Derrigorrez | Deskribapena |
 |------------------|----------|:-----------:|--------------|
@@ -60,6 +59,9 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 | `lastUpdateDate` | `ISO 8601 Date` | ❌ | Azken eguneratze-data |
 | `syncEvent`      | `String` | ✅ | Gertatu den gertaera. Balio posibleak: <br> `CREATED`: Pertsona berria erregistratua <br> `DELETED`: Pertsona DENAtik ezabatua <br> `UPDATED`: Pertsonaren datuak eguneratuta <br> `ID_CHANGED`: Pertsonaren identifikatzailea aldatuta |
 
+!!! note "`message.type`-ari buruz"
+    `PERSON_PUSH_TO_ADMIN` balioa ez dago oraindik 0.4.16 kodearen `DN00InteropMessageType` enum-ean (definitutako motak ADMIN → DENA-CORE fluxuak dira). DENA-CORE → administrazioa fluxuaren identifikatzaile gisa mantentzen da hemen, dagokion mota erreala gehitu arte.
+
 ---
 
 ## Erantzun arrakastatsua (HTTP 200)
@@ -67,12 +69,13 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```json
 {
   "context": {
-    "messageType": "PERSON_PUSH_TO_ADMIN",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_PUSH_TO_ADMIN",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
   },
-  "data": null,
+  "payload": null,
   "code": "OK"
 }
 ```
@@ -82,12 +85,13 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```json
 {
   "context": {
-    "messageType": "PERSON_PUSH_TO_ADMIN",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_PUSH_TO_ADMIN",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Pertsona ez da sisteman aurkitu" }
@@ -134,7 +138,7 @@ Tokena automatikoki lortzen da client credentials bidez.
 ## Administrazioarentzako eskakizunak
 
 1. `POST` endpoint bat esposatu `application/json` onartzen eta itzultzen duena
-2. `data.personRef` interpretatu pertsona identifikatzeko
+2. `payload.personRef` interpretatu pertsona identifikatzeko
 3. DENAn erregistratutako pertsonen datu-basea eguneratu jasotako informazioarekin
 4. HTTP kode estandarrak errespetatu
 5. 30 segundotan baino gutxiagoan erantzun

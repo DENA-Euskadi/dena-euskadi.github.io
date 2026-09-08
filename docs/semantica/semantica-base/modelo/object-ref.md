@@ -2,9 +2,16 @@
 
 ## Descripción
 
-Tipo base para referenciar cualquier **objeto** de DENA (persona, consentimiento, administración, etc.). Todo objeto en DENA tiene al menos un identificador único, timestamps de ciclo de vida y una URL de acceso.
+Tipo base para referenciar cualquier **objeto** de DENA (persona, administración, tipo de dato, etc.). Toda referencia a un objeto en DENA se identifica, como mínimo, por su OID.
 
-`DenaObjectRef` es la clase base de la que heredan [DenaOrgRef](./org-admin-ref.md) y [DenaPersonRef](./person-ref.md).
+La jerarquía de referencias tiene dos niveles base:
+
+| Nivel | Clase | Aporta |
+|---|---|---|
+| Referencia por OID | `DN00DENAObjectRefBase` | El campo `oid` |
+| Referencia por OID + ID | `DN00DENAObjectWithIDRefBase` | Añade el campo `id` |
+
+De `DN00DENAObjectWithIDRefBase` heredan las referencias concretas: [PersonRef](./person-ref.md), [OrgAdminRef](./org-admin-ref.md) y [DataTypeRef](./data-type-ref.md).
 
 ---
 
@@ -12,11 +19,10 @@ Tipo base para referenciar cualquier **objeto** de DENA (persona, consentimiento
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `objectOid` | `OID` | :material-check: | Identificador único del objeto en DENA |
-| `createTS` | `TimeStamp` | :material-close: | Instante en el que se creó el objeto en DENA |
-| `lastUpdateTS` | `TimeStamp` | :material-close: | Instante de la última modificación del objeto |
-| `deleteTS` | `TimeStamp` | :material-close: | Instante en el que se eliminó el objeto (si aplica) |
-| `url` | `URL` | :material-close: | URL con los datos completos del objeto (requiere autorización) |
+| `oid` | `OID` | :material-check: | Identificador único del objeto en DENA |
+
+!!! info "El `id` llega con la especialización"
+    `DN00DENAObjectRefBase` solo define `oid`. El campo `id` (identificador de negocio) lo aporta la clase intermedia `DN00DENAObjectWithIDRefBase`, de la que heredan las referencias concretas.
 
 ---
 
@@ -24,11 +30,7 @@ Tipo base para referenciar cualquier **objeto** de DENA (persona, consentimiento
 
 ```json
 {
-  "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2",
-  "createTS": 1670374400,
-  "lastUpdateTS": 1680500000,
-  "deleteTS": null,
-  "url": "https://interop.api.dena.eus/objects/6AE83A0C-2202-4666-9857-3334C14663A2"
+  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
 }
 ```
 
@@ -38,21 +40,29 @@ Tipo base para referenciar cualquier **objeto** de DENA (persona, consentimiento
 
 <div class="grid cards" markdown>
 
--   :material-domain:{ .lg .middle } **DenaOrgRef**
+-   :material-account:{ .lg .middle } **PersonRef**
 
     ---
 
-    Extiende DenaObjectRef con datos de una administración.
+    Referencia a una persona (`oid` + `id`).
+
+    [:octicons-arrow-right-24: Ver modelo](./person-ref.md)
+
+-   :material-domain:{ .lg .middle } **OrgAdminRef**
+
+    ---
+
+    Referencia a una administración (`oid` + `id` + `dir3Id`).
 
     [:octicons-arrow-right-24: Ver modelo](./org-admin-ref.md)
 
--   :material-account:{ .lg .middle } **DenaPersonRef**
+-   :material-tag-outline:{ .lg .middle } **DataTypeRef**
 
     ---
 
-    Extiende DenaObjectRef con datos de una persona.
+    Referencia a un tipo de dato (`oid` + `id`).
 
-    [:octicons-arrow-right-24: Ver modelo](./person-ref.md)
+    [:octicons-arrow-right-24: Ver modelo](./data-type-ref.md)
 
 </div>
 

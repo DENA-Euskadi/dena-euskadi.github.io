@@ -2,7 +2,7 @@
 
 ## Description
 
-Object containing **message exchange protocol information**. It provides data necessary for the internal functioning of communication between components.
+Object containing **message exchange protocol information**. It is used to provide the data required for the internal functioning of communication between components.
 
 Includes:
 
@@ -12,7 +12,7 @@ Includes:
 - Tokens
 
 !!! info "HATEOAS"
-    The URL collection in `protocol` enables functionality similar to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) (Hypermedia as the Engine of Application State).
+    The URL collection in `protocol` provides functionality similar to [HATEOAS](https://en.wikipedia.org/wiki/HATEOAS) (Hypermedia as the Engine of Application State).
 
 ---
 
@@ -21,7 +21,9 @@ Includes:
 | Field | Type | Mandatory | Description |
 |---|---|:---:|---|
 | `urls` | [UrlCollection](../../../arquitectura/tipos-dato-base.md#urls) | :material-close: | Collection of URLs indexed by ID that the receiving entity must interpret to provide functionality |
-| `timeOutMillis` | `Integer` | :material-close: | Timeout in milliseconds from message reception to complete processing |
+| `timeOut` | `TimeLapse` | :material-close: | Time limit from message reception to complete its processing (`TimeLapse` format, e.g. `"30s"`, `"1m"`) |
+
+Class: `DN00InteropProtocol` (`@MarshallType(as="protocol")`).
 
 ---
 
@@ -40,7 +42,7 @@ Includes:
         "url": "https://interop.api.dena.eus/consent/verify"
       }
     ],
-    "timeOutMillis": 30000
+    "timeOut": "30s"
   }
 }
 ```
@@ -51,9 +53,9 @@ Includes:
 
 | Case | Use of `protocol` |
 |---|---|
-| Asynchronous invocation | Includes the callback URL where the server will return the response |
-| Consent verification | Includes the URL where the administration can verify a consent |
-| Time control | Sets a maximum timeout for processing |
+| Asynchronous invocation | The callback URL where the server will return the response is included |
+| Consent verification | The URL where the administration can verify a consent is included |
+| Time control | A maximum timeout is set for processing |
 
 <!-- DENA-DOC-FOOTER -->
 ---

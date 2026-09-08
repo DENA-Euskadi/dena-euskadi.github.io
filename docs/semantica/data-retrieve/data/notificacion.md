@@ -9,7 +9,7 @@
 
 Representa una notificación oficial o comunicación administrativa emitida hacia una persona ciudadana, vinculada a un expediente.
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

@@ -9,7 +9,7 @@
 
 Herritarrei zuzendutako jakinarazpen ofizial edo administrazio-komunikazio bat adierazten du, espediente bati lotuta.
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

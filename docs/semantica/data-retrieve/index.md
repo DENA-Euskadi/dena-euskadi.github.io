@@ -153,21 +153,24 @@ flowchart LR
 ## Resumen del flujo
 
 1. DENA envía `POST /api/retrieveData` con el identificador de la persona y el tipo de dato
-2. La administración identifica a la persona (`context.subjectPerson.personId`)
-3. La administración filtra por tipo de dato (`context.dataType.dataTypeId`)
-4. La administración devuelve los objetos en `data.dataItems[]`
+2. La administración identifica a la persona (`context.subjectPerson`)
+3. La administración filtra por tipo de dato (`context.dataType`)
+4. La administración devuelve los objetos en `payload.dataItems[]`
 
-### Tipos de dato (`dataTypeId`)
+### Tipos de dato (`dataType.id`)
 
-| `dataTypeId` | Datos esperados |
+El `id` de `dataType` corresponde al marshallTypeId de cada objeto (enum `DN00DataTypeEnum`):
+
+| `dataType.id` | Datos esperados |
 |--------------|-----------------|
-| `RECORDS` | Expedientes |
-| `NOTICES` | Notificaciones |
-| `REGISTER` | Registros oficiales |
-| `PAYMENTS` | Pagos |
-| `SCHEDULE` | Citas |
+| `administrativeServiceProcedureRecord` | Expedientes |
+| `administrativeNotice` | Notificaciones |
+| `administrativeOfficialRegisterRecord` | Registros oficiales |
+| `oneOffPayment` / `directDebitPayment` | Pagos |
+| `scheduleItem` | Citas |
+| `personData` | Datos de persona |
 
-> **Nota:** El `dataTypeId` es un identificador de tipo String libre. Los valores de la tabla son los estándar definidos por DENA, pero pueden ampliarse en el futuro.
+> **Nota:** Consulta la lista completa en [DataTypeRef](../semantica-base/modelo/data-type-ref.md).
 
 ---
 
@@ -187,36 +190,37 @@ config:
 ---
 flowchart LR
     ROOT["InteropMessage"] --> CTX["context"]
-    ROOT --> CONSENT["consentOid"]
     ROOT --> PROTOCOL["protocol"]
-    ROOT --> DATA["data"]
+    ROOT --> PAYLOAD["payload"]
 
-    CTX --> MSGTYPE["messageType"]
-    CTX --> DTYPE["dataType\ndataTypeId"]
-    CTX --> CORR["messageCorrelationId"]
-    CTX --> FLOW["flowDirection"]
-    CTX --> ORIGIN["originPartyId"]
-    CTX --> DEST["destinationPartyId"]
-    CTX --> PERSON["subjectPerson\npersonId"]
-    CTX --> ADMIN["administration"]
-    CTX --> ROUTE["interopRouteData"]
+    CTX --> MSG["message"]
+    CTX --> ORIGIN_CI["originClientInstallment"]
+    CTX --> ORIGIN_ADMIN["originAdmin"]
+    CTX --> DEST["destinationAdmin"]
+    CTX --> PERSON["subjectPerson"]
+    CTX --> DTYPE["dataType"]
+    CTX --> UA["userAgent"]
+
+    MSG --> MTYPE["type"]
+    MSG --> CORR["correlationId"]
+    MSG --> ROUTE["interopRouteData"]
 
     PROTOCOL --> PURLS["urls"]
     PROTOCOL --> PTO["timeOut"]
 
     style ROOT fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
     style CTX fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style DATA fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style CONSENT fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PAYLOAD fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PROTOCOL fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style MSGTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style MSG fill:#e1d5e7,stroke:#9673a6,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style MTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style DTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style CORR fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style FLOW fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style ORIGIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ORIGIN_CI fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ORIGIN_ADMIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style DEST fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PERSON fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style ADMIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style UA fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style ROUTE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PURLS fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PTO fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
@@ -225,24 +229,24 @@ flowchart LR
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "originPartyId": "DENA-CORE",
-    "destinationPartyId": "ADMIN-001",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" },
-    "interopRouteData": [
-      { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-    ]
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "DENA_CORE", "timestamp": "2026-06-01T10:00:00.000Z" }
+      ]
+    },
+    "originClientInstallment": "8B5AE78A-7D42-4069-A626-959BB07276C5",
+    "destinationAdmin": { "id": "ADMIN-001", "oid": "...", "dir3Id": "EA0000001" },
+    "subjectPerson": { "id": "12345678A", "oid": "..." },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
+    "userAgent": "DENA-CORE/2.1.0 person-data/1.0.1 (support@dena.eus)"
   },
-  "consentOid": "CONSENT-OID-2024-001",
   "protocol": {
     "urls": [],
     "timeOut": "30s"
   },
-  "data": {
+  "payload": {
     "person": "PERSON-OID-001"
   }
 }
@@ -250,39 +254,31 @@ flowchart LR
 
 | Campo | Obligatorio | Descripción |
 |-------|:-----------:|-------------|
-| `context.messageType` | ✅ | Tipo de mensaje. Ver [`DN00InteropMessageType`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
-| `context.dataType.dataTypeId` | ✅ | Tipo de dato solicitado (`RECORDS`, `NOTICES`, etc.). Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.flowDirection` | ✅ | Dirección: `REQUEST` o `RESPONSE`. Ver [`DN00InteropFlowDirection`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
-| `context.originPartyId` | ❌ | Identificador del origen del mensaje. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.destinationPartyId` | ❌ | Identificador del destino del mensaje. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration` | ❌ | Referencia a la administración destino. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.interopRouteData` | ❌ | Traza de componentes. Ver [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| `consentOid` | ❌ | OID del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `data` | ✅ | Payload específico de la operación |
+| `context.message.type` | ✅ | Tipo de mensaje. Ver [`DN00InteropMessageType`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageType.java) |
+| `context.message.correlationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
+| `context.message.interopRouteData` | ❌ | Traza de componentes. Ver [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
+| `context.dataType` | ❌ | Tipo de dato solicitado. Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.originClientInstallment` | ❌ | OID de la instalación cliente de origen. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.originAdmin` | ❌ | Administración de origen. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin` | ❌ | Administración destino. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson` | ❌ | Persona sobre la que se solicitan datos. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.userAgent` | ❌ | User Agent del origen. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
+| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
+| `payload` | ✅ | Payload específico de la operación |
 
-### Tipos de mensaje (`messageType`)
+### Tipos de mensaje (`message.type`)
 
 | Valor | Descripción | Uso en DATA-RETRIEVE |
 |-------|-------------|---------------------|
 | `PERSON_FETCH_DATA` | Solicitud de datos de persona | ✅ Principal |
-| `CLIENT_RETRIEVE_REQ` | Solicitud de recuperación desde cliente | Alternativo |
-| `DENA_SYNC_PULL` | Sincronización pull desde DENA | Sincronización |
-| `ADMIN_SYNC_PUSH` | Push de datos desde administración | Sincronización |
+| `CLIENT_RETRIEVE_REQ` / `CLIENT_RETRIEVE_RESP` | Recuperación de datos desde cliente | Petición/Respuesta |
+
+Consulta la lista completa de valores en [Tipos de Mensaje](../semantica-base/modelo/message-types.md).
 
 ### Dirección del flujo (`flowDirection`)
 
-| Valor | Descripción |
-|-------|-------------|
-| `REQUEST` | Mensaje de petición |
-| `RESPONSE` | Mensaje de respuesta |
-
-### Bloque `consentOid`
-
-Referencia al consentimiento otorgado por la persona para la consulta de sus datos. Es un OID (identificador único) que permite trazar el consentimiento en el sistema.
+La dirección (`REQUEST`/`RESPONSE`) se deriva del tipo de mensaje; no es un campo propio del contexto.
 
 ### Bloque `protocol`
 
@@ -291,7 +287,7 @@ Metadatos del protocolo de comunicación entre DENA y la administración.
 | Campo | Tipo | Descripción |
 |-------|------|-------------|
 | `urls` | `Array` | URLs de plantilla para la comunicación |
-| `timeOut` | `String` | Timeout de la operación (formato: `"30s"`, `"1m"`, etc.) |
+| `timeOut` | `TimeLapse` | Timeout de la operación (formato: `"30s"`, `"1m"`, etc.) |
 
 ### Traza de ruta (`interopRouteData`)
 
@@ -299,7 +295,7 @@ Cada vez que el mensaje pasa por un componente DENA, se añade una entrada de tr
 
 | Campo | Tipo | Descripción |
 |-------|------|-------------|
-| `denaComponentId` | `String` | Identificador del componente (`apiGateway`, `connector`, `orchestrator`, `mobileApp`, `webApp`) |
+| `denaComponentId` | `DN00InteropComponent` | Identificador del componente (`CLIENT_INSTALLMENT`, `DENA_CORE`, `DENA_ADMIN_CONNECTOR`, `ADMIN`) |
 | `timestamp` | `String` (ISO 8601) | Momento en que el componente procesó el mensaje |
 
 ---
@@ -320,16 +316,16 @@ config:
 ---
 flowchart LR
     ROOT["InteropResponse"] --> CTX["context"]
-    ROOT --> DATA["data"]
+    ROOT --> PAYLOAD["payload"]
     ROOT --> CODE["code"]
     ROOT --> ERRID["errorId"]
     ROOT --> DETAILS["details"]
 
     CTX --> PERSON["subjectPerson"]
     CTX --> DTYPE["dataType"]
-    CTX --> ADMIN["administration"]
+    CTX --> DEST["destinationAdmin"]
 
-    DATA --> ITEMS["dataItems"]
+    PAYLOAD --> ITEMS["dataItems"]
     ITEMS --> RECORD["Expediente"]
     ITEMS --> NOTICE["Notificación"]
     ITEMS --> REGISTRY["Registro Oficial"]
@@ -344,13 +340,13 @@ flowchart LR
 
     style ROOT fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
     style CTX fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style DATA fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PAYLOAD fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style CODE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style ERRID fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style DETAILS fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PERSON fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style DTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style ADMIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DEST fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style ITEMS fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
     style RECORD fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style NOTICE fill:#ffe6cc,stroke:#d79b00,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
@@ -362,14 +358,15 @@ flowchart LR
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001" }
+    "message": {
+      "type": "CLIENT_RETRIEVE_RESP",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "..." },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
+    "destinationAdmin": { "id": "ADMIN-001", "oid": "..." }
   },
-  "data": {
+  "payload": {
     "dataItems": [ ... ]
   },
   "code": "OK",
@@ -380,11 +377,11 @@ flowchart LR
 
 | Campo | Descripción |
 |-------|-------------|
-| `context` | Eco del contexto recibido (con `flowDirection: "RESPONSE"`) |
-| `data.dataItems` | Array de objetos de datos |
-| `code` | Estado de la respuesta |
+| `context` | Eco del contexto recibido (el tipo de mensaje indica la respuesta) |
+| `payload.dataItems` | Array de objetos de datos |
+| `code` | Estado de la respuesta (`DN00InteropResponseStatus`) |
 | `errorId` | Código de error específico (opcional, solo en errores) |
-| `details.details` | Mensaje descriptivo del error (opcional) |
+| `details` | Mensaje descriptivo del error (opcional) |
 
 ### Códigos de estado (`code`)
 
@@ -417,9 +414,8 @@ flowchart LR
 | SIA | Sistema de Información Administrativa (catálogo de servicios AGE) |
 | LanguageTexts | Objeto multiidioma con claves `SPANISH`, `BASQUE`, `ENGLISH` |
 | dataItems | Array de objetos de dominio devueltos por la administración |
-| consentOid | Identificador del consentimiento otorgado por la persona. Ver [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje. Ver [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| messageCorrelationId | UUID que permite correlacionar request y response. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| interopRouteData | Traza de componentes DENA por los que ha pasado el mensaje. Ver [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
+| correlationId | UUID que permite correlacionar request y response. Ver [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
 
 
 

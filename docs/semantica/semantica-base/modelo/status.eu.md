@@ -2,146 +2,69 @@
 
 ## Deskribapena
 
-`status` egitura **erantzun mezuetan soilik** dago. Prozesamenduaren emaitzari buruzko informazioa barne hartzen du: arrakastatsua izan den, errorea izan den, edo modu asinkronoan prozesatuko den.
+Erantzun-mezuek (`DN00InteropResponseMessageBase`) prozesaketaren emaitzari buruzko informazioa jasotzen dute hiru eremuren bidez: `code`, `errorId` eta `details`.
 
 ---
 
-## JSON Atributuak
+## JSON atributuak
 
-| Eremua | Mota | Derrigorrezkoa | Deskribapena |
+| Eremua | Mota | Beharrezkoa | Deskribapena |
 |---|---|:---:|---|
-| `statusCode` | `DENAResponseStatusCode` | :material-check: | Mezuaren prozesamenduko egoera-kodea |
-| `statusDetails` | `Object` | :material-close: | Erantzunaren xehetasunak. Mota `statusCode`-aren araberakoa da |
+| `code` | `DN00InteropResponseStatus` | :material-check: | Mezuaren prozesaketa-egoeraren kodea |
+| `errorId` | `DN00InteropResponseStatusCode` | :material-close: | Errore-kode espezifikoa (erroreetan soilik agertzen da) |
+| `details` | `DN00InteropResponseStatusDetails` | :material-close: | Erantzunaren xehetasunak (`details` testu-eremu bakarra) |
 
 ---
 
-## DENAResponseStatusCode
+## DN00InteropResponseStatus (`code` eremua)
 
 | Balioa | Deskribapena |
 |---|---|
 | `OK` | Mezua behar bezala prozesatu da |
-| `CLIENT_ERR` | Bezeroaren errorea (adib: datu okerrak) |
-| `SERVER_ERR` | Zerbitzariaren errorea |
-| `QUEUED` | Mezua prozesamendurako ilaran jarri da (asinkronoa) |
+| `CLIENT_ERR` | Bezeroaren errorea (adib.: datu okerrak) |
+| `SERVER_ERR` | Zerbitzariko errorea |
+| `QUEUED` | Mezua prozesaketa asinkronoko ilaran jarri da |
 
 ---
 
-## Status Details kodearen arabera
+## Adibideak
 
-| statusCode | statusDetails mota |
-|---|---|
-| `OK` | *(hutsa)* |
-| `CLIENT_ERR` | [DENAClientErrDetails](#denaclienterrdetails) |
-| `SERVER_ERR` | [DENAServerErrDetails](#denaservererrdetails) |
-| `QUEUED` | [DENAAsyncQueueData](#denaasyncqueuedata) |
-
----
-
-## DENAClientErrDetails
-
-Errorearen xehetasunak `statusCode = CLIENT_ERR` denean.
-
-| Eremua | Mota | Deskribapena |
-|---|---|---|
-| `errorCode` | `ID` | Errorearen identifikatzailea. Adib: `ENTITY_NOT_FOUND` |
-| `about` | `String` | Errorearekin lotutako entitatearen datuak (adib: personOid/personId) |
-| `errorDetails` | `String` | Errorearen xehetasun gehigarriak |
-
-**Adibidea:**
+**Erantzun zuzena:**
 
 ```json
 {
-  "status": {
-    "statusCode": "CLIENT_ERR",
-    "statusDetails": {
-      "errorCode": "ENTITY_NOT_FOUND",
-      "about": "12345678A",
-      "errorDetails": "Eskatutako pertsona ez da sisteman existitzen"
-    }
+  "code": "OK",
+  "errorId": null,
+  "details": null
+}
+```
+
+**Bezeroaren errorea duen erantzuna:**
+
+```json
+{
+  "code": "CLIENT_ERR",
+  "errorId": "ENTITY_NOT_FOUND",
+  "details": {
+    "details": "La persona solicitada no existe en el sistema"
   }
 }
 ```
 
----
-
-## DENAServerErrDetails
-
-Errorearen xehetasunak `statusCode = SERVER_ERR` denean.
-
-| Eremua | Mota | Deskribapena |
-|---|---|---|
-| `errorCode` | `ID` | Errorearen identifikatzailea. Adib: `UNEXPECTED_ERROR` |
-| `errorDetails` | `String` | Errorearen xehetasunak (adib: stack trace) |
-
-**Adibidea:**
+**Zerbitzariaren errorea duen erantzuna:**
 
 ```json
 {
-  "status": {
-    "statusCode": "SERVER_ERR",
-    "statusDetails": {
-      "errorCode": "UNEXPECTED_ERROR",
-      "errorDetails": "Connection timeout accessing database"
-    }
+  "code": "SERVER_ERR",
+  "errorId": "UNEXPECTED_ERROR",
+  "details": {
+    "details": "Connection timeout accessing database"
   }
 }
 ```
 
----
-
-## DENAAsyncQueueData
-
-Xehetasunak `statusCode = QUEUED` denean (prozesamendua asinkronoa).
-
-| Eremua | Mota | Deskribapena |
-|---|---|---|
-| `jobToken` | `Token` | Programatutako lanari esleitutako tokena, bere egoera kontsultatzea ahalbidetzen du |
-| `jobStatusQueryUrl` | `URL` | Lanaren egoera kontsultatzeko URLa |
-
-**Adibidea:**
-
-```json
-{
-  "status": {
-    "statusCode": "QUEUED",
-    "statusDetails": {
-      "jobToken": "a3f2c891-4b5d-4e6f-8a9b-1c2d3e4f5a6b",
-      "jobStatusQueryUrl": "https://interop.api.dena.eus/queued-jobs/a3f2c891-4b5d-4e6f-8a9b-1c2d3e4f5a6b"
-    }
-  }
-}
-```
-
----
-
-## Lan asinkrono baten egoera kontsultatzea
-
-`jobStatusQueryUrl` kontsultatzerakoan honako hau jasotzen da:
-
-| Eremua | Mota | Deskribapena |
-|---|---|---|
-| `jobToken` | `Token` | Kontsultatutako lanaren tokena |
-| `jobStatus` | `Enum` | Lanaren uneko egoera |
-
-**`jobStatus` balioak:**
-
-| Balioa | Deskribapena |
-|---|---|
-| `QUEUED` | Ilaran, exekuzioa zain |
-| `EXECUTING` | Exekuzio-prozesuan |
-| `FINISHED` | Behar bezala amaitua |
-| `FAILED` | Errorearekin amaitua |
-| `DISCARDED` | Baztertua |
-
----
-
-## Prozesamendua asinkronoa
-
-!!! info "Fluxu asinkronoa"
-    Dei asinkronoetan, emaitza EZ da berehalako erantzun-mezuan sartzen. Token bat itzultzen da eta mezua ilaran jartzen da. Prozesatzea amaitutakoan, bi aukera daude:
-
-    1. **Callback**: zerbitzariak jatorriari jakinarazten dio `protocol` atalean emandako callback URLan
-    2. **Polling**: jatorriak aldiro egoera kontsultatzen du `jobStatusQueryUrl` erabiliz
+!!! note "`details`-en egitura"
+    `DN00InteropResponseStatusDetails` testu-eremu bakarra (`details`) duen klase bat da. Uneko ereduan ez dago errore-kode bakoitzeko azpimota espezifikorik: errorearen xehetasuna testu libre gisa transmititzen da.
 
 <!-- DENA-DOC-FOOTER -->
 ---

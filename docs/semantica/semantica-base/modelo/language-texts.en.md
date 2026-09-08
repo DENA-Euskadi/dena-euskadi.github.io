@@ -8,11 +8,15 @@ Key-value map for including texts in different languages. Used in service names,
 
 ## JSON attributes
 
+The key is a value of the `Language` enum. The available values are:
+
 | Key | Type | Description |
 |---|---|---|
 | `SPANISH` | `String` | Text in Spanish |
 | `BASQUE` | `String` | Text in Basque |
-| `ENGLISH` | `String` | Text in English (optional) |
+| `ENGLISH` | `String` | Text in English |
+| `FRENCH` | `String` | Text in French |
+| `DEUTCH` | `String` | Text in German |
 
 ---
 

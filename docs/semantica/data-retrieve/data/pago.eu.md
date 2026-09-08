@@ -14,7 +14,7 @@ Espediente bati lotutako ordainketa-betebehar bat adierazten du. Bi modalitate:
 - **Ordainketa bakarra** (`oneOffPayment`) — Likidazio puntuala (tasa, prezio publikoa, zehapena)
 - **Helbideratze bankarioa** (`directDebitPayment`) — Aldizkako kargu errepikakorra
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

@@ -1,28 +1,26 @@
-# :material-domain: OrgAdminRef (DenaOrgRef)
+# :material-domain: OrgAdminRef
 
 ## Description
 
-Specialization of [DenaObjectRef](./object-ref.md) with minimal data about an **administration**. Contains the information needed to uniquely identify an administration in DENA.
+Reference to an **administration**. It is a specialization of [DenaObjectRef](./object-ref.md) (specifically of `DN00DENAObjectWithIDRefBase`): it inherits `oid` and `id`, and adds its own field `dir3Id`.
 
-!!! info "Simplified sending"
-    When an administration sends this information, **it only needs to send one of the identification fields** (`orgId`, `officialId` or `objectOid`). DENA can retrieve the rest from its internal entity directory.
+Class: `DN00OrgAdminRef`.
+
+!!! info "Simplified submission"
+    When an administration sends this reference, one of the identification fields is enough (`oid`, `id` or `dir3Id`). DENA obtains the rest from its internal entity directory.
 
 ---
 
-## JSON Attributes
+## JSON attributes
 
-| Field | Type | Mandatory | Description |
+| Field | Type | Required | Description |
 |---|---|:---:|---|
-| `orgId` | `ID` | :material-close:* | Administration identifier (e.g. NIF) |
-| `officialId` | `ID` | :material-close:* | DIR3 code of the administration |
-| `objectOid` | `OID` | :material-close:* | Unique object identifier in DENA's organization module |
-| `createTS` | `TimeStamp` | :material-close: | Instant when the object was created in DENA |
-| `lastUpdateTS` | `TimeStamp` | :material-close: | Instant of last modification |
-| `deleteTS` | `TimeStamp` | :material-close: | Instant when the object was deleted (if applicable) |
-| `url` | `URL` | :material-close: | URL with the complete administration data |
+| `oid` | `OID` | :material-close:* | Unique identifier of the administration in DENA's organization module |
+| `id` | `ID` | :material-close:* | Identifier of the administration (e.g. NIF) |
+| `dir3Id` | `ID` | :material-close:* | DIR3 code of the administration |
 
-!!! info "At least one mandatory"
-    At least one of `orgId`, `officialId` or `objectOid` must be included.
+!!! note "* At least one"
+    At least one of `oid`, `id` or `dir3Id` must be included.
 
 ---
 
@@ -30,12 +28,9 @@ Specialization of [DenaObjectRef](./object-ref.md) with minimal data about an **
 
 ```json
 {
-  "orgId": "S4833001C",
-  "officialId": "EA0000001",
-  "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2",
-  "createTS": 1670374400,
-  "lastUpdateTS": 1680500000,
-  "url": "https://interop.api.dena.eus/orgs/6AE83A0C-2202-4666-9857-3334C14663A2"
+  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+  "id": "S4833001C",
+  "dir3Id": "EA0000001"
 }
 ```
 
@@ -43,7 +38,7 @@ Specialization of [DenaObjectRef](./object-ref.md) with minimal data about an **
 
 ## Organizational structure
 
-When sending an **organizational structure** (hierarchical organization chart), an `Array` of `DenaOrgRef` can be sent where:
+When an **organizational structure** (hierarchical org chart) needs to be sent, an `Array` of references can be sent where the order marks the hierarchy level:
 
 - Element `[0]`: first level of the organization
 - Element `[1]`: second level
@@ -51,25 +46,10 @@ When sending an **organizational structure** (hierarchical organization chart), 
 
 ```json
 [
-  { "orgId": "S4833001C", "officialId": "EA0000001" },
-  { "orgId": "S4811001J", "officialId": "EA0041020" }
+  { "id": "S4833001C", "dir3Id": "EA0000001" },
+  { "id": "S4811001J", "dir3Id": "EA0041020" }
 ]
 ```
-
----
-
-## Simplified usage
-
-For most messages, the reduced format is sufficient:
-
-```json
-{
-  "id": "admin-A414",
-  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
-}
-```
-
-where `id` maps to `orgId` and `oid` maps to `objectOid`.
 
 <!-- DENA-DOC-FOOTER -->
 ---

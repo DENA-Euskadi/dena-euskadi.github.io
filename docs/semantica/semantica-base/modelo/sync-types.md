@@ -1,99 +1,49 @@
 # :material-sync: Tipos de Datos del Flujo Sync
 
-Esta página documenta las estructuras de datos utilizadas en el **flujo de sincronización de metadatos** (Metadata-Sync / SRMD) entre administraciones y DENA-CORE.
+Esta página documenta la estructura utilizada en el **flujo de sincronización de metadatos** (Metadata-Sync / SRMD) que una administración envía a DENA-CORE.
 
 ---
 
-## DenaInteroperableDataTypeSync
+## DN00SyncMetaDataFromAdminToCOREItem
 
-Estructura utilizada por un origen de datos / administración para enviar **meta-data sync para un tipo de dato interoperable**, informando sobre cambios, altas o borrados en datos de personas registradas en DENA.
+Ítem que una administración envía a DENA-CORE para notificar que **algún dato de una persona se actualizó** en el origen, para un tipo de dato concreto. Se envía como un array de estos ítems.
 
-### Atributos
+Clase: `DN00SyncMetaDataFromAdminToCOREItem` (`@MarshallType(as="syncMetaDataFromAdminToCORE")`).
 
-| Campo | Tipo | Obligatorio | Descripción |
-|---|---|:---:|---|
-| `interoperableDataTypeId` | `ID` | :material-check: | Identificador del tipo de dato (ej: `PAYMENTS`, `RECORDS`) |
-| `personDataSync` | `Array(DenaPersonDataSync)` | :material-check: | Array con los cambios detectados por persona |
-
-### Ejemplo
-
-```json
-{
-  "interoperableDataTypeId": "RECORDS",
-  "personDataSync": [
-    {
-      "personId": "11111111H",
-      "lastUpdated": "2025-07-16T13:00:00.000Z",
-      "change": "CHANGED"
-    },
-    {
-      "personId": "11223344L",
-      "lastUpdated": "2025-07-15T11:00:00.000Z",
-      "change": "NEW"
-    }
-  ]
-}
-```
-
----
-
-## DenaPersonDataSync
-
-Estructura que informa sobre los cambios en datos de **una persona** para un tipo de dato interoperable.
-
-### Atributos
+### Atributos JSON
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `personId` | `ID` | :material-check: | Identificador administrativo de la persona (DNI/NIF/NIE/Pasaporte) |
-| `objectOid` | `OID` | :material-close: | Identificador único del objeto en el módulo de personas de DENA |
-| `lastUpdated` | `UTCDateTime` | :material-check: | Fecha/hora de la última actualización del dato |
-| `change` | `Enum` | :material-check: | Tipo de cambio detectado |
-
-### Valores de `change`
-
-| Valor | Descripción |
-|---|---|
-| `CHANGED` | Un dato existente ha sido modificado |
-| `NEW` | Se ha creado un dato nuevo |
-| `DELETED` | Se ha eliminado un dato |
-
----
-
-## DenaPersonMetaDataSyncItem
-
-Estructura utilizada por la UI (DENA-APP) para solicitar meta-data sync **de una persona** sobre todos los tipos de datos interoperables de todos los orígenes de datos.
-
-### Atributos
-
-| Campo | Tipo | Obligatorio | Descripción |
-|---|---|:---:|---|
-| `adminId` | `ID` | :material-check: | Identificador de la administración en DENA |
-| `dataSourceId` | `ID` | :material-check: | Identificador del origen de datos (data source) en DENA |
-| `dataTypeId` | `ID` | :material-check: | Identificador del tipo de datos (data type) en DENA |
-| `lastUpdateTS` | `TimeStamp` | :material-check: | Fecha de última modificación de algún registro del tipo de dato en el origen |
+| `admin` | [OrgAdminRef](./org-admin-ref.md) | :material-check: | Administración de origen |
+| `aboutPerson` | [PersonRef](./person-ref.md) | :material-check: | Persona a la que pertenece el dato |
+| `someDataWasUpdatedAt` | `Instant` | :material-check: | Última vez que el dato se actualizó en la administración |
+| `ofType` | [DataTypeRef](./data-type-ref.md) | :material-check: | Tipo de dato |
+| `fromDataOriginInstance` | `ID` | :material-close: | Instancia de origen de datos (qué sistema de gestión proporciona el dato) |
+| `popMessageAfterSync` | `Object` | :material-close: | Mensaje opcional a mostrar en el cliente tras sincronizar (p. ej. "Tienes un nuevo expediente en XX") |
 
 ### Ejemplo
 
 ```json
 [
   {
-    "adminId": "EJGV",
-    "dataSourceId": "EJGV-Expedientes",
-    "dataTypeId": "RECORDS",
-    "lastUpdateTS": 1670374400
+    "admin": { "id": "EJGV", "oid": "..." },
+    "aboutPerson": { "id": "11111111H", "oid": "..." },
+    "someDataWasUpdatedAt": "2025-07-16T13:00:00.000Z",
+    "ofType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
+    "fromDataOriginInstance": "EJGV-Expedientes"
   },
   {
-    "adminId": "DFB",
-    "dataSourceId": "DFB-Pagos",
-    "dataTypeId": "PAYMENTS",
-    "lastUpdateTS": 1670380000
+    "admin": { "id": "DFB", "oid": "..." },
+    "aboutPerson": { "id": "11223344L", "oid": "..." },
+    "someDataWasUpdatedAt": "2025-07-15T11:00:00.000Z",
+    "ofType": { "id": "oneOffPayment", "oid": "..." },
+    "fromDataOriginInstance": "DFB-Pagos"
   }
 ]
 ```
 
-!!! info "Uso en la UI"
-    La UI utiliza `lastUpdateTS` para calcular si necesita solicitar un RETRIEVE de los datos al origen. Para hacer el retrieve, la UI necesita conocer la URL de retrieve en DENA-CORE para cada origen de datos (disponible en el registro de orígenes de datos).
+!!! info "Uso"
+    DENA-CORE compara `someDataWasUpdatedAt` con la última vez que ese tipo de dato fue recuperado del origen para decidir el estado NEW/UPDATED/UNCHANGED que se muestra en la UI.
 
 <!-- DENA-DOC-FOOTER -->
 ---

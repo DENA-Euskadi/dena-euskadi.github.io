@@ -1,11 +1,11 @@
-# :material-shield-check: DENAConsent
+# :material-shield-check: Consent (consentOid)
 
 ## Description
 
-Object containing the reference to the **legal basis** (consent or normative authorization) that backs an interoperability request.
+The consent (or enabling legal basis) that backs a request is referenced by its **OID**. In the code model, the consent is transmitted as a single `consentOid` field (type `DN00ConsentOID`) in the base of requests (`DN00InteropRequestMessageBase`).
 
-!!! warning "Data-Retrieve only"
-    The `consent` block is only present in **data retrieval** (Data-Retrieve) messages. It allows the administration to verify that a legal basis exists enabling the exchange of the person's data.
+!!! info "Present in all requests"
+    `consentOid` is part of the base of interoperability requests, not just Data-Retrieve. Its effective presence depends on whether the operation requires an enabling legal basis.
 
 ---
 
@@ -13,9 +13,7 @@ Object containing the reference to the **legal basis** (consent or normative aut
 
 | Field | Type | Mandatory | Description |
 |---|---|:---:|---|
-| `consentOid` | `OID` | :material-check: | Unique consent identifier in the common repository |
-| `consentURL` | `URL` | :material-check: | URL where the receiving party can find and download the consent details |
-| `consentData` | `Object` | :material-close: | Some consent details (when granted, via which medium, until when, etc.) |
+| `consentOid` | `OID` (`DN00ConsentOID`) | :material-close: | Unique consent identifier in the consent repository |
 
 ---
 
@@ -23,36 +21,17 @@ Object containing the reference to the **legal basis** (consent or normative aut
 
 ```json
 {
-  "consent": {
-    "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentURL": "https://interop.api.dena.eus/consent/db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentData": {
-      "grantedAt": "2025-06-15T10:30:00.000Z",
-      "expiresAt": "2026-06-15T10:30:00.000Z",
-      "grantedVia": "DENA_APP_ENROLLMENT"
-    }
-  }
+  "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
 }
 ```
 
 ---
 
-## Verification by the administration
+## Verification
 
-The administration can, at any time, access `consentURL` to:
+The current model only carries the consent OID. The consent detail (when it was granted, validity, etc.) is managed in DENA's consent repository; the query API for that repository is pending definition.
 
-1. Download all consent details
-2. Obtain a **signed receipt** issued by the common repository
-3. Verify the consent is still valid
-
-!!! tip "Optional verification"
-    DENA-CORE already verifies the existence of the legal basis before sending the request. The administration can trust this mechanism or additionally verify if deemed necessary.
-
----
-
-## Relationship with the consent lifecycle
-
-For more detail on how consents are managed in DENA, see: [:octicons-arrow-right-24: Consents](../consentimientos.md)
+For more context on the consent lifecycle, see: [:octicons-arrow-right-24: Consents](../consentimientos.md)
 
 <!-- DENA-DOC-FOOTER -->
 ---

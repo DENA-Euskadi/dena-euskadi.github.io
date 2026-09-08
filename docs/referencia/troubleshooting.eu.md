@@ -128,10 +128,10 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
 
     **Kausa posibleak:**
 
-    - `context.messageType` falta da
-    - `context.subjectPerson.personId` falta da
-    - `context.dataType.dataTypeId` falta da
-    - `context.flowDirection` falta da
+    - `context.message.type` falta da
+    - `context.subjectPerson.id` falta da
+    - `context.dataType.id` falta da
+    - `context.message.correlationId` falta da
 
     **Konponbidea:**
 
@@ -140,13 +140,14 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
     ```json
     {
       "context": {
-        "messageType": "PERSON_FETCH_DATA",
-        "dataType": { "dataTypeId": "RECORDS" },
-        "messageCorrelationId": "uuid-here",
-        "flowDirection": "REQUEST",
-        "subjectPerson": { "personId": "12345678A" }
+        "message": {
+          "type": "PERSON_FETCH_DATA",
+          "correlationId": "uuid-here"
+        },
+        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DTYPE-OID-RECORDS" },
+        "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
       },
-      "data": {}
+      "payload": {}
     }
     ```
 
@@ -157,13 +158,13 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
     **Kausa posibleak:**
 
     - Pertsonak ez ditu eskatutako motako datuak
-    - `personId` ez dago administrazioaren sisteman
-    - `dataTypeId` ez da ezagutzen
+    - `subjectPerson.id` ez dago administrazioaren sisteman
+    - `dataType.id` ez da ezagutzen
 
     **Konponbidea:**
 
-    - Egiaztatu `personId` zure sisteman existitzen dela
-    - Egiaztatu `dataTypeId` zure administrazioak kudeatzen dituen motekin bat datorrela
+    - Egiaztatu `subjectPerson.id` zure sisteman existitzen dela
+    - Egiaztatu `dataType.id` zure administrazioak kudeatzen dituen motekin bat datorrela
     - Portaera zuzena izan daiteke (espedienteik gabeko pertsona, adibidez)
 
 ??? failure "Erantzunaren timeout-a"
@@ -188,7 +189,7 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
 
 ??? failure "Missing required context fields"
 
-    **Sintoma:** `{"status": 400, "message": "Missing required context fields: context.messageType..."}`
+    **Sintoma:** `{"status": 400, "message": "Missing required context fields: context.message.type..."}`
 
     **Kausa posibleak:**
 
@@ -199,11 +200,10 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
 
     Body-ko derrigorrezko eremuak:
 
-    - `context.messageCorrelationId`
-    - `context.messageType`
-    - `context.flowDirection`
-    - `context.originPartyId`
-    - `context.destinationPartyId`
+    - `context.message.type`
+    - `context.message.correlationId`
+    - `context.message.interopRouteData`
+    - `context.originClientInstallment` edo `context.originAdmin` (mezuaren jatorriaren arabera)
 
 ??? failure "Hash mismatch (X-DENA-Data-Digest)"
 
@@ -267,7 +267,7 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
     - Errore-mezu osoa
     - Log garrantzitsuak
     - Ingurunea (PRE/PRO/local)
-    - `messageCorrelationId` baduzu
+    - `message.correlationId` baduzu
     - Testuinguru-informazioa (zer egin nahi zenuen?)
 
 <!-- DENA-DOC-FOOTER -->

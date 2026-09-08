@@ -13,9 +13,9 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 | Causa | Solución |
 |-------|----------|
 | JSON inválido en el body | Validar que el body es JSON válido antes de procesarlo |
-| Falta `context.subjectPerson.personId` | Campo obligatorio — verificar que se recibe |
-| Falta `context.dataType.dataTypeId` | Campo obligatorio — verificar que se recibe |
-| `dataTypeId` con valor no reconocido | Aceptar solo: `RECORDS`, `NOTICES`, `REGISTER`, `PAYMENTS`, `SCHEDULE`, `PERSON_DATA` |
+| Falta `context.subjectPerson.id` | Campo obligatorio — verificar que se recibe |
+| Falta `context.dataType.id` | Campo obligatorio — verificar que se recibe |
+| `dataType.id` con valor no reconocido | Aceptar solo: `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData` |
 
 ### 401 — No autorizado
 
@@ -29,8 +29,8 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 
 | Causa | Solución |
 |-------|----------|
-| El `personId` no existe en el sistema de la administración | Devolver HTTP 404 con body de error estándar |
-| Formato de `personId` no reconocido | Aceptar DNI (8 dígitos + letra), NIE (X/Y/Z + 7 dígitos + letra) y NIF |
+| El `subjectPerson.id` no existe en el sistema de la administración | Devolver HTTP 404 con body de error estándar |
+| Formato de `subjectPerson.id` no reconocido | Aceptar DNI (8 dígitos + letra), NIE (X/Y/Z + 7 dígitos + letra) y NIF |
 
 ---
 
@@ -41,12 +41,14 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "personOid:...." }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }
@@ -112,14 +114,14 @@ Antes de conectar con DENA, verificar:
 
 - [ ] El endpoint acepta `POST` con `Content-Type: application/json`
 - [ ] El endpoint devuelve `Content-Type: application/json`
-- [ ] Se interpreta correctamente `context.subjectPerson.personId`
-- [ ] Se interpreta correctamente `context.dataType.dataTypeId`
+- [ ] Se interpreta correctamente `context.subjectPerson.id`
+- [ ] Se interpreta correctamente `context.dataType.id`
 - [ ] Todos los objetos en `dataItems` incluyen el campo `type`
 - [ ] Los textos multiidioma incluyen al menos `SPANISH` y `BASQUE`
 - [ ] Las fechas están en formato ISO 8601
 - [ ] Los importes son números (no strings)
 - [ ] Las URLs son HTTPS válidas
-- [ ] Se devuelve `{ "data": { "dataItems": [] }, "code": "OK" }` cuando no hay datos
+- [ ] Se devuelve `{ "payload": { "dataItems": [] }, "code": "OK" }` cuando no hay datos
 - [ ] Se devuelve HTTP 200 incluso cuando la lista está vacía
 - [ ] Los códigos HTTP de error se usan correctamente (400, 401, 404, 500)
 - [ ] Se usa `code: "OK"` en éxito y `code: "CLIENT_ERR"` / `code: "SERVER_ERR"` en errores
@@ -131,7 +133,7 @@ Antes de conectar con DENA, verificar:
 
 Si el error persiste tras revisar esta guía, contactar con el equipo DENA proporcionando:
 
-1. El `messageCorrelationId` de la petición
+1. El `context.message.correlationId` de la petición
 2. El código HTTP devuelto
 3. El body de la respuesta (si aplica)
 4. Logs del servidor con timestamp

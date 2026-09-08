@@ -40,12 +40,12 @@ sequenceDiagram
     CONN->>ADMIN: POST /api/retrieveData<br/>Authorization: Bearer token<br/>Content-Type: application/json
     activate ADMIN
     Note over ADMIN: Validate OAuth2 token
-    Note over ADMIN: Extract personId + dataTypeId
+    Note over ADMIN: Extract subjectPerson.id + dataType.id
     ADMIN->>SYS: Query person data
     SYS-->>ADMIN: Internal data
     Note over ADMIN: Transform to DENA model
     Note over ADMIN: Build response
-    ADMIN-->>CONN: HTTP 200<br/>{code: "OK", data: {dataItems: [...]}}
+    ADMIN-->>CONN: HTTP 200<br/>{code: "OK", payload: {dataItems: [...]}}
     deactivate ADMIN
     CONN-->>GW: Normalised data
 ```
@@ -59,13 +59,15 @@ DENA will send a `POST` request with this format:
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": { }
+  "payload": { }
 }
 ```
 
@@ -73,19 +75,19 @@ The key fields you must interpret:
 
 | Field | Purpose | Source code |
 |-------|----------|-------------|
-| `context.subjectPerson.personId` | DNI/NIE of the person whose data is requested | [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.dataType.dataTypeId` | Type of data requested (see table below) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | UUID for log traceability | [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.id` | DNI/NIE of the person whose data is requested | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.dataType.id` | Type of data requested (see table below) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.message.correlationId` | UUID for log traceability | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
-### Data types (`dataTypeId`)
+### Data types (`dataType.id`)
 
 | Value | What you must return | Model |
 |-------|----------------------|-------|
-| `RECORDS` | Records | [expediente.md](./data/expediente.md) |
-| `NOTICES` | Notifications | [notificacion.md](./data/notificacion.md) |
-| `REGISTER` | Official registrations | [registro-oficial.md](./data/registro-oficial.md) |
-| `PAYMENTS` | Payments (one-off + direct debits) | [pago.md](./data/pago.md) |
-| `SCHEDULE` | Appointments | [cita.md](./data/cita.md) |
+| `administrativeServiceProcedureRecord` | Records | [expediente.md](./data/expediente.md) |
+| `administrativeNotice` | Notifications | [notificacion.md](./data/notificacion.md) |
+| `administrativeOfficialRegisterRecord` | Official registrations | [registro-oficial.md](./data/registro-oficial.md) |
+| `oneOffPayment` | Payments (one-off + direct debits) | [pago.md](./data/pago.md) |
+| `scheduleItem` | Appointments | [cita.md](./data/cita.md) |
 
 > Full endpoint specification: [endpoint-data-retrieve.md](./endpoint-data-retrieve.md)
 
@@ -107,9 +109,9 @@ public class RetrieveDataController {
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<InteropResponse> retrieveData(@RequestBody InteropRequest request) {
 
-        // 1. Extract personId and dataTypeId
-        String personId = request.getContext().getSubjectPerson().getPersonId();
-        String dataTypeId = request.getContext().getDataType().getDataTypeId();
+        // 1. Extract the person id and the data type
+        String personId = request.getContext().getSubjectPerson().getId();
+        String dataTypeId = request.getContext().getDataType().getId();
 
         // 2. Query internal data
         List<Object> items = fetchDataFromInternalSystems(personId, dataTypeId);
@@ -130,8 +132,8 @@ public class RetrieveDataController : ControllerBase
     [HttpPost("retrieveData")]
     public IActionResult RetrieveData([FromBody] InteropRequest request)
     {
-        var personId = request.Context.SubjectPerson.PersonId;
-        var dataTypeId = request.Context.DataType.DataTypeId;
+        var personId = request.Context.SubjectPerson.Id;
+        var dataTypeId = request.Context.DataType.Id;
 
         var items = FetchDataFromInternalSystems(personId, dataTypeId);
 
@@ -144,8 +146,8 @@ public class RetrieveDataController : ControllerBase
 
 ```javascript
 app.post('/api/retrieveData', (req, res) => {
-  const { personId } = req.body.context.subjectPerson;
-  const { dataTypeId } = req.body.context.dataType;
+  const { id: personId } = req.body.context.subjectPerson;
+  const { id: dataTypeId } = req.body.context.dataType;
 
   const items = fetchDataFromInternalSystems(personId, dataTypeId);
 
@@ -321,13 +323,15 @@ The response must have this structure:
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "REQUEST-UUID",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "REQUEST-UUID",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [ ... ]
   },
   "code": "OK"
@@ -397,15 +401,15 @@ The token is obtained automatically via **client credentials** against your auth
 ### Validation checklist
 
 - [ ] The endpoint accepts `POST /api/retrieveData` with `Content-Type: application/json`
-- [ ] Correctly interprets `context.subjectPerson.personId`
-- [ ] Correctly interprets `context.dataType.dataTypeId`
+- [ ] Correctly interprets `context.subjectPerson.id`
+- [ ] Correctly interprets `context.dataType.id`
 - [ ] Returns HTTP 200 with `dataItems: []` when there is no data
 - [ ] All objects include `oid` and `id`
 - [ ] Texts include at least `SPANISH` and `BASQUE`
 - [ ] Dates are in ISO 8601 format (`2024-03-15T10:30:00Z`)
 - [ ] States use the exact codes defined in the model
 - [ ] The `code` field is present in the response (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
-- [ ] The `messageCorrelationId` from the request is returned in the response
+- [ ] The `context.message.correlationId` from the request is returned in the response
 - [ ] Response time is < 30 seconds
 
 ### Test tools
@@ -438,8 +442,8 @@ You can use the mock factories from the test project to generate sample objects:
 ```
 1. DENA sends POST /api/retrieveData
 2. Your system:
-   a. Reads personId → identifies the person
-   b. Reads dataTypeId → knows what data to fetch
+   a. Reads subjectPerson.id → identifies the person
+   b. Reads dataType.id → knows what data to fetch
    c. Queries its internal systems
    d. Transforms the data to the DENA model
    e. Builds the response with dataItems[]

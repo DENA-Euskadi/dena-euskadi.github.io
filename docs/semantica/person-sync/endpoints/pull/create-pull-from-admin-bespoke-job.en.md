@@ -18,21 +18,25 @@ Creates an export request for a list of DENA users to be processed asynchronousl
 ```json
 {
     "context": {
-        "interopRouteData": [
-            {
-                "denaComponentId": "DENA_POSTMAN",
-                "timestamp":"2026-06-10T15:37:57.5530000Z"
-            }
-        ],
-        "messageCorrelationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
-        "messageType": "CREATE_PULL_ADMIN_BESPOKE",
-        "flowDirection": "REQUEST",
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-        "originPartyId": "ADMIN-001",
-        "destinationPartyId": "DENA_INTEROP"
+        "message": {
+            "type": "ADMIN_PERSON_PULL_BESPOKE_CREATE_REQ",
+            "correlationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_POSTMAN",
+                    "timestamp":"2026-06-10T15:37:57.5530000Z"
+                }
+            ]
+        },
+        "originAdmin": {
+            "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+            "id": "admin-A414",
+            "dir3Id": "EA0000001"
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
     },
-    "data": {
-        "orgAdminRef": {
+    "payload": {
+        "originAdmin": {
             "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
         },
         "exportSpec": {
@@ -47,22 +51,22 @@ Creates an export request for a list of DENA users to be processed asynchronousl
 
 | Field     | Type                                           | Mandatory | Description |
 |-----------|------------------------------------------------|:---------:|-------------|
-| `context` | [Context](../../../semantica-base/index.md)          | ✅        | Request context object, including messageType with value `CREATE_PULL_ADMIN_BESPOKE` |
-| `data`    | [Data](#data)                                  | ✅        | Request payload |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅        | Request context object, including `message.type` with value `ADMIN_PERSON_PULL_BESPOKE_CREATE_REQ` |
+| `payload` | [Payload](#payload)                            | ✅        | Request payload |
 
 
-## Data
+## Payload
 
 | Field         | Type     | Mandatory | Description |
 |---------------|----------|:---------:|-------------|
-| `orgAdminRef` | [OrgAdminRef](../../../semantica-base/modelo/org-admin-ref.md) | ✅ | Reference to the administration |
+| `originAdmin` | [OrgAdminRef](../../../semantica-base/modelo/org-admin-ref.md) | ✅ | Reference to the origin administration |
 | `exportSpec`  | [ExportSpec](../../modelo/pull/export-spec.md) | ✅ | Specification of the persons to export and the target format |
 
 ## Successful response (HTTP 200)
 
 ```json
 {
-    "data": {
+    "payload": {
         "job": {
             "admin": {
                 "id": "admin-A414",

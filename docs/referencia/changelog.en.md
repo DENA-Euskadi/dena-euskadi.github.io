@@ -4,9 +4,110 @@ DENA documentation version history.
 
 ---
 
-## v0.4.0 <small>— 2026-08-24</small> { #v040 }
+## v0.5.2 <small>— 2026-09-07</small> { #v052 }
 
 !!! success "Current"
+
+**Documentation synchronised with code revision 0.4.16 of the DENA common API.**
+
+New content:
+
+- :material-plus: `arquitectura/arquitectura-servicios.md`: documented the client REST proxy base (`DN00ClientAPIRESTServiceProxyBase`) and the CORE proxy marker interface (`DN00IsDENACOREServiceProxy`), with their behaviour (JSON marshalling, configurable retries)
+- :material-plus: New security context user model page (`seguridad/modelo-usuarios.md`): documented the new administration system user (`DN00DENAAdminSystemUser`) alongside the person and management users
+
+Fixes against code 0.4.16:
+
+- :material-refresh: Refs model (object-ref, person-ref, org-admin-ref, data-type-ref): actual fields `oid`/`id`/`dir3Id`; removed non-existent fields (`objectOid`, `createTS`, `lastUpdateTS`, `deleteTS`, `url`, `personId`, `orgId`, `officialId`)
+- :material-refresh: Interop message model: actual structure `context` + `protocol` + `payload`; `context.message.{type,correlationId,interopRouteData}`; derived `flowDirection`; simplification (removed `__DN00IsInteropMessagePayload`)
+- :material-refresh: Data-retrieve data model: `originAdmin`/`aboutPerson` (previously `*Ref`), added `lastChangedAt`
+- :material-refresh: Base semantics: `status` (code/errorId/details), `consentOid`, `sync-types` (`DN00SyncMetaDataFromAdminToCOREItem`), http-headers and language-texts aligned with the code
+- :material-refresh: Code links and JSON examples (ES/EN/EU) updated to the actual model
+
+Translations:
+
+- :material-translate: Translated to EN and EU the pages that only existed in ES (arquitectura-servicios, configuracion, tipos-dato-base, data-retrieve/index)
+
+---
+
+## v0.5.1 <small>— 2026-09-08</small> { #v051 }
+
+**Complete Person-Sync documentation extracted from DENA-Architecture.docx and DENA-CORE-Services_for_admins.docx.**
+
+New architecture content:
+
+- :material-plus: "Person-Sync" section expanded with Push, Pull On-line and Pull Off-line
+- :material-plus: Mermaid flow diagrams for Bespoke job flow
+- :material-plus: JSON payload examples (Push, Pull On-line, Bespoke requests)
+- :material-plus: Documented job states: REGISTERED, BEING_PROCESSED, FINISHED_OK, FINISHED_NOK
+- :material-plus: Java API examples for arquitectura-servicios.md
+- :material-plus: Images extracted from Word: image18.png (Person-Sync Overview), image7.png (DENA Push)
+
+Translations:
+
+- :material-translate: arquitectura/index.md: full content translated to EN and EU
+- :material-translate: arquitectura/arquitectura-servicios.md: Java examples translated
+
+Cleanup:
+
+- :material-minus: Removed image8.png from Admin Pull (did not match the context)
+- :material-minus: Temporary file arquitectura-dena-completa.md consolidated into arquitectura/index.md
+
+---
+
+## v0.5.0 <small>— 2026-08-24</small> { #v050 }
+
+**Comprehensive documentation improvement: structure, content, consistency and translations.**
+
+Inconsistencies fixed:
+
+- :material-bug: "More information" section tripled in arquitectura/index.md
+- :material-bug: `REGISTRY` corrected to `REGISTER` (canonical enum value) in 6 files
+- :material-bug: Incorrect colour legend in semantica/index (violet → yellow)
+- :material-bug: Obsolete date in sistema-versionado.md
+- :material-bug: TRANSLATION_TRACKER with contradictory counters
+
+New content:
+
+- :material-plus: Complete End-to-End example (token + SRMD + Data-Retrieve + bash script)
+- :material-plus: API limits and restrictions page (documented timeouts)
+- :material-plus: Java Spring Boot code examples (controller, entity, metadata-sync service, token service)
+- :material-plus: Glossary expanded with 6 terms: Cold-Start, Connector, Data Origin Instance, DENA-APP, DENA-CORE, SRMD
+
+Security and authentication restructuring:
+
+- :material-refresh: "Your System Calls DENA" integrates get-token + security headers (field generation)
+- :material-refresh: "DENA Calls Your System" integrates JWT model + services + alternative mechanisms (OAuth, mTLS, CAS, API Key, Basic Auth, WS-Security)
+- :material-minus: Removed modelo.md, servicios.md and endpoint-get-token.md (integrated into main pages)
+
+Improvements to existing content:
+
+- :material-refresh: Data-Retrieve: example JSON with complete interop structure (collapsible)
+- :material-refresh: Data-Retrieve: "Reference code" section with links to tests and DN00InteropHeaders
+- :material-refresh: Metadata-Sync: clarification of "what changed and when" (not who)
+- :material-refresh: Metadata-Sync: documentation of fromDataOrigin, IDs vs OIDs, classic data origin error
+- :material-refresh: ES/EN/EU index unified with identical narrative structure
+
+Inclusive language:
+
+- :material-refresh: Full filtering: "user" → "person", "citizen" → "citizen person/citizenship"
+- :material-refresh: Applied in ES, EN and EU (citizen → person, herritarra → pertsona)
+
+Cleanup:
+
+- :material-minus: Empty ADRs removed (0001, 0002)
+- :material-minus: Unpublished legacy files removed (vision-general-detallada, seguridad, servicios-core-admins)
+- :material-minus: Obsolete translations removed and regenerated
+
+Translations:
+
+- :material-translate: New or updated EN+EU translations for all modified pages
+- :material-translate: operativas/data-retrieve, metadata-sync, person-sync (EN+EU)
+- :material-translate: autenticacion/administracion-core-dena, core-dena-administracion (EN+EU)
+- :material-translate: ejemplo-end-to-end, limites-api (EN+EU)
+
+---
+
+## v0.4.0 <small>— 2026-08-24</small> { #v040 }
 
 **Base Semantics v2.0 document integration:**
 
@@ -32,7 +133,7 @@ DENA documentation version history.
 
 **Documentation improvements:**
 
-- :material-palette: CSS reorganised into numbered files `01`–06 by responsibility
+- :material-palette: CSS reorganised into numbered files `01`–`06` by responsibility
 - :material-refresh: `extra.css` migrated to numbered files; legacy file emptied
 - :material-image: Administration logos added to footer (Ayto. Bilbao, Donosti, Vitoria, DFA, DFB, DFG, EUDEL)
 - :material-format-size: Footer logo size increased to 60px

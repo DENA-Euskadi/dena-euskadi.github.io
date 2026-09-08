@@ -2,7 +2,7 @@
 
 ## Descripción
 
-La estructura `status` está presente **únicamente en mensajes de respuesta**. Incluye información sobre el resultado del procesamiento: si fue exitoso, si hubo un error, o si se procesará de forma asíncrona.
+Los mensajes de respuesta (`DN00InteropResponseMessageBase`) incluyen información sobre el resultado del procesamiento mediante tres campos: `code`, `errorId` y `details`.
 
 ---
 
@@ -10,12 +10,13 @@ La estructura `status` está presente **únicamente en mensajes de respuesta**. 
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|:---:|---|
-| `statusCode` | `DENAResponseStatusCode` | :material-check: | Código del estado de procesamiento del mensaje |
-| `statusDetails` | `Object` | :material-close: | Detalles de la respuesta. El tipo depende de `statusCode` |
+| `code` | `DN00InteropResponseStatus` | :material-check: | Código del estado de procesamiento del mensaje |
+| `errorId` | `DN00InteropResponseStatusCode` | :material-close: | Código de error específico (presente solo en errores) |
+| `details` | `DN00InteropResponseStatusDetails` | :material-close: | Detalles de la respuesta (un único campo `details` de tipo texto) |
 
 ---
 
-## DENAResponseStatusCode
+## DN00InteropResponseStatus (campo `code`)
 
 | Valor | Descripción |
 |---|---|
@@ -26,122 +27,44 @@ La estructura `status` está presente **únicamente en mensajes de respuesta**. 
 
 ---
 
-## Status Details por código
+## Ejemplos
 
-| statusCode | Tipo de statusDetails |
-|---|---|
-| `OK` | *(vacío)* |
-| `CLIENT_ERR` | [DENAClientErrDetails](#denaclienterrdetails) |
-| `SERVER_ERR` | [DENAServerErrDetails](#denaservererrdetails) |
-| `QUEUED` | [DENAAsyncQueueData](#denaasyncqueuedata) |
-
----
-
-## DENAClientErrDetails
-
-Detalles del error cuando `statusCode = CLIENT_ERR`.
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `errorCode` | `ID` | Identificador del error. Ej: `ENTITY_NOT_FOUND` |
-| `about` | `String` | Datos de la entidad relacionada con el error (ej: personOid/personId) |
-| `errorDetails` | `String` | Detalles adicionales del error |
-
-**Ejemplo:**
+**Respuesta correcta:**
 
 ```json
 {
-  "status": {
-    "statusCode": "CLIENT_ERR",
-    "statusDetails": {
-      "errorCode": "ENTITY_NOT_FOUND",
-      "about": "12345678A",
-      "errorDetails": "La persona solicitada no existe en el sistema"
-    }
+  "code": "OK",
+  "errorId": null,
+  "details": null
+}
+```
+
+**Respuesta con error de cliente:**
+
+```json
+{
+  "code": "CLIENT_ERR",
+  "errorId": "ENTITY_NOT_FOUND",
+  "details": {
+    "details": "La persona solicitada no existe en el sistema"
   }
 }
 ```
 
----
-
-## DENAServerErrDetails
-
-Detalles del error cuando `statusCode = SERVER_ERR`.
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `errorCode` | `ID` | Identificador del error. Ej: `UNEXPECTED_ERROR` |
-| `errorDetails` | `String` | Detalles del error (ej: stack trace) |
-
-**Ejemplo:**
+**Respuesta con error de servidor:**
 
 ```json
 {
-  "status": {
-    "statusCode": "SERVER_ERR",
-    "statusDetails": {
-      "errorCode": "UNEXPECTED_ERROR",
-      "errorDetails": "Connection timeout accessing database"
-    }
+  "code": "SERVER_ERR",
+  "errorId": "UNEXPECTED_ERROR",
+  "details": {
+    "details": "Connection timeout accessing database"
   }
 }
 ```
 
----
-
-## DENAAsyncQueueData
-
-Detalles cuando `statusCode = QUEUED` (procesamiento asíncrono).
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `jobToken` | `Token` | Token asignado al job planificado, permite consultar su estado |
-| `jobStatusQueryUrl` | `URL` | URL para consultar el estado del job |
-
-**Ejemplo:**
-
-```json
-{
-  "status": {
-    "statusCode": "QUEUED",
-    "statusDetails": {
-      "jobToken": "a3f2c891-4b5d-4e6f-8a9b-1c2d3e4f5a6b",
-      "jobStatusQueryUrl": "https://interop.api.dena.eus/queued-jobs/a3f2c891-4b5d-4e6f-8a9b-1c2d3e4f5a6b"
-    }
-  }
-}
-```
-
----
-
-## Consulta de estado de un Job asíncrono
-
-Al consultar `jobStatusQueryUrl` se obtiene:
-
-| Campo | Tipo | Descripción |
-|---|---|---|
-| `jobToken` | `Token` | Token del job consultado |
-| `jobStatus` | `Enum` | Estado actual del job |
-
-**Valores de `jobStatus`:**
-
-| Valor | Descripción |
-|---|---|
-| `QUEUED` | En cola, pendiente de ejecución |
-| `EXECUTING` | En proceso de ejecución |
-| `FINISHED` | Terminado correctamente |
-| `FAILED` | Terminado con error |
-| `DISCARDED` | Descartado |
-
----
-
-## Procesamiento asíncrono
-
-!!! info "Flujo asíncrono"
-    En invocaciones asíncronas, el resultado NO se incluye en el mensaje de respuesta inmediata. Se devuelve un token y el mensaje se pone en cola. Cuando termina el procesamiento, hay dos opciones:
-
-    1. **Callback**: el servidor avisa al origen en la URL de callback proporcionada en la sección `protocol`
-    2. **Polling**: el origen consulta periódicamente el estado usando `jobStatusQueryUrl`
+!!! note "Estructura de `details`"
+    `DN00InteropResponseStatusDetails` es una clase con un único campo de texto (`details`). No hay subtipos específicos por código de error en el modelo actual: el detalle del error se transmite como texto libre.
 
 <!-- DENA-DOC-FOOTER -->
 ---

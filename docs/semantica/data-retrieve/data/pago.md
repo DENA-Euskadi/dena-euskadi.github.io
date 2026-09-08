@@ -14,7 +14,7 @@ Representa una obligación de pago asociada a un expediente. Dos modalidades:
 - **Pago único** (`oneOffPayment`) — Liquidación puntual (tasa, precio público, sanción)
 - **Domiciliación** (`directDebitPayment`) — Cargo periódico recurrente
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

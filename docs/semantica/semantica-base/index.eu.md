@@ -4,9 +4,9 @@
 
 ---
 
-## REST zerbitzuen egitura
+## Interop message-aren egitura
 
-REST zerbitzuen eskaera eta erantzun guztiek **testuinguru** eta **datu** informazioarekin oinarrizko egitura partekatzen dute:
+Eskaera eta erantzun guztiek **interop message**-aren egitura partekatzen dute (`DN00InteropMessageBase`), hiru blokek osatzen dutena: **context**, **protocol** eta **payload**.
 
 ```mermaid
 ---
@@ -20,44 +20,46 @@ config:
     fontSize: "12px"
 ---
 flowchart LR
-    ROOT["REST Mezua"]
+    ROOT["InteropMessage"]
 
-    ROOT --> CONTEXT["Context"]
-    ROOT --> DATA["Data<br/><i>payload</i>"]
+    ROOT --> CONTEXT["context"]
+    ROOT --> PROTOCOL["protocol"]
+    ROOT --> PAYLOAD["payload"]
 
-    CONTEXT --> MESSAGE_TYPE["messageType<br/>String"]
-    CONTEXT --> DATA_TYPE["dataType<br/>DataTypeRef"]
-    CONTEXT --> MESSAGE_CORRELATION_ID["messageCorrelationId<br/>UUID"]
-    CONTEXT --> FLOW_DIRECTION["flowDirection<br/>REQUEST/RESPONSE"]
-    CONTEXT --> ORIGIN_PARTY_ID["originPartyId<br/>String"]
-    CONTEXT --> DESTINATION_PARTY_ID["destinationPartyId<br/>String"]
+    CONTEXT --> MESSAGE["message"]
+    CONTEXT --> ORIGIN_CI["originClientInstallment"]
+    CONTEXT --> ORIGIN_ADMIN["originAdmin<br/>OrgAdminRef"]
+    CONTEXT --> DEST_ADMIN["destinationAdmin<br/>OrgAdminRef"]
     CONTEXT --> SUBJECT_PERSON["subjectPerson<br/>PersonRef"]
-    CONTEXT --> ADMINISTRATION["administration<br/>OrgAdminRef"]
-    CONTEXT --> INTEROP_ROUTE_DATA["interopRouteData<br/>Array"]
+    CONTEXT --> DATA_TYPE["dataType<br/>DataTypeRef"]
+    CONTEXT --> USER_AGENT["userAgent<br/>String"]
 
-    INTEROP_ROUTE_DATA --> IRDITEM["denaComponentId<br/>timestamp"]
+    MESSAGE --> M_TYPE["type<br/>MessageType"]
+    MESSAGE --> M_CORR["correlationId<br/>UUID"]
+    MESSAGE --> M_ROUTE["interopRouteData<br/>Array"]
 
     style ROOT fill:#fff2cc,stroke:#d6b656,color:#000000,rx:8,ry:8
     style CONTEXT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
-    style DATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
-    style MESSAGE_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style DATA_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style MESSAGE_CORRELATION_ID fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style FLOW_DIRECTION fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style ORIGIN_PARTY_ID fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style DESTINATION_PARTY_ID fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style PROTOCOL fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
+    style PAYLOAD fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:8,ry:8
+    style MESSAGE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
+    style ORIGIN_CI fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style ORIGIN_ADMIN fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style DEST_ADMIN fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
     style SUBJECT_PERSON fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style ADMINISTRATION fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
-    style INTEROP_ROUTE_DATA fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
-    style IRDITEM fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style DATA_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style USER_AGENT fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style M_TYPE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style M_CORR fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
+    style M_ROUTE fill:#f8cecc,stroke:#b85450,color:#000000,rx:6,ry:6
 ```
 
 | Kolorea | Esanahia |
 |---|---|
-| :yellow_circle: Horia | Sustraia (REST Mezua) |
-| :blue_circle: Urdin argia | Objektu nagusiak (Context eta Data) |
-| :red_circle: Gorri argia | Eremu primitiboak eta erreferentziak |
-| :purple_circle: Morea | Arrayak |
+| :yellow_circle: Horia | Sustraia (InteropMessage) |
+| :blue_circle: Urdin argia | Bloke nagusiak (context, protocol, payload) |
+| :purple_circle: Morea | Habiaratutako `message` objektua |
+| :red_circle: Gorri argia | Eremuak eta erreferentziak |
 
 ---
 
@@ -68,24 +70,24 @@ flowchart LR
     ```json
     {
       "context": {
-        "interopRouteData": [
-          {
-            "denaComponentId": "DENA_POSTMAN",
-            "denaTS": 1779382284684
-          }
-        ],
-        "messageCorrelationId": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
-        "messageType": "CLIENT_LOGIN",
-        "flowDirection": "REQUEST",
-        "userAgent": "Mozilla/5.0 ...",
-        "originPartyId": "DENA_POSTMAN",
-        "destinationPartyId": "DENA_INTEROP",
-        "clientDeviceOid": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
-        "dataType": { "dataTypeId": "RECORDS" },
-        "subjectPerson": { "personId": "12345678A" },
-        "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" }
+        "message": {
+          "type": "CLIENT_RETRIEVE_REQ",
+          "correlationId": "59d5b0b0-5662-4152-b2ed-131aa0fb2608",
+          "interopRouteData": [
+            {
+              "denaComponentId": "CLIENT_INSTALLMENT",
+              "timestamp": "2026-08-18T11:28:47.523Z"
+            }
+          ]
+        },
+        "originClientInstallment": "8B5AE78A-7D42-4069-A626-959BB07276C5",
+        "destinationAdmin": { "id": "admin-id", "oid": "..." },
+        "subjectPerson": { "id": "12345678A", "oid": "..." },
+        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
+        "userAgent": "Mozilla/5.0 ..."
       },
-      "data": {
+      "protocol": { ... },
+      "payload": {
         ...
       }
     }
@@ -97,50 +99,56 @@ flowchart LR
 
 | Eremua | Mota | Derrigorrezkoa | Deskribapena |
 |---|---|:---:|---|
-| `context` | [Context](#context) | :material-check: | Eskaeraren testuinguru-objektua |
-| `data` | `Objektua` | :material-check: | Eskaeraren payload-a edo erantzunaren datuak |
+| `context` | [Context](#context) | :material-check: | Mezuaren testuinguru-objektua (`DN00InteropContext`) |
+| `protocol` | [DENAProtocol](./modelo/protocol.md) | :material-close: | Protokoloaren informazioa (URLak, timeout) |
+| `payload` | `Objektua` | :material-check: | Eskaeraren payload-a edo erantzunaren datuak |
+
+!!! note "Payload-a generikoa da"
+    `DN00InteropMessageBase`-n payload-a generikoa da (`<P>`) eta `payload` gisa marshalizatzen da. Eduki zehatza operazio bakoitzaren araberakoa da.
 
 ---
 
 ## Context
 
+Testuinguruak (`DN00InteropContext`) mezuaren metadatuak biltzen ditu. Mezu motaren datuak `message` objektuan habiaratzen dira (`DN00InteropMessageData`).
+
 | Eremua | Mota | Derrigorrezkoa | Deskribapena |
 |---|---|:---:|---|
-| `interopRouteData` | `Array` | :material-check: | Eskaerak igaro dituen osagaien zerrenda, timestamp-arekin |
-| `messageCorrelationId` | `String(UUID)` | :material-check: | Eskaera batetik eratorritako dei guztiak lotzeko korrelazioa ID-a |
-| `messageType` | `String` | :material-check: | `data` objektuan bidalitako mezu mota |
-| `flowDirection` | `String` | :material-check: | Eskaera (`REQUEST`) ala erantzuna (`RESPONSE`) den adierazten du |
-| `userAgent` | `String` | :material-check: | Jatorriko gailuaren User Agent-a |
-| `originPartyId` | `String` | :material-check: | Jatorriaren identifikatzailea (adib: `DENA_WEBAPP`) |
-| `destinationPartyId` | `String` | :material-check: | Helmugaren identifikatzailea (adib: `DENA_INTEROP`) |
-| `clientDeviceOid` | `String` | :material-close: | Jatorriko gailuaren OID-a |
-| `dataType` | [DataTypeRef](./modelo/data-type-ref.md) | :material-close: | Eskatutako datu mota semantikoa |
+| `message.type` | `DN00InteropMessageType` | :material-check: | Operazio mota (ikus [Mezu Motak](./modelo/message-types.md)) |
+| `message.correlationId` | `UUID` | :material-check: | Eskaera batetik eratorritako dei guztiak lotzeko korrelazio ID-a |
+| `message.interopRouteData` | `Array` | :material-close: | Mezuak igaro dituen osagaiak, beren timestamp-arekin |
+| `originClientInstallment` | `OID` | :material-close: | Jatorriko bezero-instalazioa (DENA-APP) |
+| `originAdmin` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Jatorriko administrazioa |
+| `destinationAdmin` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Helmugako administrazioa |
 | `subjectPerson` | [PersonRef](./modelo/person-ref.md) | :material-close: | Datuak eskatzen diren pertsona |
-| `administration` | [OrgAdminRef](./modelo/org-admin-ref.md) | :material-close: | Helmugako administrazioa |
+| `dataType` | [DataTypeRef](./modelo/data-type-ref.md) | :material-close: | Eskatutako datu mota semantikoa |
+| `userAgent` | `String` | :material-close: | Jatorriaren User Agent-a |
+
+!!! info "`flowDirection` eratorria da"
+    Fluxuaren norabidea (`REQUEST`/`RESPONSE`) ez da testuinguruaren eremu gordea: `message.type`-tik eratortzen da.
 
 ---
 
 ## Mezuaren egitura osoa
 
-DENA mezu batek honako egitura orokorra du:
+Interop message batek honako egitura du:
 
 ```json
 {
   "context": { ... },       // Testuinguru metadatuak (derrigorrezkoa)
   "protocol": { ... },      // Protokoloaren informazioa (aukerakoa)
-  "consent": { ... },       // Oinarri gaitzailea (Data-Retrieve soilik)
-  "status": { ... },        // Erantzunaren egoera (erantzunetan soilik)
-  "data": { ... }           // Payload-a (derrigorrezkoa)
+  "payload": { ... }        // Payload-a (derrigorrezkoa)
 }
 ```
 
 | Blokea | Presentzia | Deskribapena |
 |---|---|---|
-| `context` | Beti | Identifikazioa, korrelazioa, operazio mota |
-| `protocol` | Behar denean | URLak, timeout-ak, hash-ak, token-ak |
-| `consent` | Data-Retrieve soilik | Baimen/gaitzapen normatiboaren erreferentzia |
-| `status` | Erantzunetan soilik | Prozesamenduaren emaitza |
-| `data` | Beti | Eskaera edo erantzuneko datuak |
+| `context` | Beti | Identifikazioa, korrelazioa, operazio mota, jatorria/helmuga |
+| `protocol` | Behar denean | URLak, timeout |
+| `payload` | Beti | Eskaera edo erantzuneko datuak |
+
+!!! note "Erantzunak"
+    Erantzun mezuetan prozesamenduaren egoera `code`, `errorId` eta `details` eremuekin adierazten da. Ikus [Status](./modelo/status.md).
 
 ---
 
@@ -160,11 +168,11 @@ Protokoloaren informazioa: callback URLak, timeout-ak, hash-ak.
 
 ---
 
-## Consent (DENAConsent)
+## Baimena (consentOid)
 
-Data-Retrieve eskaera bat babesten duen oinarri gaitzailearen (baimena/gaitzapen normatiboa) erreferentzia.
+Eskaeretan, operazioa babesten duen baimena bere OID-aren bidez erreferentziatzen da (`consentOid`). Ikus xehetasunak baimenaren orrian.
 
-[:octicons-arrow-right-24: DENAConsent ikusi](./modelo/consent.md)
+[:octicons-arrow-right-24: consentOid ikusi](./modelo/consent.md)
 
 ---
 
@@ -195,7 +203,7 @@ DENAren baimen-sistemaren printzipioak, bizi-zikloa eta APIa.
 
     ---
 
-    Oinarrizko mota: OID, timestamp-ak, edozein DENA objekturen URLa.
+    Oinarrizko mota: edozein DENA objekturen OID-a (eta espezializazioan ID-a).
 
     [:octicons-arrow-right-24: Eredua ikusi](./modelo/object-ref.md)
 
@@ -211,7 +219,7 @@ DENAren baimen-sistemaren printzipioak, bizi-zikloa eta APIa.
 
     ---
 
-    Administrazio baten erreferentzia (orgId, DIR3, OID...).
+    Administrazio baten erreferentzia (`oid`, `id`, `dir3Id`).
 
     [:octicons-arrow-right-24: Eredua ikusi](./modelo/org-admin-ref.md)
 
@@ -219,7 +227,7 @@ DENAren baimen-sistemaren printzipioak, bizi-zikloa eta APIa.
 
     ---
 
-    Erregistratutako pertsona baten erreferentzia (personId, OID...).
+    Erregistratutako pertsona baten erreferentzia (`oid`, `id`).
 
     [:octicons-arrow-right-24: Eredua ikusi](./modelo/person-ref.md)
 
@@ -235,7 +243,7 @@ DENAren baimen-sistemaren printzipioak, bizi-zikloa eta APIa.
 
     ---
 
-    FlowDirection, MessageType, RouteDataItem, PersonAndConsentGiven.
+    FlowDirection, MessageType, RouteDataItem.
 
     [:octicons-arrow-right-24: Eredua ikusi](./modelo/message-types.md)
 

@@ -22,30 +22,33 @@ public class RetrieveDataController {
         Map<String, Object> subjectPerson = (Map<String, Object>) context.get("subjectPerson");
         Map<String, Object> dataType = (Map<String, Object>) context.get("dataType");
 
-        String personId = (String) subjectPerson.get("personId");
-        String dataTypeId = (String) dataType.get("dataTypeId");
+        Map<String, Object> message = (Map<String, Object>) context.get("message");
+        String personId = (String) subjectPerson.get("id");
+        String dataTypeId = (String) dataType.get("id");
 
         // Buscar datos según tipo
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
-            case "RECORDS"     -> fetchRecords(personId);
-            case "NOTICES"     -> fetchNotices(personId);
-            case "REGISTER"    -> fetchRegistry(personId);
-            case "PAYMENTS"    -> fetchPayments(personId);
-            case "SCHEDULE"    -> fetchSchedule(personId);
-            case "PERSON_DATA" -> fetchPersonData(personId);
-            default            -> List.of();
+            case "administrativeServiceProcedureRecord"  -> fetchRecords(personId);
+            case "administrativeNotice"                  -> fetchNotices(personId);
+            case "administrativeOfficialRegisterRecord"  -> fetchRegistry(personId);
+            case "oneOffPayment"                         -> fetchPayments(personId);
+            case "scheduleItem"                          -> fetchSchedule(personId);
+            case "personData"                            -> fetchPersonData(personId);
+            default                                      -> List.of();
         };
 
         // Construir response
         Map<String, Object> response = Map.of(
             "context", Map.of(
-                "messageType", context.get("messageType"),
+                "message", Map.of(
+                    "type", message.get("type"),
+                    "correlationId", message.get("correlationId"),
+                    "interopRouteData", message.getOrDefault("interopRouteData", List.of())
+                ),
                 "dataType", dataType,
-                "messageCorrelationId", context.get("messageCorrelationId"),
-                "flowDirection", "RESPONSE",
                 "subjectPerson", subjectPerson
             ),
-            "data", Map.of("dataItems", dataItems),
+            "payload", Map.of("dataItems", dataItems),
             "code", "OK"
         );
 
@@ -90,31 +93,35 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
 {
     var request = await http.Request.ReadFromJsonAsync<JsonElement>();
     var context = request.GetProperty("context");
-    var personId = context.GetProperty("subjectPerson").GetProperty("personId").GetString();
-    var dataTypeId = context.GetProperty("dataType").GetProperty("dataTypeId").GetString();
+    var message = context.GetProperty("message");
+    var personId = context.GetProperty("subjectPerson").GetProperty("id").GetString();
+    var dataTypeId = context.GetProperty("dataType").GetProperty("id").GetString();
 
     var dataItems = dataTypeId switch
     {
-        "RECORDS"     => GetRecords(personId),
-        "NOTICES"     => GetNotices(personId),
-        "REGISTER"    => GetRegistry(personId),
-        "PAYMENTS"    => GetPayments(personId),
-        "SCHEDULE"    => GetSchedule(personId),
-        "PERSON_DATA" => GetPersonData(personId),
-        _             => new List<object>()
+        "administrativeServiceProcedureRecord"  => GetRecords(personId),
+        "administrativeNotice"                  => GetNotices(personId),
+        "administrativeOfficialRegisterRecord"  => GetRegistry(personId),
+        "oneOffPayment"                         => GetPayments(personId),
+        "scheduleItem"                          => GetSchedule(personId),
+        "personData"                            => GetPersonData(personId),
+        _                                       => new List<object>()
     };
 
     return Results.Ok(new
     {
         context = new
         {
-            messageType = context.GetProperty("messageType").GetString(),
-            dataType = new { dataTypeId },
-            messageCorrelationId = context.GetProperty("messageCorrelationId").GetString(),
-            flowDirection = "RESPONSE",
-            subjectPerson = new { personId }
+            message = new
+            {
+                type = message.GetProperty("type").GetString(),
+                correlationId = message.GetProperty("correlationId").GetString(),
+                interopRouteData = new List<object>()
+            },
+            dataType = new { id = dataTypeId },
+            subjectPerson = new { id = personId }
         },
-        data = new { dataItems },
+        payload = new { dataItems },
         code = "OK"
     });
 });
@@ -136,29 +143,32 @@ app = FastAPI()
 @app.post("/api/retrieveData")
 async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
     context = request["context"]
-    person_id = context["subjectPerson"]["personId"]
-    data_type_id = context["dataType"]["dataTypeId"]
+    message = context["message"]
+    person_id = context["subjectPerson"]["id"]
+    data_type_id = context["dataType"]["id"]
 
     fetchers = {
-        "RECORDS": fetch_records,
-        "NOTICES": fetch_notices,
-        "REGISTER": fetch_registry,
-        "PAYMENTS": fetch_payments,
-        "SCHEDULE": fetch_schedule,
-        "PERSON_DATA": fetch_person_data,
+        "administrativeServiceProcedureRecord": fetch_records,
+        "administrativeNotice": fetch_notices,
+        "administrativeOfficialRegisterRecord": fetch_registry,
+        "oneOffPayment": fetch_payments,
+        "scheduleItem": fetch_schedule,
+        "personData": fetch_person_data,
     }
 
     data_items = fetchers.get(data_type_id, lambda _: [])(person_id)
 
     return {
         "context": {
-            "messageType": context.get("messageType"),
-            "dataType": {"dataTypeId": data_type_id},
-            "messageCorrelationId": context.get("messageCorrelationId"),
-            "flowDirection": "RESPONSE",
-            "subjectPerson": {"personId": person_id},
+            "message": {
+                "type": message.get("type"),
+                "correlationId": message.get("correlationId"),
+                "interopRouteData": message.get("interopRouteData", []),
+            },
+            "dataType": {"id": data_type_id},
+            "subjectPerson": {"id": person_id},
         },
-        "data": {"dataItems": data_items},
+        "payload": {"dataItems": data_items},
         "code": "OK",
     }
 
@@ -197,29 +207,32 @@ app.use(express.json());
 
 app.post('/api/retrieveData', (req, res) => {
   const { context } = req.body;
-  const personId = context.subjectPerson.personId;
-  const dataTypeId = context.dataType.dataTypeId;
+  const { message } = context;
+  const personId = context.subjectPerson.id;
+  const dataTypeId = context.dataType.id;
 
   const fetchers = {
-    RECORDS: fetchRecords,
-    NOTICES: fetchNotices,
-    REGISTER: fetchRegistry,
-    PAYMENTS: fetchPayments,
-    SCHEDULE: fetchSchedule,
-    PERSON_DATA: fetchPersonData,
+    administrativeServiceProcedureRecord: fetchRecords,
+    administrativeNotice: fetchNotices,
+    administrativeOfficialRegisterRecord: fetchRegistry,
+    oneOffPayment: fetchPayments,
+    scheduleItem: fetchSchedule,
+    personData: fetchPersonData,
   };
 
   const dataItems = (fetchers[dataTypeId] || (() => []))(personId);
 
   res.json({
     context: {
-      messageType: context.messageType,
-      dataType: { dataTypeId },
-      messageCorrelationId: context.messageCorrelationId,
-      flowDirection: 'RESPONSE',
-      subjectPerson: { personId },
+      message: {
+        type: message.type,
+        correlationId: message.correlationId,
+        interopRouteData: message.interopRouteData || [],
+      },
+      dataType: { id: dataTypeId },
+      subjectPerson: { id: personId },
     },
-    data: { dataItems },
+    payload: { dataItems },
     code: 'OK',
   });
 });
@@ -262,28 +275,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/api/retrieveData', function (Request $request) {
     $context = $request->input('context');
-    $personId = $context['subjectPerson']['personId'];
-    $dataTypeId = $context['dataType']['dataTypeId'];
+    $message = $context['message'];
+    $personId = $context['subjectPerson']['id'];
+    $dataTypeId = $context['dataType']['id'];
 
     $dataItems = match ($dataTypeId) {
-        'RECORDS'     => fetchRecords($personId),
-        'NOTICES'     => fetchNotices($personId),
-        'REGISTER'    => fetchRegistry($personId),
-        'PAYMENTS'    => fetchPayments($personId),
-        'SCHEDULE'    => fetchSchedule($personId),
-        'PERSON_DATA' => fetchPersonData($personId),
-        default       => [],
+        'administrativeServiceProcedureRecord'  => fetchRecords($personId),
+        'administrativeNotice'                  => fetchNotices($personId),
+        'administrativeOfficialRegisterRecord'  => fetchRegistry($personId),
+        'oneOffPayment'                         => fetchPayments($personId),
+        'scheduleItem'                          => fetchSchedule($personId),
+        'personData'                            => fetchPersonData($personId),
+        default                                 => [],
     };
 
     return response()->json([
         'context' => [
-            'messageType' => $context['messageType'],
-            'dataType' => ['dataTypeId' => $dataTypeId],
-            'messageCorrelationId' => $context['messageCorrelationId'],
-            'flowDirection' => 'RESPONSE',
-            'subjectPerson' => ['personId' => $personId],
+            'message' => [
+                'type' => $message['type'],
+                'correlationId' => $message['correlationId'],
+                'interopRouteData' => $message['interopRouteData'] ?? [],
+            ],
+            'dataType' => ['id' => $dataTypeId],
+            'subjectPerson' => ['id' => $personId],
         ],
-        'data' => ['dataItems' => $dataItems],
+        'payload' => ['dataItems' => $dataItems],
         'code' => 'OK',
     ]);
 });
@@ -321,15 +337,17 @@ The error response must follow this structure:
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
-  "details": { "details": "Persona no encontrada en el sistema" }
+  "details": { "details": "Person not found in the system" }
 }
 ```
 
@@ -341,10 +359,11 @@ public ResponseEntity<Map<String, Object>> handleNotFound(PersonNotFoundExceptio
                                                           HttpServletRequest request) {
     Map<String, Object> response = Map.of(
         "context", Map.of(
-            "messageType", "PERSON_FETCH_DATA",
-            "flowDirection", "RESPONSE"
+            "message", Map.of(
+                "type", "PERSON_FETCH_DATA"
+            )
         ),
-        "data", (Object) null,  // null explícito
+        "payload", (Object) null,  // explicit null
         "code", "CLIENT_ERR",
         "errorId", "PERSON_NOT_FOUND",
         "details", Map.of("details", ex.getMessage())
@@ -364,8 +383,8 @@ async def handle_error(request, exc):
     return JSONResponse(
         status_code=exc.status_code,
         content={
-            "context": {"messageType": "PERSON_FETCH_DATA", "flowDirection": "RESPONSE"},
-            "data": None,
+            "context": {"message": {"type": "PERSON_FETCH_DATA"}},
+            "payload": None,
             "code": "CLIENT_ERR" if exc.status_code < 500 else "SERVER_ERR",
             "errorId": "PERSON_NOT_FOUND" if exc.status_code == 404 else "INTERNAL_ERROR",
             "details": {"details": exc.detail},
@@ -379,8 +398,8 @@ async def handle_error(request, exc):
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   res.status(statusCode).json({
-    context: { messageType: 'PERSON_FETCH_DATA', flowDirection: 'RESPONSE' },
-    data: null,
+    context: { message: { type: 'PERSON_FETCH_DATA' } },
+    payload: null,
     code: statusCode < 500 ? 'CLIENT_ERR' : 'SERVER_ERR',
     errorId: err.errorId || 'INTERNAL_ERROR',
     details: { details: err.message },

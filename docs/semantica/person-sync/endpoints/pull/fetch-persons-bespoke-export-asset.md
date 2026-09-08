@@ -18,20 +18,24 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 ```json
 {
     "context": {
-        "interopRouteData": [
-            {
-                "denaComponentId": "DENA_POSTMAN",
-                "timestamp":"2026-06-11T14:55:01.7520000Z"
-            }
-        ],
-        "messageCorrelationId": "aa645a6e-66a0-4c02-a00f-81d484a4296a",
-        "messageType": "FETCH_BESPOKE_EXPORT_ASSET",
-        "flowDirection": "REQUEST",
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-        "originPartyId": "ADMIN-001",
-        "destinationPartyId": "DENA_INTEROP"
+        "message": {
+            "type": "ADMIN_PERSON_BESPOKE_EXPORT_ASSET_FETCH",
+            "correlationId": "aa645a6e-66a0-4c02-a00f-81d484a4296a",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_POSTMAN",
+                    "timestamp":"2026-06-11T14:55:01.7520000Z"
+                }
+            ]
+        },
+        "originAdmin": {
+            "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+            "id": "admin-A414",
+            "dir3Id": "EA0000001"
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
     },
-    "data": {
+    "payload": {
         "jobOid": "F74724F6-65F6-4E01-B215-AB8CDA3FC42B"
     }
 }
@@ -39,11 +43,11 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_BESPOKE_EXPORT_ASSET` |
-| `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo `message.type` con valor `ADMIN_PERSON_BESPOKE_EXPORT_ASSET_FETCH` |
+| `payload` | [Payload](#payload)                            | ✅          | Payload de la petición |
 
 
-## Data
+## Payload
 
 | Campo    | Tipo     | Obligatorio | Descripción |
 |----------|----------|-------------|-------------|

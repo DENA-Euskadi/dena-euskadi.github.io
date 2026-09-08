@@ -1,21 +1,19 @@
-# :material-shield-check: DENAConsent
+# :material-shield-check: Baimena (consentOid)
 
 ## Deskribapena
 
-Elkarreragingarritasun-eskaera bat babesten duen **oinarri gaitzailearen** (baimena edo gaitzapen normatiboa) erreferentzia duen objektua.
+Eskaera baten oinarri den baimena (edo oinarri gaitzailea) bere **OID**aren bidez erreferentziatzen da. Kode-ereduan, baimena `consentOid` eremu bakar gisa (`DN00ConsentOID` mota) transmititzen da eskaeren oinarrian (`DN00InteropRequestMessageBase`).
 
-!!! warning "Data-Retrieve soilik"
-    `consent` blokea **datuen berreskuratze** (Data-Retrieve) mezuetan soilik dago. Administrazioari pertsonaren datuen trukea ahalbidetzen duen oinarri bat existitzen dela egiaztatzea ahalbidetzen dio.
+!!! info "Eskaera guztietan present"
+    `consentOid` elkarreragingarritasun-eskaeren oinarriaren parte da, ez soilik Data-Retrieve-rena. Bere presentzia eraginkorra eragiketak oinarri gaitzailea behar duen ala ez arabera dago.
 
 ---
 
-## JSON Atributuak
+## JSON atributuak
 
-| Eremua | Mota | Derrigorrezkoa | Deskribapena |
+| Eremua | Mota | Beharrezkoa | Deskribapena |
 |---|---|:---:|---|
-| `consentOid` | `OID` | :material-check: | Biltegi komuneko baimenaren identifikatzaile bakarra |
-| `consentURL` | `URL` | :material-close: | Hartzaileak baimenaren xehetasunak aurkitu eta deskargatu ditzakeen URLa |
-| `consentData` | `Object` | :material-close: | Baimenaren zenbait xehetasun (noiz eman zen, zein bitartekoaren bidez, noiz arte, etab.) |
+| `consentOid` | `OID` (`DN00ConsentOID`) | :material-close: | Baimenaren identifikatzaile bakarra baimenen biltegian |
 
 ---
 
@@ -23,36 +21,17 @@ Elkarreragingarritasun-eskaera bat babesten duen **oinarri gaitzailearen** (baim
 
 ```json
 {
-  "consent": {
-    "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentURL": "https://interop.api.dena.eus/consent/db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb",
-    "consentData": {
-      "grantedAt": "2025-06-15T10:30:00.000Z",
-      "expiresAt": "2026-06-15T10:30:00.000Z",
-      "grantedVia": "DENA_APP_ENROLLMENT"
-    }
-  }
+  "consentOid": "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
 }
 ```
 
 ---
 
-## Administrazioaren egiaztapena
+## Egiaztapena
 
-Administrazioak, edozein unetan, `consentURL` atzitu dezake:
+Uneko ereduak baimenaren OIDa soilik garraiatzen du. Baimenaren xehetasuna (noiz eman zen, indarraldia, etab.) DENAren baimenen biltegian kudeatzen da; biltegi horren kontsulta-APIa definitzeke dago.
 
-1. Baimenaren xehetasun guztiak deskargatzeko
-2. Biltegi komunak jaulkitako **sinaturiko justifikantea** lortzeko
-3. Baimena oraindik indarrean dagoela egiaztatzeko
-
-!!! tip "Aukerako egiaztapena"
-    DENA-CORE-k dagoeneko oinarri gaitzailearen existentzia egiaztatzen du eskaera bidali aurretik. Administrazioak mekanismo honetan konfiantza izan dezake edo, beharrezkotzat jotzen badu, gehigarri egiaztatu.
-
----
-
-## Baimenaren bizi-zikloarekin erlazioa
-
-DENAn baimenak nola kudeatzen diren xehetasun gehiagorako, ikusi: [:octicons-arrow-right-24: Baimenak](../consentimientos.md)
+Baimenaren bizi-zikloari buruzko testuinguru gehiagorako, ikus: [:octicons-arrow-right-24: Baimenak](../consentimientos.md)
 
 <!-- DENA-DOC-FOOTER -->
 ---

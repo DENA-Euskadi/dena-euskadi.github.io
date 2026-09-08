@@ -11,7 +11,7 @@ El modelo **PersonData** (`DN00PersonData`) representa los datos de una persona 
 
 Extiende `DN00DENADataExchangedObjectBase` (es un objeto intercambiado principal del modelo DATA-RETRIEVE).
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

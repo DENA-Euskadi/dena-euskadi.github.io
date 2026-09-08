@@ -18,20 +18,24 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 ```json
 {
     "context": {
-        "interopRouteData": [
-            {
-                "denaComponentId": "DENA_POSTMAN",
-                "timestamp":"2026-06-10T15:37:57.5530000Z"
-            }
-        ],
-        "messageCorrelationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
-        "messageType": "FETCH_PREGEN_EXPORT_ASSET",
-        "flowDirection": "REQUEST",
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
-        "originPartyId": "ADMIN-001",
-        "destinationPartyId": "DENA_INTEROP"
+        "message": {
+            "type": "ADMIN_PERSON_PREGEN_EXPORT_ASSET_FETCH",
+            "correlationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_POSTMAN",
+                    "timestamp":"2026-06-10T15:37:57.5530000Z"
+                }
+            ]
+        },
+        "originAdmin": {
+            "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+            "id": "admin-A414",
+            "dir3Id": "EA0000001"
+        },
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36"
     },
-    "data": {
+    "payload": {
         "jobType": "ALL_PERSONS",
         "exportType": "SYNC",
         "fileFormat": "CSV",
@@ -42,11 +46,11 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 
 | Campo     | Tipo                                           | Obligatorio | Descripción |
 |-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo messageType con valor `FETCH_PREGEN_EXPORT_ASSET` |
-| `data`    | [Data](#data)                                  | ✅          | Payload de la petición |
+| `context` | [Context](../../../semantica-base/index.md)          | ✅          | Objeto de contexto de la petición, incluyendo `message.type` con valor `ADMIN_PERSON_PREGEN_EXPORT_ASSET_FETCH` |
+| `payload` | [Payload](#payload)                            | ✅          | Payload de la petición |
 
 
-## Data
+## Payload
 
 | Campo        | Tipo     | Obligatorio | Descripción |
 |--------------|----------|-------------|-------------|

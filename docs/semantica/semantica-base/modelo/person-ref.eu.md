@@ -1,54 +1,36 @@
-# :material-account: PersonRef (DenaPersonRef)
+# :material-account: PersonRef
 
 ## Deskribapena
 
-[DenaObjectRef](./object-ref.md)-ren espezializazioa, DENAn erregistratutako **pertsona** bati buruzko gutxieneko datuekin.
+DENAn erregistratutako **pertsona** baten erreferentzia. [DenaObjectRef](./object-ref.md)-en espezializazioa da (zehazki `DN00DENAObjectWithIDRefBase`-rena), beraz `oid` eta `id` eremuak heredatzen ditu eta ez du eremu propiorik gehitzen.
 
-!!! info "Gutxienez bat derrigorrezkoa"
-    `personId` **edo** `objectOid` sartu behar da (edo biak). Biak sartzen badira, `objectOid`-ek lehentasuna du.
+Klasea: `DN00PersonRef` (`@MarshallType(as="personRef")`).
+
+!!! info "Gutxienez bat nahitaezkoa"
+    `id` **edo** `oid` sartu behar da (edo biak). Biak sartzen badira, `oid`-ek du lehentasuna.
 
 ---
 
-## JSON Atributuak
+## JSON atributuak
 
-| Eremua | Mota | Derrigorrezkoa | Deskribapena |
+| Eremua | Mota | Nahitaezkoa | Deskribapena |
 |---|---|:---:|---|
-| `personId` | `ID` | :material-close:* | Pertsonaren identifikatzaile administratiboa (NAN / IFK / AIZ / Pasaportea) |
-| `objectOid` | `OID` | :material-close:* | DENAren pertsona-moduluko objektuaren identifikatzaile bakarra |
-| `createTS` | `TimeStamp` | :material-close: | Objektua DENAn sortu zen unea |
-| `lastUpdateTS` | `TimeStamp` | :material-close: | Azken aldaketaren unea |
-| `deleteTS` | `TimeStamp` | :material-close: | Objektua ezabatu zen unea (aplikagarria bada) |
-| `url` | `URL` | :material-close: | Pertsonaren datu osoen URLa (baimena behar du) |
+| `oid` | `OID` | :material-close:* | Pertsonaren identifikatzaile bakarra DENAren pertsonen moduluan |
+| `id` | `ID` | :material-close:* | Pertsonaren identifikatzaile administratiboa (NAN / NIF / NIE / Pasaportea) |
+
+!!! note "* Gutxienez bat"
+    `oid` edo `id`-etako bat gutxienez sartu behar da.
 
 ---
 
-## Adibide osoa
+## Adibidea
 
 ```json
 {
-  "personId": "12345678A",
-  "objectOid": "6AE83A0C-2202-4666-9857-3334C14663A2",
-  "createTS": 1670374400,
-  "lastUpdateTS": 1680500000,
-  "deleteTS": null,
-  "url": "https://interop.api.dena.eus/persons/6AE83A0C-2202-4666-9857-3334C14663A2"
+  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2",
+  "id": "12345678A"
 }
 ```
-
----
-
-## Erabilera sinplifikatua
-
-Mezu gehienetarako, formatu murriztua nahikoa da:
-
-```json
-{
-  "id": "12345678A",
-  "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
-}
-```
-
-non `id` → `personId` eta `oid` → `objectOid`.
 
 <!-- DENA-DOC-FOOTER -->
 ---

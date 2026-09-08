@@ -13,29 +13,28 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 ## Request
 
-> Clases Java: [`DN00PersonFetchInteropRequest`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/request/DN00PersonFetchInteropRequest.java) · [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java)
+> Clase Java del contexto: [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java)
 
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "originPartyId": "DENA-CORE",
-    "destinationPartyId": "ADMIN-001",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001", "dir3Code": "EA0000001" },
-    "interopRouteData": [
-      { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-    ]
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": [
+        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
+      ]
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
+    "originClientInstallment": "CLIENT-INSTALLMENT-OID-001",
+    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001", "dir3Id": "EA0000001" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
   },
-  "consentOid": "CONSENT-OID-2024-001",
   "protocol": {
     "urls": [],
     "timeOut": "30s"
   },
-  "data": {
+  "payload": {
     "person": "PERSON-OID-001"
   }
 }
@@ -43,38 +42,41 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 | Campo | Obligatorio | Descripción |
 |-------|:-----------:|-------------|
-| `context.messageType` | ✅ | Tipo de mensaje (`PERSON_FETCH_DATA`). Ver [`DN00InteropMessageType`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropMessageType.java) |
-| `context.dataType.dataTypeId` | ✅ | Tipo de dato: `RECORDS`, `NOTICES`, `REGISTRY`, `PAYMENTS`, `SCHEDULE`. Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.messageCorrelationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.flowDirection` | ✅ | Dirección del flujo: `REQUEST`. Ver [`DN00InteropFlowDirection`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropFlowDirection.java) |
-| `context.originPartyId` | ❌ | Identificador del origen (ej: `DENA-CORE`). Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.destinationPartyId` | ❌ | Identificador del destino (ej: `ADMIN-001`). Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.personId` | ✅ | DNI/NIE/NIF de la persona. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration.administrationId` | ❌ | Identificador de la administración. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.administration.dir3Code` | ❌ | Código DIR3. Ver [`DN00InteropContext`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00InteropContext.java) |
-| `context.interopRouteData` | ❌ | Traza de componentes DENA. Ver [`DN00IteropRouteDataItem`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/context/DN00IteropRouteDataItem.java) |
-| `consentOid` | ❌ | OID del consentimiento otorgado. Ver [`DN00InteropMessageBase`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropMessageBase.java) |
-| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/protocol/DN00InteropProtocol.java) |
-| `data` | ✅ | Payload de la petición |
+| `context.message.type` | ✅ | Tipo de mensaje (`PERSON_FETCH_DATA`). Ver [`DN00InteropMessageType`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageType.java) |
+| `context.message.correlationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
+| `context.message.interopRouteData` | ❌ | Traza de componentes DENA. Ver [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
+| `context.dataType.id` | ✅ | Tipo de dato (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.dataType.oid` | ❌ | OID del tipo de dato (DataTypeRef). Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.originClientInstallment` | ❌ | OID de la instalación cliente de origen (cuando el mensaje lo envía un dispositivo cliente). Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin.oid` | ❌ | OID de la administración de destino (OrgAdminRef). Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin.id` | ❌ | Identificador de la administración de destino. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.destinationAdmin.dir3Id` | ❌ | Código DIR3 de la administración de destino. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.id` | ✅ | DNI/NIE/NIF de la persona (PersonRef). Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson.oid` | ❌ | OID de la persona. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
+| `protocol.timeOut` | ❌ | Timeout (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
+| `payload` | ✅ | Payload de la petición |
+
+> La dirección del flujo (`REQUEST`/`RESPONSE`) es un valor derivado del tipo de mensaje y no se serializa en el JSON. Ver [`DN00InteropFlowDirection`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropFlowDirection.java)
 
 ---
 
 ## Response exitosa (HTTP 200)
 
-> Clases Java: [`DN00PersonFetchInteropResponse`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchInteropResponse.java) · [`DN00PersonFetchData`]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/person/client/fetch/response/DN00PersonFetchData.java)
+> Estado de la respuesta: `code` (`DN00InteropResponseStatus`), `errorId` y `details`. Ver [Status](../semantica-base/modelo/status.md)
 
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" },
-    "administration": { "administrationId": "ADMIN-001" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" },
+    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [
       {
         "type": "administrativeServiceProcedureRecord",
@@ -114,13 +116,14 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
   },
-  "data": { "dataItems": [] },
+  "payload": { "dataItems": [] },
   "code": "OK"
 }
 ```
@@ -130,12 +133,13 @@ Authorization: Bearer <token> (si OAuth está configurado)
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
   },
-  "data": null,
+  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }
@@ -155,7 +159,7 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 ## Tipos de objeto en `dataItems`
 
-Cada elemento del array `dataItems` es un objeto que hereda los [campos comunes](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`) y añade campos específicos según su tipo:
+Cada elemento del array `dataItems` es un objeto que hereda los [campos comunes](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) y añade campos específicos según su tipo:
 
 | `type` | Objeto | Documentación |
 |--------|--------|---------------|
@@ -307,8 +311,8 @@ El token se obtiene automáticamente mediante client credentials.
 ## Requisitos para la administración
 
 1. Exponer un endpoint `POST` que acepte y devuelva `application/json`
-2. Interpretar `context.subjectPerson.personId` para identificar a la persona
-3. Interpretar `context.dataType.dataTypeId` para filtrar el tipo de datos
+2. Interpretar `context.subjectPerson.id` para identificar a la persona
+3. Interpretar `context.dataType.id` para filtrar el tipo de datos
 4. Devolver los objetos en el formato del modelo semántico
 5. Incluir textos multiidioma (castellano y euskera como mínimo)
 6. Incluir URLs de acceso a la sede electrónica cuando sea posible
@@ -323,7 +327,7 @@ El token se obtiene automáticamente mediante client credentials.
 
 | Documento | Contenido |
 |-----------|----------|
-| [campos-comunes.md](./data/campos-comunes.md) | Campos heredados por todos los objetos (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`) |
+| [campos-comunes.md](./data/campos-comunes.md) | Campos heredados por todos los objetos (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) |
 | [expediente.md](./data/expediente.md) | Expediente administrativo |
 | [notificacion.md](./data/notificacion.md) | Notificación / comunicación |
 | [registro-oficial.md](./data/registro-oficial.md) | Asiento registral |

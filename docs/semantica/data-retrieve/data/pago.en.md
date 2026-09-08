@@ -14,7 +14,7 @@ Represents a payment obligation associated with a record. Two modalities:
 - **One-off payment** (`oneOffPayment`) — One-time settlement (fee, public price, penalty)
 - **Direct debit** (`directDebitPayment`) — Recurring periodic charge
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---

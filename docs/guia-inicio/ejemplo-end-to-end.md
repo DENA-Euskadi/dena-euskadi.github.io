@@ -111,7 +111,7 @@ curl -s -X POST "${DENA_URL}/srmd/" \
 
 DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint debe:
 
-1. Recibir un `POST` con el `personId` y `dataTypeId`
+1. Recibir un `POST` con el id de la persona (`subjectPerson.id`) y el tipo de dato (`dataType.id`)
 2. Consultar tu base de datos
 3. Devolver los datos en formato DENA
 
@@ -120,13 +120,15 @@ DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "REQUEST",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": {}
+  "payload": {}
 }
 ```
 
@@ -135,13 +137,15 @@ DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint
 ```json
 {
   "context": {
-    "messageType": "PERSON_FETCH_DATA",
-    "dataType": { "dataTypeId": "RECORDS" },
-    "messageCorrelationId": "550e8400-e29b-41d4-a716-446655440000",
-    "flowDirection": "RESPONSE",
-    "subjectPerson": { "personId": "12345678A" }
+    "message": {
+      "type": "PERSON_FETCH_DATA",
+      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
+      "interopRouteData": []
+    },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
-  "data": {
+  "payload": {
     "dataItems": [
       {
         "oid": "EXP-2026-001",
@@ -192,13 +196,15 @@ curl -s -X POST http://localhost:8080/api/retrieveData \
   -H "Accept: application/json" \
   -d '{
     "context": {
-      "messageType": "PERSON_FETCH_DATA",
-      "dataType": { "dataTypeId": "RECORDS" },
-      "messageCorrelationId": "test-001",
-      "flowDirection": "REQUEST",
-      "subjectPerson": { "personId": "12345678A" }
+      "message": {
+        "type": "PERSON_FETCH_DATA",
+        "correlationId": "test-001",
+        "interopRouteData": []
+      },
+      "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+      "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
     },
-    "data": {}
+    "payload": {}
   }' | jq .
 ```
 
@@ -208,8 +214,7 @@ curl -s -X POST http://localhost:8080/api/retrieveData \
 - [ ] `dataItems` es un array (vacio si no hay datos)
 - [ ] Cada item tiene `oid`, `id`, `lastChangedAt`
 - [ ] Textos incluyen `SPANISH` y `BASQUE`
-- [ ] `messageCorrelationId` de la request se mantiene en la response
-- [ ] `flowDirection` es `RESPONSE`
+- [ ] `context.message.correlationId` de la request se mantiene en la response
 - [ ] URLs de sede electronica incluidas por idioma
 - [ ] Tiempo de respuesta < 30 segundos
 

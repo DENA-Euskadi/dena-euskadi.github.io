@@ -9,7 +9,7 @@
 
 Zerbitzu eta prozedura bati lotutako administrazio-espediente bat adierazten du. Ereduaren objektu nagusia da: jakinarazpenak, erregistroak eta ordainketak haren mende daude.
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
