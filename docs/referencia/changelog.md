@@ -4,7 +4,7 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.5.1 <small>— 2026-08-27</small> { #v051 }
+## v0.5.1 <small>— 2026-09-08</small> { #v051 }
 
 !!! success "Actual"
 
