@@ -19,6 +19,12 @@ Definition of technical and functional terms used in the DENA documentation.
 `client_credentials`
 :   OAuth2 flow where a service authenticates with its `client_id` and `client_secret` to obtain a token. No user intervention required.
 
+`Cold-Start`
+:   Problem that occurs when a person registers in DENA for the first time and no SRMD exists because the administrations do not yet know about them. DENA-CORE inserts initial SRMD for key admins/data types so the app shows content from the first moment.
+
+`Connector`
+:   Independent module in the DENA architecture that mediates between DENA-CORE and an administration. It has an internal side (standard DENA semantics) and an external side (admin's semantics). If the admin uses the standard format, the connector is transparent; otherwise, it translates between both formats.
+
 `consentOid`
 :   Unique identifier of the consent granted by a person for access to their data.
 
@@ -28,6 +34,9 @@ Definition of technical and functional terms used in the DENA documentation.
 ---
 
 ## D
+
+`Data Origin Instance`
+:   Additional routing identifier used when an administration has multiple data origins for the same data type (e.g.: multiple record management systems). Allows DENA-CORE to route the request to the correct connector.
 
 `Data-Retrieve`
 :   Mechanism through which DENA requests data about a person from an administration.
@@ -39,7 +48,13 @@ Definition of technical and functional terms used in the DENA documentation.
 :   Reference object to a DENA data type (record, notification, payment...).
 
 `DENA`
-:   Interoperability platform of the Basque Government that facilitates citizen access to administration data.
+:   Interoperability platform of the Basque Government that facilitates people's access to administration data.
+
+`DENA-APP`
+:   Mobile and web application used by people to access their data. It communicates with DENA-CORE to sync SRMD and retrieve data from administrations.
+
+`DENA-CORE`
+:   Central system of the DENA platform that mediates between the app (DENA-APP) and the administrations. It manages authentication, connectors, SRMD storage and Data-Retrieve request orchestration.
 
 `DIR3`
 :   Common Directory of Organizational Units and Offices. Official catalogue of the Spanish Central Administration that uniquely identifies each administrative unit.
@@ -160,6 +175,9 @@ Definition of technical and functional terms used in the DENA documentation.
 
 `SIA`
 :   Administrative Information System. Official catalogue of procedures and services of the Spanish Central Administration.
+
+`SRMD`
+:   *Sync and Retrieve Meta-Data*. Notifications that an administration periodically sends to DENA-CORE indicating that there is new or updated data for certain people. They contain: person + data type + admin + last update timestamp. They do not contain the data itself, only the notification that a change occurred.
 
 `subjectPerson`
 :   Interop context field that identifies the person about whom data is requested or sent.

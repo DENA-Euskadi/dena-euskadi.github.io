@@ -4,9 +4,31 @@ DENA dokumentazioaren bertsio-historia.
 
 ---
 
-## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
+## v0.4.0 <small>— 2026-08-24</small> { #v040 }
 
 !!! success "Unekoa"
+
+**Semantika BASE v2.0 dokumentuaren integrazioa:**
+
+- :material-plus: HTTP Goiburuak: request/response goiburuak, API bertsio-kontrola, segurtasun digest-ak
+- :material-plus: Baimenak: printzipioak, arau-esparrua (DBEO), bizi-zikloa, formatua eta APIa
+- :material-plus: DenaObjectRef: oinarrizko mota OID, timestamp eta URLarekin
+- :material-plus: DENAProtocol: callback URLak, timeout-ak, HATEOAS
+- :material-plus: DENAConsent: Data-Retrieve mezuetako oinarri gaitzailearen erreferentzia
+- :material-plus: Status: erantzun-kodeak, DENAClientErrDetails, DENAServerErrDetails, DENAAsyncQueueData
+- :material-plus: Mezu Motak: DenaFlowDirection, DenaMessageType, DenaInteropRouteDataItem, DenaPersonAndConsentGiven
+- :material-plus: UserAgent: formatua jatorriaren arabera (app mugikorra, web, CORE, administrazioa)
+- :material-plus: Sync Motak: DenaInteroperableDataTypeSync, DenaPersonDataSync, DenaPersonMetaDataSyncItem
+- :material-refresh: OrgAdminRef hedatua orgId, officialId, objectOid, timestamp, url, egitura organizatiboarekin
+- :material-refresh: PersonRef hedatua personId, objectOid, timestamp, url-rekin
+- :material-refresh: tipos-dato-base: Hash (SHA-256) eta UserAgent gehituta
+- :material-refresh: semantica-base/index: mezuaren egitura osoa (context, protocol, consent, status, data)
+- :material-refresh: mkdocs.yml: nabigazioa orrialde berriekin eguneratuta
+- :material-translate: EN eta EU itzulpenak orrialde berri eta eguneratu guztietarako (76/76)
+
+---
+
+## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
 
 **Dokumentazio-hobekuntzak:**
 

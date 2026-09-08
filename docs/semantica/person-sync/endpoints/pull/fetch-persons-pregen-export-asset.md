@@ -58,7 +58,7 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
 
 ## Response exitosa (HTTP 200)
 
-Datos binaros del fichero de exportación de usuario en el formato solicitado
+Datos binaros del fichero de exportacion de personas en el formato solicitado
 
 ## Response de error (HTTP 4xx/5xx)
 

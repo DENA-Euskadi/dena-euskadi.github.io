@@ -166,7 +166,7 @@ Todos los objetos devueltos deben incluir como mínimo:
 ```json
 {
   "oid": "TU-OID-UNICO-001",
-  "id": "NUMERO-VISIBLE-PARA-CIUDADANO",
+  "id": "NUMERO-VISIBLE-PARA-PERSONA",
   "urls": [
     { "url": "https://sede.tuadmin.eus/...", "language": "SPANISH", "tags": ["default"] },
     { "url": "https://egoitza.tuadmin.eus/...", "language": "BASQUE", "tags": ["default"] }

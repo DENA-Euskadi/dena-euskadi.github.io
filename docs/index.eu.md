@@ -3,179 +3,144 @@ hide:
   - toc
 ---
 
-# DENA Interop — Administrazioentzako Dokumentazioa
+# :material-swap-horizontal-bold: Zer da DENA?
+
+**DENA** Eusko Jaurlaritzaren elkarreragingarritasun-plataforma da, herritarrei aplikazio bakar batetik (mugikorra edo weba) administrazio publiko ezberdinek haiei buruz kudeatzen dituzten datuetara sartzeko aukera ematen diena.
+
+Dokumentazio hau DENArekin integratzen diren **administrazio publikoei** zuzenduta dago, beren datuak erakusteko.
+
+---
+
+## Konpontzen duen arazoa
+
+Gaur egun, pertsona batek hainbat administraziotan dauka datuak sakabanatuta: espedienteak Eusko Jaurlaritzan, hitzorduak bere udaletxean, jakinarazpenak foru aldundian... Haiek kontsultatzeko, bakoitzaren webgunera joan behar du banan-banan.
+
+DENAk marruskadura hori ezabatzen du: **aplikazio bakarra, datu guztiak, administrazio guztietatik**.
+
+![DENA High Level](./adjuntos/imagenes/arquitectura/dena-high-level-overview.png)
+
+---
+
+## Funtsezko kontzeptuak
+
+| Kontzeptua | Zer den |
+|------------|---------|
+| **Pertsona** | DENAn inskribatutako pertsona (NANaz identifikatua) |
+| **Administrazioa (admin)** | Zure erakundea: udala, foru aldundia, Eusko Jaurlaritza... datuak erakusten dituena |
+| **DENA-APP** | Pertsonak bere datuak ikusteko erabiltzen duen mugikor/web aplikazioa |
+| **DENA-CORE** | Aplikazioaren eta administrazioen arteko bitartekari den sistema zentrala |
+| **Datu mota** | Informazio-kategoria bat: espedienteak, hitzorduak, jakinarazpenak, ordainketak... |
+| **SRMD** | *Sync and Retrieve Meta-Data*: zure administrazioak DENAri bidaltzen dizkion "aldaketak daude" abisua |
+| **Konektorea** | DENAn zure sistemarekin nola hitz egin dakien osagaia |
+
+![DENA Concepts](./adjuntos/imagenes/arquitectura/dena-concepts-summary.png)
+
+Diagramak kontzeptuen arteko harremana erakusten du:
+
+- **[Pertsonak]** bere **[gailu klientean]** instalatutako **DENA-APP** erabiltzen du (instalazio bat baino gehiago izan ditzake)
+- DENA-APPek **DENA-CORE**rekin komunikatzen da SRMD sinkronizatzeko eta datuak berreskuratzeko
+- **[Administrazioek]** **[datu-jatorriak]** dituzte, **[datu-hornitzaileak]** erakusten dituztenak
+- DENA-COREk **[admin konektoreak]** erabiltzen ditu admin bakoitzaren datu-hornitzaileekin hitz egiteko
+- Administrazioek **SRMD** (aldaketa-abisuak) bidaltzen dizkiote DENA-COREri **[admin SRMD hartzailearen]** bidez
+- DENA-APPek bere SRMD kopia lokala DENA-CORErekin sinkronizatzen du **[client SRMD sync]** bidez
+
+---
+
+## Nola funtzionatzen du
+
+Aktoreak eta haien harremanak ezagututa, hau da zure administrazioaren, DENAren eta pertsonaren artean egunerokoan gertatzen denaren fluxu sinplifikatua:
+
+``` mermaid
+sequenceDiagram
+    participant A as Zure Administrazioa
+    participant D as DENA-CORE
+    participant P as Pertsona (DENA App)
+
+    Note over A,D: 1. Zure administrazioak aldaketak jakinarazten ditu
+    A->>D: "X pertsonarentzat datu berriak daude"
+
+    Note over P,D: 2. Pertsonak aplikazioa irekitzen du
+    P->>D: Berrikuntzarik niretzat?
+    D-->>P: Bai, zure administrazioan datu berriak daude
+
+    Note over D,A: 3. DENAk datuak berreskuratzen ditu
+    D->>A: Eman X pertsonaren datuak
+    A-->>D: Hemen daude
+    D-->>P: Datuak eguneratuta aplikazioan
+```
+
+Hiru urrats:
+
+1. **Zure administrazioak DENAri jakinarazten dio** pertsona batentzat datu berriak daudela (**Metadata-Sync**)
+2. **DENAk aldaketa detektatzen du** eta aplikazioari komunikatzen dio
+3. **DENAk datuak berreskuratzen ditu** zure administraziotik pertsonak behar dituenean (**Data-Retrieve**)
+
+---
+
+## Zer egin behar du zure administrazioak?
 
 <div class="grid cards" markdown>
 
--   :material-rocket-launch:{ .lg .middle } **Lehen aldia hemen?**
+-   :material-database-arrow-right:{ .lg .middle } **Datuak Zerbitzatu (Data-Retrieve)**
 
     ---
 
-    Egiaztapen-zerrenda osoa: ingurunea instalatzetik zure lehen integrazioa martxan jarri arte.
+    REST endpoint bat erakutsi DENAk pertsona baten datuak kontsulta ditzan behar dituenean.
 
-    [:octicons-arrow-right-24: onboardinga](./guia-inicio/onboarding.md)
+    **Hau da lehenik inplementatu behar dena.**
 
--   :material-swap-horizontal:{ .lg .middle } **Integrazioa inplementatu**
+    [:octicons-arrow-right-24: Nola inplementatu](./operativas/data-retrieve.md)
 
-    ---
-
-    Zure administrazioak DENArekin komunikatzeko erakutsi behar duen endpoint estandarra.
-
-    [:octicons-arrow-right-24: Semantika](./semantica/index.md)
-
--   :material-shield-lock:{ .lg .middle } **Autentifikazioa konfiguratu**
+-   :material-bell-ring:{ .lg .middle } **Aldaketak Jakinarazi (Metadata-Sync)**
 
     ---
 
-    OAuth2 fluxuak zure sistemaren eta DENAren artean (client_credentials).
+    Aldizka DENAri abisuak bidali zenbait pertsonentzat datu berriak edo eguneratuak daudela.
 
-    [:octicons-arrow-right-24: Autentifikazioa](./autenticacion/index.md)
+    *Hau gabe, DENAk ez daki noiz dauden berrikuntzak.*
 
--   :material-wrench:{ .lg .middle } **Proba-tresnak**
+    [:octicons-arrow-right-24: Nola inplementatu](./operativas/metadata-sync.md)
+
+-   :material-account-sync:{ .lg .middle } **Pertsonak Sinkronizatu (Person-Sync)**
 
     ---
 
-    DevTools, Postman bildumak eta norabide biko konektibitate-probak.
+    DENAtik inskribatutako pertsonen zerrenda jaso, noretzat bidali abisuak jakiteko.
 
-    [:octicons-arrow-right-24: DevTools](./devtools/index.md)
+    *Push (DENAk jakinarazten dizu) edo Pull (zuk kontsultatzen duzu).*
+
+    [:octicons-arrow-right-24: Nola inplementatu](./operativas/person-sync.md)
 
 </div>
 
 ---
 
-## Zer da DENA?
+## Oinarrizko printzipioak
 
-**DENA** Eusko Jaurlaritzaren elkarreragingarritasun-plataforma da, herritarrei aplikazio bakar batetik sarbidea ematen diena administrazio publikoek haiei buruz kudeatzen dituzten datuetara.
+!!! tip "DENAk ez ditu zure datuak gordetzen"
+    DENA-COREk **proxy** gisa jokatzen du: datuak zuzenean berreskuratzen dira zure administraziotik pertsonak eskatzen dituenean. Ez da kopiarik gordetzen DENAn.
 
-``` mermaid
----
-config:
-  theme: base
-  themeVariables:
-    primaryColor: "#FFFFFF"
-    primaryTextColor: "#1a4d1f"
-    primaryBorderColor: "#70d680"
-    lineColor: "#1a4d1f"
-    fontSize: "14px"
-    fontFamily: "Manrope, sans-serif"
----
-graph LR
-    A[Erabiltzailea] -->|DENA App| B(DENA CORE)
-    B -->|Data-Retrieve| C[A Administrazioa]
-    B -->|Data-Retrieve| D[B Administrazioa]
-    C -->|Metadata-Sync| B
-    D -->|Metadata-Sync| B
-    B <-->|Person-Sync| C
-    B <-->|Person-Sync| D
-    
-    style A fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px
-    style B fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px
-    style C fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
-    style D fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
-```
+!!! tip "Zure administrazioak ez du azpiegitura gehigarririk behar"
+    REST endpoint bat erakustea besterik ez duzu behar. DENA zuri egokitzen zaizu. Estandarra inplementatu ezin baduzu, DENAk neurri-konektore bat garatzen du.
+
+!!! tip "Baimena derrigorrezkoa da"
+    Datu-sarbide bakoitzak pertsonaren aldez aurreko baimena eskatzen du. Zure administrazioak DENA-COREn egiaztatu dezake.
 
 ---
 
-## :material-map-marker-path: Zer egin behar duzu?
+## :material-sitemap: Nora jarraitu?
 
-=== "Datuak DENAri eman"
-
-    Zure administrazioak REST endpoint bat erakusten du DENAk pertsona baten datuak kontsulta ditzan.
-
-    **Endpoint-a:** `POST /api/retrieveData`
-
-    [:octicons-arrow-right-24: Data-Retrieve Dokumentazioa](./semantica/data-retrieve/index.md)
-
-=== "Aldaketak jakinarazi"
-
-    Zure sistemak DENAri jakinarazten dio pertsona batentzat datu berriak daudela eskuragarri.
-
-    **Endpoint-a:** `POST /api/syncMetadata`
-
-    [:octicons-arrow-right-24: Metadata-Sync Dokumentazioa](./semantica/metadata-sync/index.md)
-
-=== "Pertsonak sinkronizatu"
-
-    DENAren eta zure administrazioaren artean erregistratutako pertsonen zerrenda eguneratuta mantendu.
-
-    **Mekanismoak:** Pull (zuk kontsultatzen duzu) / Push (DENAk jakinarazten dizu)
-
-    [:octicons-arrow-right-24: Person-Sync Dokumentazioa](./semantica/person-sync/index.md)
-
-=== "Konektibitatea probatu"
-
-    Zure azpiegituraren eta DENAren arteko norabide biko komunikazioa funtzionatzen duela balioztatu.
-
-    ```bash
-    curl -X POST http://localhost:8082/api/conxTest \
-      -H "Content-Type: application/json" \
-      -d '{"environment": "PRE"}'
-    ```
-
-    [:octicons-arrow-right-24: Komunikazioak gida](./guia-inicio/probar-comunicaciones.md)
+| Atala | Edukia | Noiz kontsultatu |
+|---|---|---|
+| [:material-cube-outline: Arkitektura](./arquitectura/index.md) | DENA nola eraikita dagoen barrutik | Sistema ulertzeko |
+| [:material-shield-lock: Segurtasuna eta Autentifikazioa](./seguridad/index.md) | Nola babesten den eta nola autentifikatu | Sarbideak konfiguratzeko |
+| [:material-cogs: Operatibak](./operativas/index.md) | Zer inplementatu eta nola (Data-Retrieve, Sync...) | Garatzeko |
+| [:material-code-braces: Semantika](./semantica/index.md) | Datu-formatua, eremuak, ereduak | Zehaztapen teknikorako |
+| [:material-play-circle: Lehen Urratsak](./guia-inicio/onboarding.md) | Onboardinga, instalazioa, konektibitatea | Inplementatzeko prest zaudenean |
+| [:material-wrench: Tresnak](./devtools/index.md) | DevTools, Postman, mock | Probatzeko |
+| [:material-book-open-variant: Erreferentzia](./referencia/faq.md) | FAQ, Glosarioa, Troubleshooting | Zalantzak badituzu |
 
 ---
-
-## :material-lightning-bolt: Hasiera azkarra
-
-!!! warning "Biltegiaren bertsioa egiaztatu"
-    
-    Ziurtatu biltegiaren bertsio zuzena erabiltzen duzula klonazioarekin aurrera egin aurretik. Lan-ingurune honetarako gomendatutako bertsioa biltegian egonkor gisa etiketatutakoa da.
-
-!!! tip "5 minutu zure ingurunea baliozkotu"
-
-    ```bash
-    # 1. Konektibitate testa klonatu
-    git clone {{ repos.conx_test_clone }}
-    cd dena-admin-conx-test
-
-    # 2. Konpilatu eta abiarazi
-    mvn clean package -Pstandalone
-    java -jar denaAdminConxTestRESTApp/target/denaAdminConxTestRESTApp-*.war
-
-    # 3. Egiaztatu
-    curl http://localhost:8082/api/hello
-
-    # 4. DENA PREren aurkako proba
-    curl -X POST http://localhost:8082/api/conxTest \
-      -H "Content-Type: application/json" \
-      -d '{"environment": "PRE"}'
-    ```
-
----
-
-## :material-sitemap: Dokumentazio mapa
-
-| Atala | Edukia |
-|---|---|
-| [:material-play-circle: Hasierako gida](./guia-inicio/onboarding.md) | onboardinga, instalazioa, komunikazioak, mock |
-| [:material-cube-outline: Arkitektura](./arquitectura/index.md) | Ikuspegi orokorra, diagramak, sistemaren moduluak |
-| [:material-shield-lock: Autentifikazioa](./autenticacion/index.md) | OAuth2 client_credentials, Admin ↔ DENA fluxuak |
-| [:material-code-braces: Semantika](./semantica/index.md) | Data-Retrieve, Metadata-Sync, Person-Sync |
-| [:material-wrench: DevTools](./devtools/index.md) | DENAtik HTTP probak egiteko web tresna |
-| [:material-book-open-variant: Erreferentzia](./referencia/faq.md) | FAQ, Glosarioa, Troubleshooting, Changelog, Matrizea |
-| [:material-file-code: Adibideak](./ejemplos-codigo/index.md) | Java erreferentzia proiektua |
-| [:material-paperclip: Eranskinak](./adjuntos/index.md) | Postman bildumak, inguruneak, irudiak |
-
----
-
-## :material-server-network: Teknologia pila
-
-| Osagaia | Bertsioa |
-|---|---|
-| :fontawesome-brands-java: Java | 21+ |
-| :simple-spring: Spring Boot | 3.3.5 |
-| :simple-apachemaven: Maven | 3.9+ |
-| :material-code-json: Jackson | 2.19.x |
-
----
-
-!!! info "DENA Inguruneak"
-
-    | Ingurunea | Internet | Euskalsarea |
-    |---|---|---|
-    | **PRE** | `https://api-batera.pre.dena.eus` | `https://api-batera.pre.batera.euskalsarea.eus` |
-    | **PRO** | `https://api-batera.pro.dena.eus` | `https://api-batera.pro.batera.euskalsarea.eus` |
 
 !!! question "Laguntza teknikoa"
     
@@ -183,6 +148,6 @@ graph LR
     
     **:material-email:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
 
+<!-- DENA-DOC-FOOTER -->
 ---
-
 <sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

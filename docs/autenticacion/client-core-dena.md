@@ -8,13 +8,13 @@ La autenticación entre la aplicación cliente y DENA utiliza OAuth 2.0. El toke
 
 === ":material-shield-key: Giltza (primer acceso)"
 
-    En el primer acceso, el usuario se autentica con **Giltza**. DENA valida el token de Giltza y genera un token OAuth propio para la comunicación.
+    En el primer acceso, la persona se autentica con **Giltza**. DENA valida el token de Giltza y genera un token OAuth propio para la comunicacion.
 
     ![Flujo autenticación Giltza](../adjuntos/imagenes/login-giltza.png)
 
     ``` mermaid
     sequenceDiagram
-        participant User as Usuario
+        participant User as Persona
         participant App as App Cliente
         participant Giltza as Giltza
         participant DENA as CORE DENA
@@ -28,7 +28,7 @@ La autenticación entre la aplicación cliente y DENA utiliza OAuth 2.0. El toke
 
 === ":material-fingerprint: WebAuthn (accesos posteriores)"
 
-    Tras el primer acceso con Giltza, el usuario puede registrar credenciales WebAuthn para accesos futuros más rápidos.
+    Tras el primer acceso con Giltza, la persona puede registrar credenciales WebAuthn para accesos futuros mas rapidos.
 
     **Registro:**
 

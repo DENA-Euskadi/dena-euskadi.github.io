@@ -45,37 +45,81 @@ theme:
 
 nav:
   - Inicio: index.md
+  - Arquitectura:
+      - Visión General: arquitectura/index.md
+      - Arquitectura de Servicios: arquitectura/arquitectura-servicios.md
+      - Configuración: arquitectura/configuracion.md
+      - Modelo de Datos Base: arquitectura/tipos-dato-base.md
+      - Diagramas: arquitectura/diagramas.md
+      - Otra Documentación: arquitectura/otra-documentacion.md
+  - Seguridad y Autenticación:
+      - Visión General: seguridad/index.md
+      - Tu Sistema Llama a DENA: autenticacion/administracion-core-dena/index.md
+      - DENA Llama a Tu Sistema: autenticacion/core-dena-administracion/index.md
+  - Operativas:
+      - Visión General: operativas/index.md
+      - Data-Retrieve (Servir Datos): operativas/data-retrieve.md
+      - Metadata-Sync (Notificar Cambios): operativas/metadata-sync.md
+      - Person-Sync (Sincronizar Personas): operativas/person-sync.md
+  - Semántica:
+      - Visión General: semantica/index.md
+      - Data-Retrieve:
+          - Visión General: semantica/data-retrieve/index.md
+          - Endpoint: semantica/data-retrieve/endpoint-data-retrieve.md
+          - Guía de Implementación: semantica/data-retrieve/guia-implementacion.md
+          - Validaciones: semantica/data-retrieve/validaciones.md
+          - Errores y Troubleshooting: semantica/data-retrieve/errores-troubleshooting.md
+          - Snippets de Código: semantica/data-retrieve/snippets-codigo.md
+          - Tipos de Datos:
+              - Campos Comunes: semantica/data-retrieve/data/campos-comunes.md
+              - Cita: semantica/data-retrieve/data/cita.md
+              - Expediente: semantica/data-retrieve/data/expediente.md
+              - Notificación: semantica/data-retrieve/data/notificacion.md
+              - Pago: semantica/data-retrieve/data/pago.md
+              - Persona: semantica/data-retrieve/data/persona.md
+              - Registro Oficial: semantica/data-retrieve/data/registro-oficial.md
+              - Servicio Administrativo: semantica/data-retrieve/data/servicio-administrativo.md
+              - Unidad Orgánica: semantica/data-retrieve/data/unidad-organica.md
+      - Metadata-Sync:
+          - Visión General: semantica/metadata-sync/index.md
+          - Endpoint: semantica/metadata-sync/endpoint-sync-metadata.md
+          - Modelo SRMD Item: semantica/metadata-sync/modelo/sync-metadata-from-admin-to-core-item.md
+          - Pop Message After Sync: semantica/metadata-sync/modelo/pop-message-after-sync-spec.md
+      - Person-Sync:
+          - Visión General: semantica/person-sync/index.md
+          - Push: semantica/person-sync/push.md
+          - Pull: semantica/person-sync/pull.md
+          - Endpoint Push: semantica/person-sync/endpoints/push/endpoint-person-push-to-admin.md
+          - Endpoint Pull (Create Job): semantica/person-sync/endpoints/pull/create-pull-from-admin-bespoke-job.md
+          - Endpoint Pull (Get Job): semantica/person-sync/endpoints/pull/get-pull-from-admin-bespoke-job.md
+          - Endpoint Pull (Fetch Bespoke): semantica/person-sync/endpoints/pull/fetch-persons-bespoke-export-asset.md
+          - Endpoint Pull (Fetch Pregen): semantica/person-sync/endpoints/pull/fetch-persons-pregen-export-asset.md
+          - Modelo Export Spec: semantica/person-sync/modelo/pull/export-spec.md
+          - Modelo Person Hashes: semantica/person-sync/modelo/push/person-hashes.md
+          - Documentación Arquitectura (ref.): semantica/person-sync/arquitectura-dena-completa.md
+      - Semántica Base:
+          - Visión General: semantica/semantica-base/index.md
+          - HTTP Headers: semantica/semantica-base/http-headers.md
+          - Consentimientos: semantica/semantica-base/consentimientos.md
+          - Modelos:
+              - DenaObjectRef: semantica/semantica-base/modelo/object-ref.md
+              - Data Type Ref: semantica/semantica-base/modelo/data-type-ref.md
+              - Language Texts: semantica/semantica-base/modelo/language-texts.md
+              - Org Admin Ref: semantica/semantica-base/modelo/org-admin-ref.md
+              - Person Ref: semantica/semantica-base/modelo/person-ref.md
+              - DENAProtocol: semantica/semantica-base/modelo/protocol.md
+              - DENAConsent: semantica/semantica-base/modelo/consent.md
+              - Status (Respuesta): semantica/semantica-base/modelo/status.md
+              - Tipos de Mensaje: semantica/semantica-base/modelo/message-types.md
+              - UserAgent: semantica/semantica-base/modelo/user-agent.md
+              - Tipos Sync: semantica/semantica-base/modelo/sync-types.md
+      - Otra Documentación: semantica/otra-documentacion.md
   - Primeros Pasos:
       - Checklist de Onboarding: guia-inicio/onboarding.md
       - Instalación: guia-inicio/instalacion.md
+      - Ejemplo End-to-End: guia-inicio/ejemplo-end-to-end.md
       - Pruebas de Conectividad: guia-inicio/probar-comunicaciones.md
       - Configuración Mock: guia-inicio/mock-expedientes.md
-  - Arquitectura:
-      - Visión General: arquitectura/index.md
-      - Diagramas: arquitectura/diagramas.md
-      - Otra Documentación: arquitectura/otra-documentacion.md
-  - Autenticación:
-      - Visión General: autenticacion/index.md
-      - DENA Llama a Tu Sistema: autenticacion/core-dena-administracion/index.md
-      - Tu Sistema Llama a DENA: autenticacion/administracion-core-dena/index.md
-  - Semántica:
-      - Visión General: semantica/index.md
-      - Tipos de Datos Disponibles:
-          - Campos Comunes: semantica/data-retrieve/data/campos-comunes.md
-          - Cita: semantica/data-retrieve/data/cita.md
-          - Expediente: semantica/data-retrieve/data/expediente.md
-          - Notificación: semantica/data-retrieve/data/notificacion.md
-          - Pago: semantica/data-retrieve/data/pago.md
-          - Persona: semantica/data-retrieve/data/persona.md
-          - Registro Oficial: semantica/data-retrieve/data/registro-oficial.md
-          - Servicio Administrativo: semantica/data-retrieve/data/servicio-administrativo.md
-          - Unidad Orgánica: semantica/data-retrieve/data/unidad-organica.md
-      - Modelos Base:
-          - Data Type Ref: semantica/semantica-base/modelo/data-type-ref.md
-          - Language Texts: semantica/semantica-base/modelo/language-texts.md
-          - Org Admin Ref: semantica/semantica-base/modelo/org-admin-ref.md
-          - Person Ref: semantica/semantica-base/modelo/person-ref.md
-  - Operativas: operativas/index.md
   - Herramientas:
       - DevTools Web: devtools/index.md
       - Ejemplos de Código: ejemplos-codigo/index.md
@@ -84,7 +128,11 @@ nav:
       - Preguntas Frecuentes: referencia/faq.md
       - Resolver Problemas: referencia/troubleshooting.md
       - Glosario de Términos: referencia/glosario.md
+      - Límites y Restricciones API: referencia/limites-api.md
       - Contacto y Soporte: referencia/contacto.md
+      - Changelog: referencia/changelog.md
+      - Sistema de Versionado: referencia/sistema-versionado.md
+      - Matriz de Compatibilidad: referencia/matriz-compatibilidad.md
 
 markdown_extensions:
   - abbr
@@ -138,18 +186,20 @@ plugins:
           build: true
           nav_translations:
             Inicio: Home
-            Primeros Pasos: Getting Started
-            Checklist de Onboarding: Onboarding Checklist
-            Instalación: Installation
-            Pruebas de Conectividad: Connectivity Tests
-            Configuración Mock: Mock Configuration
             Arquitectura: Architecture
             Visión General: Overview
+            Arquitectura de Servicios: Services Architecture
+            Configuración: Configuration
+            Modelo de Datos Base: Base Data Model
             Diagramas: Diagrams
             Otra Documentación: Other Documentation
-            Autenticación: Authentication
-            DENA Llama a Tu Sistema: DENA Calls Your System
+            Seguridad y Autenticación: Security & Authentication
             Tu Sistema Llama a DENA: Your System Calls DENA
+            DENA Llama a Tu Sistema: DENA Calls Your System
+            Operativas: Operations
+            Data-Retrieve (Servir Datos): Data-Retrieve (Serve Data)
+            Metadata-Sync (Notificar Cambios): Metadata-Sync (Notify Changes)
+            Person-Sync (Sincronizar Personas): Person-Sync (Sync People)
             Semántica: Semantics
             Tipos de Datos Disponibles: Available Data Types
             Campos Comunes: Common Fields
@@ -162,7 +212,12 @@ plugins:
             Servicio Administrativo: Administrative Service
             Unidad Orgánica: Organizational Unit
             Modelos Base: Base Models
-            Operativas: Operations
+            Primeros Pasos: Getting Started
+            Checklist de Onboarding: Onboarding Checklist
+            Instalación: Installation
+            Ejemplo End-to-End: End-to-End Example
+            Pruebas de Conectividad: Connectivity Tests
+            Configuración Mock: Mock Configuration
             Herramientas: Tools
             DevTools Web: Web DevTools
             Ejemplos de Código: Code Examples
@@ -171,24 +226,27 @@ plugins:
             Preguntas Frecuentes: FAQ
             Resolver Problemas: Troubleshooting
             Glosario de Términos: Glossary
+            Límites y Restricciones API: API Limits & Constraints
             Contacto y Soporte: Contact & Support
         - locale: eu
           name: Euskara
           build: true
           nav_translations:
             Inicio: Hasiera
-            Primeros Pasos: Lehen Urratsak
-            Checklist de Onboarding: Onboardinga Egiaztapen-zerrenda
-            Instalación: Instalazioa
-            Pruebas de Conectividad: Konektibitate Probak
-            Configuración Mock: Mock Konfigurazioa
             Arquitectura: Arkitektura
             Visión General: Ikuspegi Orokorra
+            Arquitectura de Servicios: Zerbitzuen Arkitektura
+            Configuración: Konfigurazioa
+            Modelo de Datos Base: Oinarrizko Datu Eredua
             Diagramas: Diagramak
             Otra Documentación: Bestelako dokumentazioa
-            Autenticación: Autentifikazioa
-            DENA Llama a Tu Sistema: DENAk Zure Sistemari Deitzen Dio
+            Seguridad y Autenticación: Segurtasuna eta Autentifikazioa
             Tu Sistema Llama a DENA: Zure Sistemak DENAri Deitzen Dio
+            DENA Llama a Tu Sistema: DENAk Zure Sistemari Deitzen Dio
+            Operativas: Operatibak
+            Data-Retrieve (Servir Datos): Data-Retrieve (Datuak Zerbitzatu)
+            Metadata-Sync (Notificar Cambios): Metadata-Sync (Aldaketak Jakinarazi)
+            Person-Sync (Sincronizar Personas): Person-Sync (Pertsonak Sinkronizatu)
             Semántica: Semantika
             Tipos de Datos Disponibles: Datu Mota Eskuragarriak
             Campos Comunes: Eremu Komunak
@@ -201,7 +259,12 @@ plugins:
             Servicio Administrativo: Administrazio Zerbitzua
             Unidad Orgánica: Unitate Organikoa
             Modelos Base: Oinarrizko Ereduak
-            Operativas: Operatibak
+            Primeros Pasos: Lehen Urratsak
+            Checklist de Onboarding: Onboardinga Egiaztapen-zerrenda
+            Instalación: Instalazioa
+            Ejemplo End-to-End: End-to-End Adibidea
+            Pruebas de Conectividad: Konektibitate Probak
+            Configuración Mock: Mock Konfigurazioa
             Herramientas: Tresnak
             DevTools Web: Web DevTools
             Ejemplos de Código: Kode Adibideak
@@ -210,6 +273,7 @@ plugins:
             Preguntas Frecuentes: Ohiko Galderak
             Resolver Problemas: Arazoen Konponketa
             Glosario de Términos: Terminoen Glosarioa
+            Límites y Restricciones API: APIaren Mugak eta Murrizketak
             Contacto y Soporte: Kontaktua eta Laguntza
   - macros:
       include_yaml:

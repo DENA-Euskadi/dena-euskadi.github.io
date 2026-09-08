@@ -36,7 +36,7 @@ DENAk kudeatutako datu mota bati erreferentzia egiteko objektua (adib. Espedient
 |---|---|
 | `RECORDS` | Espedienteak |
 | `NOTICES` | Jakinarazpenak |
-| `REGISTRY` | Erregistro ofizialak |
+| `REGISTER` | Erregistro ofizialak |
 | `PAYMENTS` | Ordainketak |
 | `SCHEDULE` | Hitzorduak |
 

@@ -2,7 +2,7 @@
 
 ## Objective
 
-This guide describes step by step how a public administration must implement the `POST /api/retrieveData` endpoint to integrate with the DENA platform and return citizen person data.
+This guide describes step by step how a public administration must implement the `POST /api/retrieveData` endpoint to integrate with the DENA platform and return person data.
 
 ---
 
@@ -166,7 +166,7 @@ All returned objects must include at minimum:
 ```json
 {
   "oid": "YOUR-UNIQUE-OID-001",
-  "id": "NUMBER-VISIBLE-TO-CITIZEN",
+  "id": "NUMBER-VISIBLE-TO-PERSON",
   "urls": [
     { "url": "https://sede.tuadmin.eus/...", "language": "SPANISH", "tags": ["default"] },
     { "url": "https://egoitza.tuadmin.eus/...", "language": "BASQUE", "tags": ["default"] }

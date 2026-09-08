@@ -39,7 +39,7 @@
 |---|---|---|
 | `RECORDS` | Expedientes | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
 | `NOTICES` | Notificaciones | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
-| `REGISTRY` | Registros oficiales | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
+| `REGISTER` | Registros oficiales | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
 | `PAYMENTS` | Pagos | [pago.md](../semantica/data-retrieve/data/pago.md) |
 | `SCHEDULE` | Citas | [cita.md](../semantica/data-retrieve/data/cita.md) |
 

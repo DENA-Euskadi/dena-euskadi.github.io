@@ -39,7 +39,7 @@ Zein endpoint dira nahitaezkoak edo aukerakoak zure integrazio-motaren arabera?
 |---|---|---|
 | `RECORDS` | Espedienteak | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
 | `NOTICES` | Jakinarazpenak | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
-| `REGISTRY` | Erregistro ofizialak | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
+| `REGISTER` | Erregistro ofizialak | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
 | `PAYMENTS` | Ordainketak | [pago.md](../semantica/data-retrieve/data/pago.md) |
 | `SCHEDULE` | Hitzorduak | [cita.md](../semantica/data-retrieve/data/cita.md) |
 

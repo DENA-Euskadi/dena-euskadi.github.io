@@ -4,9 +4,31 @@ DENA documentation version history.
 
 ---
 
-## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
+## v0.4.0 <small>— 2026-08-24</small> { #v040 }
 
 !!! success "Current"
+
+**Base Semantics v2.0 document integration:**
+
+- :material-plus: HTTP Headers: request/response headers, API versioning, security digests
+- :material-plus: Consents: principles, regulatory framework (GDPR), lifecycle, format and API
+- :material-plus: DenaObjectRef: base type with OID, timestamps and URL
+- :material-plus: DENAProtocol: callback URLs, timeouts, HATEOAS
+- :material-plus: DENAConsent: legal basis reference in Data-Retrieve messages
+- :material-plus: Status: response codes, DENAClientErrDetails, DENAServerErrDetails, DENAAsyncQueueData
+- :material-plus: Message Types: DenaFlowDirection, DenaMessageType, DenaInteropRouteDataItem, DenaPersonAndConsentGiven
+- :material-plus: UserAgent: format by origin (mobile app, web, CORE, administration)
+- :material-plus: Sync Types: DenaInteroperableDataTypeSync, DenaPersonDataSync, DenaPersonMetaDataSyncItem
+- :material-refresh: OrgAdminRef extended with orgId, officialId, objectOid, timestamps, url, organisational structure
+- :material-refresh: PersonRef extended with personId, objectOid, timestamps, url
+- :material-refresh: tipos-dato-base: added Hash (SHA-256) and UserAgent
+- :material-refresh: semantica-base/index: full message structure (context, protocol, consent, status, data)
+- :material-refresh: mkdocs.yml: navigation updated with new pages
+- :material-translate: EN and EU translations for all new and updated pages (76/76)
+
+---
+
+## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
 
 **Documentation improvements:**
 

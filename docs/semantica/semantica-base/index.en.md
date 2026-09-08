@@ -120,9 +120,84 @@ flowchart LR
 
 ---
 
+## Full message structure
+
+A DENA message has the following general structure:
+
+```json
+{
+  "context": { ... },       // Context metadata (mandatory)
+  "protocol": { ... },      // Protocol information (optional)
+  "consent": { ... },       // Legal basis (Data-Retrieve only)
+  "status": { ... },        // Response status (responses only)
+  "data": { ... }           // Payload (mandatory)
+}
+```
+
+| Block | Presence | Description |
+|---|---|---|
+| `context` | Always | Identification, correlation, operation type |
+| `protocol` | When needed | URLs, timeouts, hashes, tokens |
+| `consent` | Data-Retrieve only | Reference to consent/legal authorization |
+| `status` | Responses only | Processing result |
+| `data` | Always | Request or response data |
+
+---
+
+## HTTP Headers
+
+All HTTP calls include standard and custom headers for security, traceability and versioning.
+
+[:octicons-arrow-right-24: View HTTP Headers](./http-headers.md)
+
+---
+
+## Protocol (DENAProtocol)
+
+Protocol information: callback URLs, timeouts, hashes.
+
+[:octicons-arrow-right-24: View DENAProtocol](./modelo/protocol.md)
+
+---
+
+## Consent (DENAConsent)
+
+Reference to the legal basis (consent/normative authorization) backing a Data-Retrieve request.
+
+[:octicons-arrow-right-24: View DENAConsent](./modelo/consent.md)
+
+---
+
+## Status (Response)
+
+Information about the processing result in response messages.
+
+[:octicons-arrow-right-24: View Status](./modelo/status.md)
+
+---
+
+## Consents
+
+Principles, lifecycle and API for DENA's consent system.
+
+[:octicons-arrow-right-24: View Consents](./consentimientos.md)
+
+---
+
 ## Common models
 
+!!! info "Foundational data types"
+    For the basic data types used throughout DENA (Boolean, Numbers, Dates, Ranges, UIDs, URLs, LanguageTexts, Money, Hash, UserAgent...) see [:octicons-arrow-right-24: Base Data Model](../../arquitectura/tipos-dato-base.md)
+
 <div class="grid cards" markdown>
+
+-   :material-cube-outline:{ .lg .middle } **DenaObjectRef**
+
+    ---
+
+    Base type: OID, timestamps, URL for any DENA object.
+
+    [:octicons-arrow-right-24: View model](./modelo/object-ref.md)
 
 -   :material-tag:{ .lg .middle } **DataTypeRef**
 
@@ -136,7 +211,7 @@ flowchart LR
 
     ---
 
-    Reference to an administration.
+    Reference to an administration (orgId, DIR3, OID...).
 
     [:octicons-arrow-right-24: View model](./modelo/org-admin-ref.md)
 
@@ -144,7 +219,7 @@ flowchart LR
 
     ---
 
-    Reference to a registered person.
+    Reference to a registered person (personId, OID...).
 
     [:octicons-arrow-right-24: View model](./modelo/person-ref.md)
 
@@ -155,6 +230,22 @@ flowchart LR
     Texts in multiple languages (Spanish, Basque, English).
 
     [:octicons-arrow-right-24: View model](./modelo/language-texts.md)
+
+-   :material-message-text:{ .lg .middle } **Message Types**
+
+    ---
+
+    FlowDirection, MessageType, RouteDataItem, PersonAndConsentGiven.
+
+    [:octicons-arrow-right-24: View model](./modelo/message-types.md)
+
+-   :material-cellphone-link:{ .lg .middle } **UserAgent**
+
+    ---
+
+    User-Agent format by message origin.
+
+    [:octicons-arrow-right-24: View model](./modelo/user-agent.md)
 
 </div>
 

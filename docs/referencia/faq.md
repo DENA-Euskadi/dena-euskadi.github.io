@@ -53,7 +53,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
     - Renovarlo ~60 segundos antes de expirar (leeway)
     - No solicitar un token nuevo en cada petición
 
-    [:octicons-arrow-right-24: Endpoint get-token](../autenticacion/administracion-core-dena/endpoint-get-token.md)
+    [:octicons-arrow-right-24: Endpoint get-token](../autenticacion/administracion-core-dena/index.md)
 
 ??? question "¿Puedo usar mi propio IDP (Keycloak, ADFS, Cognito)?"
 
@@ -61,6 +61,20 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
     DENA usará `client_credentials` para obtener el token antes de llamarte.
 
     [:octicons-arrow-right-24: CORE DENA → Administración](../autenticacion/core-dena-administracion/index.md)
+
+??? question "¿Y si mi administración usa CAS u otro sistema que no es OAuth2?"
+
+    No hay problema. DENA no impone OAuth2 como sistema de autenticación en vuestro lado. El flujo "DENA llama a tu sistema" (Data-Retrieve) se adapta al mecanismo que tu administración prefiera.
+
+    Si usáis CAS, por ejemplo, el conector de DENA se configurará para autenticarse contra vuestro CAS antes de invocar vuestro endpoint.
+
+    **Lo que necesitamos de tu lado:**
+
+    - La URL de vuestro servicio CAS (endpoint para obtener el ticket/token de servicio)
+    - Las credenciales (service account o equivalente) que DENA debe usar
+    - Cómo incluir el ticket en las llamadas a vuestro data provider (header, parámetro, etc.)
+
+    Con eso, el equipo DENA configura el conector para que se autentique contra vuestro sistema antes de cada llamada.
 
 ---
 

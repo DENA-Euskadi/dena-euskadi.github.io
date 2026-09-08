@@ -19,6 +19,12 @@ Definición de los términos técnicos y funcionales utilizados en la documentac
 `client_credentials`
 :   Flujo OAuth2 donde un servicio se autentica con su `client_id` y `client_secret` para obtener un token. No requiere intervención de usuario.
 
+`Cold-Start`
+:   Problema que se produce cuando una persona se inscribe en DENA por primera vez y no existe SRMD porque las administraciones aún no saben de ella. DENA-CORE inserta SRMD iniciales para admins/tipos de dato clave para que la app muestre contenido desde el primer momento.
+
+`Conector`
+:   Módulo independiente en la arquitectura DENA que intermedia entre DENA-CORE y una administración. Tiene un lado interno (semántica estándar DENA) y un lado externo (semántica de la admin). Si la admin usa el formato estándar, el conector es transparente; si no, traduce entre ambos formatos.
+
 `consentOid`
 :   Identificador único del consentimiento otorgado por una persona para el acceso a sus datos.
 
@@ -28,6 +34,9 @@ Definición de los términos técnicos y funcionales utilizados en la documentac
 ---
 
 ## D
+
+`Data Origin Instance`
+:   Identificador adicional de routing utilizado cuando una administración tiene múltiples orígenes de datos para el mismo tipo de dato (ej: varios gestores de expedientes). Permite a DENA-CORE enrutar la petición al conector correcto.
 
 `Data-Retrieve`
 :   Mecanismo mediante el cual DENA solicita datos de una persona a una administración.
@@ -39,7 +48,13 @@ Definición de los términos técnicos y funcionales utilizados en la documentac
 :   Objeto de referencia a un tipo de dato DENA (expediente, notificación, pago...).
 
 `DENA`
-:   Plataforma de interoperabilidad del Gobierno Vasco que facilita el acceso ciudadano a los datos de las administraciones.
+:   Plataforma de interoperabilidad del Gobierno Vasco que facilita a la ciudadania el acceso a los datos de las administraciones.
+
+`DENA-APP`
+:   Aplicación móvil y web que usan las personas ciudadanas para acceder a sus datos. Se comunica con DENA-CORE para sincronizar SRMD y recuperar datos de las administraciones.
+
+`DENA-CORE`
+:   Sistema central de la plataforma DENA que intermedia entre la app (DENA-APP) y las administraciones. Gestiona la autenticación, los conectores, el almacenamiento de SRMD y la orquestación de peticiones Data-Retrieve.
 
 `DIR3`
 :   Directorio Común de Unidades Orgánicas y Oficinas. Catálogo oficial de la AGE que identifica unívocamente cada unidad administrativa.
@@ -160,6 +175,9 @@ Definición de los términos técnicos y funcionales utilizados en la documentac
 
 `SIA`
 :   Sistema de Información Administrativa. Catálogo oficial de procedimientos y servicios de la AGE.
+
+`SRMD`
+:   *Sync and Retrieve Meta-Data*. Los avisos que una administración envía periódicamente a DENA-CORE indicando que hay datos nuevos o actualizados para ciertas personas. Contienen: persona + tipo de dato + admin + instante de última actualización. No contienen los datos en sí, solo la notificación de que hubo un cambio.
 
 `subjectPerson`
 :   Campo del contexto interop que identifica a la persona sobre la que se solicitan o envían datos.

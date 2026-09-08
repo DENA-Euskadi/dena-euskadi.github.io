@@ -2,6 +2,23 @@
 
 Guía paso a paso desde "me han dado acceso" hasta "tengo mi integración funcionando".
 
+!!! info "¿Aún no conoces DENA?"
+    Si es la primera vez que oyes hablar de DENA, empieza por [¿Qué es DENA?](../index.md) para entender el contexto y luego revisa la [Arquitectura](../arquitectura/index.md) y las [Operativas](../operativas/index.md).
+
+---
+
+## :material-numeric-0-circle: Antes de empezar
+
+Antes de tocar código, asegúrate de tener resuelto lo siguiente:
+
+- [ ] **Conectividad de red**: tu infraestructura debe poder alcanzar `https://api-batera.pre.dena.eus` (Internet) o `https://api-batera.pre.batera.euskalsarea.eus` (Euskalsarea). Coordina con tu equipo de sistemas.
+- [ ] **DENA debe poder llamarte**: si vas a exponer un endpoint de Data-Retrieve, DENA-CORE necesitará alcanzar tu servicio. Asegura que tu endpoint es accesible desde la red de DENA.
+- [ ] **Decidir qué implementar primero**: lo habitual es empezar por Data-Retrieve. Consulta las [Operativas](../operativas/index.md) para elegir.
+- [ ] **Solicitar el alta al equipo DENA**: envía un email a [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus) indicando tu administración y los tipos de dato que quieres ofrecer.
+
+!!! note "Tiempo estimado total: 2-4 semanas"
+    La mayoría del tiempo se invierte en coordinar accesos de red y esperar credenciales. El desarrollo técnico es rápido si tu admin ya tiene los datos accesibles.
+
 ---
 
 ## :material-numeric-1-circle: Preparar el entorno

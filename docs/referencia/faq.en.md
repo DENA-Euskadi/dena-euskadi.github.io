@@ -53,7 +53,7 @@ Answers to the most common questions from integrating administrations.
     - Renew it ~60 seconds before expiry (leeway)
     - Not request a new token on every request
 
-    [:octicons-arrow-right-24: get-token endpoint](../autenticacion/administracion-core-dena/endpoint-get-token.md)
+    [:octicons-arrow-right-24: get-token endpoint](../autenticacion/administracion-core-dena/index.md)
 
 ??? question "Can I use my own IDP (Keycloak, ADFS, Cognito)?"
 

@@ -120,9 +120,84 @@ flowchart LR
 
 ---
 
+## Estructura completa del mensaje
+
+Un mensaje DENA tiene la siguiente estructura general:
+
+```json
+{
+  "context": { ... },       // Metadatos de contexto (obligatorio)
+  "protocol": { ... },      // Información de protocolo (opcional)
+  "consent": { ... },       // Base habilitante (solo en Data-Retrieve)
+  "status": { ... },        // Estado de respuesta (solo en responses)
+  "data": { ... }           // Payload (obligatorio)
+}
+```
+
+| Bloque | Presencia | Descripción |
+|---|---|---|
+| `context` | Siempre | Identificación, correlación, tipo de operación |
+| `protocol` | Cuando necesario | URLs, timeouts, hashes, tokens |
+| `consent` | Solo Data-Retrieve | Referencia al consentimiento/habilitación normativa |
+| `status` | Solo respuestas | Resultado del procesamiento |
+| `data` | Siempre | Datos de la petición o respuesta |
+
+---
+
+## HTTP Headers
+
+Todas las llamadas HTTP incluyen cabeceras estándar y personalizadas para seguridad, trazabilidad y versionado.
+
+[:octicons-arrow-right-24: Ver HTTP Headers](./http-headers.md)
+
+---
+
+## Protocol (DENAProtocol)
+
+Información de protocolo: URLs de callback, timeouts, hashes.
+
+[:octicons-arrow-right-24: Ver DENAProtocol](./modelo/protocol.md)
+
+---
+
+## Consent (DENAConsent)
+
+Referencia a la base habilitante (consentimiento/habilitación normativa) que respalda una petición Data-Retrieve.
+
+[:octicons-arrow-right-24: Ver DENAConsent](./modelo/consent.md)
+
+---
+
+## Status (Respuesta)
+
+Información sobre el resultado del procesamiento en mensajes de respuesta.
+
+[:octicons-arrow-right-24: Ver Status](./modelo/status.md)
+
+---
+
+## Consentimientos
+
+Principios, ciclo de vida y API del sistema de consentimientos de DENA.
+
+[:octicons-arrow-right-24: Ver Consentimientos](./consentimientos.md)
+
+---
+
 ## Modelos comunes
 
+!!! info "Tipos de dato fundacionales"
+    Para los tipos de dato básicos usados en todo DENA (Boolean, Numbers, Dates, Ranges, UIDs, URLs, LanguageTexts, Money, Hash, UserAgent...) consulta [:octicons-arrow-right-24: Modelo de Datos Base](../../arquitectura/tipos-dato-base.md)
+
 <div class="grid cards" markdown>
+
+-   :material-cube-outline:{ .lg .middle } **DenaObjectRef**
+
+    ---
+
+    Tipo base: OID, timestamps, URL de cualquier objeto DENA.
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/object-ref.md)
 
 -   :material-tag:{ .lg .middle } **DataTypeRef**
 
@@ -136,7 +211,7 @@ flowchart LR
 
     ---
 
-    Referencia a una administración.
+    Referencia a una administración (orgId, DIR3, OID...).
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/org-admin-ref.md)
 
@@ -144,7 +219,7 @@ flowchart LR
 
     ---
 
-    Referencia a una persona registrada.
+    Referencia a una persona registrada (personId, OID...).
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/person-ref.md)
 
@@ -155,6 +230,22 @@ flowchart LR
     Textos en múltiples idiomas (castellano, euskera, inglés).
 
     [:octicons-arrow-right-24: Ver modelo](./modelo/language-texts.md)
+
+-   :material-message-text:{ .lg .middle } **Tipos de Mensaje**
+
+    ---
+
+    FlowDirection, MessageType, RouteDataItem, PersonAndConsentGiven.
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/message-types.md)
+
+-   :material-cellphone-link:{ .lg .middle } **UserAgent**
+
+    ---
+
+    Formato del User-Agent según origen del mensaje.
+
+    [:octicons-arrow-right-24: Ver modelo](./modelo/user-agent.md)
 
 </div>
 

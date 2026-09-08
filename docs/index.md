@@ -3,179 +3,144 @@ hide:
   - toc
 ---
 
-# DENA Interop — Documentación para Administraciones
+# :material-swap-horizontal-bold: ¿Qué es DENA?
+
+**DENA** es la plataforma de interoperabilidad del Gobierno Vasco que permite a la ciudadanía acceder, desde una única aplicación (móvil o web), a los datos que las distintas administraciones públicas gestionan sobre ella.
+
+Esta documentación está dirigida a las **administraciones públicas** que se integran con DENA para exponer sus datos.
+
+---
+
+## El problema que resuelve
+
+Hoy, una persona tiene datos repartidos en múltiples administraciones: expedientes en el Gobierno Vasco, citas en su ayuntamiento, notificaciones en la diputación... Para consultarlos, debe ir a la web de cada una por separado.
+
+DENA elimina esa fricción: **una sola app, todos los datos, de todas las administraciones**.
+
+![DENA High Level](./adjuntos/imagenes/arquitectura/dena-high-level-overview.png)
+
+---
+
+## Conceptos clave
+
+| Concepto | Qué es |
+|----------|--------|
+| **Persona** | Una persona inscrita en DENA (identificada por NIF) |
+| **Administración (admin)** | Tu entidad: ayuntamiento, diputación, Gobierno Vasco... que expone datos |
+| **DENA-APP** | La app móvil/web que usa la persona para ver sus datos |
+| **DENA-CORE** | El sistema central que intermedia entre la app y las administraciones |
+| **Tipo de dato** | Una categoría de información: expedientes, citas, notificaciones, pagos... |
+| **SRMD** | *Sync and Retrieve Meta-Data*: los avisos de "hay cambios" que tu admin envía a DENA |
+| **Conector** | Un componente en DENA que sabe cómo hablar con tu sistema |
+
+![DENA Concepts](./adjuntos/imagenes/arquitectura/dena-concepts-summary.png)
+
+El diagrama muestra cómo se relacionan los conceptos:
+
+- La **[persona]** usa la **DENA-APP** instalada en su **[dispositivo cliente]** (puede tener varias instalaciones)
+- La DENA-APP se comunica con **DENA-CORE** para sincronizar SRMD y recuperar datos
+- Las **[admins]** tienen **[orígenes de datos]** (data origins) que exponen **[data providers]**
+- DENA-CORE usa **[conectores de admin]** para hablar con los data providers de cada admin
+- Las admins envían **SRMD** (avisos de cambios) a DENA-CORE a través del **[admin SRMD receiver]**
+- DENA-APP sincroniza su copia local de SRMD con DENA-CORE a través del **[client SRMD sync]**
+
+---
+
+## Cómo funciona
+
+Ahora que conoces los actores y sus relaciones, este es el flujo simplificado de lo que ocurre en el día a día entre tu administración, DENA y la persona:
+
+``` mermaid
+sequenceDiagram
+    participant A as Tu Administración
+    participant D as DENA-CORE
+    participant P as Persona (App DENA)
+
+    Note over A,D: 1. Tu admin notifica cambios
+    A->>D: "Hay datos nuevos para persona X"
+
+    Note over P,D: 2. La persona abre la app
+    P->>D: ¿Hay novedades para mí?
+    D-->>P: Sí, en tu admin hay datos nuevos
+
+    Note over D,A: 3. DENA recupera los datos
+    D->>A: Dame los datos de persona X
+    A-->>D: Aquí están
+    D-->>P: Datos actualizados en la app
+```
+
+Tres pasos:
+
+1. **Tu admin notifica a DENA** que hay datos nuevos para una persona (**Metadata-Sync**)
+2. **DENA detecta el cambio** y se lo comunica a la app
+3. **DENA recupera los datos** de tu admin cuando la persona los necesita (**Data-Retrieve**)
+
+---
+
+## ¿Qué tiene que hacer tu administración?
 
 <div class="grid cards" markdown>
 
--   :material-rocket-launch:{ .lg .middle } **¿Primera vez aquí?**
+-   :material-database-arrow-right:{ .lg .middle } **Servir Datos (Data-Retrieve)**
 
     ---
 
-    Checklist completo: desde instalar el entorno hasta tu primera integración funcionando.
+    Exponer un endpoint REST para que DENA consulte los datos de una persona cuando los necesite.
 
-    [:octicons-arrow-right-24: Onboarding](./guia-inicio/onboarding.md)
+    **Es lo primero que hay que implementar.**
 
--   :material-swap-horizontal:{ .lg .middle } **Implementar integración**
+    [:octicons-arrow-right-24: Cómo implementarlo](./operativas/data-retrieve.md)
 
-    ---
-
-    Endpoints estándar que tu administración debe exponer para comunicarse con DENA.
-
-    [:octicons-arrow-right-24: Semántica](./semantica/index.md)
-
--   :material-shield-lock:{ .lg .middle } **Configurar autenticación**
+-   :material-bell-ring:{ .lg .middle } **Notificar Cambios (Metadata-Sync)**
 
     ---
 
-    Flujos OAuth2 entre tu sistema y DENA (client_credentials).
+    Enviar periódicamente a DENA avisos de que hay datos nuevos o actualizados para ciertas personas.
 
-    [:octicons-arrow-right-24: Autenticación](./autenticacion/index.md)
+    *Sin esto, DENA no sabe cuándo hay novedades.*
 
--   :material-wrench:{ .lg .middle } **Herramientas de testing**
+    [:octicons-arrow-right-24: Cómo implementarlo](./operativas/metadata-sync.md)
+
+-   :material-account-sync:{ .lg .middle } **Sincronizar Personas (Person-Sync)**
 
     ---
 
-    DevTools, Postman collections y test de conectividad bidireccional.
+    Recibir de DENA el listado de personas inscritas para saber para quién enviar avisos.
 
-    [:octicons-arrow-right-24: DevTools](./devtools/index.md)
+    *Push (DENA te notifica) o Pull (tú consultas).*
+
+    [:octicons-arrow-right-24: Cómo implementarlo](./operativas/person-sync.md)
 
 </div>
 
 ---
 
-## ¿Qué es DENA?
+## Principios fundamentales
 
-**DENA** es la plataforma de interoperabilidad del Gobierno Vasco que permite a las personas usuarias acceder, desde una única aplicación, a los datos que las distintas administraciones públicas gestionan sobre ellas.
+!!! tip "DENA no almacena tus datos"
+    DENA-CORE actúa como **proxy**: los datos se recuperan directamente de tu admin cuando la persona los pide. No se guardan copias en DENA.
 
-``` mermaid
----
-config:
-  theme: base
-  themeVariables:
-    primaryColor: "#FFFFFF"
-    primaryTextColor: "#1a4d1f"
-    primaryBorderColor: "#70d680"
-    lineColor: "#1a4d1f"
-    fontSize: "14px"
-    fontFamily: "Manrope, sans-serif"
----
-graph LR
-    A[Persona usuaria] -->|App DENA| B(CORE DENA)
-    B -->|Data-Retrieve| C[Administración A]
-    B -->|Data-Retrieve| D[Administración B]
-    C -->|Metadata-Sync| B
-    D -->|Metadata-Sync| B
-    B <-->|Person-Sync| C
-    B <-->|Person-Sync| D
-    
-    style A fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px
-    style B fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px
-    style C fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
-    style D fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
-```
+!!! tip "Tu admin no necesita infraestructura adicional"
+    Solo necesitas exponer un endpoint REST. DENA se adapta a ti. Si no puedes implementar el estándar, DENA desarrolla un conector a medida.
+
+!!! tip "El consentimiento es obligatorio"
+    Cada acceso a datos requiere un consentimiento previo de la persona. Tu admin puede verificarlo en DENA-CORE.
 
 ---
 
-## :material-map-marker-path: ¿Qué necesitas hacer?
+## :material-sitemap: ¿Por dónde sigo?
 
-=== "Servir datos a DENA"
-
-    Tu administración expone un endpoint REST para que DENA consulte datos de una persona.
-
-    **Endpoint:** `POST /api/retrieveData`
-
-    [:octicons-arrow-right-24: Documentación Data-Retrieve](./semantica/data-retrieve/index.md)
-
-=== "Notificar cambios"
-
-    Tu sistema notifica a DENA cuando hay nuevos datos disponibles para una persona.
-
-    **Endpoint:** `POST /api/syncMetadata`
-
-    [:octicons-arrow-right-24: Documentación Metadata-Sync](./semantica/metadata-sync/index.md)
-
-=== "Sincronizar personas"
-
-    Mantener actualizado el listado de personas registradas entre DENA y tu administración.
-
-    **Mecanismos:** Pull (tú consultas) / Push (DENA te notifica)
-
-    [:octicons-arrow-right-24: Documentación Person-Sync](./semantica/person-sync/index.md)
-
-=== "Probar conectividad"
-
-    Validar que la comunicación bidireccional entre tu infraestructura y DENA funciona.
-
-    ```bash
-    curl -X POST http://localhost:8082/api/conxTest \
-      -H "Content-Type: application/json" \
-      -d '{"environment": "PRE"}'
-    ```
-
-    [:octicons-arrow-right-24: Guía de comunicaciones](./guia-inicio/probar-comunicaciones.md)
+| Sección | Contenido | Cuándo consultarla |
+|---|---|---|
+| [:material-cube-outline: Arquitectura](./arquitectura/index.md) | Cómo está construido DENA por dentro | Para entender el sistema |
+| [:material-shield-lock: Seguridad y Autenticación](./seguridad/index.md) | Cómo se protege y cómo autenticarte | Para configurar accesos |
+| [:material-cogs: Operativas](./operativas/index.md) | Qué implementar y cómo (Data-Retrieve, Sync...) | Para desarrollar |
+| [:material-code-braces: Semántica](./semantica/index.md) | Formato de datos, campos, modelos | Para la especificación técnica |
+| [:material-play-circle: Primeros Pasos](./guia-inicio/onboarding.md) | Onboarding, instalación, conectividad | Cuando estés listo para implementar |
+| [:material-wrench: Herramientas](./devtools/index.md) | DevTools, Postman, mock | Para probar |
+| [:material-book-open-variant: Referencia](./referencia/faq.md) | FAQ, Glosario, Troubleshooting | Si tienes dudas |
 
 ---
-
-## :material-lightning-bolt: Inicio rápido
-
-!!! warning "Verificar versión del repositorio"
-    
-    Asegúrese de utilizar la versión correcta del repositorio antes de proceder con la clonación. La versión recomendada para el entorno de trabajo actual es la etiquetada como estable en el repositorio.
-
-!!! tip "5 minutos para validar tu entorno"
-
-    ```bash
-    # 1. Clonar el test de conectividad
-    git clone {{ repos.conx_test_clone }}
-    cd dena-admin-conx-test
-
-    # 2. Compilar y arrancar
-    mvn clean package -Pstandalone
-    java -jar denaAdminConxTestRESTApp/target/denaAdminConxTestRESTApp-*.war
-
-    # 3. Verificar
-    curl http://localhost:8082/api/hello
-
-    # 4. Test contra DENA PRE
-    curl -X POST http://localhost:8082/api/conxTest \
-      -H "Content-Type: application/json" \
-      -d '{"environment": "PRE"}'
-    ```
-
----
-
-## :material-sitemap: Mapa de documentación
-
-| Sección | Contenido |
-|---|---|
-| [:material-play-circle: Guía de inicio](./guia-inicio/onboarding.md) | Onboarding, instalación, comunicaciones, mock |
-| [:material-cube-outline: Arquitectura](./arquitectura/index.md) | Visión general, diagramas, módulos del sistema |
-| [:material-shield-lock: Autenticación](./autenticacion/index.md) | OAuth2 client_credentials, flujos Admin ↔ DENA |
-| [:material-code-braces: Semántica](./semantica/index.md) | Data-Retrieve, Metadata-Sync, Person-Sync |
-| [:material-wrench: DevTools](./devtools/index.md) | Herramienta web de testing HTTP desde DENA |
-| [:material-book-open-variant: Referencia](./referencia/faq.md) | FAQ, Glosario, Troubleshooting, Changelog, Matriz |
-| [:material-file-code: Ejemplos](./ejemplos-codigo/index.md) | Proyecto Java de referencia |
-| [:material-paperclip: Adjuntos](./adjuntos/index.md) | Postman collections, environments, imágenes |
-
----
-
-## :material-server-network: Stack tecnológico
-
-| Componente | Versión |
-|---|---|
-| :fontawesome-brands-java: Java | 21+ |
-| :simple-spring: Spring Boot | 3.3.5 |
-| :simple-apachemaven: Maven | 3.9+ |
-| :material-code-json: Jackson | 2.19.x |
-
----
-
-!!! info "Entornos DENA"
-
-    | Entorno | Internet | Euskalsarea |
-    |---|---|---|
-    | **PRE** | `https://api-batera.pre.dena.eus` | `https://api-batera.pre.batera.euskalsarea.eus` |
-    | **PRO** | `https://api-batera.pro.dena.eus` | `https://api-batera.pro.batera.euskalsarea.eus` |
 
 !!! question "Soporte técnico"
     
@@ -183,6 +148,6 @@ graph LR
     
     **:material-email:** [admin-digital-data-dena@ejie.eus](mailto:admin-digital-data-dena@ejie.eus)
 
+<!-- DENA-DOC-FOOTER -->
 ---
-
 <sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

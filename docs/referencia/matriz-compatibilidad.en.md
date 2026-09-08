@@ -39,7 +39,7 @@ Which endpoints are mandatory or optional depending on your integration type?
 |---|---|---|
 | `RECORDS` | Records | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
 | `NOTICES` | Notifications | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
-| `REGISTRY` | Official registries | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
+| `REGISTER` | Official registries | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
 | `PAYMENTS` | Payments | [pago.md](../semantica/data-retrieve/data/pago.md) |
 | `SCHEDULE` | Appointments | [cita.md](../semantica/data-retrieve/data/cita.md) |
 

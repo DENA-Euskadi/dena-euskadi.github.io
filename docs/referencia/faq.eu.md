@@ -53,7 +53,7 @@ Administrazio integratzaileen zalantza ohikoenei erantzunak.
     - Iraungitzeko ~60 segundo lehenago berritzea (leeway)
     - Ez eskatzea token berri bat eskaera bakoitzean
 
-    [:octicons-arrow-right-24: get-token endpoint-a](../autenticacion/administracion-core-dena/endpoint-get-token.md)
+    [:octicons-arrow-right-24: get-token endpoint-a](../autenticacion/administracion-core-dena/index.md)
 
 ??? question "Nire IDP propioa erabil al dezaket (Keycloak, ADFS, Cognito)?"
 

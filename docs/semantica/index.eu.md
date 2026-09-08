@@ -33,7 +33,7 @@ flowchart TD
 
 | Kolorea | Esanahia |
 |---|---|
-| :purple_circle: Morea | Partekatutako oinarrizko eredua |
+| :yellow_circle: Horia | Partekatutako oinarrizko eredua |
 | :orange_circle: Laranja | DATA-RETRIEVE (kontsulta) |
 | :blue_circle: Urdin argia | METADATA-SYNC (metadatuen sinkronizazioa) |
 | :green_circle: Berdea | PERSON-SYNC (pertsonen sinkronizazioa) |

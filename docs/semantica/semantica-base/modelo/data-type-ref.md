@@ -36,7 +36,7 @@ Objeto para referenciar a un tipo de dato gestionado por DENA (ej: Expediente, N
 |---|---|
 | `RECORDS` | Expedientes |
 | `NOTICES` | Notificaciones |
-| `REGISTRY` | Registros oficiales |
+| `REGISTER` | Registros oficiales |
 | `PAYMENTS` | Pagos |
 | `SCHEDULE` | Citas |
 

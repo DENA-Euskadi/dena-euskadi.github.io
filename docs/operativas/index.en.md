@@ -1,42 +1,51 @@
-# :material-cogs: DENA Operations
+# :material-cogs: Operations
 
-This section contains all the functional operations that administrations can implement to integrate with the DENA platform.
+This section describes the **operations your administration can implement** to integrate with DENA. Each operation is explained first conceptually and then with technical implementation detail.
 
-## Available Operations
+---
+
+## Recommended flow
+
+1. **Start with Data-Retrieve** — It is the fundamental operation. Without it, DENA cannot show data from your admin.
+2. **Then Metadata-Sync** — So DENA knows when there is new data without having to constantly query.
+3. **Finally Person-Sync** — To know which persons are in DENA and send notifications only for them.
+
+---
+
+## Available operations
 
 <div class="grid cards" markdown>
 
--   :material-database: **Serve Data**
-    
-    ---
-    
-    Implement endpoints so that DENA can query data from your administration on demand.
-    
-    [:octicons-arrow-right-24: Go to Serve Data](../semantica/data-retrieve/index.md)
+-   :material-database-arrow-right:{ .lg .middle } **Data-Retrieve (Serve Data)**
 
--   :material-bell: **Notify Changes**
-    
     ---
-    
-    Notify DENA when there are changes in your administration's metadata.
-    
-    [:octicons-arrow-right-24: Go to Notify Changes](../semantica/metadata-sync/index.md)
 
--   :material-sync: **Synchronize Persons**
-    
+    DENA calls your admin to obtain a person's data.
+
+    [:octicons-arrow-right-24: See detail](./data-retrieve.md)
+
+-   :material-bell-ring:{ .lg .middle } **Metadata-Sync (Notify Changes)**
+
     ---
-    
-    Keep person information synchronized between DENA and your administration.
-    
-    [:octicons-arrow-right-24: Go to Synchronize Persons](../semantica/person-sync/index.md)
+
+    Your admin sends DENA notifications that there is new or updated data.
+
+    [:octicons-arrow-right-24: See detail](./metadata-sync.md)
+
+-   :material-account-sync:{ .lg .middle } **Person-Sync (Synchronize Persons)**
+
+    ---
+
+    Keep the list of persons registered in DENA synchronized.
+
+    [:octicons-arrow-right-24: See detail](./person-sync.md)
 
 </div>
 
-## Recommended Flow
+---
 
-1. **Start with Serve Data** - It is the fundamental operation that allows DENA to access your administration's information
-2. **Implement Notify Changes** - To keep DENA informed of updates in real time  
-3. **Configure Synchronize Persons** - To maintain coherence in personal data
+**Next:** [:octicons-arrow-right-24: Semantics (technical specification)](../semantica/index.md)
 
-!!! tip "Where to start?"
-    If this is your first integration with DENA, we recommend starting with **Serve Data** as it is the most basic and necessary operation for any integration.
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

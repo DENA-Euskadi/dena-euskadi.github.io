@@ -60,7 +60,7 @@ tags:
 ```yaml
 dena:
   version: "0.4.0"  # Nueva versión principal
-  date: "2024-12-20"  # Nueva fecha de release
+  date: "2026-08-24"  # Nueva fecha de release
 ```
 
 ### 3. Regenerar Documentación

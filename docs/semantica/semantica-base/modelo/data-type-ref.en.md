@@ -36,7 +36,7 @@ Object for referencing a data type managed by DENA (e.g. Record, Notification, P
 |---|---|
 | `RECORDS` | Records |
 | `NOTICES` | Notifications |
-| `REGISTRY` | Official registrations |
+| `REGISTER` | Official registrations |
 | `PAYMENTS` | Payments |
 | `SCHEDULE` | Appointments |
 

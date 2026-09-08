@@ -6,7 +6,19 @@
 
 ## Zer da?
 
-**Person-Sync**-ek administrazioei DENAn erregistratutako pertsonak beren sistemetan sinkronizatzeko aukera ematen die, pertsona horiei lotutako datuetako eguneraketak DENAri jakinarazi ahal izateko.
+**Person-Sync** administrazioek DENAn erregistratutako pertsonak beren sistemetan sinkronizatzeko aukera ematen die, pertsona horiei lotutako datuetako eguneraketak DENAri jakinarazi ahal izateko.
+
+## Kontzeptu Gakoak
+
+DENAn erregistratutako pertsona bakoitzak kontu bat du, honako hauek gordetzen dituena:
+
+- **Pertsona OID**: DENAk sortutako identifikadore bakarra
+- **Pertsona ID**: NAF (zerga-zenbakia)
+- **Izen-osoa**: izena, lehen abizena, bigarren abizena
+- **Kontaktu-datuak**: helbidea, telefonoa, e-posta...
+- **Gai Nahiagoak**: zerbitzu proaktiboetan erabili edo UI pertsonalizatzeko erabil daitezke
+
+Informazio oinarrizko hau DENAren parte diren administrazio guztientzat eskuragarri dago.
 
 ``` mermaid
 ---
@@ -28,27 +40,70 @@ graph LR
     style Admin fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
 ```
 
+!!! note "Ez nahasi Kontaktu-datu datu-motarekin"
+
+    **Person-Sync** administrazioek DENAren pertsona-kontu datuetara sartzeko mekanismoa da.
+
+    **Kontaktu-datuak** beste datu-mota interoperable bat da (expedienteen antzekoa), pertsona bati bere kontaktu-datuak administrazio desberdinetan ikusteko aukera ematen diona.
+
+---
+
+## Helburua
+
+Administrazioekin pertsonak sinkronizatzearen helburu nagusia hau da:
+
+1. **Jakinarazpen zuzenduak**: Administrazioek SRMD (aldaketa-jakinarazpenak) soilik DENAren kontua benetan duten pertsonei bidaltzen dizkiete
+2. **Oinarrizko datu eguneratuak**: Administrazioek pertsonen izena, kontaktua eta lehentasunak atzitzen dituzte
+
 ---
 
 ## Mekanismoak
 
-=== ":material-download: Pull (Administrazioa → DENA)"
+DENAk bi mekanismo osagarri eskaintzen ditu pertsona-datuak sinkronizatzeko:
 
-    Administrazioa DENAra konektatzen da eta pertsonen datuak deskargatzen ditu.
+### :material-download: Pull (Administrazioa → DENA)
 
-    - Aldaketa inkrementalekin aurrez sortutako fitxategiak (aldizka)
-    - Iragazki pertsonalizatuekin neurri-fitxategiak eskatzeko aukera
+Administrazioak DENArekin konektatzen da eta pertsona-datuak eskatzen ditu eskaintzeko.
 
-    [:octicons-arrow-right-24: Pull dokumentazioa](./pull.md)
+| Modalitatea | Deskribapena |
+|-------------|--------------|
+| **Lineako** | Denbora errealeko REST kontsulta pertsona-datuak lortzeko |
+| **Lineaz kanpoko (aurrez sortutako)** | Fitxategi periodikoak pertsonen zerrendekin |
+| **Lineaz kanpoko (bespoke)** | Pertsonalizatutako fitxategiak eskaeraren arabera sortuak |
 
-=== ":material-upload: Push (DENA → Administrazioa)"
+### :material-upload: Push (DENA → Administrazioa)
 
-    DENAk modu proaktiboan jakinarazten dio administrazioari pertsona berri bat erregistratzen denean edo aldaketak gertatzen direnean.
+DENAk modu proaktiboan jakinarazten dio administrazioari aldaketa bat gertatzen denean:
 
-    - Administrazioak jasotze-endpoint bat eskaintzen du
-    - DENAk jakinarazpena bidaltzen du aldaketaren unean
+- Pertsona berria erregistratuta DENAren
+- Pertsonak bere kontua ezabatu du
+- Pertsonak oinarrizko datuak aldatu ditu (izena, kontaktua...)
 
-    [:octicons-arrow-right-24: Push dokumentazioa](./push.md)
+---
+
+## Arkitektura Irudiak
+
+### Person-Sync Ikuspegi Orokorra
+
+![Person-Sync Overview](../../adjuntos/imagenes/image18.png)
+
+### Pull Fluxua (Administraziotik Sinkronizazioa)
+
+![Person-Sync Pull](../../adjuntos/imagenes/person-sync-pull.png)
+
+---
+
+## Mekanismoen Konparaketa
+
+| Egoera | Gomendioa |
+|--------|-----------|
+| Unean-unean jakin behar duzu nor erregistratzen den | **Push** |
+| Gauetan sinkronizatzen duen prozesu bat duzu | **Pull lineaz kanpoko** |
+| Pertsonak eskaintzeko kontsultatu nahi dituzu | **Pull lineako** |
+| Biak nahi dituzu (gomendatua) | **Push** + **Pull lineaz kanpoko** babeskopiatutzat |
+
+!!! tip "Gomendioa"
+    **Bi mekanismoak** inplementatzea gomendatzen da: Push denbora errealeko jakinarazpenetarako eta Pull lineaz kanpoko galdu daitezkeenak berreskuratzeko babeskopiatutzat.
 
 ---
 
@@ -68,6 +123,16 @@ graph LR
 | Dokumentua | Edukia |
 |---|---|
 | [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Jasotze-endpoint-aren kontratua |
+
+---
+
+## Datu-Modelos
+
+| Modelo | Deskribapena |
+|--------|--------------|
+| [Export Spec](./modelo/pull/export-spec.md) | Esportazio-formatuaren zehaztapena |
+| [Person Hashes](./modelo/push/person-hashes.md) | Push mekanismorako pertsonen hash-ak |
+| [Arkitektura Dokumentazioa (ref.)](./arquitectura-dena-completa.md) | DENA-Architecture.docx-tik ateratako dokumentazio osoa |
 
 ---
 

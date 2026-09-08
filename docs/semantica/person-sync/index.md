@@ -8,6 +8,18 @@
 
 **Person-Sync** permite a las administraciones sincronizar las personas registradas en DENA en sus sistemas, para poder notificar a DENA las actualizaciones en los datos asociados a esas personas.
 
+## Conceptos Clave
+
+Cada persona que se registra en DENA tiene una cuenta que almacena:
+
+- **OID de Persona**: Identificador único generado por DENA
+- **ID de Persona**: El NIF
+- **Nombre Completo**: nombre, apellido1, apellido2
+- **Datos de Contacto**: dirección, teléfono, email...
+- **Temas Preferidos**: pueden usarse en servicios proactivos o personalizar la UI
+
+Esta información básica está disponible para todas las administraciones participantes en DENA.
+
 ``` mermaid
 ---
 config:
@@ -28,27 +40,70 @@ graph LR
     style Admin fill:#e3f2fd,stroke:#1565c0,color:#1565c0,stroke-width:2px
 ```
 
+!!! note "No confundir con el tipo de dato Contact Data"
+
+    El **Person-Sync** es un mecanismo para que las administraciones accedan a los datos de cuenta de las personas en DENA.
+
+    El **tipo de dato Contact Data** es otro tipo de dato interoperable (similar a expedientes) que permite a una persona ver sus propios datos de contacto en las diferentes administraciones.
+
+---
+
+## Propósito
+
+El propósito principal de sincronizar personas con las administraciones es:
+
+1. **Notificaciones dirigidas**: Las administraciones solo envían SRMD (avisos de cambios) para personas que realmente tienen cuenta en DENA
+2. **Datos básicos actualizados**: Las administraciones acceden a nombre, contacto y preferencias de las personas
+
 ---
 
 ## Mecanismos
 
-=== ":material-download: Pull (Administración → DENA)"
+DENA ofrece dos mecanismos complementarios para sincronizar datos de personas:
 
-    La administración se conecta a DENA y descarga los datos de personas.
+### :material-download: Pull (Administración → DENA)
 
-    - Ficheros pregenerados con cambios incrementales (periódicos)
-    - Posibilidad de solicitar ficheros a medida con filtros personalizados
+La administración se conecta a DENA y descarga los datos de personas bajo demanda.
 
-    [:octicons-arrow-right-24: Documentación Pull](./pull.md)
+| Modalidad | Descripción |
+|-----------|-------------|
+| **On-line** | Consulta REST en tiempo real para obtener datos de personas |
+| **Off-line (pre-generado)** | Ficheros periódicos con listados de personas |
+| **Off-line (bespoke)** | Ficheros personalizados generados bajo demanda |
 
-=== ":material-upload: Push (DENA → Administración)"
+### :material-upload: Push (DENA → Administración)
 
-    DENA notifica proactivamente a la administración cuando se registra una persona nueva o se producen cambios.
+DENA notifica proactivamente a la administración cuando se produce un cambio:
 
-    - La administración expone un endpoint de recepción
-    - DENA envía la notificación en el momento del cambio
+- Nueva persona registrada en DENA
+- Persona elimina su cuenta
+- Persona cambia datos básicos (nombre, contacto...)
 
-    [:octicons-arrow-right-24: Documentación Push](./push.md)
+---
+
+## Imágenes de Arquitectura
+
+### Vista General de Person-Sync
+
+![Person-Sync Overview](../../adjuntos/imagenes/image18.png)
+
+### Flujo de Pull (Sincronización desde Administración)
+
+![Person-Sync Pull](../../adjuntos/imagenes/person-sync-pull.png)
+
+---
+
+## Comparativa de Mecanismos
+
+| Situación | Recomendación |
+|-----------|---------------|
+| Necesitas saber al instante cuando alguien se registra | **Push** |
+| Tienes un proceso batch nocturno que sincroniza | **Pull off-line** |
+| Quieres consultar personas bajo demanda | **Pull on-line** |
+| Quieres ambos (recomendado) | **Push** + **Pull off-line** como respaldo |
+
+!!! tip "Recomendación"
+    Se recomienda implementar **ambos mecanismos**: Push para notificaciones en tiempo real y Pull off-line como respaldo para recuperar posibles perdidos.
 
 ---
 
@@ -68,6 +123,16 @@ graph LR
 | Documento | Contenido |
 |---|---|
 | [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Contrato del endpoint de recepción |
+
+---
+
+## Modelos de Datos
+
+| Modelo | Descripción |
+|--------|-------------|
+| [Export Spec](./modelo/pull/export-spec.md) | Especificación del formato de exportación |
+| [Person Hashes](./modelo/push/person-hashes.md) | Hashes de personas para el mecanismo Push |
+| [Documentación Arquitectura (ref.)](./arquitectura-dena-completa.md) | Documentación completa extraída de DENA-Architecture.docx |
 
 ---
 

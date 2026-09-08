@@ -33,7 +33,7 @@ flowchart TD
 
 | Color | Significado |
 |---|---|
-| :purple_circle: Violeta | Modelo base compartido |
+| :yellow_circle: Amarillo | Modelo base compartido |
 | :orange_circle: Naranja | DATA-RETRIEVE (consulta) |
 | :blue_circle: Azul claro | METADATA-SYNC (sincronización de metadatos) |
 | :green_circle: Verde | PERSON-SYNC (sincronización de personas) |

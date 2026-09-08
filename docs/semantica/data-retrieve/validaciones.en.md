@@ -90,7 +90,7 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 |-------|---------| 
 | Protocol | Only `https://` (`http://` is accepted in test environments) |
 | Format | Valid URL according to RFC 3986 |
-| Accessibility | The URL must be accessible to the citizen |
+| Accessibility | The URL must be accessible to the person |
 
 ---
 

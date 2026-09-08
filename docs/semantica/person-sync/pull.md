@@ -6,7 +6,7 @@ La administración se conecta a DENA y descarga los datos de personas registrada
 
 ## Ficheros pregenerados (diarios)
 
-Cada hora se generan exportaciones con los usuarios nuevos o modificados, descargables mediante:
+Cada hora se generan exportaciones con las personas nuevas o modificadas, descargables mediante:
 
 [:octicons-arrow-right-24: Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md)
 

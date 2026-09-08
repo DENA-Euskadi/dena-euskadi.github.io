@@ -7,7 +7,7 @@
 
 ## Description
 
-The **PersonData** model (`DN00PersonData`) represents the data of a citizen exchanged between the administration and DENA: contact information, addresses and bank details.
+The **PersonData** model (`DN00PersonData`) represents the data of a person exchanged between the administration and DENA: contact information, addresses and bank details.
 
 It extends `DN00DENADataExchangedObjectBase` (it is a main exchanged object of the DATA-RETRIEVE model).
 

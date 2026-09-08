@@ -80,7 +80,7 @@ Identifies the administration that generates the data. It is optional because DE
 
 ## Detail of `aboutPersonRef`
 
-Identifies the citizen person the data refers to. It is optional because DENA fills it in with the `personId` from the request context.
+Identifies the person the data refers to. It is optional because DENA fills it in with the `personId` from the request context.
 
 ```json
 {
@@ -161,7 +161,7 @@ Array of URLs that provide access to the object in the e-government portal. Each
 - The `originAdminRef` and `aboutPersonRef` fields are **optional**. If the administration does not include them, DENA will complete them automatically from the request context.
 - It is recommended to include at least one URL with the `default` tag for each supported language (Spanish and Basque as a minimum).
 - The `oid` field must be unique within the administration's system for that object type.
-- The `id` field must be the business identifier that the citizen recognises (e.g. the record number visible in the portal).
+- The `id` field must be the business identifier that the person recognises (e.g. the record number visible in the portal).
 
 ---
 

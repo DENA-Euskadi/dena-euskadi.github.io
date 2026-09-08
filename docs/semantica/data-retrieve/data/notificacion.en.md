@@ -7,7 +7,7 @@
 
 ## Description
 
-Represents an official notification or administrative communication issued to a citizen, linked to a record.
+Represents an official notification or administrative communication issued to a person, linked to a record.
 
 > See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdminRef`, `aboutPersonRef`)
 

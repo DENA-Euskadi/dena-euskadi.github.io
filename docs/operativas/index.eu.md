@@ -1,42 +1,51 @@
-# :material-cogs: DENA Operatibak
+# :material-cogs: Operatibak
 
-Atal honek administrazioek DENA plataformarekin integratzeko inplementa ditzaketen operazio funtzional guztiak biltzen ditu.
+Atal honek zure administrazioak DENArekin integratzeko **inplementa ditzakeen eragiketak** deskribatzen ditu. Operatiba bakoitza lehenik kontzeptualki azaltzen da eta gero inplementazio teknikoaren xehetasunarekin.
 
-## Operazio Erabilgarriak
+---
+
+## Gomendatutako fluxua
+
+1. **Hasi Data-Retrieve-rekin** — Oinarrizko operatiba da. Hau gabe, DENAk ezin ditu zure adminaren datuak erakutsi.
+2. **Gero Metadata-Sync** — DENAk jakin dezan noiz dauden datu berriak etengabe kontsultatu beharrik gabe.
+3. **Azkenik Person-Sync** — DENAn zer pertsona dauden jakiteko eta haientzat soilik jakinarazpenak bidaltzeko.
+
+---
+
+## Operatiba erabilgarriak
 
 <div class="grid cards" markdown>
 
--   :material-database: **Datuak Zerbitzatu**
-    
-    ---
-    
-    Inplementatu endpoint-ak DENAk zure administrazioaren datuak eskaeran kontsulta ditzan.
-    
-    [:octicons-arrow-right-24: Joan Datuak Zerbitzatura](../semantica/data-retrieve/index.md)
+-   :material-database-arrow-right:{ .lg .middle } **Data-Retrieve (Datuak Zerbitzatu)**
 
--   :material-bell: **Aldaketak Jakinarazi**
-    
     ---
-    
-    Jakinarazi DENAri zure administrazioaren metadatuetan aldaketak daudenean.
-    
-    [:octicons-arrow-right-24: Joan Aldaketak Jakinarazira](../semantica/metadata-sync/index.md)
 
--   :material-sync: **Pertsonak Sinkronizatu**
-    
+    DENAk zure administrazioari deitzen dio pertsona baten datuak lortzeko.
+
+    [:octicons-arrow-right-24: Xehetasuna ikusi](./data-retrieve.md)
+
+-   :material-bell-ring:{ .lg .middle } **Metadata-Sync (Aldaketak Jakinarazi)**
+
     ---
-    
-    Mantendu pertsonen informazioa sinkronizatuta DENA eta zure administrazioaren artean.
-    
-    [:octicons-arrow-right-24: Joan Pertsonak Sinkronizatura](../semantica/person-sync/index.md)
+
+    Zure administrazioak DENAri jakinarazpenak bidaltzen dizkio datu berriak edo eguneratuak daudela.
+
+    [:octicons-arrow-right-24: Xehetasuna ikusi](./metadata-sync.md)
+
+-   :material-account-sync:{ .lg .middle } **Person-Sync (Pertsonak Sinkronizatu)**
+
+    ---
+
+    DENAn inskribatutako pertsonen zerrenda sinkronizatuta mantendu.
+
+    [:octicons-arrow-right-24: Xehetasuna ikusi](./person-sync.md)
 
 </div>
 
-## Gomendatutako Fluxua
+---
 
-1. **Hasi Datuak Zerbitzatuz** - Oinarrizko operatiba da, DENAk zure administrazioaren informazioa atzitzea ahalbidetzen duena
-2. **Inplementatu Aldaketak Jakinarazi** - DENA denbora errealean eguneraketez informatuta mantentzeko  
-3. **Konfiguratu Pertsonak Sinkronizatu** - Datu pertsonaletan koherentzia mantentzeko
+**Hurrengoa:** [:octicons-arrow-right-24: Semantika (zehaztapen teknikoa)](../semantica/index.md)
 
-!!! tip "Nondik hasi?"
-    DENArekin zure lehen integrazioa bada, **Datuak Zerbitzatu**-rekin hastea gomendatzen dizugu, edozein integraziorako oinarrizkoena eta beharrezkoena den operatiba baita.
+<!-- DENA-DOC-FOOTER -->
+---
+<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

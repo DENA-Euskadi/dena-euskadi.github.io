@@ -21,7 +21,7 @@ config:
 flowchart TD
     BASE["Base Semantics<br/><i>Common shared objects</i>"]
 
-    BASE --> DR["DATA-RETRIEVE<br/><i>Citizen person<br/>data query</i>"]
+    BASE --> DR["DATA-RETRIEVE<br/><i>Person<br/>data query</i>"]
     BASE --> DS["METADATA-SYNC<br/><i>Metadata synchronization<br/>between DENA and administrations</i>"]
     BASE --> PS["PERSON-SYNC<br/><i>Person<br/>synchronization</i>"]
 
@@ -33,7 +33,7 @@ flowchart TD
 
 | Color | Meaning |
 |---|---|
-| :purple_circle: Violet | Shared base model |
+| :yellow_circle: Yellow | Shared base model |
 | :orange_circle: Orange | DATA-RETRIEVE (query) |
 | :blue_circle: Light blue | METADATA-SYNC (metadata synchronization) |
 | :green_circle: Green | PERSON-SYNC (person synchronization) |

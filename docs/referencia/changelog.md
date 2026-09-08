@@ -4,9 +4,111 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
+## v0.5.1 <small>— 2026-08-27</small> { #v051 }
 
 !!! success "Actual"
+
+**Documentación completa de Person-Sync extraída de DENA-Architecture.docx y DENA-CORE-Services_for_admins.docx.**
+
+Contenido nuevo de arquitectura:
+
+- :material-plus: Sección "Person-Sync" ampliada con Push, Pull On-line y Pull Off-line
+- :material-plus: Diagramas de flujo Mermaid para Bespoke job flow
+- :material-plus: Ejemplos de payloads JSON (Push, Pull On-line, Bespoke requests)
+- :material-plus: Estados del job documentados: REGISTERED, BEING_PROCESSED, FINISHED_OK, FINISHED_NOK
+- :material-plus: Ejemplos de API Java para arquitectura-servicios.md
+- :material-plus: Imagen extraída de Word: image18.png (Person-Sync Overview), image7.png (DENA Push)
+
+Traducciones:
+
+- :material-translate: arquitectura/index.md: contenido completo traducido a EN y EU
+- :material-translate: arquitectura/arquitectura-servicios.md: ejemplos Java traducidos
+
+Limpieza:
+
+- :material-minus: Eliminado image8.png de Admin Pull (no correspondía al contexto)
+- :material-minus: Fichero temporal архитектура-dena-completa.md consolidado en arquitectura/index.md
+
+---
+
+## v0.5.0 <small>— 2026-08-24</small> { #v050 }
+
+!!! success "Actual"
+
+**Mejora integral de documentacion: estructura, contenido, consistencia y traducciones.**
+
+Inconsistencias corregidas:
+
+- :material-bug: Seccion "Mas informacion" triplicada en arquitectura/index.md
+- :material-bug: `REGISTRY` corregido a `REGISTER` (valor canonico del enum) en 6 ficheros
+- :material-bug: Leyenda de colores incorrecta en semantica/index (violeta → amarillo)
+- :material-bug: Fecha obsoleta en sistema-versionado.md
+- :material-bug: TRANSLATION_TRACKER con contadores contradictorios
+
+Contenido nuevo:
+
+- :material-plus: Ejemplo End-to-End completo (token + SRMD + Data-Retrieve + script bash)
+- :material-plus: Pagina de limites y restricciones de la API (timeouts documentados)
+- :material-plus: Ejemplos de codigo Java Spring Boot (controller, entity, metadata-sync service, token service)
+- :material-plus: Glosario ampliado con 6 terminos: Cold-Start, Conector, Data Origin Instance, DENA-APP, DENA-CORE, SRMD
+
+Reestructuracion de seguridad y autenticacion:
+
+- :material-refresh: "Tu Sistema Llama a DENA" integra get-token + cabeceras de seguridad (generacion de campos)
+- :material-refresh: "DENA Llama a Tu Sistema" integra modelo JWT + servicios + mecanismos alternativos (OAuth, mTLS, CAS, API Key, Basic Auth, WS-Security)
+- :material-minus: Eliminados modelo.md, servicios.md y endpoint-get-token.md (integrados en paginas principales)
+
+Mejoras de contenido existente:
+
+- :material-refresh: Data-Retrieve: JSON de ejemplo con estructura interop completa (colapsable)
+- :material-refresh: Data-Retrieve: seccion "Codigo de referencia" con enlaces a tests y DN00InteropHeaders
+- :material-refresh: Metadata-Sync: matizacion "que cambio y cuando" (no el quien)
+- :material-refresh: Metadata-Sync: documentacion de fromDataOrigin, IDs vs OIDs, error clasico data origin
+- :material-refresh: index ES/EN/EU unificados con estructura narrativa identica
+
+Lenguaje inclusivo:
+
+- :material-refresh: Filtrado completo: "usuario" → "persona", "ciudadano/a" → "persona ciudadana/ciudadania"
+- :material-refresh: Aplicado en ES, EN y EU (citizen → person, herritarra → pertsona)
+
+Limpieza:
+
+- :material-minus: ADRs vacios eliminados (0001, 0002)
+- :material-minus: Ficheros legacy no publicados eliminados (vision-general-detallada, seguridad, servicios-core-admins)
+- :material-minus: Traducciones obsoletas eliminadas y regeneradas
+
+Traducciones:
+
+- :material-translate: Traducciones EN+EU nuevas o actualizadas para todas las paginas modificadas
+- :material-translate: operativas/data-retrieve, metadata-sync, person-sync (EN+EU)
+- :material-translate: autenticacion/administracion-core-dena, core-dena-administracion (EN+EU)
+- :material-translate: ejemplo-end-to-end, limites-api (EN+EU)
+
+---
+
+## v0.4.0 <small>— 2026-08-24</small> { #v040 }
+
+**Incorporación del documento Semántica BASE v2.0:**
+
+- :material-plus: HTTP Headers: cabeceras request/response, versionado API, digest de seguridad
+- :material-plus: Consentimientos: principios, marco normativo (RGPD), ciclo de vida, formato y API
+- :material-plus: DenaObjectRef: tipo base con OID, timestamps y URL
+- :material-plus: DENAProtocol: URLs de callback, timeouts, HATEOAS
+- :material-plus: DENAConsent: referencia a base habilitante en mensajes Data-Retrieve
+- :material-plus: Status: códigos de respuesta, DENAClientErrDetails, DENAServerErrDetails, DENAAsyncQueueData
+- :material-plus: Tipos de Mensaje: DenaFlowDirection, DenaMessageType, DenaInteropRouteDataItem, DenaPersonAndConsentGiven
+- :material-plus: UserAgent: formato por origen (app móvil, web, CORE, administración)
+- :material-plus: Tipos Sync: DenaInteroperableDataTypeSync, DenaPersonDataSync, DenaPersonMetaDataSyncItem
+- :material-refresh: OrgAdminRef ampliado con orgId, officialId, objectOid, timestamps, url, estructura organizativa
+- :material-refresh: PersonRef ampliado con personId, objectOid, timestamps, url
+- :material-refresh: tipos-dato-base: añadidos Hash (SHA-256) y UserAgent
+- :material-refresh: semantica-base/index: estructura completa del mensaje (context, protocol, consent, status, data)
+- :material-refresh: mkdocs.yml: navegación actualizada con nuevas páginas
+- :material-translate: Traducciones EN y EU para todas las páginas nuevas y actualizadas (76/76)
+
+---
+
+## v0.3.38 <small>— 2026-07-04</small> { #v0338 }
 
 **Mejoras de documentación:**
 

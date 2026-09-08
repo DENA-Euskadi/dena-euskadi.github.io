@@ -12,15 +12,15 @@ Estado: ⬜ Pendiente | ✅ Completado | 🔄 En revisión
 | 04 | `docs/arquitectura/diagramas.md` | ✅ | ✅ | |
 | 05 | `docs/arquitectura/index.md` | ✅ | ✅ | tiene mermaid sequenceDiagram |
 | 06 | `docs/arquitectura/otra-documentacion.md` | ✅ | ✅ | |
-| 07 | `docs/autenticacion/administracion-core-dena/endpoint-get-token.md` | ✅ | ✅ | |
-| 08 | `docs/autenticacion/administracion-core-dena/index.md` | ✅ | ✅ | |
+| 07 | `docs/autenticacion/administracion-core-dena/index.md` | ⬜ | ⬜ | Reescrito - integra get-token + security headers |
+| 08 | `docs/autenticacion/core-dena-administracion/index.md` | ⬜ | ⬜ | Reescrito - integra modelo + servicios |
 | 09 | `docs/autenticacion/client-core-dena.md` | ✅ | ✅ | tiene mermaid + imágenes PNG |
-| 10 | `docs/autenticacion/core-dena-administracion/index.md` | ✅ | ✅ | tiene mermaid |
-| 11 | `docs/autenticacion/core-dena-administracion/modelo.md` | ✅ | ✅ | placeholder - en construcción |
-| 12 | `docs/autenticacion/core-dena-administracion/servicios.md` | ✅ | ✅ | placeholder - en construcción |
+| 10 | `docs/autenticacion/core-dena-administracion/index.md` | ⬜ | ⬜ | Reescrito - ver fila 08 |
+| 11 | ~~`docs/autenticacion/core-dena-administracion/modelo.md`~~ | — | — | Eliminado - integrado en index |
+| 12 | ~~`docs/autenticacion/core-dena-administracion/servicios.md`~~ | — | — | Eliminado - integrado en index |
 | 13 | `docs/autenticacion/index.md` | ✅ | ✅ | tiene mermaid |
 | 14 | `docs/devtools/index.md` | ✅ | ✅ | |
-| 15 | `docs/ejemplos-codigo/index.md` | ✅ | ✅ | placeholder - en desarrollo |
+| 15 | `docs/ejemplos-codigo/index.md` | ✅ | ✅ | Completado - Java Spring Boot reference |
 | 16 | `docs/guia-inicio/instalacion.md` | ✅ | ✅ | fichero largo |
 | 17 | `docs/guia-inicio/mock-expedientes.md` | ✅ | ✅ | |
 | 18 | `docs/guia-inicio/onboarding.md` | ✅ | ✅ | |
@@ -73,9 +73,23 @@ Estado: ⬜ Pendiente | ✅ Completado | 🔄 En revisión
 | 65 | `docs/semantica/semantica-base/modelo/org-admin-ref.md` | ✅ | ✅ | |
 | 66 | `docs/semantica/semantica-base/modelo/person-ref.md` | ✅ | ✅ | |
 | 67 | `docs/stylesheets/README.md` | ✅ | ✅ | |
+| 68 | `docs/semantica/semantica-base/http-headers.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 69 | `docs/semantica/semantica-base/consentimientos.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 70 | `docs/semantica/semantica-base/modelo/object-ref.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 71 | `docs/semantica/semantica-base/modelo/protocol.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 72 | `docs/semantica/semantica-base/modelo/consent.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 73 | `docs/semantica/semantica-base/modelo/status.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 74 | `docs/semantica/semantica-base/modelo/message-types.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 75 | `docs/semantica/semantica-base/modelo/user-agent.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 76 | `docs/semantica/semantica-base/modelo/sync-types.md` | ✅ | ✅ | Nuevo - extraído de DOCX Semántica BASE v2.0 |
+| 77 | `docs/guia-inicio/ejemplo-end-to-end.md` | ✅ | ✅ | Nuevo - ejemplo E2E con curl y scripts |
+| 78 | `docs/referencia/limites-api.md` | ✅ | ✅ | Nuevo - timeouts y restricciones API |
+| 79 | `docs/operativas/data-retrieve.md` | ✅ | ✅ | Nuevo - guía operativa Data-Retrieve |
+| 80 | `docs/operativas/metadata-sync.md` | ✅ | ✅ | Nuevo - guía operativa Metadata-Sync |
+| 81 | `docs/operativas/person-sync.md` | ✅ | ✅ | Nuevo - guía operativa Person-Sync |
 
 ---
 
-**Total:** 67 ficheros  
-**Completados:** 67/67  
-**Pendiente:** 0/67
+**Total:** 81 ficheros  
+**Completados:** 80/81 (EN+EU)  
+**En revisión:** 1 (`docs/semantica/index.md`)
