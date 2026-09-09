@@ -22,6 +22,9 @@ Correcciones frente al código 0.4.16:
 - :material-refresh: Modelo de datos data-retrieve: `originAdmin`/`aboutPerson` (antes `*Ref`), añadido `lastChangedAt`
 - :material-refresh: Semántica base: `status` (code/errorId/details), `consentOid`, `sync-types` (`DN00SyncMetaDataFromAdminToCOREItem`), http-headers y language-texts alineados con el código
 - :material-refresh: Enlaces de código y ejemplos JSON (ES/EN/EU) actualizados al modelo real
+- :material-refresh: `semantica/data-retrieve/data/pago.md`: añadida sección "Esquema del formato (`schema`)" con los 14 formatos soportados y aviso de validación DC no implementada
+- :material-refresh: `semantica/data-retrieve/data/persona.md`: corregido el `entity` de ejemplo a `CAIXESBB` (BIC válido)
+- :material-refresh: `semantica/data-retrieve/data/notificacion.md`: aclarado el campo `type` (enum `OFFICIAL_NOTICE`/`COMMUNICATION`, `DN00AdministrativeNoticeType`) frente al discriminador polimórfico `administrativeNotice`
 
 Traducciones:
 

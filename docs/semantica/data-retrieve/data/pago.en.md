@@ -128,7 +128,7 @@ flowchart LR
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:-----------:|---------|-------------|
 | `format` | `String` | ❌ | `"502"` | Payment format (501, 502, 503, 507, 508, 514, 515, 521, 522, 523, 524, 525, 528, 529) |
-| `schema` | `Object` | ❌ | *(see [`DN00IsOneOffPaymentSchema`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Payment format schema (format-specific internal structure) |
+| `schema` | `Object` | ❌ | *(see [`DN00IsOneOffPaymentSchema`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Sub-object with the breakdown of the payment format. See [Format schema (`schema`)](#format-schema-schema) |
 | `paymentDates.dueDate` | `String` (date) | ✅ | `"2024-06-30"` | Due date |
 | `paymentDates.surchargedAt` | `String` (date) | ❌ | `"2024-07-15"` | Start of surcharge period |
 | `paymentDates.paidAt` | `String` (date) | ❌ | `"2024-05-28"` | Effective payment date (mandatory if `forStatus = COMPLETED`) |
@@ -154,6 +154,73 @@ The `Money` type is an object with the following structure:
 |-------|------|-------------|
 | `amount` | `Number` | Numeric amount |
 | `currency` | `String` | ISO 4217 currency code (default `"EUR"`) |
+
+---
+
+## Format schema (`schema`)
+
+Besides `format` (the format identifier), a one-off payment may include the `schema` sub-object with the **breakdown of the fields of the collection code** corresponding to that format.
+
+`schema` is a **polymorphic** object: its content depends on the format and is serialized with a type discriminator (`typeId`), for example `schema501`, `schema507`, etc. The formats follow the "90" barcode/QR collection standard (C60/CSB families of Spanish banking), grouped into two families:
+
+| Group | Use |
+|---|---|
+| `GROUP_A_ADMINISTRACION_LOCAL` | Local administration taxes and other revenue |
+| `GROUP_E_COBROS_VENTANILLA_57` | Over-the-counter and self-service collections |
+
+### Available formats (`format`)
+
+| `format` | Group | Description |
+|---|---|---|
+| `501` | Local | Local administration taxes and other revenue |
+| `502` | Local | Local administration taxes and other revenue (mode 1) |
+| `503` | Local | Local administration fines |
+| `508` | Local | Local administration taxes and other revenue (long format) |
+| `521` | Local | Local administration taxes (mode 2, without surcharge) |
+| `522` | Local | Local administration taxes (mode 2, with surcharge) |
+| `523` | Local | Local administration taxes (mode 3) |
+| `507` | Counter | Over-the-counter and self-service collections |
+| `514` | Counter | Counter and self-service (without identification / without amount) |
+| `515` | Counter | Counter (without identification / without amount) with treasury entity and deadline |
+| `524` | Counter | Counter and self-service (without amount) |
+| `525` | Counter | Counter (without amount) with treasury entity and deadline |
+| `528` | Counter | Counter and self-service (with payment deadline) |
+| `529` | Counter | Counter (with treasury entity and payment deadline) |
+
+### Parts of a `schema`
+
+Each format builds its collection code from a subset of these parts (defined in [`DN00OneOffPaymentSchemaParts`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00OneOffPaymentSchemaParts.java)). Not all of them appear in every format:
+
+| Part | JSON | Description |
+|---|---|---|
+| Issuer | `issuerOrg` | Body issuing the collection (often province + municipality + control digit) |
+| Treasury entity | `receiverOrg` | Collecting entity (present in formats with deadline: 508, 515, 525, 529) |
+| Reference | `reference` | Receipt reference |
+| Subject | `subject` | Concept/tax |
+| Bundle | `bundle` | Bundle it belongs to |
+| Amount | `amount` | Amount in cents |
+| Control digits | `controlDigits` | Verification digits |
+| Geographic units | `countryGeoAdministrativeUnitLevel1Id` / `Level2Id` / `Level3Id` | Region / province / municipality |
+
+### Example
+
+```json
+{
+  "format": "507",
+  "schema": {
+    "typeId": "schema507",
+    "issuerOrg": "...",
+    "reference": "...",
+    "subject": "...",
+    "amount": "..."
+  }
+}
+```
+
+!!! warning "Implementation status in 0.4.16"
+    In revision 0.4.16, the **validation of control digits and the parsing** of several schemas (`parse()`, `computeControlDigits()`) are **not yet implemented** (they throw `UnsupportedOperationException` / TODO). Document and populate the `schema` structure, but do not assume that DENA validates the control digits of the collection code.
+
+---
 
 ## Direct debit — Specific attributes
 

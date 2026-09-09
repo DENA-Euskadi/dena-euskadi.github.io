@@ -128,7 +128,7 @@ flowchart LR
 | Eremua | Mota | Nahitaezkoa | Adibidea | Deskribapena |
 |-------|------|:-----------:|---------|-------------|
 | `format` | `String` | ❌ | `"502"` | Ordainketa-formatua (501, 502, 503, 507, 508, 514, 515, 521, 522, 523, 524, 525, 528, 529) |
-| `schema` | `Object` | ❌ | *(ikusi [`DN00IsOneOffPaymentSchema`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Ordainketa-formatuaren eskema (formatuaren barne-egitura espezifikoa) |
+| `schema` | `Object` | ❌ | *(ikusi [`DN00IsOneOffPaymentSchema`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Ordainketa-formatuaren xehekapena duen azpi-objektua. Ikusi [Formatuaren eskema (`schema`)](#formatuaren-eskema-schema) |
 | `paymentDates.dueDate` | `String` (date) | ✅ | `"2024-06-30"` | Iraungitze-data |
 | `paymentDates.surchargedAt` | `String` (date) | ❌ | `"2024-07-15"` | Errekargu-aldiaren hasiera |
 | `paymentDates.paidAt` | `String` (date) | ❌ | `"2024-05-28"` | Ordainketa efektiboaren data (nahitaezkoa `forStatus = COMPLETED` bada) |
@@ -154,6 +154,73 @@ flowchart LR
 |-------|------|-------------|
 | `amount` | `Number` | Zenbateko numerikoa |
 | `currency` | `String` | ISO 4217 moneta-kodea (lehenetsita `"EUR"`) |
+
+---
+
+## Formatuaren eskema (`schema`)
+
+`format` (formatuaren identifikatzailea) izateaz gain, ordainketa bakar batek `schema` azpi-objektua sar dezake, formatu horri dagokion **kobrantza-kodearen eremuen xehekapenarekin**.
+
+`schema` objektu **polimorfikoa** da: bere edukia formatuaren araberakoa da eta mota-bereizle batekin (`typeId`) serializatzen da, adibidez `schema501`, `schema507`, etab. Formatuek kobrantzen barra-kode/QR "90" estandarra jarraitzen dute (espainiar bankuen C60/CSB familiak), bi familiatan multzokatuta:
+
+| Taldea | Erabilera |
+|---|---|
+| `GROUP_A_ADMINISTRACION_LOCAL` | Toki-administrazioaren tributuak eta bestelako diru-sarrerak |
+| `GROUP_E_COBROS_VENTANILLA_57` | Leihatilako eta autozerbitzuko kobrantzak |
+
+### Formatu erabilgarriak (`format`)
+
+| `format` | Taldea | Deskribapena |
+|---|---|---|
+| `501` | Tokikoa | Toki-administrazioaren tributuak eta bestelako diru-sarrerak |
+| `502` | Tokikoa | Toki-administrazioaren tributuak eta bestelako diru-sarrerak (1. modalitatea) |
+| `503` | Tokikoa | Toki-administrazioaren isunak |
+| `508` | Tokikoa | Toki-administrazioaren tributuak eta bestelako diru-sarrerak (formatu luzea) |
+| `521` | Tokikoa | Toki-administrazioaren tributuak (2. modalitatea, errekargurik gabe) |
+| `522` | Tokikoa | Toki-administrazioaren tributuak (2. modalitatea, errekarguarekin) |
+| `523` | Tokikoa | Toki-administrazioaren tributuak (3. modalitatea) |
+| `507` | Leihatila | Leihatilako eta autozerbitzuko kobrantzak |
+| `514` | Leihatila | Leihatila eta autozerbitzua (identifikaziorik gabe / zenbatekorik gabe) |
+| `515` | Leihatila | Leihatila (identifikaziorik gabe / zenbatekorik gabe) diruzaintza-erakundearekin eta azken datarekin |
+| `524` | Leihatila | Leihatila eta autozerbitzua (zenbatekorik gabe) |
+| `525` | Leihatila | Leihatila (zenbatekorik gabe) diruzaintza-erakundearekin eta azken datarekin |
+| `528` | Leihatila | Leihatila eta autozerbitzua (ordaintzeko azken datarekin) |
+| `529` | Leihatila | Leihatila (diruzaintza-erakundearekin eta ordaintzeko azken datarekin) |
+
+### `schema` baten atalak
+
+Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du ([`DN00OneOffPaymentSchemaParts`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00OneOffPaymentSchemaParts.java)-n definituta). Ez dira guztiak formatu guztietan agertzen:
+
+| Atala | JSON | Deskribapena |
+|---|---|---|
+| Jaulkitzailea | `issuerOrg` | Kobrantza jaulkitzen duen organismoa (askotan probintzia + udalerria + kontrol-digitua) |
+| Diruzaintza-erakundea | `receiverOrg` | Biltzen duen erakundea (azken data duten formatuetan present: 508, 515, 525, 529) |
+| Erreferentzia | `reference` | Ordainagiriaren erreferentzia |
+| Tributua | `subject` | Kontzeptua/tributua |
+| Remesa | `bundle` | Dagokion remesa |
+| Zenbatekoa | `amount` | Zenbatekoa zentimotan |
+| Kontrol-digituak | `controlDigits` | Egiaztatze-digituak |
+| Unitate geografikoak | `countryGeoAdministrativeUnitLevel1Id` / `Level2Id` / `Level3Id` | EAE / probintzia / udalerria |
+
+### Adibidea
+
+```json
+{
+  "format": "507",
+  "schema": {
+    "typeId": "schema507",
+    "issuerOrg": "...",
+    "reference": "...",
+    "subject": "...",
+    "amount": "..."
+  }
+}
+```
+
+!!! warning "Inplementazio-egoera 0.4.16 bertsioan"
+    0.4.16 berrikuspenean, hainbat eskemaren **kontrol-digituen balidazioa eta parseoa** (`parse()`, `computeControlDigits()`) **oraindik ez daude inplementatuta** (`UnsupportedOperationException` / TODO jaurtitzen dute). Dokumentatu eta bete `schema` egitura, baina ez ezazu pentsatu DENAk kobrantza-kodearen kontrol-digituak balidatzen dituenik.
+
+---
 
 ## Helbideratze bankarioa — Atributu espezifikoak
 

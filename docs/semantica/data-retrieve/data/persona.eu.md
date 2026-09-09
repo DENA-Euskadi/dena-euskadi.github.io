@@ -169,7 +169,7 @@ flowchart LR
 |--------|------|:-----------:|----------|--------------|
 | `account.accountId` | `String` | ✅ | `"ES9121000418450200051332"` | Kontu-zenbakia (IBAN edo beste bat) |
 | `account.idType` | `String` | ✅ | `"IBAN"` | Identifikatzaile mota |
-| `entity` | `String` | ❌ | `"CaixaBank"` | Banku-erakundea |
+| `entity` | `String` | ❌ | `"CAIXESBB"` | Banku-erakundea (BIC/SWIFT kodea) |
 
 ### Kontu-identifikatzaile motak ([`idType`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java))
 
@@ -220,7 +220,7 @@ flowchart LR
           "accountId": "ES9121000418450200051332",
           "idType": "IBAN"
         },
-        "entity": "CaixaBank"
+        "entity": "CAIXESBB"
       }
     ]
   },

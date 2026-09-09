@@ -22,6 +22,9 @@ Zuzenketak 0.4.16 kodearen aurrean:
 - :material-refresh: Data-retrieve datu-eredua: `originAdmin`/`aboutPerson` (lehen `*Ref`), `lastChangedAt` gehituta
 - :material-refresh: Oinarrizko semantika: `status` (code/errorId/details), `consentOid`, `sync-types` (`DN00SyncMetaDataFromAdminToCOREItem`), http-headers eta language-texts kodearekin lerrokatuta
 - :material-refresh: Kode-estekak eta JSON adibideak (ES/EN/EU) benetako eredura eguneratuta
+- :material-refresh: `semantica/data-retrieve/data/pago.md`: "Formatuaren eskema (`schema`)" atala gehituta, onartutako 14 formatuekin eta DC balidazioa inplementatu gabe dagoen oharrarekin
+- :material-refresh: `semantica/data-retrieve/data/persona.md`: adibideko `entity` `CAIXESBB`-ra zuzenduta (baliozko BIC)
+- :material-refresh: `semantica/data-retrieve/data/notificacion.md`: `type` eremua argituta (enum `OFFICIAL_NOTICE`/`COMMUNICATION`, `DN00AdministrativeNoticeType`) `administrativeNotice` diskriminatzaile polimorfikoaren aldean
 
 Itzulpenak:
 

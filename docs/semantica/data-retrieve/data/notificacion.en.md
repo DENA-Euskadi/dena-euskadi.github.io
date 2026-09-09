@@ -77,7 +77,7 @@ flowchart LR
 
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
-| `type` | `String` | ✅ | `"OFFICIAL_NOTICE"` | Notification type. Polymorphic discriminator: `"administrativeNotice"` |
+| `type` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Notification type: `OFFICIAL_NOTICE` or `COMMUNICATION` (enum `DN00AdministrativeNoticeType`). Not to be confused with the polymorphic discriminator |
 | `oid` | `String` | ✅ | `"NOT-OID-001"` | Unique technical identifier |
 | `id` | `String` | ✅ | `"NOT-2024-00456"` | Business identifier |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(see [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Reference to the record |
@@ -97,6 +97,8 @@ flowchart LR
 |------|-------------|
 | `OFFICIAL_NOTICE` | Official administrative notification |
 | `COMMUNICATION` | Administrative communication |
+
+> **Note:** The `type` field (values `OFFICIAL_NOTICE` / `COMMUNICATION`) is different from the **polymorphic discriminator** `administrativeNotice`. The discriminator (`@MarshallType(as="administrativeNotice")` on the `DN00AdministrativeNotice` class) identifies the object type within the payload and is fixed; the `type` field classifies the notification within that object.
 
 ---
 

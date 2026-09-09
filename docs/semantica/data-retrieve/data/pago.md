@@ -128,7 +128,7 @@ flowchart LR
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
 | `format` | `String` | ❌ | `"502"` | Formato de pago (501, 502, 503, 507, 508, 514, 515, 521, 522, 523, 524, 525, 528, 529) |
-| `schema` | `Object` | ❌ | *(ver [`DN00IsOneOffPaymentSchema`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Esquema del formato de pago (estructura interna específica del formato) |
+| `schema` | `Object` | ❌ | *(ver [`DN00IsOneOffPaymentSchema`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00IsOneOffPaymentSchema.java))* | Sub-objeto con el desglose del formato de pago. Ver [Esquema del formato (`schema`)](#esquema-del-formato-schema) |
 | `paymentDates.dueDate` | `String` (date) | ✅ | `"2024-06-30"` | Fecha de vencimiento |
 | `paymentDates.surchargedAt` | `String` (date) | ❌ | `"2024-07-15"` | Inicio del periodo de recargo |
 | `paymentDates.paidAt` | `String` (date) | ❌ | `"2024-05-28"` | Fecha de pago efectivo (obligatorio si `forStatus = COMPLETED`) |
@@ -154,6 +154,73 @@ El tipo `Money` es un objeto con la siguiente estructura:
 |-------|------|-------------|
 | `amount` | `Number` | Importe numérico |
 | `currency` | `String` | Código de moneda ISO 4217 (por defecto `"EUR"`) |
+
+---
+
+## Esquema del formato (`schema`)
+
+Además de `format` (el identificador del formato), un pago único puede incluir el sub-objeto `schema` con el **desglose de los campos del código de cobro** correspondiente a ese formato.
+
+`schema` es un objeto **polimórfico**: su contenido depende del formato y se serializa con un discriminador de tipo (`typeId`), por ejemplo `schema501`, `schema507`, etc. Los formatos siguen el estándar de código de barras/QR "90" de cobros (familias C60/CSB de la banca española), agrupados en dos familias:
+
+| Grupo | Uso |
+|---|---|
+| `GROUP_A_ADMINISTRACION_LOCAL` | Tributos y otros ingresos de administración local |
+| `GROUP_E_COBROS_VENTANILLA_57` | Cobros por ventanilla y autoservicio |
+
+### Formatos disponibles (`format`)
+
+| `format` | Grupo | Descripción |
+|---|---|---|
+| `501` | Local | Tributos y otros ingresos de administración local |
+| `502` | Local | Tributos y otros ingresos de administración local (modalidad 1) |
+| `503` | Local | Multas de administración local |
+| `508` | Local | Tributos y otros ingresos de administración local (formato largo) |
+| `521` | Local | Tributos de administración local (modalidad 2, sin recargo) |
+| `522` | Local | Tributos de administración local (modalidad 2, con recargo) |
+| `523` | Local | Tributos de administración local (modalidad 3) |
+| `507` | Ventanilla | Cobros por ventanilla y autoservicio |
+| `514` | Ventanilla | Ventanilla y autoservicio (sin identificación / sin importe) |
+| `515` | Ventanilla | Ventanilla (sin identificación / sin importe) con entidad tesorera y fecha límite |
+| `524` | Ventanilla | Ventanilla y autoservicio (sin importe) |
+| `525` | Ventanilla | Ventanilla (sin importe) con entidad tesorera y fecha límite |
+| `528` | Ventanilla | Ventanilla y autoservicio (con fecha límite de pago) |
+| `529` | Ventanilla | Ventanilla (con entidad tesorera y fecha límite de pago) |
+
+### Partes de un `schema`
+
+Cada formato compone su código de cobro a partir de un subconjunto de estas partes (definidas en [`DN00OneOffPaymentSchemaParts`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/schemas/DN00OneOffPaymentSchemaParts.java)). No todas aparecen en todos los formatos:
+
+| Parte | JSON | Descripción |
+|---|---|---|
+| Emisora | `issuerOrg` | Organismo emisor del cobro (a menudo provincia + municipio + dígito de control) |
+| Entidad tesorera | `receiverOrg` | Entidad que recauda (presente en formatos con fecha límite: 508, 515, 525, 529) |
+| Referencia | `reference` | Referencia del recibo |
+| Tributo | `subject` | Concepto/tributo |
+| Remesa | `bundle` | Remesa a la que pertenece |
+| Importe | `amount` | Importe en céntimos |
+| Dígitos de control | `controlDigits` | Dígitos de verificación |
+| Unidades geográficas | `countryGeoAdministrativeUnitLevel1Id` / `Level2Id` / `Level3Id` | CCAA / provincia / municipio |
+
+### Ejemplo
+
+```json
+{
+  "format": "507",
+  "schema": {
+    "typeId": "schema507",
+    "issuerOrg": "...",
+    "reference": "...",
+    "subject": "...",
+    "amount": "..."
+  }
+}
+```
+
+!!! warning "Estado de la implementación en 0.4.16"
+    En la revisión 0.4.16, la **validación de los dígitos de control y el parseo** de varios esquemas (`parse()`, `computeControlDigits()`) aún **no están implementados** (lanzan `UnsupportedOperationException` / TODO). Documenta y rellena la estructura del `schema`, pero no asumas que DENA valida los dígitos de control del código de cobro.
+
+---
 
 ## Domiciliación — Atributos específicos
 

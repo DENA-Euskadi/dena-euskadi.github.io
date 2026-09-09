@@ -169,7 +169,7 @@ flowchart LR
 |-------|------|:-----------:|---------|-------------|
 | `account.accountId` | `String` | ✅ | `"ES9121000418450200051332"` | Número de cuenta (IBAN u otro) |
 | `account.idType` | `String` | ✅ | `"IBAN"` | Tipo de identificador |
-| `entity` | `String` | ❌ | `"CaixaBank"` | Entidad bancaria |
+| `entity` | `String` | ❌ | `"CAIXESBB"` | Entidad bancaria (código BIC/SWIFT) |
 
 ### Tipos de identificador de cuenta ([`idType`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java))
 
@@ -220,7 +220,7 @@ flowchart LR
           "accountId": "ES9121000418450200051332",
           "idType": "IBAN"
         },
-        "entity": "CaixaBank"
+        "entity": "CAIXESBB"
       }
     ]
   },

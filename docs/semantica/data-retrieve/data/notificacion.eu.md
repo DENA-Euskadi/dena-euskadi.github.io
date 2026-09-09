@@ -77,7 +77,7 @@ flowchart LR
 
 | Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
 |--------|------|:-----------:|----------|--------------|
-| `type` | `String` | ✅ | `"OFFICIAL_NOTICE"` | Jakinarazpen mota. Diskriminatzaile polimorfiko: `"administrativeNotice"` |
+| `type` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Jakinarazpen mota: `OFFICIAL_NOTICE` edo `COMMUNICATION` (`DN00AdministrativeNoticeType` enum-a). Ez nahastu diskriminatzaile polimorfikoarekin |
 | `oid` | `String` | ✅ | `"NOT-OID-001"` | Identifikatzaile tekniko bakarra |
 | `id` | `String` | ✅ | `"NOT-2024-00456"` | Negozio-identifikatzailea |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
@@ -97,6 +97,8 @@ flowchart LR
 |-------|--------------|
 | `OFFICIAL_NOTICE` | Jakinarazpen administratibo ofiziala |
 | `COMMUNICATION` | Administrazio-komunikazioa |
+
+> **Oharra:** `type` eremua (`OFFICIAL_NOTICE` / `COMMUNICATION` balioak) `administrativeNotice` **diskriminatzaile polimorfikotik** desberdina da. Diskriminatzaileak (`DN00AdministrativeNotice` klaseko `@MarshallType(as="administrativeNotice")`) payload-aren barruko objektu mota identifikatzen du eta finkoa da; `type` eremuak jakinarazpena objektu horren barruan sailkatzen du.
 
 ---
 
