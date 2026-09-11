@@ -248,13 +248,11 @@ Each format builds its collection code from a subset of these parts (defined in 
 
 | Code | Description |
 |--------|-------------|
+| `DAILY` | Daily |
 | `WEEKLY` | Weekly |
-| `BIWEEKLY` | Biweekly |
 | `MONTHLY` | Monthly |
-| `BIMONTHLY` | Bimonthly |
 | `QUARTERLY` | Quarterly |
-| `BIANNUAL` | Biannual |
-| `ANNUAL` | Annual |
+| `YEARLY` | Yearly |
 
 ### Charge history (`history[]`)
 

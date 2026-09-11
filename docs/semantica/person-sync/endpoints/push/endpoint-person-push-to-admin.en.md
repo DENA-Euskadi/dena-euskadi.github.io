@@ -13,99 +13,93 @@ Authorization: Bearer <token> (if OAuth is configured)
 
 ## Request
 
+The request body is a `DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` object (`@MarshallType(as="personSyncPushToAdminFromCOREToConnectorInternalSide")`), with the data origin configuration and the **notification** containing the person's data:
+
 ```json
 {
-  "context": {
-    "message": {
-      "type": "PERSON_PUSH_TO_ADMIN",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": [
-        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-      ]
-    },
-    "destinationAdmin": { "oid": "6AE83A0C-2202-4666-9857-3334C14663A2", "id": "ADMIN-001", "dir3Id": "EA0000001" },
-    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
-  },
-  "payload": {
-    "personRef": {
-        "id": "12345678A",
-        "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C"
-    },
-    "personHashes": {
+  "dataOriginConfigForDataTypeInAdmin": { "...": "internal data origin configuration (connector use)" },
+  "notification": {
+    "syncData": {
+      "personRef": {
+        "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C",
+        "id": "12345678A"
+      },
+      "personHashes": {
         "nameHash": "abcde",
         "surname1Hash": "abcde",
         "surname2Hash": "abcde",
-        "allNamesHash": "abcde"
+        "fullNameHash": "abcde"
+      },
+      "createDate": "2024-06-01T10:00:00Z",
+      "lastUpdateDate": "2024-06-01T10:00:00Z",
+      "syncEvent": "CREATED"
     },
-    "createDate": "2024-06-01T10:00:00Z",
-    "lastUpdateDate": "2024-06-01T10:00:00Z",
-    "syncEvent": "CREATED"
+    "person": {
+      "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C",
+      "id": "12345678A",
+      "name": "Ane",
+      "surname1": "Garcia",
+      "surname2": "Lopez",
+      "contactInfo": { "...": "contact data (ContactInfo)" },
+      "lastChangeEvent": "CREATED"
+    }
   }
 }
 ```
 
-| Field     | Type                                           | Mandatory | Description |
-|-----------|------------------------------------------------|:---------:|-------------|
-| `context` | [Context](../../../semantica-base/index.md) | ✅        | Request context object. Includes `message.type`, `destinationAdmin` (OrgAdminRef) and `subjectPerson` (PersonRef) |
-| `payload` | [Payload](#payload)                            | ✅        | Request payload |
+| Field | Type | Mandatory | Description |
+|-------|------|:---------:|-------------|
+| `dataOriginConfigForDataTypeInAdmin` | `Object` | ✅ | Data origin configuration for the data type in the administration. Internal information used by the connector; the administration does not need to interpret it |
+| `notification` | `DN00PersonSyncPushToAdminNotification` (`@MarshallType(as="personSyncPushToAdminNotification")`) | ✅ | Notification with the person's data to synchronize |
 
-## Payload
+## `notification`
 
-| Field            | Type     | Mandatory | Description |
-|------------------|----------|:---------:|-------------|
-| `personRef`      | [PersonRef](../../../semantica-base/modelo/person-ref.md) | ✅ | Reference to the created or modified person |
-| `personHashes`   | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Hashes of the person's name and surnames for unambiguous identification |
-| `createDate`     | `ISO 8601 Date` | ✅ | Creation date |
-| `lastUpdateDate` | `ISO 8601 Date` | ❌ | Last update date |
-| `syncEvent`      | `String` | ✅ | Event that occurred. Possible values: <br> `CREATED`: New person registered <br> `DELETED`: Person removed from DENA <br> `UPDATED`: Person's data updated <br> `ID_CHANGED`: Person's identifier modified |
+| Field | Type | Mandatory | Description |
+|-------|------|:---------:|-------------|
+| `syncData` | `DN00PersonSyncData` (`@MarshallType(as="personSyncData")`) | ✅ | Synchronization metadata (reference, hashes, dates, event) |
+| `person` | `DN00Person` (`@MarshallType(as="person")`) | ✅ | Full person data |
 
-!!! note "About `message.type`"
-    The value `PERSON_PUSH_TO_ADMIN` does not yet exist in the `DN00InteropMessageType` enum of code 0.4.16 (the defined types are ADMIN → DENA-CORE flows). It is kept here as the identifier for the DENA-CORE → administration flow, pending the addition of the corresponding real type.
+### `notification.syncData`
+
+| Field | Type | Mandatory | Description |
+|-------|------|:---------:|-------------|
+| `personRef` | [PersonRef](../../../semantica-base/modelo/person-ref.md) | ✅ | Reference to the created or modified person (`oid`/`id`) |
+| `personHashes` | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Hashes of name and surnames for unambiguous identification |
+| `createDate` | `Instant` (ISO 8601) | ❌ | Creation date |
+| `lastUpdateDate` | `Instant` (ISO 8601) | ❌ | Last update date |
+| `syncEvent` | `DN00PersonChangeEvent` | ❌ | Event that triggered the sync: `CREATED` (new person), `DELETED` (person removed), `UPDATED` (data updated), `ID_CHANGED` (identifier modified) |
+
+### `notification.person`
+
+| Field | Type | Mandatory | Description |
+|-------|------|:---------:|-------------|
+| `oid` / `id` | `String` | ✅ | Person identifiers |
+| `name` | `String` | ✅ | Name |
+| `surname1` | `String` | ✅ | First surname |
+| `surname2` | `String` | ❌ | Second surname |
+| `contactInfo` | `ContactInfo` | ❌ | Contact data |
+| `lastChangeEvent` | `DN00PersonChangeEvent` | ❌ | Last change type applied (set by DENA-CORE) |
 
 ---
 
-## Successful response (HTTP 200)
+## Response
+
+The administration signals the processing result through the **HTTP status code**:
+
+- **`200 OK`** — the notification was processed successfully. A body is not required.
+- **`4xx`** — error attributable to the request (e.g. `404` if the person cannot be resolved, `400` if the body is invalid).
+- **`5xx`** — internal error at the administration.
+
+DENA-CORE interprets the result from the HTTP code (see `DN01PersonPushToAdminJobProcessor`): if the response is successful the job moves to `SYNCED_OK`; otherwise it is retried (up to the maximum number of attempts) and moves to `SYNCED_ERROR` / `SYNCED_ERROR_TOO_MANY_ATTEMPTS`.
+
+If the administration returns an error body, a simple object with a descriptive message is recommended, for example:
 
 ```json
 {
-  "context": {
-    "message": {
-      "type": "PERSON_PUSH_TO_ADMIN",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
-  },
-  "payload": null,
-  "code": "OK"
+  "error": "PERSON_NOT_FOUND",
+  "message": "Person not found in the system"
 }
 ```
-
-## Error response (HTTP 4xx/5xx)
-
-```json
-{
-  "context": {
-    "message": {
-      "type": "PERSON_PUSH_TO_ADMIN",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
-  },
-  "payload": null,
-  "code": "CLIENT_ERR",
-  "errorId": "PERSON_NOT_FOUND",
-  "details": { "details": "Person not found in the system" }
-}
-```
-
-### Status codes (`code`)
-
-| Code | Description |
-|------|-------------|
-| `OK` | Message processed successfully |
-| `CLIENT_ERR` | Client error (malformed request, person not found) |
-| `SERVER_ERR` | Server error (internal error) |
-| `QUEUED` | Message queued for asynchronous processing |
 
 ---
 
@@ -138,11 +132,10 @@ The token is obtained automatically via client credentials.
 ## Requirements for the administration
 
 1. Expose a `POST` endpoint that accepts and returns `application/json`
-2. Interpret `payload.personRef` to identify the person
+2. Interpret `notification.syncData.personRef` (and `notification.person`) to identify the person
 3. Update its database of persons registered in DENA with the received information
-4. Respect standard HTTP codes
+4. Respect standard HTTP codes (`200` if processed successfully; `4xx`/`5xx` on error)
 5. Respond in less than 30 seconds
-6. Use `code: "OK"` in successful responses and `code: "CLIENT_ERR"` or `code: "SERVER_ERR"` in errors
 
 <!-- DENA-DOC-FOOTER -->
 ---

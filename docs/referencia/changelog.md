@@ -25,6 +25,22 @@ Correcciones frente al código 0.4.16:
 - :material-refresh: `semantica/data-retrieve/data/pago.md`: añadida sección "Esquema del formato (`schema`)" con los 14 formatos soportados y aviso de validación DC no implementada
 - :material-refresh: `semantica/data-retrieve/data/persona.md`: corregido el `entity` de ejemplo a `CAIXESBB` (BIC válido)
 - :material-refresh: `semantica/data-retrieve/data/notificacion.md`: aclarado el campo `type` (enum `OFFICIAL_NOTICE`/`COMMUNICATION`, `DN00AdministrativeNoticeType`) frente al discriminador polimórfico `administrativeNotice`
+- :material-refresh: `semantica/semantica-base/modelo/data-type-ref.md`: reescrita la explicación de `dataType` orientada a administraciones — separadas las tres piezas (`id`=`DN00DataTypeID`, `oid`=`DN00DataTypeOID`, contenedor `DN00DataTypeRef`) frente al catálogo `DN00DataTypeEnum`, dejando claro que basta con leer `dataType.id`
+- :material-refresh: Corregidos ejemplos JSON donde el `oid` de `dataType` repetía el valor del `id` (ahora un GUID de ejemplo), evitando confusión
+
+Correcciones de contenido (ejemplos verificados campo a campo contra el código 0.4.16):
+
+- :material-bug: `pago.md`: valores del enum de frecuencia de domiciliación corregidos a los reales (`DAILY`/`WEEKLY`/`MONTHLY`/`QUARTERLY`/`YEARLY`, `r01f.types.datetime.TimeFrequency`); eliminados valores inexistentes (`BIWEEKLY`/`BIMONTHLY`/`BIANNUAL`/`ANNUAL`)
+- :material-bug: `person-sync` (person-hashes, endpoint-person-push-to-admin): campo `allNamesHash` → `fullNameHash` (`DN00PersonHashes`)
+- :material-bug: `metadata-sync` (endpoint-sync-metadata): tipo de mensaje `ADMIN_SYNC_METADATA` → `ADMIN_SRMD_SYNC_REQ`/`ADMIN_SRMD_SYNC_RESP` (`DN00InteropMessageType`)
+- :material-bug: Campo `fromDataOrigin` → `fromDataOriginInstance` en ejemplos de SRMD (`DN00SyncMetaDataFromAdminToCOREItem`): metadata-sync, ejemplo-end-to-end, arquitectura, ejemplos-código, autenticación
+- :material-bug: `denaComponentId` con valores inexistentes (`apiGateway`, `DENA_POSTMAN`, `DENA_INTEROP_ADMIN_SYNC`) corregidos a valores reales del enum `DN00InteropComponent` (`CLIENT_INSTALLMENT`/`DENA_CORE`/`DENA_ADMIN_CONNECTOR`/`ADMIN`) en endpoints de data-retrieve, metadata-sync y person-sync
+- :material-bug: `endpoint-person-push-to-admin.md`: reescrito el modelo del push a la estructura real (`DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` → `notification` con `syncData` y `person`); eliminado el envelope interop y el tipo `PERSON_PUSH_TO_ADMIN` (inexistente en 0.4.16); respuesta descrita por código HTTP según `DN01PersonPushToAdminJobProcessor`
+
+Verificación:
+
+- :material-check-all: Verificados los 92 enlaces a código fuente (`{{ repos.*_blob }}`) contra el tag `PUBLIC-v0.4.16` de los mirrors públicos: todos resuelven correctamente
+- :material-check-all: Contrastados campo a campo los ejemplos JSON/Java y tablas de todas las páginas de semántica, endpoints, metadata-sync y person-sync contra las clases reales 0.4.16
 
 Traducciones:
 

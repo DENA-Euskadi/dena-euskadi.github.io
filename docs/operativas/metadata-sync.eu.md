@@ -69,7 +69,7 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
 ```java
 // Interop mezua sortu
 DN00InteropContext ctx = DN00InteropContextBuilder
-    .createMessageOfType(DN00InteropMessageType.ADMIN_SYNC_METADATA_REQ)
+    .createMessageOfType(DN00InteropMessageType.ADMIN_SRMD_SYNC_REQ)
     .withCorrelationOID(DN00MessageCorrelationOID.supply())
     .fromAdministration(DN00OrgAdminID.forId("MY_ADMIN"))
     .build();
@@ -101,14 +101,14 @@ HttpRequest request = HttpRequest.newBuilder()
     "aboutPerson": { "id": "40404040H" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.036Z",
     "ofType": { "id": "ADMIN_NOTICE" },
-    "fromDataOrigin": "DEFAULT"
+    "fromDataOriginInstance": "DEFAULT"
   },
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "12345678A" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.032Z",
     "ofType": { "id": "PROCEDURE_RECORD" },
-    "fromDataOrigin": "DEFAULT"
+    "fromDataOriginInstance": "DEFAULT"
   }
 ]
 ```
@@ -117,14 +117,14 @@ HttpRequest request = HttpRequest.newBuilder()
     - **Pertsonaren id**-a bere NANa da (adib.: `12345678A`)
     - **Administrazioaren id**-a beti bere IFK/NAN da (adib.: `S4833001C` EJGVrentzat)
     - **Datu motaren id**-a DENA taldearekin adostutako identifikadorea da (adib.: `PROCEDURE_RECORD`)
-    - **fromDataOrigin** `DEFAULT` da datu-jatorri bakarra baduzu. Jatorri anitz badituzu, erabili aldez aurretik DENA taldeari jakinarazitako identifikadorea
+    - **fromDataOriginInstance** `DEFAULT` da datu-jatorri bakarra baduzu. Jatorri anitz badituzu, erabili aldez aurretik DENA taldeari jakinarazitako identifikadorea
     
     Ez duzu DENAren barneko OIDak erabili behar. Negozio-IDak nahikoak dira.
 
-!!! note "fromDataOrigin-i buruz"
-    Zure administrazioak datu mota bakoitzeko datu-jatorri bakarra badu (ohikoena dena), bidali `"fromDataOrigin": "DEFAULT"` eta ez duzu beste ezertaz kezkatu behar.
+!!! note "fromDataOriginInstance-i buruz"
+    Zure administrazioak datu mota bakoitzeko datu-jatorri bakarra badu (ohikoena dena), bidali `"fromDataOriginInstance": "DEFAULT"` eta ez duzu beste ezertaz kezkatu behar.
     
-    Datu mota bererako **jatorri anitz** badituzu (adib.: espediente-kudeatzaile bat baino gehiago), `fromDataOrigin` eremuan jatorri zehatza identifikatu behar da. Identifikadore hau DENA taldearekin adosten da konektorearen konfigurazioan. Aldez aurretik jakinarazten ez baduzu, elementuek huts egingo dute prozesamenduan.
+    Datu mota bererako **jatorri anitz** badituzu (adib.: espediente-kudeatzaile bat baino gehiago), `fromDataOriginInstance` eremuan jatorri zehatza identifikatu behar da. Identifikadore hau DENA taldearekin adosten da konektorearen konfigurazioan. Aldez aurretik jakinarazten ez baduzu, elementuek huts egingo dute prozesamenduan.
 
 ### Adibidea: DENAren erantzuna
 
@@ -145,7 +145,7 @@ HttpRequest request = HttpRequest.newBuilder()
 DENAk itzultzen du zein elementu ondo prozesatu diren (`processedOK`) eta zeintzuk huts egin duten (`processedNOK`) errorearen arrazoiarekin. Bidalketa batek elementu baliodunak eta baliogabeak izan ditzake aldi berean: baliodunak normaltasunez prozesatzen dira eta baliogabeak banaka baztertzen dira gainerakoei eragin gabe.
 
 !!! warning "Errore klasikoa: konfiguratu gabeko data origin"
-    `processedNOK`-en akatsik ohikoena DENAren konfigurazioan erregistratu gabeko `fromDataOrigin` bat da. Datu-jatorriari buruzko balidazio-erroreak jasotzen badituzu, egiaztatu DENA taldearekin erabiltzen duzun identifikadorea konektorean konfiguratutakoarekin bat datorrela.
+    `processedNOK`-en akatsik ohikoena DENAren konfigurazioan erregistratu gabeko `fromDataOriginInstance` bat da. Datu-jatorriari buruzko balidazio-erroreak jasotzen badituzu, egiaztatu DENA taldearekin erabiltzen duzun identifikadorea konektorean konfiguratutakoarekin bat datorrela.
 
 ---
 

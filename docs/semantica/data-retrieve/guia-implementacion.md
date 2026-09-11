@@ -64,7 +64,7 @@ DENA enviará una petición `POST` con este formato:
       "correlationId": "550e8400-e29b-41d4-a716-446655440000",
       "interopRouteData": []
     },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
     "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
   "payload": { }
@@ -76,7 +76,7 @@ Los campos clave que debes interpretar:
 | Campo | Para qué sirve | Código fuente |
 |-------|----------------|---------------|
 | `context.subjectPerson.id` | DNI/NIE de la persona cuyos datos se solicitan | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.dataType.id` | Tipo de dato solicitado (ver tabla abajo) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.dataType.id` | Tipo de dato solicitado; string del catálogo (ver tabla abajo). El `oid` hermano es interno de DENA y no hace falta interpretarlo — ver [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
 | `context.message.correlationId` | UUID para trazabilidad en logs | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
 ### Tipos de dato (`dataType.id`)
@@ -328,7 +328,7 @@ La response debe tener esta estructura:
       "correlationId": "UUID-DE-LA-REQUEST",
       "interopRouteData": []
     },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
     "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
   "payload": {

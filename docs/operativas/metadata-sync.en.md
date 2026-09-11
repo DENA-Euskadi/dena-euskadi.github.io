@@ -69,7 +69,7 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
 ```java
 // Create the interop message
 DN00InteropContext ctx = DN00InteropContextBuilder
-    .createMessageOfType(DN00InteropMessageType.ADMIN_SYNC_METADATA_REQ)
+    .createMessageOfType(DN00InteropMessageType.ADMIN_SRMD_SYNC_REQ)
     .withCorrelationOID(DN00MessageCorrelationOID.supply())
     .fromAdministration(DN00OrgAdminID.forId("MY_ADMIN"))
     .build();
@@ -101,14 +101,14 @@ HttpRequest request = HttpRequest.newBuilder()
     "aboutPerson": { "id": "40404040H" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.036Z",
     "ofType": { "id": "ADMIN_NOTICE" },
-    "fromDataOrigin": "DEFAULT"
+    "fromDataOriginInstance": "DEFAULT"
   },
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "12345678A" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.032Z",
     "ofType": { "id": "PROCEDURE_RECORD" },
-    "fromDataOrigin": "DEFAULT"
+    "fromDataOriginInstance": "DEFAULT"
   }
 ]
 ```
@@ -117,14 +117,14 @@ HttpRequest request = HttpRequest.newBuilder()
     - The **person id** is their NIF (e.g.: `12345678A`)
     - The **administration id** is always its NIF/CIF (e.g.: `S4833001C` for EJGV)
     - The **data type id** is the identifier agreed upon with the DENA team (e.g.: `PROCEDURE_RECORD`)
-    - The **fromDataOrigin** is `DEFAULT` if you only have one data origin. If you have multiple origins, use the identifier previously communicated to the DENA team
+    - The **fromDataOriginInstance** is `DEFAULT` if you only have one data origin. If you have multiple origins, use the identifier previously communicated to the DENA team
     
     You do not need to use DENA's internal OIDs. Business IDs are sufficient.
 
-!!! note "About fromDataOrigin"
-    If your administration only has one data origin per data type (the most common case), send `"fromDataOrigin": "DEFAULT"` and you don't need to worry about anything else.
+!!! note "About fromDataOriginInstance"
+    If your administration only has one data origin per data type (the most common case), send `"fromDataOriginInstance": "DEFAULT"` and you don't need to worry about anything else.
     
-    If you have **multiple origins** for the same data type (e.g.: several case management systems), the `fromDataOrigin` field must contain the identifier of the specific origin. This identifier is agreed upon with the DENA team during connector configuration. If you do not communicate it beforehand, the items will fail during processing.
+    If you have **multiple origins** for the same data type (e.g.: several case management systems), the `fromDataOriginInstance` field must contain the identifier of the specific origin. This identifier is agreed upon with the DENA team during connector configuration. If you do not communicate it beforehand, the items will fail during processing.
 
 ### Example: DENA response
 
@@ -145,7 +145,7 @@ HttpRequest request = HttpRequest.newBuilder()
 DENA returns which items were processed correctly (`processedOK`) and which ones failed (`processedNOK`) with the error reason. A submission can have both valid and invalid items simultaneously: valid ones are processed normally and invalid ones are rejected individually without affecting the rest.
 
 !!! warning "Classic error: data origin not configured"
-    The most common failure in `processedNOK` is a `fromDataOrigin` that is not registered in the DENA configuration. If you receive validation errors on the data origin, verify with the DENA team that the identifier you are using matches the one configured in the connector.
+    The most common failure in `processedNOK` is a `fromDataOriginInstance` that is not registered in the DENA configuration. If you receive validation errors on the data origin, verify with the DENA team that the identifier you are using matches the one configured in the connector.
 
 ---
 

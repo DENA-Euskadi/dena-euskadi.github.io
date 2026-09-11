@@ -22,7 +22,7 @@ Authorization: Bearer <token> (if OAuth is configured)
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000",
       "interopRouteData": [
-        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
+        { "denaComponentId": "DENA_CORE", "timestamp": "2024-06-01T10:00:00Z" }
       ]
     },
     "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },

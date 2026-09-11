@@ -196,7 +196,7 @@ public class MetadataSyncService {
                 "aboutPerson", Map.of("id", change.personId()),
                 "someDataWasUpdatedAt", change.lastChangedAt().toString(),
                 "ofType", Map.of("id", change.dataTypeId()),
-                "fromDataOrigin", "DEFAULT"
+                "fromDataOriginInstance", "DEFAULT"
             ))
             .toList();
 

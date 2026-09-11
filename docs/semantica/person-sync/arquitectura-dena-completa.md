@@ -277,7 +277,7 @@ Los conectores son módulos independientes desplegados independientemente de DEN
   "aboutPerson": { "id": "40404040H" },
   "someDataWasUpdatedAt": "2026-08-17T15:14:07.0369127Z",
   "ofType": { "id": "ADMIN_NOTICE" },
-  "fromDataOrigin": "DEFAULT"
+  "fromDataOriginInstance": "DEFAULT"
 }
 ```
 

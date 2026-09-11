@@ -69,7 +69,7 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
 ```java
 // Crear el interop message
 DN00InteropContext ctx = DN00InteropContextBuilder
-    .createMessageOfType(DN00InteropMessageType.ADMIN_SYNC_METADATA_REQ)
+    .createMessageOfType(DN00InteropMessageType.ADMIN_SRMD_SYNC_REQ)
     .withCorrelationOID(DN00MessageCorrelationOID.supply())
     .fromAdministration(DN00OrgAdminID.forId("MY_ADMIN"))
     .build();
@@ -101,14 +101,14 @@ HttpRequest request = HttpRequest.newBuilder()
     "aboutPerson": { "id": "40404040H" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.036Z",
     "ofType": { "id": "ADMIN_NOTICE" },
-    "fromDataOrigin": "DEFAULT"
+    "fromDataOriginInstance": "DEFAULT"
   },
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "12345678A" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.032Z",
     "ofType": { "id": "PROCEDURE_RECORD" },
-    "fromDataOrigin": "DEFAULT"
+    "fromDataOriginInstance": "DEFAULT"
   }
 ]
 ```
@@ -117,14 +117,14 @@ HttpRequest request = HttpRequest.newBuilder()
     - El **id de la persona** es su NIF (ej: `12345678A`)
     - El **id de la administracion** es siempre su NIF/CIF (ej: `S4833001C` para EJGV)
     - El **id del tipo de dato** es el identificador acordado con el equipo DENA (ej: `PROCEDURE_RECORD`)
-    - El **fromDataOrigin** es `DEFAULT` si solo tienes un origen de datos. Si tienes multiples origenes, usa el identificador previamente comunicado al equipo DENA
+    - El **fromDataOriginInstance** es `DEFAULT` si solo tienes un origen de datos. Si tienes multiples origenes, usa el identificador previamente comunicado al equipo DENA
     
     No necesitas usar los OIDs internos de DENA. Los IDs de negocio son suficientes.
 
-!!! note "Sobre fromDataOrigin"
-    Si tu administracion solo tiene un origen de datos por tipo de dato (lo mas habitual), envia `"fromDataOrigin": "DEFAULT"` y no necesitas preocuparte de nada mas.
+!!! note "Sobre fromDataOriginInstance"
+    Si tu administracion solo tiene un origen de datos por tipo de dato (lo mas habitual), envia `"fromDataOriginInstance": "DEFAULT"` y no necesitas preocuparte de nada mas.
     
-    Si tienes **multiples origenes** para el mismo tipo de dato (ej: varios gestores de expedientes), el campo `fromDataOrigin` debe contener el identificador del origen concreto. Este identificador se acuerda previamente con el equipo DENA durante la configuracion del conector. Si no lo comunicas de antemano, los items fallaran en el procesamiento.
+    Si tienes **multiples origenes** para el mismo tipo de dato (ej: varios gestores de expedientes), el campo `fromDataOriginInstance` debe contener el identificador del origen concreto. Este identificador se acuerda previamente con el equipo DENA durante la configuracion del conector. Si no lo comunicas de antemano, los items fallaran en el procesamiento.
 
 ### Ejemplo: respuesta de DENA
 
@@ -145,7 +145,7 @@ HttpRequest request = HttpRequest.newBuilder()
 DENA devuelve que items se procesaron correctamente (`processedOK`) y cuales fallaron (`processedNOK`) con el motivo del error. Un envio puede tener items validos e invalidos simultaneamente: los validos se procesan con normalidad y los invalidos se rechazan individualmente sin afectar al resto.
 
 !!! warning "Error clasico: data origin no configurado"
-    El fallo mas habitual en `processedNOK` es un `fromDataOrigin` que no esta dado de alta en la configuracion de DENA. Si recibes errores de validacion en el data origin, verifica con el equipo DENA que el identificador que usas coincide con el configurado en el conector.
+    El fallo mas habitual en `processedNOK` es un `fromDataOriginInstance` que no esta dado de alta en la configuracion de DENA. Si recibes errores de validacion en el data origin, verifica con el equipo DENA que el identificador que usas coincide con el configurado en el conector.
 
 ---
 

@@ -23,7 +23,7 @@ DENAren erabiltzaileen zerrenda baten esportazio-eskaera sortzen du modu asinkro
             "correlationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
             "interopRouteData": [
                 {
-                    "denaComponentId": "DENA_POSTMAN",
+                    "denaComponentId": "ADMIN",
                     "timestamp":"2026-06-10T15:37:57.5530000Z"
                 }
             ]

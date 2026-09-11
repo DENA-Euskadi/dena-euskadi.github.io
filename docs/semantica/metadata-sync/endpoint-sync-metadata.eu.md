@@ -17,11 +17,11 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 {
     "context": {
         "message": {
-            "type": "ADMIN_SYNC_METADATA",
+            "type": "ADMIN_SRMD_SYNC_REQ",
             "correlationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
             "interopRouteData": [
                 {
-                    "denaComponentId": "DENA_POSTMAN",
+                    "denaComponentId": "ADMIN",
                     "timestamp": "2026-06-10T15:37:57.5530000Z"
                 }
             ]
@@ -61,7 +61,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 | Eremua    | Mota                                           | Derrigorrez | Deskribapena |
 |-----------|------------------------------------------------|:-----------:|--------------|
-| `context` | [Context](../semantica-base/index.md)          | ✅          | Eskaeraren testuinguru-objektua, `message.type` `ADMIN_SYNC_METADATA` balioarekin |
+| `context` | [Context](../semantica-base/index.md)          | ✅          | Eskaeraren testuinguru-objektua, `message.type` `ADMIN_SRMD_SYNC_REQ` balioarekin |
 | `payload` | [Payload](#payload)                            | ✅          | Eskaeraren payload-a |
 
 
@@ -91,11 +91,11 @@ Elementu bakoitzak `DN00SyncMetaDataFromAdminToCOREItem` modeloa jarraitzen du:
     "code": "OK",
     "context": {
         "message": {
-            "type": "ADMIN_SYNC_METADATA",
+            "type": "ADMIN_SRMD_SYNC_RESP",
             "correlationId": "6750E08A-58F0-433D-900F-253529AAD25E",
             "interopRouteData": [
                 {
-                    "denaComponentId": "DENA_INTEROP_ADMIN_SYNC",
+                    "denaComponentId": "DENA_CORE",
                     "timestamp": "2026-05-27T15:54:58.8973112Z"
                 }
             ]

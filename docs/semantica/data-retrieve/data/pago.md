@@ -248,13 +248,11 @@ Cada formato compone su código de cobro a partir de un subconjunto de estas par
 
 | Código | Descripción |
 |--------|-------------|
+| `DAILY` | Diaria |
 | `WEEKLY` | Semanal |
-| `BIWEEKLY` | Quincenal |
 | `MONTHLY` | Mensual |
-| `BIMONTHLY` | Bimestral |
 | `QUARTERLY` | Trimestral |
-| `BIANNUAL` | Semestral |
-| `ANNUAL` | Anual |
+| `YEARLY` | Anual |
 
 ### Historial de cargos (`history[]`)
 

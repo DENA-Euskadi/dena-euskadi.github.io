@@ -2,11 +2,27 @@
 
 ## Description
 
-Object for referencing a data type managed by DENA (e.g. Record, Notification, Payment...).
+`dataType` is the `context` field that indicates **which type of data** is being requested or exchanged (Record, Notification, Payment...). It is the piece an administration reads to know which object to return.
 
-!!! info "At least one mandatory"
+!!! tip "All an administration needs"
 
-    Either `oid` **or** `id` must be included (or both). If both are included, `oid` takes priority.
+    To implement the endpoint, **it is enough to read `dataType.id`**: it is a catalog string (e.g. `administrativeServiceProcedureRecord`) that identifies the data type. Based on its value, you return the corresponding object. The `oid` is a DENA-internal identifier and **does not need to be interpreted**.
+
+---
+
+## The three pieces (and why they exist)
+
+The model separates three concepts that are often confused. In practice you will only work with the `id`:
+
+| Piece | Java class | What it is | Example |
+|---|---|---|---|
+| **`id`** | `DN00DataTypeID` (`@MarshallType(as="dataTypeId")`) | **Textual** identifier of the data type. It is the catalog value and matches the object's `marshallTypeId`. **This is what you interpret.** | `"administrativeServiceProcedureRecord"` |
+| **`oid`** | `DN00DataTypeOID` (`@MarshallType(as="dataTypeOid")`) | **Internal** DENA identifier (a GUID). Internal use; an administration does not need it. | `"6AE83A0C-2202-4666-9857-3334C14663A2"` |
+| **`dataType`** (container) | `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`) | The object that groups `oid` + `id` and travels inside the `context`. Specializes `DN00DENAObjectWithIDRefBase`. | `{ "id": "...", "oid": "..." }` |
+
+!!! info "`oid` or `id`?"
+
+    Either `oid` **or** `id` must be included (or both). In DATA-RETRIEVE, DENA always sends the `id`, which is the one you should use. If both come, `oid` takes priority internally, but the `id` is always enough to decide which object to return.
 
 ---
 
@@ -14,10 +30,10 @@ Object for referencing a data type managed by DENA (e.g. Record, Notification, P
 
 | Field | Type | Mandatory | Description |
 |---|---|:---:|---|
-| `oid` | `OID` | :material-close:* | Internal identifier of the data type (`DN00DataTypeOID`) |
-| `id` | `ID` | :material-close:* | Textual identifier of the data type (`DN00DataTypeID`) |
+| `id` | `String` | :material-check:* | Textual identifier of the data type (`DN00DataTypeID`). One of the catalog values (see table below) |
+| `oid` | `String` | :material-close:* | DENA-internal identifier (`DN00DataTypeOID`, a GUID). Internal use |
 
-Class: `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`), a specialization of `DN00DENAObjectWithIDRefBase`.
+<small>*At least one of the two. In practice the `id` always arrives.</small>
 
 ---
 
@@ -25,26 +41,30 @@ Class: `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`), a specialization o
 
 ```json
 {
-    "id": "administrativeNotice",
+    "id": "administrativeServiceProcedureRecord",
     "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
 }
 ```
 
+> The `id` is the one you use; the `oid` (an internal GUID) may or may not come and you do not need to interpret it.
+
 ---
 
-## Values of the `DN00DataTypeEnum` enum
+## Data type catalog (`id`)
 
-The DATA-RETRIEVE data types are defined in the `DN00DataTypeEnum` enum. Each type's `id` value matches the marshallTypeId of the corresponding data object:
+The valid `id` values are defined in the `DN00DataTypeEnum` enum. Each value matches the `marshallTypeId` of the corresponding data object, so the `id` tells you directly which object to return:
 
-| Enum value | `id` (marshallTypeId) | Data object |
+| `id` (value of `dataType.id`) | Data object to return | `DN00DataTypeEnum` constant |
 |---|---|---|
-| `ADMINISTRATIVE_NOTICE` | `administrativeNotice` | Notification |
-| `ADMINISTRATIVE_RECORD` | `administrativeServiceProcedureRecord` | Record |
-| `ADMINISTRATIVE_REGISTER` | `administrativeOfficialRegisterRecord` | Official register |
-| `PAYMENT_ONE_OFF_PAYMENT` | `oneOffPayment` | One-off payment |
-| `PAYMENT_DIRECT_DEBIT_PAYMENT` | `directDebitPayment` | Direct debit |
-| `SCHEDULE` | `scheduleItem` | Appointment |
-| `PERSON_DATA` | `personData` | Person data |
+| `administrativeServiceProcedureRecord` | Record | `ADMINISTRATIVE_RECORD` |
+| `administrativeNotice` | Notification | `ADMINISTRATIVE_NOTICE` |
+| `administrativeOfficialRegisterRecord` | Official register | `ADMINISTRATIVE_REGISTER` |
+| `oneOffPayment` | One-off payment | `PAYMENT_ONE_OFF_PAYMENT` |
+| `directDebitPayment` | Direct debit | `PAYMENT_DIRECT_DEBIT_PAYMENT` |
+| `scheduleItem` | Appointment | `SCHEDULE` |
+| `personData` | Person data | `PERSON_DATA` |
+
+> The `DN00DataTypeEnum` enum lives in `dena-common-data-api`; the identifiers (`DN00DataTypeID`/`DN00DataTypeOID`) and the `DN00DataTypeRef` container live in `dena-common-api`.
 
 <!-- DENA-DOC-FOOTER -->
 ---

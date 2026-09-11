@@ -13,99 +13,93 @@ Authorization: Bearer <token> (si OAuth está configurado)
 
 ## Request
 
+El cuerpo de la petición es un objeto `DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` (`@MarshallType(as="personSyncPushToAdminFromCOREToConnectorInternalSide")`), con la configuración de origen y la **notificación** que contiene los datos de la persona:
+
 ```json
 {
-  "context": {
-    "message": {
-      "type": "PERSON_PUSH_TO_ADMIN",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": [
-        { "denaComponentId": "apiGateway", "timestamp": "2024-06-01T10:00:00Z" }
-      ]
-    },
-    "destinationAdmin": { "oid": "6AE83A0C-2202-4666-9857-3334C14663A2", "id": "ADMIN-001", "dir3Id": "EA0000001" },
-    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
-  },
-  "payload": {
-    "personRef": {
-        "id": "12345678A",
-        "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C"
-    },
-    "personHashes": {
+  "dataOriginConfigForDataTypeInAdmin": { "...": "configuración interna del origen de datos (uso del conector)" },
+  "notification": {
+    "syncData": {
+      "personRef": {
+        "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C",
+        "id": "12345678A"
+      },
+      "personHashes": {
         "nameHash": "abcde",
         "surname1Hash": "abcde",
         "surname2Hash": "abcde",
-        "allNamesHash": "abcde"
+        "fullNameHash": "abcde"
+      },
+      "createDate": "2024-06-01T10:00:00Z",
+      "lastUpdateDate": "2024-06-01T10:00:00Z",
+      "syncEvent": "CREATED"
     },
-    "createDate": "2024-06-01T10:00:00Z",
-    "lastUpdateDate": "2024-06-01T10:00:00Z",
-    "syncEvent": "CREATED"
+    "person": {
+      "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C",
+      "id": "12345678A",
+      "name": "Ane",
+      "surname1": "Garcia",
+      "surname2": "Lopez",
+      "contactInfo": { "...": "datos de contacto (ContactInfo)" },
+      "lastChangeEvent": "CREATED"
+    }
   }
 }
 ```
 
-| Campo     | Tipo                                           | Obligatorio | Descripción |
-|-----------|------------------------------------------------|-------------|-------------|
-| `context` | [Context](../../../semantica-base/index.md) | ✅          | Objeto de contexto de la petición. Incluye `message.type`, `destinationAdmin` (OrgAdminRef) y `subjectPerson` (PersonRef) |
-| `payload` | [Payload](#payload)                            | ✅          | Payload de la petición |
+| Campo | Tipo | Obligatorio | Descripción |
+|-------|------|:-----------:|-------------|
+| `dataOriginConfigForDataTypeInAdmin` | `Object` | ✅ | Configuración del origen de datos para el tipo de dato en la administración. Es información interna que usa el conector; la administración no necesita interpretarla |
+| `notification` | `DN00PersonSyncPushToAdminNotification` (`@MarshallType(as="personSyncPushToAdminNotification")`) | ✅ | Notificación con los datos de la persona a sincronizar |
 
-## Payload
+## `notification`
 
-| Campo            | Tipo     | Obligatorio | Descripción |
-|------------------|----------|-------------|-------------|
-| `personRef`      | [PersonRef](../../../semantica-base/modelo/person-ref.md) | ✅ | Referencia a la persona creada o modificada |
-| `personHashes`   | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Hashes de nombre y apellidos de la persona para su identificación inequivoca |
-| `createDate`     | `ISO 8601 Date` | ✅ | Fecha de creación |
-| `lastUpdateDate` | `ISO 8601 Date` | ❌ | Fecha de ultima actualización |
-| `syncEvent`      | `String` | ✅ | Evento producido. Valores posibles: <br> `CREATED`: Nueva persona registrada <br> `DELETED`: Persona eliminada de DENA <br> `UPDATED`: Datos de la persona actualizados <br> `ID_CHANGED`: Identificador de la persona modificado |
+| Campo | Tipo | Obligatorio | Descripción |
+|-------|------|:-----------:|-------------|
+| `syncData` | `DN00PersonSyncData` (`@MarshallType(as="personSyncData")`) | ✅ | Metadatos de la sincronización (referencia, hashes, fechas, evento) |
+| `person` | `DN00Person` (`@MarshallType(as="person")`) | ✅ | Datos completos de la persona |
 
-!!! note "Sobre `message.type`"
-    El valor `PERSON_PUSH_TO_ADMIN` no existe todavía en el enum `DN00InteropMessageType` del código 0.4.16 (los tipos definidos son flujos ADMIN → DENA-CORE). Se mantiene aquí como identificador del flujo DENA-CORE → administración a la espera de que se añada el tipo real correspondiente.
+### `notification.syncData`
+
+| Campo | Tipo | Obligatorio | Descripción |
+|-------|------|:-----------:|-------------|
+| `personRef` | [PersonRef](../../../semantica-base/modelo/person-ref.md) | ✅ | Referencia a la persona creada o modificada (`oid`/`id`) |
+| `personHashes` | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Hashes de nombre y apellidos para su identificación inequívoca |
+| `createDate` | `Instant` (ISO 8601) | ❌ | Fecha de creación |
+| `lastUpdateDate` | `Instant` (ISO 8601) | ❌ | Fecha de última actualización |
+| `syncEvent` | `DN00PersonChangeEvent` | ❌ | Evento que disparó la sincronización: `CREATED` (nueva persona), `DELETED` (persona eliminada), `UPDATED` (datos actualizados), `ID_CHANGED` (identificador modificado) |
+
+### `notification.person`
+
+| Campo | Tipo | Obligatorio | Descripción |
+|-------|------|:-----------:|-------------|
+| `oid` / `id` | `String` | ✅ | Identificadores de la persona |
+| `name` | `String` | ✅ | Nombre |
+| `surname1` | `String` | ✅ | Primer apellido |
+| `surname2` | `String` | ❌ | Segundo apellido |
+| `contactInfo` | `ContactInfo` | ❌ | Datos de contacto |
+| `lastChangeEvent` | `DN00PersonChangeEvent` | ❌ | Último tipo de cambio aplicado (lo fija DENA-CORE) |
 
 ---
 
-## Response exitosa (HTTP 200)
+## Response
+
+La administración indica el resultado del procesamiento mediante el **código de estado HTTP**:
+
+- **`200 OK`** — la notificación se procesó correctamente. No es obligatorio devolver cuerpo.
+- **`4xx`** — error atribuible a la petición (p. ej. `404` si la persona no se puede resolver, `400` si el cuerpo es inválido).
+- **`5xx`** — error interno de la administración.
+
+DENA-CORE interpreta el resultado a partir del código HTTP (ver `DN01PersonPushToAdminJobProcessor`): si la respuesta es satisfactoria el job pasa a `SYNCED_OK`; en caso contrario se reintenta (hasta el máximo de intentos) y pasa a `SYNCED_ERROR` / `SYNCED_ERROR_TOO_MANY_ATTEMPTS`.
+
+Si la administración devuelve un cuerpo de error, se recomienda un objeto simple con un mensaje descriptivo, por ejemplo:
 
 ```json
 {
-  "context": {
-    "message": {
-      "type": "PERSON_PUSH_TO_ADMIN",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
-  },
-  "payload": null,
-  "code": "OK"
+  "error": "PERSON_NOT_FOUND",
+  "message": "Persona no encontrada en el sistema"
 }
 ```
-
-## Response de error (HTTP 4xx/5xx)
-
-```json
-{
-  "context": {
-    "message": {
-      "type": "PERSON_PUSH_TO_ADMIN",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "9F2C4B7E-1A3D-4E8F-B0C2-5D6E7F8A9B0C" }
-  },
-  "payload": null,
-  "code": "CLIENT_ERR",
-  "errorId": "PERSON_NOT_FOUND",
-  "details": { "details": "Persona no encontrada en el sistema" }
-}
-```
-
-### Códigos de estado (`code`)
-
-| Código | Descripción |
-|--------|-------------|
-| `OK` | Mensaje procesado correctamente |
-| `CLIENT_ERR` | Error del cliente (petición malformada, persona no encontrada) |
-| `SERVER_ERR` | Error del servidor (error interno) |
-| `QUEUED` | Mensaje encolado para procesamiento asíncrono |
 
 ---
 
@@ -138,11 +132,10 @@ El token se obtiene automáticamente mediante client credentials.
 ## Requisitos para la administración
 
 1. Exponer un endpoint `POST` que acepte y devuelva `application/json`
-2. Interpretar `payload.personRef` para identificar a la persona
+2. Interpretar `notification.syncData.personRef` (y `notification.person`) para identificar a la persona
 3. Actualizar su base de datos de personas registradas en DENA con la información recibida
-4. Respetar los códigos HTTP estándar
+4. Respetar los códigos HTTP estándar (`200` si se procesa correctamente; `4xx`/`5xx` en error)
 5. Responder en menos de 30 segundos
-6. Usar `code: "OK"` en respuestas exitosas y `code: "CLIENT_ERR"` o `code: "SERVER_ERR"` en errores
 
 <!-- DENA-DOC-FOOTER -->
 ---

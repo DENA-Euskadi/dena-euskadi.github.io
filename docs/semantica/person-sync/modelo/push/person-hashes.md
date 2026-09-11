@@ -21,7 +21,7 @@ flowchart LR
     HASHES --> NAME["nameHash"]
     HASHES --> SURNAME1["surname1Hash"]
     HASHES --> SURNAME2["surname2Hash"]
-    HASHES --> ALLNAMES["allNamesHash"]
+    HASHES --> ALLNAMES["fullNameHash"]
 
     style HASHES fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
     style NAME fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
@@ -44,7 +44,7 @@ flowchart LR
 | `nameHash`         | `String` | ✅          | Hash del nombre de la persona |
 | `surname1Hash`     | `String` | ✅          | Hash del primer apellido |
 | `surname2Hash`     | `String` | ❌          | Hash del segundo apellido |
-| `allNamesHash`     | `String` | ✅          | Hash de la concatenación de nombre y apellidos |
+| `fullNameHash`     | `String` | ✅          | Hash de la concatenación de nombre y apellidos |
 
 ## Ejemplo JSON
 
@@ -53,7 +53,7 @@ flowchart LR
     "nameHash": "abcde",
     "surname1Hash": "abcde",
     "surname2Hash": "abcde",
-    "allNamesHash": "abcde"
+    "fullNameHash": "abcde"
 }
 ```
 

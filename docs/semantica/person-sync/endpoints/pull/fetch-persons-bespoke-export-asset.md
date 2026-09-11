@@ -23,7 +23,7 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
             "correlationId": "aa645a6e-66a0-4c02-a00f-81d484a4296a",
             "interopRouteData": [
                 {
-                    "denaComponentId": "DENA_POSTMAN",
+                    "denaComponentId": "ADMIN",
                     "timestamp":"2026-06-11T14:55:01.7520000Z"
                 }
             ]

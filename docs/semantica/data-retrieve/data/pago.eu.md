@@ -248,13 +248,11 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 | Kodea | Deskribapena |
 |--------|-------------|
+| `DAILY` | Egunero |
 | `WEEKLY` | Astero |
-| `BIWEEKLY` | Hamabostero |
 | `MONTHLY` | Hilero |
-| `BIMONTHLY` | Bi hilabetero |
 | `QUARTERLY` | Hiruhilero |
-| `BIANNUAL` | Seihilero |
-| `ANNUAL` | Urtero |
+| `YEARLY` | Urtero |
 
 ### Karguen historiala (`history[]`)
 

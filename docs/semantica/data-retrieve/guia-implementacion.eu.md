@@ -64,7 +64,7 @@ DENAk `POST` eskaera bat bidaliko du formatu honekin:
       "correlationId": "550e8400-e29b-41d4-a716-446655440000",
       "interopRouteData": []
     },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
     "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
   "payload": { }
@@ -76,7 +76,7 @@ Interpretatu behar dituzun eremu nagusiak:
 | Eremua | Zertarako balio duen | Iturburu-kodea |
 |--------|----------------------|----------------|
 | `context.subjectPerson.id` | Datuak eskatzen diren pertsonaren NAN/AIZ | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.dataType.id` | Eskatutako datu mota (ikusi beheko taula) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.dataType.id` | Eskatutako datu mota; katalogoko string bat (ikusi beheko taula). Anaia den `oid` DENAren barnekoa da eta ez da interpretatu behar — ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
 | `context.message.correlationId` | UUID log trazabilitaterako | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
 ### Datu motak (`dataType.id`)
@@ -328,7 +328,7 @@ Erantzunak egitura hau izan behar du:
       "correlationId": "ESKAERAREN-UUID",
       "interopRouteData": []
     },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
+    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
     "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
   },
   "payload": {

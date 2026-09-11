@@ -80,7 +80,7 @@ curl -s -X POST "${DENA_URL}/srmd/" \
       "aboutPerson": { "id": "12345678A" },
       "someDataWasUpdatedAt": "2026-08-24T10:30:00.000Z",
       "ofType": { "id": "RECORDS" },
-      "fromDataOrigin": "DEFAULT"
+      "fromDataOriginInstance": "DEFAULT"
     }
   ]' | jq .
 ```

@@ -25,6 +25,22 @@ Zuzenketak 0.4.16 kodearen aurrean:
 - :material-refresh: `semantica/data-retrieve/data/pago.md`: "Formatuaren eskema (`schema`)" atala gehituta, onartutako 14 formatuekin eta DC balidazioa inplementatu gabe dagoen oharrarekin
 - :material-refresh: `semantica/data-retrieve/data/persona.md`: adibideko `entity` `CAIXESBB`-ra zuzenduta (baliozko BIC)
 - :material-refresh: `semantica/data-retrieve/data/notificacion.md`: `type` eremua argituta (enum `OFFICIAL_NOTICE`/`COMMUNICATION`, `DN00AdministrativeNoticeType`) `administrativeNotice` diskriminatzaile polimorfikoaren aldean
+- :material-refresh: `semantica/semantica-base/modelo/data-type-ref.md`: `dataType`-ren azalpena administrazioentzat berridatzita — hiru zatiak bereizita (`id`=`DN00DataTypeID`, `oid`=`DN00DataTypeOID`, `DN00DataTypeRef` edukiontzia) `DN00DataTypeEnum` katalogoaren aldean, `dataType.id` irakurtzea nahikoa dela argi utziz
+- :material-refresh: `dataType`-ren `oid`-ak `id` balioa errepikatzen zuen JSON adibideak zuzenduta (orain adibidezko GUID bat), nahasmena saihestuz
+
+Edukiaren zuzenketak (adibideak 0.4.16 kodearen aurka eremuz eremu egiaztatuta):
+
+- :material-bug: `pago.md`: helbideratzearen maiztasun-enum-aren balioak benetakoetara zuzenduta (`DAILY`/`WEEKLY`/`MONTHLY`/`QUARTERLY`/`YEARLY`, `r01f.types.datetime.TimeFrequency`); existitzen ez ziren balioak kenduta (`BIWEEKLY`/`BIMONTHLY`/`BIANNUAL`/`ANNUAL`)
+- :material-bug: `person-sync` (person-hashes, endpoint-person-push-to-admin): `allNamesHash` eremua → `fullNameHash` (`DN00PersonHashes`)
+- :material-bug: `metadata-sync` (endpoint-sync-metadata): mezu mota `ADMIN_SYNC_METADATA` → `ADMIN_SRMD_SYNC_REQ`/`ADMIN_SRMD_SYNC_RESP` (`DN00InteropMessageType`)
+- :material-bug: `fromDataOrigin` eremua → `fromDataOriginInstance` SRMD adibideetan (`DN00SyncMetaDataFromAdminToCOREItem`): metadata-sync, end-to-end adibidea, arkitektura, kode-adibideak, autentifikazioa
+- :material-bug: `denaComponentId` existitzen ez ziren balioekin (`apiGateway`, `DENA_POSTMAN`, `DENA_INTEROP_ADMIN_SYNC`) `DN00InteropComponent` enum-aren benetako balioetara zuzenduta (`CLIENT_INSTALLMENT`/`DENA_CORE`/`DENA_ADMIN_CONNECTOR`/`ADMIN`) data-retrieve, metadata-sync eta person-sync endpoint-etan
+- :material-bug: `endpoint-person-push-to-admin.md`: push-aren eredua benetako egiturara berridatzita (`DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` → `notification` `syncData` eta `person`-ekin); interop envelope-a eta `PERSON_PUSH_TO_ADMIN` mota (0.4.16-n existitzen ez dena) kenduta; erantzuna HTTP kodearen bidez deskribatuta `DN01PersonPushToAdminJobProcessor`-en arabera
+
+Egiaztapena:
+
+- :material-check-all: Kode iturburuko 92 estekak (`{{ repos.*_blob }}`) mirror publikoen `PUBLIC-v0.4.16` tag-aren aurka egiaztatuta: guztiek zuzen ebazten dute
+- :material-check-all: Semantika, endpoint, metadata-sync eta person-sync orri guztietako JSON/Java adibideak eta taulak 0.4.16 benetako klaseen aurka eremuz eremu kontrastatuta
 
 Itzulpenak:
 

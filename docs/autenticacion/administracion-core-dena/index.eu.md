@@ -177,7 +177,7 @@ Eskaera osoa DENA-ri goiburu guztiekin:
 # 1. Segurtasun-balioak sortu
 CORRELATION_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 TIMESTAMP=$(date +%s%3N)
-BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.000Z","ofType":{"id":"RECORDS"},"fromDataOrigin":"DEFAULT"}]'
+BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.000Z","ofType":{"id":"RECORDS"},"fromDataOriginInstance":"DEFAULT"}]'
 DATA_DIGEST="sha-256=$(echo -n "$BODY" | shasum -a 256 | cut -d' ' -f1)"
 
 # 2. Goiburu guztiekin bidali
