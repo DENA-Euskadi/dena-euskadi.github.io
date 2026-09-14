@@ -36,6 +36,7 @@ Correcciones de contenido (ejemplos verificados campo a campo contra el código 
 - :material-bug: Campo `fromDataOrigin` → `fromDataOriginInstance` en ejemplos de SRMD (`DN00SyncMetaDataFromAdminToCOREItem`): metadata-sync, ejemplo-end-to-end, arquitectura, ejemplos-código, autenticación
 - :material-bug: `denaComponentId` con valores inexistentes (`apiGateway`, `DENA_POSTMAN`, `DENA_INTEROP_ADMIN_SYNC`) corregidos a valores reales del enum `DN00InteropComponent` (`CLIENT_INSTALLMENT`/`DENA_CORE`/`DENA_ADMIN_CONNECTOR`/`ADMIN`) en endpoints de data-retrieve, metadata-sync y person-sync
 - :material-bug: `endpoint-person-push-to-admin.md`: reescrito el modelo del push a la estructura real (`DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` → `notification` con `syncData` y `person`); eliminado el envelope interop y el tipo `PERSON_PUSH_TO_ADMIN` (inexistente en 0.4.16); respuesta descrita por código HTTP según `DN01PersonPushToAdminJobProcessor`
+- :material-plus: Cada ficha de tipo de dato (expediente, notificación, registro-oficial, pago, cita, persona) indica ahora en su cabecera el ID de Tipo (DataTypeID) correspondiente, con el valor del enum `DN00DataTypeEnum`
 
 Verificación:
 

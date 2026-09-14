@@ -2,6 +2,7 @@
 
 > - **Versión:** `v{{ dena.version }}`
 > - **Fecha:** {{ dena.date }}
+> - **ID de Tipo (DataTypeID):** `ADMINISTRATIVE_RECORD`
 > - **Test:** [DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
 > - **Código:** [DN00AdmistrativeServiceProcedureRecord.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java)
 

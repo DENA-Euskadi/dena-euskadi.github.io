@@ -2,6 +2,7 @@
 
 > - **Bertsioa:** `v{{ dena.version }}`
 > - **Data:** {{ dena.date }}
+> - **Mota ID (DataTypeID):** `PAYMENT_ONE_OFF_PAYMENT` (ordainketa bakarra) · `PAYMENT_DIRECT_DEBIT_PAYMENT` (helbideratzea)
 > - **Testa:** [DN99DENATestMockObjFactoryForOneOffPayment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
 > - **Kodea:**
 >   - [DN00OneOffPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java)

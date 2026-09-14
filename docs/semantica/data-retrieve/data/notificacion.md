@@ -2,6 +2,7 @@
 
 > - **Versión:** `v{{ dena.version }}`
 > - **Fecha:** {{ dena.date }}
+> - **ID de Tipo (DataTypeID):** `ADMINISTRATIVE_NOTICE`
 > - **Test:** [DN99DENATestMockObjFactoryForAdministrativeNotice.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
 > - **Código:** [DN00AdministrativeNotice.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNotice.java)
 

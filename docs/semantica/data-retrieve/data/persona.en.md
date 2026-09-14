@@ -2,6 +2,7 @@
 
 > - **Version:** `v{{ dena.version }}`
 > - **Date:** {{ dena.date }}
+> - **Type ID (DataTypeID):** `PERSON_DATA`
 > - **Test:** [DN99DENATestMockObjFactoryForPersonData.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForPersonData.java)
 > - **Code:** [DN00PersonData.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonData.java)
 

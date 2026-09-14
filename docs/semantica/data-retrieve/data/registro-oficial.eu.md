@@ -2,6 +2,7 @@
 
 > - **Bertsioa:** `v{{ dena.version }}`
 > - **Data:** {{ dena.date }}
+> - **Mota ID (DataTypeID):** `ADMINISTRATIVE_REGISTER`
 > - **Testa:** [DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/register/DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java)
 > - **Kodea:** [DN00AdministrativeOfficialRegisterRecord.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecord.java)
 

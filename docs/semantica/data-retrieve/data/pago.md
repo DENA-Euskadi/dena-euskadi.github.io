@@ -2,6 +2,7 @@
 
 > - **Versión:** `v{{ dena.version }}`
 > - **Fecha:** {{ dena.date }}
+> - **ID de Tipo (DataTypeID):** `PAYMENT_ONE_OFF_PAYMENT` (pago único) · `PAYMENT_DIRECT_DEBIT_PAYMENT` (domiciliación)
 > - **Test:** [DN99DENATestMockObjFactoryForOneOffPayment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
 > - **Código:**
 >   - [DN00OneOffPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java)

@@ -36,6 +36,7 @@ Content fixes (examples verified field by field against the 0.4.16 code):
 - :material-bug: Field `fromDataOrigin` → `fromDataOriginInstance` in SRMD examples (`DN00SyncMetaDataFromAdminToCOREItem`): metadata-sync, end-to-end example, architecture, code examples, authentication
 - :material-bug: `denaComponentId` with non-existent values (`apiGateway`, `DENA_POSTMAN`, `DENA_INTEROP_ADMIN_SYNC`) fixed to real values of the `DN00InteropComponent` enum (`CLIENT_INSTALLMENT`/`DENA_CORE`/`DENA_ADMIN_CONNECTOR`/`ADMIN`) in data-retrieve, metadata-sync and person-sync endpoints
 - :material-bug: `endpoint-person-push-to-admin.md`: rewrote the push model to the real structure (`DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` → `notification` with `syncData` and `person`); removed the interop envelope and the `PERSON_PUSH_TO_ADMIN` type (non-existent in 0.4.16); response described by HTTP code as per `DN01PersonPushToAdminJobProcessor`
+- :material-plus: Each data type page (record, notification, official register, payment, appointment, person) now shows its Type ID (DataTypeID) in the header, with the `DN00DataTypeEnum` value
 
 Verification:
 

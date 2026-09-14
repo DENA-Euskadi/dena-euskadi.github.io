@@ -2,6 +2,7 @@
 
 > - **Version:** `v{{ dena.version }}`
 > - **Date:** {{ dena.date }}
+> - **Type ID (DataTypeID):** `SCHEDULE`
 > - **Test:** [DN99DENATestMockObjFactoryForScheduleItem.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java)
 > - **Code:** [DN00ScheduleItem.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItem.java)
 

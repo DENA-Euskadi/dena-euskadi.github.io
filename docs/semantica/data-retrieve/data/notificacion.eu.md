@@ -2,6 +2,7 @@
 
 > - **Bertsioa:** `v{{ dena.version }}`
 > - **Data:** {{ dena.date }}
+> - **Mota ID (DataTypeID):** `ADMINISTRATIVE_NOTICE`
 > - **Testa:** [DN99DENATestMockObjFactoryForAdministrativeNotice.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
 > - **Kodea:** [DN00AdministrativeNotice.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeNoticeModelClasses/src/main/java/dena/api/data/model/administrativenotice/DN00AdministrativeNotice.java)
 

@@ -2,6 +2,7 @@
 
 > - **Bertsioa:** `v{{ dena.version }}`
 > - **Data:** {{ dena.date }}
+> - **Mota ID (DataTypeID):** `SCHEDULE`
 > - **Testa:** [DN99DENATestMockObjFactoryForScheduleItem.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java)
 > - **Kodea:** [DN00ScheduleItem.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItem.java)
 

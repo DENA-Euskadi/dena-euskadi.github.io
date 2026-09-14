@@ -36,6 +36,7 @@ Edukiaren zuzenketak (adibideak 0.4.16 kodearen aurka eremuz eremu egiaztatuta):
 - :material-bug: `fromDataOrigin` eremua → `fromDataOriginInstance` SRMD adibideetan (`DN00SyncMetaDataFromAdminToCOREItem`): metadata-sync, end-to-end adibidea, arkitektura, kode-adibideak, autentifikazioa
 - :material-bug: `denaComponentId` existitzen ez ziren balioekin (`apiGateway`, `DENA_POSTMAN`, `DENA_INTEROP_ADMIN_SYNC`) `DN00InteropComponent` enum-aren benetako balioetara zuzenduta (`CLIENT_INSTALLMENT`/`DENA_CORE`/`DENA_ADMIN_CONNECTOR`/`ADMIN`) data-retrieve, metadata-sync eta person-sync endpoint-etan
 - :material-bug: `endpoint-person-push-to-admin.md`: push-aren eredua benetako egiturara berridatzita (`DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` → `notification` `syncData` eta `person`-ekin); interop envelope-a eta `PERSON_PUSH_TO_ADMIN` mota (0.4.16-n existitzen ez dena) kenduta; erantzuna HTTP kodearen bidez deskribatuta `DN01PersonPushToAdminJobProcessor`-en arabera
+- :material-plus: Datu mota bakoitzaren fitxak (espedientea, jakinarazpena, erregistro ofiziala, ordainketa, hitzordua, pertsona) bere goiburuan dagokion Mota ID (DataTypeID) erakusten du orain, `DN00DataTypeEnum` enum-aren balioarekin
 
 Egiaztapena:
 
