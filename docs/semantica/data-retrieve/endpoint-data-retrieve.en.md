@@ -13,51 +13,27 @@ Authorization: Bearer <token> (if OAuth is configured)
 
 ## Request
 
-> Context Java class: [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java)
+The administration receives a **simple** request from the DENA connector: a `context` object with the person, the data type and the destination administration. This is the format the connector generates before calling the administration's endpoint.
 
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": [
-        { "denaComponentId": "DENA_CORE", "timestamp": "2024-06-01T10:00:00Z" }
-      ]
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
-    "originClientInstallment": "CLIENT-INSTALLMENT-OID-001",
-    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001", "dir3Id": "EA0000001" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
-  },
-  "protocol": {
-    "urls": [],
-    "timeOut": "30s"
-  },
-  "payload": {
-    "person": "PERSON-OID-001"
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "administration": { "id": "ADMIN-001" }
   }
 }
 ```
 
 | Field | Mandatory | Description |
 |-------|:-----------:|-------------|
-| `context.message.type` | ✅ | Message type (`PERSON_FETCH_DATA`). See [`DN00InteropMessageType`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageType.java) |
-| `context.message.correlationId` | ✅ | Correlation UUID for traceability. See [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
-| `context.message.interopRouteData` | ❌ | DENA component trace. See [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
-| `context.dataType.id` | ✅ | Data type (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. See [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.dataType.oid` | ❌ | Data type OID (DataTypeRef). See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.originClientInstallment` | ❌ | OID of the origin client installment (when the message is sent by a client device). See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin.oid` | ❌ | Destination administration OID (OrgAdminRef). See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin.id` | ❌ | Destination administration identifier. See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin.dir3Id` | ❌ | Destination administration DIR3 code. See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.id` | ✅ | DNI/NIE/NIF of the person (PersonRef). See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.oid` | ❌ | Person OID. See [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `protocol.urls` | ❌ | Protocol template URLs. See [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout (e.g.: `"30s"`). See [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
-| `payload` | ✅ | Request payload |
+| `context.subjectPerson.id` | ✅ | DNI/NIE/NIF of the person whose data is requested |
+| `context.dataType.id` | ✅ | Requested data type (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. See [DataTypeRef](../semantica-base/modelo/data-type-ref.md) and [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.administration.id` | ✅ | Destination administration identifier |
 
-> The flow direction (`REQUEST`/`RESPONSE`) is a value derived from the message type and is not serialized in the JSON. See [`DN00InteropFlowDirection`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropFlowDirection.java)
+!!! info "Request format"
+
+    The DENA connector (Spring Boot 3) normalizes the request to this reduced format before sending it to the administration: only `subjectPerson`, `dataType` and `administration`, all by their `id`. The interop message envelope (`message`/`protocol`/`payload`), OIDs and route trace are not sent. To implement the endpoint it is enough to read these three fields.
 
 ---
 
@@ -71,45 +47,46 @@ Authorization: Bearer <token> (if OAuth is configured)
     "message": {
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" },
-    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001" }
+    }
   },
+  "code": "OK",
   "payload": {
     "dataItems": [
       {
-        "type": "administrativeServiceProcedureRecord",
-        "oid": "EXP-OID-001",
-        "id": "EXP-2024-00123",
-        "service": {
-          "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
-          "originRef": { "id": "SRV-LIC-ACT" }
+        "data": {
+          "type": "administrativeServiceProcedureRecord",
+          "oid": "EXP-OID-001",
+          "id": "EXP-2024-00123",
+          "service": {
+            "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+            "originRef": { "id": "SRV-LIC-ACT" }
+          },
+          "procedure": {
+            "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
+            "originRef": { "id": "PROC-LIC-APER" }
+          },
+          "createdAt": "2024-03-15T10:30:00Z",
+          "lastUpdatedAt": "2024-06-01T14:00:00Z",
+          "applicationDate": "2024-03-14T09:00:00Z",
+          "regNumber": "REG-2024-00123",
+          "interested": { "partyId": "12345678A", "partyName": "Juan García" },
+          "state": {
+            "stateCode": "IN_PROGRESS",
+            "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
+          },
+          "urls": [
+            { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
+          ]
         },
-        "procedure": {
-          "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
-          "originRef": { "id": "PROC-LIC-APER" }
-        },
-        "createdAt": "2024-03-15T10:30:00Z",
-        "lastUpdatedAt": "2024-06-01T14:00:00Z",
-        "applicationDate": "2024-03-14T09:00:00Z",
-        "regNumber": "REG-2024-00123",
-        "interested": { "partyId": "12345678A", "partyName": "Juan García" },
-        "state": {
-          "stateCode": "IN_PROGRESS",
-          "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
-        },
-        "urls": [
-          { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
-        ]
+        "proposedScheduleItems": []
       }
-    ]
-  },
-  "code": "OK",
-  "errorId": null,
-  "details": null
+    ],
+    "itemsPagingContext": null
+  }
 }
 ```
+
+> **Response structure** (`DN00DataRetrieveResponseFromAdmin`): the `code` (status) is at root level, sibling of `context` and `payload`. Inside `payload`, `dataItems` is an array where **each element wraps the business object in a `data` field** (`DN00DataRetrievedFromAdmin`), with an optional `proposedScheduleItems` (appointments the administration proposes to show on the client). `itemsPagingContext` is optional (paging).
 
 ## Response with no data (HTTP 200)
 
@@ -119,12 +96,10 @@ Authorization: Bearer <token> (if OAuth is configured)
     "message": {
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
+    }
   },
-  "payload": { "dataItems": [] },
-  "code": "OK"
+  "code": "OK",
+  "payload": { "dataItems": [] }
 }
 ```
 
@@ -136,10 +111,8 @@ Authorization: Bearer <token> (if OAuth is configured)
     "message": {
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
+    }
   },
-  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }
@@ -157,9 +130,9 @@ Authorization: Bearer <token> (if OAuth is configured)
 
 ---
 
-## Object types in `dataItems`
+## Object types in `dataItems[].data`
 
-Each element in the `dataItems` array is an object that inherits the [common fields](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) and adds specific fields depending on its type:
+Each element in the `dataItems` array wraps the business object in its `data` field. That object inherits the [common fields](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) and adds specific fields depending on its type:
 
 | `type` | Object | Documentation |
 |--------|--------|---------------|

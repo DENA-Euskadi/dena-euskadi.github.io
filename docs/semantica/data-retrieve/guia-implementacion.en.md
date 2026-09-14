@@ -59,15 +59,10 @@ DENA will send a `POST` request with this format:
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
-  },
-  "payload": { }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "administration": { "id": "ADMIN-001" }
+  }
 }
 ```
 
@@ -76,8 +71,8 @@ The key fields you must interpret:
 | Field | Purpose | Source code |
 |-------|----------|-------------|
 | `context.subjectPerson.id` | DNI/NIE of the person whose data is requested | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.dataType.id` | Type of data requested; a catalog string (see table below). The sibling `oid` is DENA-internal and does not need to be interpreted — see [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.message.correlationId` | UUID for log traceability | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.dataType.id` | Type of data requested; a catalog string (see table below) — see [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.administration.id` | Destination administration identifier | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
 ### Data types (`dataType.id`)
 
@@ -323,20 +318,19 @@ The response must have this structure:
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "REQUEST-UUID",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
   },
+  "code": "OK",
   "payload": {
-    "dataItems": [ ... ]
-  },
-  "code": "OK"
+    "dataItems": [
+      { "data": { "type": "administrativeServiceProcedureRecord", "oid": "...", "id": "..." } }
+    ]
+  }
 }
 ```
+
+> Each `dataItems` element wraps the business object in a `data` field. The `code` is at root level.
 
 ### Response rules
 
@@ -408,8 +402,8 @@ The token is obtained automatically via **client credentials** against your auth
 - [ ] Texts include at least `SPANISH` and `BASQUE`
 - [ ] Dates are in ISO 8601 format (`2024-03-15T10:30:00Z`)
 - [ ] States use the exact codes defined in the model
-- [ ] The `code` field is present in the response (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
-- [ ] The `context.message.correlationId` from the request is returned in the response
+- [ ] The `code` field is present in the response at root level (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
+- [ ] Each `dataItems` element wraps the object in a `data` field
 - [ ] Response time is < 30 seconds
 
 ### Test tools

@@ -128,10 +128,9 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
 
     **Causas posibles:**
 
-    - Falta `context.message.type`
     - Falta `context.subjectPerson.id`
     - Falta `context.dataType.id`
-    - Falta `context.message.correlationId`
+    - Falta `context.administration.id`
 
     **Solución:**
 
@@ -140,14 +139,10 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
     ```json
     {
       "context": {
-        "message": {
-          "type": "PERSON_FETCH_DATA",
-          "correlationId": "uuid-here"
-        },
-        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DTYPE-OID-RECORDS" },
-        "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
-      },
-      "payload": {}
+        "subjectPerson": { "id": "12345678A" },
+        "dataType": { "id": "administrativeServiceProcedureRecord" },
+        "administration": { "id": "ADMIN-001" }
+      }
     }
     ```
 

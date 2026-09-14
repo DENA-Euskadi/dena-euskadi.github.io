@@ -42,6 +42,9 @@ Verification:
 
 - :material-check-all: Verified the 92 source-code links (`{{ repos.*_blob }}`) against the `PUBLIC-v0.4.16` tag of the public mirrors: all resolve correctly
 - :material-check-all: Cross-checked field by field the JSON/Java examples and tables of all semantics, endpoints, metadata-sync and person-sync pages against the real 0.4.16 classes
+- :material-bug: `endpoint-sync-metadata.md` (SRMD): the request `payload` is a direct **array** of items (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); removed the `payload.items` wrapper. Response: `code`/`errorId`/`details` at root level and `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` directly (transactionOid/receivedItemsCount/processedOK/processedNOK), without the `processingInfo` wrapper
+- :material-bug: Code examples aligned to the real RETRIEVE format (snippets-codigo in 5 languages, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): reduced request (`context` with `subjectPerson`/`dataType`/`administration`) and response with `code` at root level and `dataItems[].data`
+- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): rewrote the request to the real format the connector (Spring Boot 3) sends to the administration — `context` with `subjectPerson.id`, `dataType.id` and `administration.id` — instead of the full interop envelope (`message`/`protocol`/`payload`) that never reaches the administration. Also fixed the response (`DN00DataRetrieveResponseFromAdmin`): each `dataItems` element wraps the object in a `data` field, with `proposedScheduleItems` and `itemsPagingContext`; `code` at root level. Verified the connector pipeline (`standard` semantic transformer = passthrough)
 
 Translations:
 

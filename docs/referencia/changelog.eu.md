@@ -42,6 +42,9 @@ Egiaztapena:
 
 - :material-check-all: Kode iturburuko 92 estekak (`{{ repos.*_blob }}`) mirror publikoen `PUBLIC-v0.4.16` tag-aren aurka egiaztatuta: guztiek zuzen ebazten dute
 - :material-check-all: Semantika, endpoint, metadata-sync eta person-sync orri guztietako JSON/Java adibideak eta taulak 0.4.16 benetako klaseen aurka eremuz eremu kontrastatuta
+- :material-bug: `endpoint-sync-metadata.md` (SRMD): eskaeraren `payload` items-en **array** zuzena da (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); `payload.items` bilgarria kenduta. Erantzuna: `code`/`errorId`/`details` erro-mailan eta `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` zuzenean (transactionOid/receivedItemsCount/processedOK/processedNOK), `processingInfo` bilgarririk gabe
+- :material-bug: Kode-adibideak RETRIEVE formatu errealera lerrokatuta (snippets-codigo 5 lengoaietan, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): eskaera murriztua (`context` `subjectPerson`/`dataType`/`administration`-ekin) eta erantzuna `code` erro-mailan eta `dataItems[].data`-rekin
+- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): eskaera konektoreak (Spring Boot 3) administraziora bidaltzen duen benetako formatura berridatzita — `context` `subjectPerson.id`, `dataType.id` eta `administration.id`-rekin — administraziora iristen ez den interop bilgarri osoaren (`message`/`protocol`/`payload`) ordez. Erantzuna ere zuzenduta (`DN00DataRetrieveResponseFromAdmin`): `dataItems`-eko elementu bakoitzak objektua `data` eremu batean biltzen du, `proposedScheduleItems` eta `itemsPagingContext`-ekin; `code` erro-mailan. Konektorearen pipeline-a egiaztatuta (`standard` transformatzaile semantikoa = passthrough)
 
 Itzulpenak:
 

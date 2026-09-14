@@ -128,10 +128,9 @@ Centralised guide for common errors and their resolution, organised by category.
 
     **Possible causes:**
 
-    - Missing `context.message.type`
     - Missing `context.subjectPerson.id`
     - Missing `context.dataType.id`
-    - Missing `context.message.correlationId`
+    - Missing `context.administration.id`
 
     **Solution:**
 
@@ -140,14 +139,10 @@ Centralised guide for common errors and their resolution, organised by category.
     ```json
     {
       "context": {
-        "message": {
-          "type": "PERSON_FETCH_DATA",
-          "correlationId": "uuid-here"
-        },
-        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DTYPE-OID-RECORDS" },
-        "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
-      },
-      "payload": {}
+        "subjectPerson": { "id": "12345678A" },
+        "dataType": { "id": "administrativeServiceProcedureRecord" },
+        "administration": { "id": "ADMIN-001" }
+      }
     }
     ```
 

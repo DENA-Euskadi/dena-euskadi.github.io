@@ -59,15 +59,10 @@ DENAk `POST` eskaera bat bidaliko du formatu honekin:
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
-  },
-  "payload": { }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "administration": { "id": "ADMIN-001" }
+  }
 }
 ```
 
@@ -76,8 +71,8 @@ Interpretatu behar dituzun eremu nagusiak:
 | Eremua | Zertarako balio duen | Iturburu-kodea |
 |--------|----------------------|----------------|
 | `context.subjectPerson.id` | Datuak eskatzen diren pertsonaren NAN/AIZ | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.dataType.id` | Eskatutako datu mota; katalogoko string bat (ikusi beheko taula). Anaia den `oid` DENAren barnekoa da eta ez da interpretatu behar — ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.message.correlationId` | UUID log trazabilitaterako | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.dataType.id` | Eskatutako datu mota; katalogoko string bat (ikusi beheko taula) — ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.administration.id` | Helmugako administrazioaren identifikatzailea | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
 ### Datu motak (`dataType.id`)
 
@@ -323,20 +318,19 @@ Erantzunak egitura hau izan behar du:
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "ESKAERAREN-UUID",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
   },
+  "code": "OK",
   "payload": {
-    "dataItems": [ ... ]
-  },
-  "code": "OK"
+    "dataItems": [
+      { "data": { "type": "administrativeServiceProcedureRecord", "oid": "...", "id": "..." } }
+    ]
+  }
 }
 ```
+
+> `dataItems`-eko elementu bakoitzak negozio-objektua `data` eremu batean biltzen du. `code`-a erro-mailan doa.
 
 ### Erantzunaren arauak
 
@@ -408,8 +402,8 @@ Tokena automatikoki lortzen da **client credentials** bidez zure baimena-zerbitz
 - [ ] Testuek gutxienez `SPANISH` eta `BASQUE` dituzte
 - [ ] Datak ISO 8601 formatuan daude (`2024-03-15T10:30:00Z`)
 - [ ] Egoerek ereduan definitutako kode zehatzak erabiltzen dituzte
-- [ ] `code` eremua erantzunean dago (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
-- [ ] Eskaerako `context.message.correlationId` erantzunean itzultzen da
+- [ ] `code` eremua erantzunean erro-mailan dago (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
+- [ ] `dataItems`-eko elementu bakoitzak objektua `data` eremu batean biltzen du
 - [ ] Erantzun-denbora < 30 segundokoa da
 
 ### Test-tresnak

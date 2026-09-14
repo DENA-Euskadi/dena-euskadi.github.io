@@ -32,46 +32,40 @@ Authorization: Bearer <token> (if OAuth is configured)
             "dir3Id": "EA0000001"
         }
     },
-    "payload": {
-        "items": [
-            {
-                "admin": {
-                    "id": "admin-A414"
-                },
-                "aboutPerson": {
-                    "id": "12345678A"
-                },
-                "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                "ofType": {
-                    "id": "administrativeNotice"
-                },
-                "fromDataOriginInstance": "DEFAULT",
-                "popMessageAfterSync": {
-                    "how": "AT_CLIENT_AFTER_SYNC",
-                    "messageByLang": {
-                        "SPANISH": "Nuevo expediente de \"adminId\"",
-                        "ENGLISH": "New procedure from \"adminId\""
-                    }
+    "payload": [
+        {
+            "admin": {
+                "id": "admin-A414"
+            },
+            "aboutPerson": {
+                "id": "12345678A"
+            },
+            "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
+            "ofType": {
+                "id": "administrativeNotice"
+            },
+            "fromDataOriginInstance": "DEFAULT",
+            "popMessageAfterSync": {
+                "how": "AT_CLIENT_AFTER_SYNC",
+                "messageByLang": {
+                    "SPANISH": "Nuevo expediente de \"adminId\"",
+                    "ENGLISH": "New procedure from \"adminId\""
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
 | Field     | Type                                           | Mandatory | Description |
 |-----------|------------------------------------------------|:---------:|-------------|
 | `context` | [Context](../semantica-base/index.md)          | ✅        | Request context object, with `message.type` set to `ADMIN_SRMD_SYNC_REQ` |
-| `payload` | [Payload](#payload)                            | ✅        | Request payload |
+| `payload` | `Array`<[SyncMetaDataFromAdminToCOREItem](./modelo/sync-metadata-from-admin-to-core-item.md)> | ✅ | **Array** of data changes per person and administration. The array goes directly under `payload` (there is no `items` wrapper) |
 
 
-## Payload
+## Payload (array elements)
 
-| Field    | Type     | Mandatory | Description |
-|----------|----------|:---------:|-------------|
-| `items`  | `Array`<[SyncMetaDataFromAdminToCOREItem](./modelo/sync-metadata-from-admin-to-core-item.md)>  | ✅ | List of data changes per person and administration |
-
-Each item follows the `DN00SyncMetaDataFromAdminToCOREItem` model:
+Each element of the `payload` array follows the `DN00SyncMetaDataFromAdminToCOREItem` model:
 
 | Field                    | Type                          | Mandatory | Description |
 |--------------------------|-------------------------------|:---------:|-------------|
@@ -88,7 +82,6 @@ Each item follows the `DN00SyncMetaDataFromAdminToCOREItem` model:
 
 ```json
 {
-    "code": "OK",
     "context": {
         "message": {
             "type": "ADMIN_SRMD_SYNC_RESP",
@@ -101,39 +94,35 @@ Each item follows the `DN00SyncMetaDataFromAdminToCOREItem` model:
             ]
         }
     },
+    "code": "OK",
     "payload": {
-        "processingInfo": {
-            "transactionOid": "EA2C9ECD-DC48-48D0-B863-963D9468F042",
-            "receivedItemsCount": 1,
-            "processedNOK": [
-                {
-                    "item": {
-                        "admin": {
-                            "id": "admin-A414"
-                        },
-                        "aboutPerson": {
-                            "id": "12345678A"
-                        },
-                        "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                        "ofType": {
-                            "id": "administrativeNotice"
-                        },
-                        "fromDataOriginInstance": "DEFAULT",
-                        "popMessageAfterSync": {
-                            "how": "AT_CLIENT_AFTER_SYNC",
-                            "messageByLang": {
-                                "SPANISH": "Nuevo expediente de \"adminId\"",
-                                "ENGLISH": "New procedure from \"adminId\""
-                            }
-                        }
-                    },
-                    "error": "The admin with ref=null;admin-A414 could NOT be validated"
-                }
-            ]
-        }
+        "transactionOid": "EA2C9ECD-DC48-48D0-B863-963D9468F042",
+        "receivedItemsCount": 1,
+        "processedOK": [],
+        "processedNOK": [
+            {
+                "item": {
+                    "admin": { "id": "admin-A414" },
+                    "aboutPerson": { "id": "12345678A" },
+                    "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
+                    "ofType": { "id": "administrativeNotice" },
+                    "fromDataOriginInstance": "DEFAULT"
+                },
+                "error": "The admin with ref=null;admin-A414 could NOT be validated"
+            }
+        ]
     }
 }
 ```
+
+> The response `payload` is directly the `DN00SyncMetaDataFromAdminCOREProcessingInfo` object (`@MarshallType(as="syncMetaDataFromAdminCOREProcessingInfo")`); **there is no `processingInfo` wrapper**. The `code` (processing status, values `OK`/`CLIENT_ERR`/`SERVER_ERR`/`QUEUED`) is at root level, sibling of `context` and `payload`.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `transactionOid` | `String` | CORE-assigned transaction OID for this sync operation |
+| `receivedItemsCount` | `Number` | Number of received items |
+| `processedOK` | `Array` | Items processed successfully (SRMD) |
+| `processedNOK` | `Array` | Items that failed, each with `item` (the original item) and `error` (reason) |
 
 ## Error response (HTTP 4xx/5xx)
 

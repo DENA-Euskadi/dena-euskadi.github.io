@@ -41,14 +41,9 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "personOid:...." }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
   },
-  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }

@@ -2,7 +2,9 @@
 
 ## Description
 
-Code examples to implement the `POST /api/retrieveData` endpoint in different programming languages. Each snippet shows how to receive the request, extract the key fields from the context and return the response in the format expected by DENA.
+Code examples to implement the `POST /api/retrieveData` endpoint in different programming languages. Each snippet shows how to receive the request (reduced format: `context` with `subjectPerson`, `dataType` and `administration`), extract the key fields and return the response in the format expected by DENA (`code` at root level and `payload.dataItems`, where each element wraps the object in `data`).
+
+> Full contract (real request and response): [endpoint-data-retrieve.md](./endpoint-data-retrieve.md)
 
 ---
 
@@ -17,16 +19,15 @@ public class RetrieveDataController {
                  consumes = MediaType.APPLICATION_JSON_VALUE,
                  produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Map<String, Object>> retrieveData(@RequestBody Map<String, Object> request) {
-        // Extraer contexto
+        // Extract the context fields (reduced format)
         Map<String, Object> context = (Map<String, Object>) request.get("context");
         Map<String, Object> subjectPerson = (Map<String, Object>) context.get("subjectPerson");
         Map<String, Object> dataType = (Map<String, Object>) context.get("dataType");
 
-        Map<String, Object> message = (Map<String, Object>) context.get("message");
         String personId = (String) subjectPerson.get("id");
         String dataTypeId = (String) dataType.get("id");
 
-        // Buscar datos según tipo
+        // Fetch data by type; each element is wrapped in "data"
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
             case "administrativeServiceProcedureRecord"  -> fetchRecords(personId);
             case "administrativeNotice"                  -> fetchNotices(personId);
@@ -37,28 +38,21 @@ public class RetrieveDataController {
             default                                      -> List.of();
         };
 
-        // Construir response
+        // Build response: code at root level, payload.dataItems
         Map<String, Object> response = Map.of(
-            "context", Map.of(
-                "message", Map.of(
-                    "type", message.get("type"),
-                    "correlationId", message.get("correlationId"),
-                    "interopRouteData", message.getOrDefault("interopRouteData", List.of())
-                ),
-                "dataType", dataType,
-                "subjectPerson", subjectPerson
-            ),
-            "payload", Map.of("dataItems", dataItems),
-            "code", "OK"
+            "context", context,
+            "code", "OK",
+            "payload", Map.of("dataItems", dataItems)
         );
 
         return ResponseEntity.ok(response);
     }
 
     private List<Map<String, Object>> fetchRecords(String personId) {
-        // Consultar expedientes de la persona en el sistema de la administración
+        // Query the person's records in the administration's system.
+        // Each business object is returned wrapped in "data".
         return List.of(
-            Map.of(
+            Map.of("data", Map.of(
                 "type", "administrativeServiceProcedureRecord",
                 "oid", "EXP-OID-001",
                 "id", "EXP-2024-00123",
@@ -75,7 +69,7 @@ public class RetrieveDataController {
                     "stateCode", "IN_PROGRESS",
                     "description", Map.of("SPANISH", "En tramitación", "BASQUE", "Izapidetzen")
                 )
-            )
+            ))
         );
     }
 }
@@ -93,7 +87,6 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
 {
     var request = await http.Request.ReadFromJsonAsync<JsonElement>();
     var context = request.GetProperty("context");
-    var message = context.GetProperty("message");
     var personId = context.GetProperty("subjectPerson").GetProperty("id").GetString();
     var dataTypeId = context.GetProperty("dataType").GetProperty("id").GetString();
 
@@ -112,17 +105,11 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
     {
         context = new
         {
-            message = new
-            {
-                type = message.GetProperty("type").GetString(),
-                correlationId = message.GetProperty("correlationId").GetString(),
-                interopRouteData = new List<object>()
-            },
-            dataType = new { id = dataTypeId },
-            subjectPerson = new { id = personId }
+            subjectPerson = new { id = personId },
+            dataType = new { id = dataTypeId }
         },
-        payload = new { dataItems },
-        code = "OK"
+        code = "OK",
+        payload = new { dataItems }
     });
 });
 
@@ -135,7 +122,6 @@ app.Run();
 
 ```python
 from fastapi import FastAPI
-from pydantic import BaseModel
 from typing import Any
 
 app = FastAPI()
@@ -143,7 +129,6 @@ app = FastAPI()
 @app.post("/api/retrieveData")
 async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
     context = request["context"]
-    message = context["message"]
     person_id = context["subjectPerson"]["id"]
     data_type_id = context["dataType"]["id"]
 
@@ -160,38 +145,36 @@ async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
 
     return {
         "context": {
-            "message": {
-                "type": message.get("type"),
-                "correlationId": message.get("correlationId"),
-                "interopRouteData": message.get("interopRouteData", []),
-            },
-            "dataType": {"id": data_type_id},
             "subjectPerson": {"id": person_id},
+            "dataType": {"id": data_type_id},
         },
-        "payload": {"dataItems": data_items},
         "code": "OK",
+        "payload": {"dataItems": data_items},
     }
 
 
 def fetch_records(person_id: str) -> list[dict]:
+    # Each business object is wrapped in "data"
     return [
         {
-            "type": "administrativeServiceProcedureRecord",
-            "oid": "EXP-OID-001",
-            "id": "EXP-2024-00123",
-            "service": {
-                "serviceNameByLanguage": {"SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak"},
-                "originRef": {"id": "SRV-LIC-ACT"},
-            },
-            "procedure": {
-                "serviceNameByLanguage": {"SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera"},
-                "originRef": {"id": "PROC-LIC-001"},
-            },
-            "createdAt": "2024-03-15T10:30:00Z",
-            "state": {
-                "stateCode": "IN_PROGRESS",
-                "description": {"SPANISH": "En tramitación", "BASQUE": "Izapidetzen"},
-            },
+            "data": {
+                "type": "administrativeServiceProcedureRecord",
+                "oid": "EXP-OID-001",
+                "id": "EXP-2024-00123",
+                "service": {
+                    "serviceNameByLanguage": {"SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak"},
+                    "originRef": {"id": "SRV-LIC-ACT"},
+                },
+                "procedure": {
+                    "serviceNameByLanguage": {"SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera"},
+                    "originRef": {"id": "PROC-LIC-001"},
+                },
+                "createdAt": "2024-03-15T10:30:00Z",
+                "state": {
+                    "stateCode": "IN_PROGRESS",
+                    "description": {"SPANISH": "En tramitación", "BASQUE": "Izapidetzen"},
+                },
+            }
         }
     ]
 ```
@@ -207,7 +190,6 @@ app.use(express.json());
 
 app.post('/api/retrieveData', (req, res) => {
   const { context } = req.body;
-  const { message } = context;
   const personId = context.subjectPerson.id;
   const dataTypeId = context.dataType.id;
 
@@ -224,37 +206,35 @@ app.post('/api/retrieveData', (req, res) => {
 
   res.json({
     context: {
-      message: {
-        type: message.type,
-        correlationId: message.correlationId,
-        interopRouteData: message.interopRouteData || [],
-      },
-      dataType: { id: dataTypeId },
       subjectPerson: { id: personId },
+      dataType: { id: dataTypeId },
     },
-    payload: { dataItems },
     code: 'OK',
+    payload: { dataItems },
   });
 });
 
 function fetchRecords(personId) {
+  // Each business object is wrapped in "data"
   return [
     {
-      type: 'administrativeServiceProcedureRecord',
-      oid: 'EXP-OID-001',
-      id: 'EXP-2024-00123',
-      service: {
-        serviceNameByLanguage: { SPANISH: 'Licencias de actividad', BASQUE: 'Jarduera-lizentziak' },
-        originRef: { id: 'SRV-LIC-ACT' },
-      },
-      procedure: {
-        serviceNameByLanguage: { SPANISH: 'Solicitud de licencia', BASQUE: 'Lizentzia eskaera' },
-        originRef: { id: 'PROC-LIC-001' },
-      },
-      createdAt: '2024-03-15T10:30:00Z',
-      state: {
-        stateCode: 'IN_PROGRESS',
-        description: { SPANISH: 'En tramitación', BASQUE: 'Izapidetzen' },
+      data: {
+        type: 'administrativeServiceProcedureRecord',
+        oid: 'EXP-OID-001',
+        id: 'EXP-2024-00123',
+        service: {
+          serviceNameByLanguage: { SPANISH: 'Licencias de actividad', BASQUE: 'Jarduera-lizentziak' },
+          originRef: { id: 'SRV-LIC-ACT' },
+        },
+        procedure: {
+          serviceNameByLanguage: { SPANISH: 'Solicitud de licencia', BASQUE: 'Lizentzia eskaera' },
+          originRef: { id: 'PROC-LIC-001' },
+        },
+        createdAt: '2024-03-15T10:30:00Z',
+        state: {
+          stateCode: 'IN_PROGRESS',
+          description: { SPANISH: 'En tramitación', BASQUE: 'Izapidetzen' },
+        },
       },
     },
   ];
@@ -275,7 +255,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/api/retrieveData', function (Request $request) {
     $context = $request->input('context');
-    $message = $context['message'];
     $personId = $context['subjectPerson']['id'];
     $dataTypeId = $context['dataType']['id'];
 
@@ -291,37 +270,35 @@ Route::post('/api/retrieveData', function (Request $request) {
 
     return response()->json([
         'context' => [
-            'message' => [
-                'type' => $message['type'],
-                'correlationId' => $message['correlationId'],
-                'interopRouteData' => $message['interopRouteData'] ?? [],
-            ],
-            'dataType' => ['id' => $dataTypeId],
             'subjectPerson' => ['id' => $personId],
+            'dataType' => ['id' => $dataTypeId],
         ],
-        'payload' => ['dataItems' => $dataItems],
         'code' => 'OK',
+        'payload' => ['dataItems' => $dataItems],
     ]);
 });
 
 function fetchRecords(string $personId): array {
+    // Each business object is wrapped in "data"
     return [
         [
-            'type' => 'administrativeServiceProcedureRecord',
-            'oid' => 'EXP-OID-001',
-            'id' => 'EXP-2024-00123',
-            'service' => [
-                'serviceNameByLanguage' => ['SPANISH' => 'Licencias de actividad', 'BASQUE' => 'Jarduera-lizentziak'],
-                'originRef' => ['id' => 'SRV-LIC-ACT'],
-            ],
-            'procedure' => [
-                'serviceNameByLanguage' => ['SPANISH' => 'Solicitud de licencia', 'BASQUE' => 'Lizentzia eskaera'],
-                'originRef' => ['id' => 'PROC-LIC-001'],
-            ],
-            'createdAt' => '2024-03-15T10:30:00Z',
-            'state' => [
-                'stateCode' => 'IN_PROGRESS',
-                'description' => ['SPANISH' => 'En tramitación', 'BASQUE' => 'Izapidetzen'],
+            'data' => [
+                'type' => 'administrativeServiceProcedureRecord',
+                'oid' => 'EXP-OID-001',
+                'id' => 'EXP-2024-00123',
+                'service' => [
+                    'serviceNameByLanguage' => ['SPANISH' => 'Licencias de actividad', 'BASQUE' => 'Jarduera-lizentziak'],
+                    'originRef' => ['id' => 'SRV-LIC-ACT'],
+                ],
+                'procedure' => [
+                    'serviceNameByLanguage' => ['SPANISH' => 'Solicitud de licencia', 'BASQUE' => 'Lizentzia eskaera'],
+                    'originRef' => ['id' => 'PROC-LIC-001'],
+                ],
+                'createdAt' => '2024-03-15T10:30:00Z',
+                'state' => [
+                    'stateCode' => 'IN_PROGRESS',
+                    'description' => ['SPANISH' => 'En tramitación', 'BASQUE' => 'Izapidetzen'],
+                ],
             ],
         ],
     ];
@@ -332,22 +309,17 @@ function fetchRecords(string $personId): array {
 
 ## Error handling (all languages)
 
-The error response must follow this structure:
+The error response carries the `code` at root level (`CLIENT_ERR`/`SERVER_ERR`), with optional `errorId` and `details`:
 
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
   },
-  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
-  "details": { "details": "Person not found in the system" }
+  "details": { "details": "Persona no encontrada en el sistema" }
 }
 ```
 
@@ -358,12 +330,6 @@ The error response must follow this structure:
 public ResponseEntity<Map<String, Object>> handleNotFound(PersonNotFoundException ex,
                                                           HttpServletRequest request) {
     Map<String, Object> response = Map.of(
-        "context", Map.of(
-            "message", Map.of(
-                "type", "PERSON_FETCH_DATA"
-            )
-        ),
-        "payload", (Object) null,  // explicit null
         "code", "CLIENT_ERR",
         "errorId", "PERSON_NOT_FOUND",
         "details", Map.of("details", ex.getMessage())
@@ -383,8 +349,6 @@ async def handle_error(request, exc):
     return JSONResponse(
         status_code=exc.status_code,
         content={
-            "context": {"message": {"type": "PERSON_FETCH_DATA"}},
-            "payload": None,
             "code": "CLIENT_ERR" if exc.status_code < 500 else "SERVER_ERR",
             "errorId": "PERSON_NOT_FOUND" if exc.status_code == 404 else "INTERNAL_ERROR",
             "details": {"details": exc.detail},
@@ -398,8 +362,6 @@ async def handle_error(request, exc):
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   res.status(statusCode).json({
-    context: { message: { type: 'PERSON_FETCH_DATA' } },
-    payload: null,
     code: statusCode < 500 ? 'CLIENT_ERR' : 'SERVER_ERR',
     errorId: err.errorId || 'INTERNAL_ERROR',
     details: { details: err.message },
@@ -414,15 +376,6 @@ app.use((err, req, res, next) => {
 - [endpoint-data-retrieve.md](./endpoint-data-retrieve.md) — Full endpoint contract
 - [validaciones.md](./validaciones.md) — Format and validation rules
 - [errores-troubleshooting.md](./errores-troubleshooting.md) — Common errors guide
-
-
-
-
-
-
-
-
-
 
 <!-- DENA-DOC-FOOTER -->
 ---

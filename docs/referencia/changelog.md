@@ -42,6 +42,9 @@ Verificación:
 
 - :material-check-all: Verificados los 92 enlaces a código fuente (`{{ repos.*_blob }}`) contra el tag `PUBLIC-v0.4.16` de los mirrors públicos: todos resuelven correctamente
 - :material-check-all: Contrastados campo a campo los ejemplos JSON/Java y tablas de todas las páginas de semántica, endpoints, metadata-sync y person-sync contra las clases reales 0.4.16
+- :material-bug: `endpoint-sync-metadata.md` (SRMD): el `payload` de la petición es un **array** directo de items (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); eliminado el envoltorio `payload.items`. Respuesta: `code`/`errorId`/`details` a nivel raíz y `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` directo (transactionOid/receivedItemsCount/processedOK/processedNOK), sin el envoltorio `processingInfo`
+- :material-bug: Ejemplos de código alineados al formato real de RETRIEVE (snippets-codigo en 5 lenguajes, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): petición reducida (`context` con `subjectPerson`/`dataType`/`administration`) y respuesta con `code` a nivel raíz y `dataItems[].data`
+- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): reescrita la petición al formato real que el conector (Spring Boot 3) envía a la administración — `context` con `subjectPerson.id`, `dataType.id` y `administration.id` — en lugar del envoltorio interop completo (`message`/`protocol`/`payload`) que no llega a la administración. Corregida también la respuesta (`DN00DataRetrieveResponseFromAdmin`): cada elemento de `dataItems` envuelve el objeto en un campo `data`, con `proposedScheduleItems` e `itemsPagingContext`; `code` a nivel raíz. Verificado el pipeline del conector (transformer semántico `standard` = passthrough)
 
 Traducciones:
 

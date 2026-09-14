@@ -13,51 +13,27 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ## Eskaera
 
-> Testuinguruaren Java klasea: [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java)
+Administrazioak eskaera **sinple** bat jasotzen du DENA konektoretik: `context` objektu bat pertsonarekin, datu-motarekin eta helmugako administrazioarekin. Konektoreak administrazioaren endpoint-a deitu aurretik sortzen duen formatua da.
 
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": [
-        { "denaComponentId": "DENA_CORE", "timestamp": "2024-06-01T10:00:00Z" }
-      ]
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
-    "originClientInstallment": "CLIENT-INSTALLMENT-OID-001",
-    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001", "dir3Id": "EA0000001" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
-  },
-  "protocol": {
-    "urls": [],
-    "timeOut": "30s"
-  },
-  "payload": {
-    "person": "PERSON-OID-001"
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "administration": { "id": "ADMIN-001" }
   }
 }
 ```
 
 | Eremua | Nahitaezkoa | Deskribapena |
 |-------|:-----------:|-------------|
-| `context.message.type` | ✅ | Mezu-mota (`PERSON_FETCH_DATA`). Ikusi [`DN00InteropMessageType`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageType.java) |
-| `context.message.correlationId` | ✅ | Trazabilitaterako korrelazio UUID-a. Ikusi [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
-| `context.message.interopRouteData` | ❌ | DENA osagaien traza. Ikusi [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
-| `context.dataType.id` | ✅ | Datu-mota (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ikusi [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.dataType.oid` | ❌ | Datu-motaren OID-a (DataTypeRef). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.originClientInstallment` | ❌ | Jatorrizko bezero-instalazioaren OID-a (mezua bezero-gailu batek bidaltzen duenean). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin.oid` | ❌ | Helmugako administrazioaren OID-a (OrgAdminRef). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin.id` | ❌ | Helmugako administrazioaren identifikatzailea. Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin.dir3Id` | ❌ | Helmugako administrazioaren DIR3 kodea. Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.id` | ✅ | Pertsonaren DNI/NIE/NIF (PersonRef). Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson.oid` | ❌ | Pertsonaren OID-a. Ikusi [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `protocol.urls` | ❌ | Protokoloaren txantiloi URLak. Ikusi [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout-a (adib.: `"30s"`). Ikusi [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
-| `payload` | ✅ | Eskaeraren payload-a |
+| `context.subjectPerson.id` | ✅ | Datuak eskatzen diren pertsonaren DNI/NIE/NIF |
+| `context.dataType.id` | ✅ | Eskatutako datu-mota (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) eta [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.administration.id` | ✅ | Helmugako administrazioaren identifikatzailea |
 
-> Fluxuaren norabidea (`REQUEST`/`RESPONSE`) mezu-motatik eratorritako balioa da eta ez da JSON-ean serializatzen. Ikusi [`DN00InteropFlowDirection`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropFlowDirection.java)
+!!! info "Eskaeraren formatua"
+
+    DENA konektoreak (Spring Boot 3) eskaera formatu murriztu honetara normalizatzen du administraziora bidali aurretik: `subjectPerson`, `dataType` eta `administration` soilik, guztiak beren `id`-aren bidez. Ez dira bidaltzen interop mezu-bilgarria (`message`/`protocol`/`payload`), OID-ak, ezta ibilbide-traza ere. Endpoint-a inplementatzeko nahikoa da hiru eremu hauek irakurtzea.
 
 ---
 
@@ -71,45 +47,46 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
     "message": {
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" },
-    "destinationAdmin": { "oid": "ADMIN-OID-001", "id": "ADMIN-001" }
+    }
   },
+  "code": "OK",
   "payload": {
     "dataItems": [
       {
-        "type": "administrativeServiceProcedureRecord",
-        "oid": "EXP-OID-001",
-        "id": "EXP-2024-00123",
-        "service": {
-          "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
-          "originRef": { "id": "SRV-LIC-ACT" }
+        "data": {
+          "type": "administrativeServiceProcedureRecord",
+          "oid": "EXP-OID-001",
+          "id": "EXP-2024-00123",
+          "service": {
+            "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+            "originRef": { "id": "SRV-LIC-ACT" }
+          },
+          "procedure": {
+            "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
+            "originRef": { "id": "PROC-LIC-APER" }
+          },
+          "createdAt": "2024-03-15T10:30:00Z",
+          "lastUpdatedAt": "2024-06-01T14:00:00Z",
+          "applicationDate": "2024-03-14T09:00:00Z",
+          "regNumber": "REG-2024-00123",
+          "interested": { "partyId": "12345678A", "partyName": "Juan García" },
+          "state": {
+            "stateCode": "IN_PROGRESS",
+            "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
+          },
+          "urls": [
+            { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
+          ]
         },
-        "procedure": {
-          "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
-          "originRef": { "id": "PROC-LIC-APER" }
-        },
-        "createdAt": "2024-03-15T10:30:00Z",
-        "lastUpdatedAt": "2024-06-01T14:00:00Z",
-        "applicationDate": "2024-03-14T09:00:00Z",
-        "regNumber": "REG-2024-00123",
-        "interested": { "partyId": "12345678A", "partyName": "Juan García" },
-        "state": {
-          "stateCode": "IN_PROGRESS",
-          "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
-        },
-        "urls": [
-          { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
-        ]
+        "proposedScheduleItems": []
       }
-    ]
-  },
-  "code": "OK",
-  "errorId": null,
-  "details": null
+    ],
+    "itemsPagingContext": null
+  }
 }
 ```
+
+> **Erantzunaren egitura** (`DN00DataRetrieveResponseFromAdmin`): `code`-a (egoera) erro-mailan doa, `context` eta `payload`-en anaia. `payload`-en barruan, `dataItems` array bat da, non **elementu bakoitzak negozio-objektua `data` eremu batean biltzen duen** (`DN00DataRetrievedFromAdmin`), aukerako `proposedScheduleItems` batekin (administrazioak bezeroan erakusteko proposatzen dituen hitzorduak). `itemsPagingContext` aukerakoa da (orrikatzea).
 
 ## Daturik gabeko erantzuna (HTTP 200)
 
@@ -119,12 +96,10 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
     "message": {
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DATATYPE-OID-001" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
+    }
   },
-  "payload": { "dataItems": [] },
-  "code": "OK"
+  "code": "OK",
+  "payload": { "dataItems": [] }
 }
 ```
 
@@ -136,10 +111,8 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
     "message": {
       "type": "PERSON_FETCH_DATA",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
-    },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
+    }
   },
-  "payload": null,
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",
   "details": { "details": "Persona no encontrada en el sistema" }
@@ -157,9 +130,9 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ---
 
-## Objektu-motak `dataItems`-en
+## Objektu-motak `dataItems[].data`-n
 
-`dataItems` arrayaren elementu bakoitza [eremu komunak](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) heredatzen dituen objektu bat da eta eremu espezifikoak gehitzen ditu bere motaren arabera:
+`dataItems` arrayaren elementu bakoitzak negozio-objektua bere `data` eremuan biltzen du. Objektu horrek [eremu komunak](./data/campos-comunes.md) (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`) heredatzen ditu eta eremu espezifikoak gehitzen ditu bere motaren arabera:
 
 | `type` | Objektua | Dokumentazioa |
 |--------|--------|---------------|

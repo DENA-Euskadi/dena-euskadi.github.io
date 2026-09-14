@@ -120,15 +120,10 @@ DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
-  },
-  "payload": {}
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "administration": { "id": "ADMIN-001" }
+  }
 }
 ```
 
@@ -137,50 +132,47 @@ DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
   },
+  "code": "OK",
   "payload": {
     "dataItems": [
       {
-        "oid": "EXP-2026-001",
-        "id": "2026/00456",
-        "lastChangedAt": "2026-08-24T10:30:00.000Z",
-        "service": {
-          "serviceNameByLanguage": {
-            "SPANISH": "Licencias de actividad",
-            "BASQUE": "Jarduera-lizentziak"
+        "data": {
+          "oid": "EXP-2026-001",
+          "id": "2026/00456",
+          "lastChangedAt": "2026-08-24T10:30:00.000Z",
+          "service": {
+            "serviceNameByLanguage": {
+              "SPANISH": "Licencias de actividad",
+              "BASQUE": "Jarduera-lizentziak"
+            },
+            "originRef": { "id": "SRV-LIC-001" }
           },
-          "originRef": { "id": "SRV-LIC-001" }
-        },
-        "procedure": {
-          "serviceNameByLanguage": {
-            "SPANISH": "Solicitud de licencia de apertura",
-            "BASQUE": "Irekiera-lizentzia eskaera"
+          "procedure": {
+            "serviceNameByLanguage": {
+              "SPANISH": "Solicitud de licencia de apertura",
+              "BASQUE": "Irekiera-lizentzia eskaera"
+            },
+            "originRef": { "id": "PROC-LIC-001" }
           },
-          "originRef": { "id": "PROC-LIC-001" }
-        },
-        "createdAt": "2026-06-15T09:00:00.000Z",
-        "state": {
-          "stateCode": "IN_PROGRESS",
-          "description": {
-            "SPANISH": "En tramitacion",
-            "BASQUE": "Izapidetzen"
-          }
-        },
-        "urls": [
-          { "url": "https://sede.tuadmin.eus/expedientes/2026-00456", "language": "SPANISH", "tags": ["default"] },
-          { "url": "https://egoitza.tuadmin.eus/espedienteak/2026-00456", "language": "BASQUE", "tags": ["default"] }
-        ]
+          "createdAt": "2026-06-15T09:00:00.000Z",
+          "state": {
+            "stateCode": "IN_PROGRESS",
+            "description": {
+              "SPANISH": "En tramitacion",
+              "BASQUE": "Izapidetzen"
+            }
+          },
+          "urls": [
+            { "url": "https://sede.tuadmin.eus/expedientes/2026-00456", "language": "SPANISH", "tags": ["default"] },
+            { "url": "https://egoitza.tuadmin.eus/espedienteak/2026-00456", "language": "BASQUE", "tags": ["default"] }
+          ]
+        }
       }
     ]
-  },
-  "code": "OK"
+  }
 }
 ```
 
@@ -196,15 +188,10 @@ curl -s -X POST http://localhost:8080/api/retrieveData \
   -H "Accept: application/json" \
   -d '{
     "context": {
-      "message": {
-        "type": "PERSON_FETCH_DATA",
-        "correlationId": "test-001",
-        "interopRouteData": []
-      },
-      "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "administrativeServiceProcedureRecord" },
-      "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
-    },
-    "payload": {}
+      "subjectPerson": { "id": "12345678A" },
+      "dataType": { "id": "administrativeServiceProcedureRecord" },
+      "administration": { "id": "ADMIN-001" }
+    }
   }' | jq .
 ```
 

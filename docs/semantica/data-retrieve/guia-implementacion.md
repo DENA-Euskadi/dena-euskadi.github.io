@@ -54,20 +54,15 @@ sequenceDiagram
 
 ## Paso 1 — Entender el contrato
 
-DENA enviará una petición `POST` con este formato:
+El conector DENA enviará una petición `POST` con este formato reducido:
 
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
-  },
-  "payload": { }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "administration": { "id": "ADMIN-001" }
+  }
 }
 ```
 
@@ -76,8 +71,8 @@ Los campos clave que debes interpretar:
 | Campo | Para qué sirve | Código fuente |
 |-------|----------------|---------------|
 | `context.subjectPerson.id` | DNI/NIE de la persona cuyos datos se solicitan | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.dataType.id` | Tipo de dato solicitado; string del catálogo (ver tabla abajo). El `oid` hermano es interno de DENA y no hace falta interpretarlo — ver [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.message.correlationId` | UUID para trazabilidad en logs | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.dataType.id` | Tipo de dato solicitado; string del catálogo (ver tabla abajo) — ver [DataTypeRef](../semantica-base/modelo/data-type-ref.md) | [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.administration.id` | Identificador de la administración de destino | [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
 
 ### Tipos de dato (`dataType.id`)
 
@@ -323,26 +318,25 @@ La response debe tener esta estructura:
 ```json
 {
   "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "UUID-DE-LA-REQUEST",
-      "interopRouteData": []
-    },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "6AE83A0C-2202-4666-9857-3334C14663A2" },
-    "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-0001" }
+    "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
   },
+  "code": "OK",
   "payload": {
-    "dataItems": [ ... ]
-  },
-  "code": "OK"
+    "dataItems": [
+      { "data": { "type": "administrativeServiceProcedureRecord", "oid": "...", "id": "..." } }
+    ]
+  }
 }
 ```
+
+> Cada elemento de `dataItems` envuelve el objeto de negocio en un campo `data`. El `code` va a nivel raíz.
 
 ### Reglas de la response
 
 | Situación | Qué devolver |
 |-----------|--------------|
-| Datos encontrados | HTTP 200 + `dataItems` con los objetos |
+| Datos encontrados | HTTP 200 + `dataItems` con los objetos (cada uno bajo `data`) |
 | Sin datos para esa persona | HTTP 200 + `dataItems: []` (lista vacía) |
 | Persona no encontrada | HTTP 200 + `code: "CLIENT_ERR"` + `errorId: "PERSON_NOT_FOUND"` |
 | Error interno | HTTP 500 + `code: "SERVER_ERR"` |
@@ -408,8 +402,8 @@ El token se obtiene automáticamente mediante **client credentials** contra tu s
 - [ ] Los textos incluyen al menos `SPANISH` y `BASQUE`
 - [ ] Las fechas están en formato ISO 8601 (`2024-03-15T10:30:00Z`)
 - [ ] Los estados usan los códigos exactos definidos en el modelo
-- [ ] El campo `code` está presente en la response (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
-- [ ] El `context.message.correlationId` de la request se devuelve en la response
+- [ ] El campo `code` está presente en la response a nivel raíz (`OK`, `CLIENT_ERR`, `SERVER_ERR`)
+- [ ] Cada elemento de `dataItems` envuelve el objeto en un campo `data`
 - [ ] El tiempo de respuesta es < 30 segundos
 
 ### Herramientas de test

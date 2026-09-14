@@ -133,29 +133,31 @@ La respuesta completa incluye la estructura del mensaje interop DENA (context + 
     "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
     "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
   },
+  "code": "OK",
   "payload": {
     "dataItems": [
       {
-        "id": "appointment123",
-        "lastChangedAt": "2026-08-19T08:07:56.742Z",
-        "year": "2026",
-        "monthOfYear": "8",
-        "dayOfMonth": "18",
-        "hourOfDay": "13",
-        "minuteOfHour": "2",
-        "durationMinutes": 30,
-        "subject": {
-          "SPANISH": "una cita",
-          "BASQUE": "hitzordu bat"
-        },
-        "urls": [
-          { "id": "main", "lang": "BASQUE", "value": "https://my-admin.eus/citas/appointment123?lang=eu" },
-          { "id": "main", "lang": "SPANISH", "value": "https://my-admin.eus/citas/appointment123?lang=es" }
-        ]
+        "data": {
+          "id": "appointment123",
+          "lastChangedAt": "2026-08-19T08:07:56.742Z",
+          "year": "2026",
+          "monthOfYear": "8",
+          "dayOfMonth": "18",
+          "hourOfDay": "13",
+          "minuteOfHour": "2",
+          "durationMinutes": 30,
+          "subject": {
+            "SPANISH": "una cita",
+            "BASQUE": "hitzordu bat"
+          },
+          "urls": [
+            { "id": "main", "lang": "BASQUE", "value": "https://my-admin.eus/citas/appointment123?lang=eu" },
+            { "id": "main", "lang": "SPANISH", "value": "https://my-admin.eus/citas/appointment123?lang=es" }
+          ]
+        }
       }
     ]
-  },
-  "code": "OK"
+  }
 }
 ```
 
@@ -183,30 +185,30 @@ La respuesta completa incluye la estructura del mensaje interop DENA (context + 
         "urls": [],
         "timeOut": "30s"
       },
+      "code": "OK",
       "payload": {
         "dataItems": [
           {
-            "id": "appointment123",
-            "lastChangedAt": "2026-08-19T08:07:56.742Z",
-            "year": "2026",
-            "monthOfYear": "8",
-            "dayOfMonth": "18",
-            "hourOfDay": "13",
-            "minuteOfHour": "2",
-            "durationMinutes": 30,
-            "subject": {
-              "SPANISH": "una cita",
-              "BASQUE": "hitzordu bat"
-            },
-            "urls": [
-              { "id": "main", "lang": "BASQUE", "value": "https://my-admin.eus/citas/appointment123?lang=eu" },
-              { "id": "main", "lang": "SPANISH", "value": "https://my-admin.eus/citas/appointment123?lang=es" }
-            ]
+            "data": {
+              "id": "appointment123",
+              "lastChangedAt": "2026-08-19T08:07:56.742Z",
+              "year": "2026",
+              "monthOfYear": "8",
+              "dayOfMonth": "18",
+              "hourOfDay": "13",
+              "minuteOfHour": "2",
+              "durationMinutes": 30,
+              "subject": {
+                "SPANISH": "una cita",
+                "BASQUE": "hitzordu bat"
+              },
+              "urls": [
+                { "id": "main", "lang": "BASQUE", "value": "https://my-admin.eus/citas/appointment123?lang=eu" },
+                { "id": "main", "lang": "SPANISH", "value": "https://my-admin.eus/citas/appointment123?lang=es" }
+              ]
+            }
           }
         ]
-      },
-      "status": {
-        "code": "OK"
       }
     }
     ```

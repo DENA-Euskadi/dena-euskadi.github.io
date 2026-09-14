@@ -90,15 +90,19 @@ public class DenaRetrieveDataController {
     }
 
     private Map<String, Object> buildResponse(Map<String, Object> requestContext,
-                                               List<Map<String, Object>> dataItems) {
-        // Reutilizar el context de la peticion; el sentido del flujo lo
-        // determina el propio tipo de mensaje (context.message.type)
+                                               List<Map<String, Object>> objects) {
+        // Reutilizar el context de la peticion (subjectPerson + dataType)
         Map<String, Object> responseContext = new HashMap<>(requestContext);
+
+        // Cada objeto de negocio se envuelve en "data"
+        List<Map<String, Object>> dataItems = objects.stream()
+            .map(obj -> Map.<String, Object>of("data", obj))
+            .toList();
 
         return Map.of(
             "context", responseContext,
-            "payload", Map.of("dataItems", dataItems),
-            "code", "OK"
+            "code", "OK",
+            "payload", Map.of("dataItems", dataItems)
         );
     }
 

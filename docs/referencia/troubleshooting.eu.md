@@ -128,10 +128,9 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
 
     **Kausa posibleak:**
 
-    - `context.message.type` falta da
     - `context.subjectPerson.id` falta da
     - `context.dataType.id` falta da
-    - `context.message.correlationId` falta da
+    - `context.administration.id` falta da
 
     **Konponbidea:**
 
@@ -140,14 +139,10 @@ Ohiko errore eta haien konponbideen gida zentralizatua, kategoriaka antolatua.
     ```json
     {
       "context": {
-        "message": {
-          "type": "PERSON_FETCH_DATA",
-          "correlationId": "uuid-here"
-        },
-        "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "DTYPE-OID-RECORDS" },
-        "subjectPerson": { "id": "12345678A", "oid": "PERSON-OID-001" }
-      },
-      "payload": {}
+        "subjectPerson": { "id": "12345678A" },
+        "dataType": { "id": "administrativeServiceProcedureRecord" },
+        "administration": { "id": "ADMIN-001" }
+      }
     }
     ```
 

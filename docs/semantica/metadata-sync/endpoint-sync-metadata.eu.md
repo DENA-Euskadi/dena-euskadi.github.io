@@ -32,46 +32,40 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
             "dir3Id": "EA0000001"
         }
     },
-    "payload": {
-        "items": [
-            {
-                "admin": {
-                    "id": "admin-A414"
-                },
-                "aboutPerson": {
-                    "id": "12345678A"
-                },
-                "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                "ofType": {
-                    "id": "administrativeNotice"
-                },
-                "fromDataOriginInstance": "DEFAULT",
-                "popMessageAfterSync": {
-                    "how": "AT_CLIENT_AFTER_SYNC",
-                    "messageByLang": {
-                        "SPANISH": "Nuevo expediente de \"adminId\"",
-                        "ENGLISH": "New procedure from \"adminId\""
-                    }
+    "payload": [
+        {
+            "admin": {
+                "id": "admin-A414"
+            },
+            "aboutPerson": {
+                "id": "12345678A"
+            },
+            "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
+            "ofType": {
+                "id": "administrativeNotice"
+            },
+            "fromDataOriginInstance": "DEFAULT",
+            "popMessageAfterSync": {
+                "how": "AT_CLIENT_AFTER_SYNC",
+                "messageByLang": {
+                    "SPANISH": "Nuevo expediente de \"adminId\"",
+                    "ENGLISH": "New procedure from \"adminId\""
                 }
             }
-        ]
-    }
+        }
+    ]
 }
 ```
 
 | Eremua    | Mota                                           | Derrigorrez | Deskribapena |
 |-----------|------------------------------------------------|:-----------:|--------------|
 | `context` | [Context](../semantica-base/index.md)          | ✅          | Eskaeraren testuinguru-objektua, `message.type` `ADMIN_SRMD_SYNC_REQ` balioarekin |
-| `payload` | [Payload](#payload)                            | ✅          | Eskaeraren payload-a |
+| `payload` | `Array`<[SyncMetaDataFromAdminToCOREItem](./modelo/sync-metadata-from-admin-to-core-item.md)> | ✅ | Pertsona eta administrazioko datu-aldaketen **array**-a. Array-a zuzenean `payload`-en azpian doa (ez dago `items` bilgarririk) |
 
 
-## Payload
+## Payload (array-aren elementuak)
 
-| Eremua   | Mota     | Derrigorrez | Deskribapena |
-|----------|----------|:-----------:|--------------|
-| `items`  | `Array`<[SyncMetaDataFromAdminToCOREItem](./modelo/sync-metadata-from-admin-to-core-item.md)>  | ✅ | Pertsona eta administrazioko datu-aldaketen zerrenda |
-
-Elementu bakoitzak `DN00SyncMetaDataFromAdminToCOREItem` modeloa jarraitzen du:
+`payload` array-aren elementu bakoitzak `DN00SyncMetaDataFromAdminToCOREItem` modeloa jarraitzen du:
 
 | Eremua                   | Mota                          | Derrigorrez | Deskribapena |
 |--------------------------|-------------------------------|:-----------:|--------------|
@@ -88,7 +82,6 @@ Elementu bakoitzak `DN00SyncMetaDataFromAdminToCOREItem` modeloa jarraitzen du:
 
 ```json
 {
-    "code": "OK",
     "context": {
         "message": {
             "type": "ADMIN_SRMD_SYNC_RESP",
@@ -101,39 +94,35 @@ Elementu bakoitzak `DN00SyncMetaDataFromAdminToCOREItem` modeloa jarraitzen du:
             ]
         }
     },
+    "code": "OK",
     "payload": {
-        "processingInfo": {
-            "transactionOid": "EA2C9ECD-DC48-48D0-B863-963D9468F042",
-            "receivedItemsCount": 1,
-            "processedNOK": [
-                {
-                    "item": {
-                        "admin": {
-                            "id": "admin-A414"
-                        },
-                        "aboutPerson": {
-                            "id": "12345678A"
-                        },
-                        "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                        "ofType": {
-                            "id": "administrativeNotice"
-                        },
-                        "fromDataOriginInstance": "DEFAULT",
-                        "popMessageAfterSync": {
-                            "how": "AT_CLIENT_AFTER_SYNC",
-                            "messageByLang": {
-                                "SPANISH": "Nuevo expediente de \"adminId\"",
-                                "ENGLISH": "New procedure from \"adminId\""
-                            }
-                        }
-                    },
-                    "error": "The admin with ref=null;admin-A414 could NOT be validated"
-                }
-            ]
-        }
+        "transactionOid": "EA2C9ECD-DC48-48D0-B863-963D9468F042",
+        "receivedItemsCount": 1,
+        "processedOK": [],
+        "processedNOK": [
+            {
+                "item": {
+                    "admin": { "id": "admin-A414" },
+                    "aboutPerson": { "id": "12345678A" },
+                    "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
+                    "ofType": { "id": "administrativeNotice" },
+                    "fromDataOriginInstance": "DEFAULT"
+                },
+                "error": "The admin with ref=null;admin-A414 could NOT be validated"
+            }
+        ]
     }
 }
 ```
+
+> Erantzunaren `payload` zuzenean `DN00SyncMetaDataFromAdminCOREProcessingInfo` objektua da (`@MarshallType(as="syncMetaDataFromAdminCOREProcessingInfo")`); **ez dago `processingInfo` bilgarririk**. `code`-a (prozesamenduaren egoera, `OK`/`CLIENT_ERR`/`SERVER_ERR`/`QUEUED` balioak) erro-mailan doa, `context` eta `payload`-en anaia.
+
+| Eremua | Mota | Deskribapena |
+|--------|------|--------------|
+| `transactionOid` | `String` | CORE-k sinkronizazio honetarako esleitutako transakzio-OID |
+| `receivedItemsCount` | `Number` | Jasotako elementu kopurua |
+| `processedOK` | `Array` | Zuzen prozesatutako elementuak (SRMD) |
+| `processedNOK` | `Array` | Huts egin duten elementuak, bakoitza `item` (jatorrizko elementua) eta `error` (arrazoia) dituela |
 
 ## Errore-erantzuna (HTTP 4xx/5xx)
 
