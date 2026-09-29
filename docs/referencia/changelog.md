@@ -40,7 +40,7 @@ Correcciones de contenido (ejemplos verificados campo a campo contra el código 
 
 Verificación:
 
-- :material-check-all: Verificados los 92 enlaces a código fuente (`{{ repos.*_blob }}`) contra el tag `PUBLIC-v0.4.16` de los mirrors públicos: todos resuelven correctamente
+- :material-check-all: Verificados los 92 enlaces a código fuente (`{% raw %}{{ repos.*_blob }}{% endraw %}`) contra el tag `PUBLIC-v0.4.16` de los mirrors públicos: todos resuelven correctamente
 - :material-check-all: Contrastados campo a campo los ejemplos JSON/Java y tablas de todas las páginas de semántica, endpoints, metadata-sync y person-sync contra las clases reales 0.4.16
 - :material-bug: `endpoint-sync-metadata.md` (SRMD): el `payload` de la petición es un **array** directo de items (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); eliminado el envoltorio `payload.items`. Respuesta: `code`/`errorId`/`details` a nivel raíz y `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` directo (transactionOid/receivedItemsCount/processedOK/processedNOK), sin el envoltorio `processingInfo`
 - :material-bug: Ejemplos de código alineados al formato real de RETRIEVE (snippets-codigo en 5 lenguajes, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): petición reducida (`context` con `subjectPerson`/`dataType`/`administration`) y respuesta con `code` a nivel raíz y `dataItems[].data`

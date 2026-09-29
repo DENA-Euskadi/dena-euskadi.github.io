@@ -6,7 +6,7 @@ Person-Sync es la operativa que permite a tu administración **saber qué person
 
 Además, DENA comparte con tu admin datos básicos de la persona: NIF, nombre, apellidos, datos de contacto.
 
-![Person-Sync Overview](../../adjuntos/imagenes/image18.png)
+![Person-Sync Overview](../adjuntos/imagenes/image18.png)
 
 ### Datos de Persona Sincronizados
 
@@ -50,7 +50,7 @@ Tu admin consulta a DENA cuando quiere, de dos formas:
 | **Off-line (pre-generado)** | DENA genera fichero periódicos con el listado de personas |
 | **Off-line (bespoke)** | Tu admin solicita un ficheo personalizado que DENA genera bajo demanda |
 
-![Person-Sync Pull Flow](../../adjuntos/imagenes/person-sync-pull.png)
+![Person-Sync Pull Flow](../adjuntos/imagenes/person-sync-pull.png)
 
 ---
 

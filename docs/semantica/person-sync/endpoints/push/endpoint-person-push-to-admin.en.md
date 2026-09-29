@@ -1,23 +1,39 @@
 # Endpoint Person Push To Admin — Specification for Administrations
 
-## Endpoint
+This document describes **what your administration must implement** to receive the person change notifications that DENA proactively sends (the *Push* mechanism).
 
+---
+
+## Who calls whom?
+
+In Push, **DENA-CORE acts as the HTTP client** and your administration as the server:
+
+``` mermaid
+sequenceDiagram
+    participant DENA as CORE DENA (client)
+    participant Admin as Your administration (server)
+
+    Note over DENA: A person is registered / changed / deleted
+    DENA->>Admin: POST <your-configured-url> (JSON body with the change)
+    Admin->>Admin: Process the change (create / update / delete)
+    Admin-->>DENA: 200 OK
 ```
-POST /api/person/push
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer <token> (if OAuth is configured)
-```
+
+!!! important "There is no predefined fixed route"
+
+    DENA does **not** impose a specific path for your endpoint. Your administration exposes the endpoint at **the URL you have configured** in DENA for your connector (or for direct access, in development environments). DENA will `POST` to **that** URL.
+
+    The only thing DENA requires is that the URL accepts a `POST` with `Content-Type: application/json` and responds with the appropriate HTTP status code.
 
 ---
 
 ## Request
 
-The request body is a `DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` object (`@MarshallType(as="personSyncPushToAdminFromCOREToConnectorInternalSide")`), with the data origin configuration and the **notification** containing the person's data:
+DENA sends a `POST` whose body is a `DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide` object (`@MarshallType(as="personSyncPushToAdminFromCOREToConnectorInternalSide")`), with the data-origin configuration and the **notification** containing the person's data:
 
 ```json
 {
-  "dataOriginConfigForDataTypeInAdmin": { "...": "internal data origin configuration (connector use)" },
+  "dataOriginConfigForDataTypeInAdmin": { "...": "internal data-origin configuration (connector use)" },
   "notification": {
     "syncData": {
       "personRef": {
@@ -47,52 +63,85 @@ The request body is a `DN00PersonSyncPushToAdminFromCOREToConnectorInternalSide`
 }
 ```
 
-| Field | Type | Mandatory | Description |
-|-------|------|:---------:|-------------|
-| `dataOriginConfigForDataTypeInAdmin` | `Object` | ✅ | Data origin configuration for the data type in the administration. Internal information used by the connector; the administration does not need to interpret it |
-| `notification` | `DN00PersonSyncPushToAdminNotification` (`@MarshallType(as="personSyncPushToAdminNotification")`) | ✅ | Notification with the person's data to synchronize |
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `dataOriginConfigForDataTypeInAdmin` | `Object` | ✅ | Data-origin configuration for the data type in the administration. It is internal information used by the connector; **your administration does not need to interpret it** |
+| `notification` | `DN00PersonSyncPushToAdminNotification` (`@MarshallType(as="personSyncPushToAdminNotification")`) | ✅ | Notification with the person data to synchronize. **This is what your administration must process** |
 
-## `notification`
+### `notification`
 
-| Field | Type | Mandatory | Description |
-|-------|------|:---------:|-------------|
-| `syncData` | `DN00PersonSyncData` (`@MarshallType(as="personSyncData")`) | ✅ | Synchronization metadata (reference, hashes, dates, event) |
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `syncData` | `DN00PersonSyncData` (`@MarshallType(as="personSyncData")`) | ✅ | Synchronization metadata (person reference, hashes, dates and **event**) |
 | `person` | `DN00Person` (`@MarshallType(as="person")`) | ✅ | Full person data |
 
 ### `notification.syncData`
 
-| Field | Type | Mandatory | Description |
-|-------|------|:---------:|-------------|
-| `personRef` | [PersonRef](../../../semantica-base/modelo/person-ref.md) | ✅ | Reference to the created or modified person (`oid`/`id`) |
-| `personHashes` | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Hashes of name and surnames for unambiguous identification |
-| `createDate` | `Instant` (ISO 8601) | ❌ | Creation date |
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `personRef` | [PersonRef](../../../semantica-base/modelo/person-ref.md) | ✅ | Reference to the created/modified/deleted person (`oid` and/or `id`). **This is the key you must use to locate the person in your system** |
+| `personHashes` | [PersonHashes](../../modelo/push/person-hashes.md) | ✅ | Hashes of name and surnames, for unambiguous identification without exposing the plain data |
+| `createDate` | `Instant` (ISO 8601) | ❌ | Person creation date in DENA |
 | `lastUpdateDate` | `Instant` (ISO 8601) | ❌ | Last update date |
-| `syncEvent` | `DN00PersonChangeEvent` | ❌ | Event that triggered the sync: `CREATED` (new person), `DELETED` (person removed), `UPDATED` (data updated), `ID_CHANGED` (identifier modified) |
+| `syncEvent` | `DN00PersonChangeEvent` | ✅ | **What change occurred**. Determines the action your administration must perform (see [Per-event processing](#per-event-processing)). Values: `CREATED`, `UPDATED`, `DELETED`, `ID_CHANGED` |
 
 ### `notification.person`
 
-| Field | Type | Mandatory | Description |
-|-------|------|:---------:|-------------|
-| `oid` / `id` | `String` | ✅ | Person identifiers |
-| `name` | `String` | ✅ | Name |
+| Field | Type | Required | Description |
+|-------|------|:--------:|-------------|
+| `oid` | `String` | ✅ | Unique person identifier generated by DENA (stable, does not change) |
+| `id` | `String` | ✅ | Person's NIF/NIE (may change → see `ID_CHANGED` event) |
+| `name` | `String` | ✅ | First name |
 | `surname1` | `String` | ✅ | First surname |
 | `surname2` | `String` | ❌ | Second surname |
 | `contactInfo` | `ContactInfo` | ❌ | Contact data |
-| `lastChangeEvent` | `DN00PersonChangeEvent` | ❌ | Last change type applied (set by DENA-CORE) |
+| `lastChangeEvent` | `DN00PersonChangeEvent` | ❌ | Last applied change type (set by DENA-CORE) |
+
+!!! tip "OID vs ID: which to use as key"
+
+    Store people by their **`oid`** (DENA's stable identifier), not by their `id` (NIF). The NIF can change (for example an NIE that becomes a DNI) and in that case you will receive an `ID_CHANGED` event. If you index by `oid`, those NIF changes are just an update.
+
+---
+
+## Per-event processing
+
+The `notification.syncData.syncEvent` field tells you **what action to take**. This is the expected implementation of your administration for each event:
+
+| Event | Meaning | What your administration must do |
+|-------|---------|----------------------------------|
+| `CREATED` | A new person registered in DENA | Create the person in your local copy (or *upsert* if it already existed) with the received data |
+| `UPDATED` | The person changed basic data (name, contact...) | Update the person's data in your local copy |
+| `ID_CHANGED` | The person's identifier (NIF/NIE) changed | Update the person's `id` (locating them by their `oid`, which does not change) |
+| `DELETED` | The person deleted their DENA account | Delete the person from your local copy **and also all data associated** with them |
+
+!!! warning "DELETED event: also delete the associated data"
+
+    When you receive a `DELETED`, deleting the person record is not enough. You must also remove **all data your administration had associated with that person** (for example, generated notices/records, sync log entries, etc.).
+
+    If you only delete the person and leave their data behind, you will end up with **orphan data** (rows referencing a person that no longer exists). This causes inconsistencies and may lead you to send SRMD for a person no longer in DENA.
+
+    Recommendation: delete the associated data first (by the person identifier) and then the person record.
 
 ---
 
 ## Response
 
-The administration signals the processing result through the **HTTP status code**:
+Your administration signals the result **solely through the HTTP status code**:
 
-- **`200 OK`** — the notification was processed successfully. A body is not required.
-- **`4xx`** — error attributable to the request (e.g. `404` if the person cannot be resolved, `400` if the body is invalid).
-- **`5xx`** — internal error at the administration.
+- **`200 OK`** — the notification was processed successfully. **No body is required.**
+- **`4xx`** — error attributable to the request (e.g. `400` if the body is invalid).
+- **`5xx`** — internal error of your administration.
 
-DENA-CORE interprets the result from the HTTP code (see `DN01PersonPushToAdminJobProcessor`): if the response is successful the job moves to `SYNCED_OK`; otherwise it is retried (up to the maximum number of attempts) and moves to `SYNCED_ERROR` / `SYNCED_ERROR_TOO_MANY_ATTEMPTS`.
+!!! info "DENA only reads the HTTP code, not the response body"
 
-If the administration returns an error body, a simple object with a descriptive message is recommended, for example:
+    DENA-CORE (`DN01PersonPushToAdminJobProcessor`) interprets the result **only from the HTTP code**. The response body **is not processed** (at most it is logged for diagnostics).
+
+    - If the response is successful (`2xx`), the push job moves to `SYNCED_OK`.
+    - If not, DENA **retries** (up to a maximum number of attempts) and, if it keeps failing, the job moves to `SYNCED_ERROR` / `SYNCED_ERROR_TOO_MANY_ATTEMPTS`.
+
+    Therefore, it is essential to return an HTTP code **faithful** to the actual result: do not return `200` if processing failed, or DENA will consider a person synchronized when they are not.
+
+If you still want to return an error body to ease diagnostics (optional, DENA does not interpret it), you can use a simple object:
 
 ```json
 {
@@ -105,13 +154,13 @@ If the administration returns an error body, a simple object with a descriptive 
 
 ## Authentication
 
-If the administration requires OAuth2, it will receive the header:
+If your administration requires OAuth2, DENA will include the header:
 
 ```
 Authorization: Bearer <access_token>
 ```
 
-The token is obtained automatically via client credentials.
+DENA obtains the token automatically via *client credentials*. See the [Authentication](../../../../autenticacion/core-dena-administracion/index.md) section to configure it.
 
 ---
 
@@ -119,23 +168,24 @@ The token is obtained automatically via client credentials.
 
 | Code | Meaning |
 |------|---------|
-| `200` | Data returned successfully (may be an empty list) |
+| `200` | Notification processed successfully |
 | `400` | Malformed request or invalid parameters |
-| `401` | Unauthorised (invalid or expired token) |
-| `403` | Forbidden (insufficient permissions) |
-| `404` | Person not found |
-| `500` | Internal error |
+| `401` | Unauthorized (invalid or expired token) |
+| `403` | Forbidden (no permissions) |
+| `404` | Person not found / not resolvable |
+| `500` | Internal error of the administration |
 | `503` | Service unavailable |
 
 ---
 
-## Requirements for the administration
+## Implementation checklist for the administration
 
-1. Expose a `POST` endpoint that accepts and returns `application/json`
-2. Interpret `notification.syncData.personRef` (and `notification.person`) to identify the person
-3. Update its database of persons registered in DENA with the received information
-4. Respect standard HTTP codes (`200` if processed successfully; `4xx`/`5xx` on error)
-5. Respond in less than 30 seconds
+1. **Expose a `POST` endpoint** at the URL you configured in DENA, accepting `application/json`.
+2. **Read `notification.syncData.syncEvent`** to decide the action (create / update / delete).
+3. **Locate the person by `notification.syncData.personRef.oid`** (stable identifier).
+4. **Apply the change** according to the event (see [Per-event processing](#per-event-processing)), remembering to delete associated data on `DELETED`.
+5. **Respond with the HTTP code faithful** to the result (`200` only if processed correctly; `4xx`/`5xx` on error).
+6. **Respond in less than 30 seconds** (otherwise DENA considers the call failed and will retry).
 
 <!-- DENA-DOC-FOOTER -->
 ---

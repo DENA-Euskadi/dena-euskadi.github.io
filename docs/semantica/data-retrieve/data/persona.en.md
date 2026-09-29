@@ -136,7 +136,7 @@ flowchart LR
 
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
-| `mainAddress` | `Object` | ❌ | *(see [Address](#address-mainaddress--each-element-of-otheraddressesaddresses))* | Main address |
+| `mainAddress` | `Object` | ❌ | *(see [Address](#address-mainaddress-each-element-of-otheraddressesaddresses))* | Main address |
 | `otherAddresses` | `Object` | ❌ | | Other addresses |
 | `otherAddresses.addresses` | `Array` | ❌ | | List of additional addresses |
 

@@ -229,8 +229,6 @@ Arkitekturaren bloke nagusiak hauek dira:
 
 **konektore** bat DENAren barruan erabiltzen diren semantikak itzultzen ditu administrazioaren datu-hornitzailearen semantika zehatzera.
 
-![Connectors Architecture](../../adjuntos/imagenes/image6.png)
-
 **Konektorearen bi aldeak:**
 1. **Barruko aldea**: DENAren semantika estandarrak erabiltzen ditu (garraioa, segurtasuna, formatua)
 2. **Kanpoko aldea**: urruneko hornitzailearekin nola elkarreragin jakiten du (URL, header-ak, autentikazioa, datu-formatua)

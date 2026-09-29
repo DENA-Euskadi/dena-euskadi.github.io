@@ -9,18 +9,29 @@ Accept: application/json
 Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```
 
+!!! note "Bidea zuk aukeratzen duzu"
+
+    DENAk **ez** du bide finkorik ezartzen: zure administrazioak DENAn **konfiguratu duen URLera** egingo du `POST`-a. `/api/retrieveData` adibide bat besterik ez da (dokumentazio honek erabiltzen duena). DENAren **oinarrizko konektoreak** (`DN01ConnectorController`) `/api/connector/retrieveData`-n erakusten du, erreferentzia gisa har dezakezuna. Ezinbestekoa dena `application/json`-ekin `POST` bat onartzea da.
+
 ---
 
 ## Eskaera
 
-Administrazioak eskaera **sinple** bat jasotzen du DENA konektoretik: `context` objektu bat pertsonarekin, datu-motarekin eta helmugako administrazioarekin. Konektoreak administrazioaren endpoint-a deitu aurretik sortzen duen formatua da.
+Administrazioak DENA konektoretik eskaera bat jasotzen du `context` objektu batekin (pertsona, datu-mota eta administrazioa) eta `payload` batekin berreskuratze-eskaerarekin. Hauek dira administrazioak irakurri behar dituen eremu esanguratsuak:
 
 ```json
 {
   "context": {
+    "message": { "type": "PERSON_FETCH_DATA", "correlationId": "550e8400-e29b-41d4-a716-446655440000" },
+    "originAdmin": { "id": "dena_connector" },
+    "destinationAdmin": { "id": "ADMIN-001" },
     "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
+  },
+  "payload": {
     "dataType": { "id": "administrativeServiceProcedureRecord" },
-    "administration": { "id": "ADMIN-001" }
+    "admin": { "id": "ADMIN-001" },
+    "person": { "id": "12345678A" }
   }
 }
 ```
@@ -29,11 +40,12 @@ Administrazioak eskaera **sinple** bat jasotzen du DENA konektoretik: `context` 
 |-------|:-----------:|-------------|
 | `context.subjectPerson.id` | ✅ | Datuak eskatzen diren pertsonaren DNI/NIE/NIF |
 | `context.dataType.id` | ✅ | Eskatutako datu-mota (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) eta [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.administration.id` | ✅ | Helmugako administrazioaren identifikatzailea |
+| `context.destinationAdmin.id` | ✅ | Helmugako administrazioaren identifikatzailea (datuak zerbitzatzen dituena) |
+| `context.originAdmin.id` | ❌ | Eskaeraren jatorriaren identifikatzailea (DENA konektorea) |
 
-!!! info "Eskaeraren formatua"
+!!! info "Eremuen izenak"
 
-    DENA konektoreak (Spring Boot 3) eskaera formatu murriztu honetara normalizatzen du administraziora bidali aurretik: `subjectPerson`, `dataType` eta `administration` soilik, guztiak beren `id`-aren bidez. Ez dira bidaltzen interop mezu-bilgarria (`message`/`protocol`/`payload`), OID-ak, ezta ibilbide-traza ere. Endpoint-a inplementatzeko nahikoa da hiru eremu hauek irakurtzea.
+    `context` barruan eremuak `subjectPerson`, `dataType` eta `destinationAdmin` deitzen dira (**ez** `administration`). Barruko `payload`-ak eskaera `person` / `admin` / `dataType` gisa errepikatzen du. Endpoint-a inplementatzeko nahikoa da `context.subjectPerson.id` eta `context.dataType.id` irakurtzea (eta `context.destinationAdmin.id` administrazio bat baino gehiago zerbitzatzen badituzu).
 
 ---
 
@@ -283,7 +295,7 @@ Tokena automatikoki lortzen da client credentials bidez.
 
 ## Administrazioarentzako eskakizunak
 
-1. `application/json` onartzen eta itzultzen duen `POST` endpoint bat eskaini
+1. `application/json` onartzen eta itzultzen duen `POST` endpoint bat eskaini DENAn konfiguratu duzun URLan (erreferentziazko oinarrizko konektoreak `/api/connector/retrieveData`-n argitaratzen du)
 2. `context.subjectPerson.id` interpretatu pertsona identifikatzeko
 3. `context.dataType.id` interpretatu datu-mota iragazteko
 4. Objektuak eredu semantikoaren formatuan itzuli

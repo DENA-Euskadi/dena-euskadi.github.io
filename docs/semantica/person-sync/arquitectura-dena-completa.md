@@ -229,8 +229,6 @@ Los principales bloques de la arquitectura son:
 
 Un **conector** traduce las semánticas de DENA usadas internamente a las semánticas específicas del proveedor de datos de la administración.
 
-![Connectors Architecture](../../adjuntos/imagenes/image6.png)
-
 **Dos lados del conector:**
 1. **Lado interno**: Usa semánticas estándar de DENA (transporte, seguridad, formato)
 2. **Lado externo**: Sabe cómo interactuar con el proveedor remoto (URL, headers, autenticación, formato de datos)

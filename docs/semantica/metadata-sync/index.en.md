@@ -14,7 +14,7 @@ sequenceDiagram
     participant DENA as CORE DENA
     participant App as Client App
 
-    Admin->>DENA: POST /syncMetadata (person X has changes)
+    Admin->>DENA: POST /api/admin/interop/sync/metadata (person X has changes)
     DENA-->>Admin: 200 OK
 
     Note over DENA: Stores metadata: person + type + date

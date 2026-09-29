@@ -3,7 +3,7 @@
 
 dena:
   version: "0.5.2"
-  date: "2026-09-07"
+  date: "2026-09-29"
   java_version: "21+"
   maven_version: "3.9+"
   

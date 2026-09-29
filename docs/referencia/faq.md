@@ -22,7 +22,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
     |---|---|
     | DENA consulta datos de tu administración | `POST /api/retrieveData` ([Data-Retrieve](../semantica/data-retrieve/index.md)) |
     | Notificas cambios a DENA | `POST` al endpoint DENA de [Metadata-Sync](../semantica/metadata-sync/index.md) |
-    | Recibes personas por Push | `POST /api/person-push` ([Person-Sync Push](../semantica/person-sync/push.md)) |
+    | Recibes personas por Push | Un `POST` que expones en la URL que configures en DENA ([Person-Sync Push](../semantica/person-sync/push.md)) |
     | Descargas personas por Pull | Ninguno propio, solo llamas a DENA |
 
 ??? question "¿Puedo integrarme si mi sistema no es Java?"

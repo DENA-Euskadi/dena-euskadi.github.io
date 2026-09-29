@@ -26,10 +26,12 @@
 
 | Endpoint | Quién lo implementa | Quién lo invoca |
 |---|---|---|
-| `POST /api/retrieveData` | :material-domain: Administración | :material-swap-horizontal: DENA |
-| `POST /syncMetadata` (DENA) | :material-swap-horizontal: DENA | :material-domain: Administración |
-| `GET /persons/export` (DENA) | :material-swap-horizontal: DENA | :material-domain: Administración |
-| `POST /api/person-push` | :material-domain: Administración | :material-swap-horizontal: DENA |
+| `POST` Data-Retrieve (URL configurable; ej. `/api/retrieveData`) | :material-domain: Administración | :material-swap-horizontal: DENA |
+| `POST` Person Push (URL configurable) | :material-domain: Administración | :material-swap-horizontal: DENA |
+| `POST /api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administración |
+| `POST /api/admin/persons/sync/...` (Person-Sync Pull: bespokes/pregens) | :material-swap-horizontal: DENA | :material-domain: Administración |
+
+> Los endpoints que **implementa la administración** (Data-Retrieve y Person Push) se exponen en la URL que la administración configure en DENA; las rutas mostradas son ejemplos/referencia. Los endpoints que **implementa DENA** (Metadata-Sync y Person-Sync Pull) tienen ruta fija.
 
 ---
 

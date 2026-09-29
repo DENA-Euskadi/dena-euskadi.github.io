@@ -22,7 +22,7 @@ Answers to the most common questions from integrating administrations.
     |---|---|
     | DENA queries data from your administration | `POST /api/retrieveData` ([Data-Retrieve](../semantica/data-retrieve/index.md)) |
     | You notify changes to DENA | `POST` to the DENA [Metadata-Sync](../semantica/metadata-sync/index.md) endpoint |
-    | You receive persons via Push | `POST /api/person-push` ([Person-Sync Push](../semantica/person-sync/push.md)) |
+    | You receive persons via Push | A `POST` you expose at the URL you configure in DENA ([Person-Sync Push](../semantica/person-sync/push.md)) |
     | You download persons via Pull | None of your own, you only call DENA |
 
 ??? question "Can I integrate if my system is not Java?"

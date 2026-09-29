@@ -40,7 +40,7 @@ Edukiaren zuzenketak (adibideak 0.4.16 kodearen aurka eremuz eremu egiaztatuta):
 
 Egiaztapena:
 
-- :material-check-all: Kode iturburuko 92 estekak (`{{ repos.*_blob }}`) mirror publikoen `PUBLIC-v0.4.16` tag-aren aurka egiaztatuta: guztiek zuzen ebazten dute
+- :material-check-all: Kode iturburuko 92 estekak (`{% raw %}{{ repos.*_blob }}{% endraw %}`) mirror publikoen `PUBLIC-v0.4.16` tag-aren aurka egiaztatuta: guztiek zuzen ebazten dute
 - :material-check-all: Semantika, endpoint, metadata-sync eta person-sync orri guztietako JSON/Java adibideak eta taulak 0.4.16 benetako klaseen aurka eremuz eremu kontrastatuta
 - :material-bug: `endpoint-sync-metadata.md` (SRMD): eskaeraren `payload` items-en **array** zuzena da (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); `payload.items` bilgarria kenduta. Erantzuna: `code`/`errorId`/`details` erro-mailan eta `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` zuzenean (transactionOid/receivedItemsCount/processedOK/processedNOK), `processingInfo` bilgarririk gabe
 - :material-bug: Kode-adibideak RETRIEVE formatu errealera lerrokatuta (snippets-codigo 5 lengoaietan, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): eskaera murriztua (`context` `subjectPerson`/`dataType`/`administration`-ekin) eta erantzuna `code` erro-mailan eta `dataItems[].data`-rekin

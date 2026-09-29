@@ -6,7 +6,7 @@ Person-Sync zure administrazioari **DENAn zer pertsona inskribatuta dauden jakit
 
 Gainera, DENAk pertsonaren oinarrizko datuak partekatzen ditu zure admin-arekin: NIF, izena, abizenak, harremanetarako datuak.
 
-![Person-Sync Overview](../../adjuntos/imagenes/image18.png)
+![Person-Sync Overview](../adjuntos/imagenes/image18.png)
 
 ### Pertsonen Datuak Sinkronizatuta
 
@@ -50,7 +50,7 @@ Zure admin-ak DENAri kontsulta egiten dio nahi duenean, bi modutan:
 | **Off-line (aurrez sortua)** | DENAk aldizkako fitxategiak sortzen ditu pertsonen zerrendarekin |
 | **Off-line (bespoke)** | Zure admin-ak fitxategi pertsonalizatu bat eskatzen du eta DENAk eskaeraz sortzen du |
 
-![Person-Sync Pull Flow](../../adjuntos/imagenes/person-sync-pull.png)
+![Person-Sync Pull Flow](../adjuntos/imagenes/person-sync-pull.png)
 
 ---
 

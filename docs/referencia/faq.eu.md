@@ -22,7 +22,7 @@ Administrazio integratzaileen zalantza ohikoenei erantzunak.
     |---|---|
     | DENAk zure administrazioko datuak kontsultatzen ditu | `POST /api/retrieveData` ([Data-Retrieve](../semantica/data-retrieve/index.md)) |
     | DENAri aldaketak jakinarazten dizkiozu | `POST` DENAren [Metadata-Sync](../semantica/metadata-sync/index.md) endpoint-era |
-    | Pertsonak Push bidez jasotzen dituzu | `POST /api/person-push` ([Person-Sync Push](../semantica/person-sync/push.md)) |
+    | Pertsonak Push bidez jasotzen dituzu | DENAn konfiguratzen duzun URLan erakusten duzun `POST` bat ([Person-Sync Push](../semantica/person-sync/push.md)) |
     | Pertsonak Pull bidez deskargatzen dituzu | Zurerik ez, DENAri deitu besterik ez |
 
 ??? question "Nire sistema Java ez bada integra al naiteke?"

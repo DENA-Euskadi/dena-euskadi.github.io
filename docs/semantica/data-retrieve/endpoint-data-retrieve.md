@@ -9,18 +9,29 @@ Accept: application/json
 Authorization: Bearer <token> (si OAuth está configurado)
 ```
 
+!!! note "La ruta la eliges tú"
+
+    DENA **no impone** un path fijo: hará el `POST` contra la **URL que tu administración haya configurado** en DENA. `/api/retrieveData` es solo un ejemplo (el que usa esta documentación). El **conector base** de DENA (`DN01ConnectorController`) lo expone en `/api/connector/retrieveData`, que puedes tomar como referencia. Lo imprescindible es aceptar un `POST` con `application/json`.
+
 ---
 
 ## Request
 
-La administración recibe del conector DENA una petición **simple**: un objeto `context` con la persona, el tipo de dato y la administración de destino. Es el formato que genera el conector antes de llamar al endpoint de la administración.
+La administración recibe del conector DENA una petición con un objeto `context` (persona, tipo de dato y administración) y un `payload` con la petición de recuperación. Estos son los campos relevantes que debe leer la administración:
 
 ```json
 {
   "context": {
+    "message": { "type": "PERSON_FETCH_DATA", "correlationId": "550e8400-e29b-41d4-a716-446655440000" },
+    "originAdmin": { "id": "dena_connector" },
+    "destinationAdmin": { "id": "ADMIN-001" },
     "subjectPerson": { "id": "12345678A" },
+    "dataType": { "id": "administrativeServiceProcedureRecord" }
+  },
+  "payload": {
     "dataType": { "id": "administrativeServiceProcedureRecord" },
-    "administration": { "id": "ADMIN-001" }
+    "admin": { "id": "ADMIN-001" },
+    "person": { "id": "12345678A" }
   }
 }
 ```
@@ -29,11 +40,12 @@ La administración recibe del conector DENA una petición **simple**: un objeto 
 |-------|:-----------:|-------------|
 | `context.subjectPerson.id` | ✅ | DNI/NIE/NIF de la persona cuyos datos se solicitan |
 | `context.dataType.id` | ✅ | Tipo de dato solicitado (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ver [DataTypeRef](../semantica-base/modelo/data-type-ref.md) y [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.administration.id` | ✅ | Identificador de la administración de destino |
+| `context.destinationAdmin.id` | ✅ | Identificador de la administración de destino (la que sirve los datos) |
+| `context.originAdmin.id` | ❌ | Identificador del origen de la petición (el conector DENA) |
 
-!!! info "Formato de la petición"
+!!! info "Nombres de los campos"
 
-    El conector DENA (Spring Boot 3) normaliza la petición a este formato reducido antes de enviarla a la administración: solo `subjectPerson`, `dataType` y `administration`, todos por su `id`. No se envían el envoltorio de mensaje interop (`message`/`protocol`/`payload`), ni OIDs, ni traza de ruta. Para implementar el endpoint basta con leer estos tres campos.
+    Dentro de `context` los campos se llaman `subjectPerson`, `dataType` y `destinationAdmin` (**no** `administration`). El `payload` interno repite la petición como `person` / `admin` / `dataType`. Para implementar el endpoint basta con leer `context.subjectPerson.id` y `context.dataType.id` (y `context.destinationAdmin.id` si sirves varias administraciones).
 
 ---
 
@@ -283,7 +295,7 @@ El token se obtiene automáticamente mediante client credentials.
 
 ## Requisitos para la administración
 
-1. Exponer un endpoint `POST` que acepte y devuelva `application/json`
+1. Exponer un endpoint `POST` que acepte y devuelva `application/json` en la URL que hayas configurado en DENA (el conector base de referencia lo publica en `/api/connector/retrieveData`)
 2. Interpretar `context.subjectPerson.id` para identificar a la persona
 3. Interpretar `context.dataType.id` para filtrar el tipo de datos
 4. Devolver los objetos en el formato del modelo semántico

@@ -3,15 +3,25 @@
 ## Endpoint
 
 ```
-POST /person-sync/api/admin/persons/sync/bespokes
+POST /person-sync/api/admin/persons/sync/bespokes/{jobOid}/asset
 Content-Type: application/json
 Accept: application/octet-stream
 Authorization: Bearer <token> (si OAuth está configurado)
 ```
 
+Donde `{jobOid}` es el identificador del *job* que obtuviste al [crear la solicitud](./create-pull-from-admin-bespoke-job.md).
+
 ## Descripción
 
-Descarga el resultado de una petición de exportación de personas usuarias de DENA en el formato indicado.
+Descarga el resultado (el fichero de personas) de una solicitud de exportación **una vez que su estado es `FINISHED_OK`**. Es el **paso 3 y último** del flujo bespoke:
+
+1. Crear la solicitud → obtienes un `jobOid`.
+2. Consultar el estado periódicamente → esperas a `FINISHED_OK`.
+3. **Descargar el fichero** (este endpoint).
+
+!!! warning "Descarga solo cuando el job esté `FINISHED_OK`"
+
+    Si intentas descargar el asset antes de que el job haya terminado, recibirás un error. Consulta primero el estado con [Get Pull from Admin Bespoke Job](./get-pull-from-admin-bespoke-job.md) hasta que devuelva `status: "FINISHED_OK"`.
 
 ## Request
 
@@ -55,7 +65,7 @@ Descarga el resultado de una petición de exportación de personas usuarias de D
 
 ## Response exitosa (HTTP 200)
 
-Datos binaros del fichero de exportacion de personas en el formato solicitado
+Datos binarios del fichero de exportación de personas en el formato solicitado (`application/octet-stream`). El formato concreto (CSV, SQLITE, ZIP_OF_JSON o PARQUET) es el que indicaste en el `exportSpec` al crear la solicitud.
 
 ## Response de error (HTTP 4xx/5xx)
 

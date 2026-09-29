@@ -45,7 +45,11 @@ flowchart LR
 | `personExportSpec` | `String` | ✅        | `data` (Includes all data for each person) <br> `sync` (Includes only creation/update timestamps) |
 | `exportFileFormat` | `String` | ✅        | Format to export the data to. Possible values: `SQLITE`, `CSV`, `ZIP_OF_JSON` or `PARQUET` |
 | `lastUpdateRange`  | `Range`  | ❌        | Date range to filter only persons created or updated within that range |
-| `syncEvent`        | `String` | ❌        | Filter by event type. Possible values: <br> `CREATED`: New persons only <br> `DELETED`: Deleted persons only <br> `UPDATED`: Modified persons only <br> `ID_CHANGED`: Persons whose identifier (NIF, NIE, etc.) has been modified only |
+| `syncEvent`        | `String` | ❌        | **Only applicable when `personExportSpec` = `sync`.** Filter by event type. Possible values: <br> `CREATED`: New persons only <br> `DELETED`: Deleted persons only <br> `UPDATED`: Modified persons only <br> `ID_CHANGED`: Persons whose identifier (NIF, NIE, etc.) has been modified only |
+
+!!! note "`syncEvent` is exclusive to the `sync` type"
+
+    The `syncEvent` field only exists in `sync` exports (`personExportSpec: "sync"`), which export only synchronization metadata. In `data` exports (`personExportSpec: "data"`), which include all data of each person, the `syncEvent` field **does not apply** and is ignored.
 
 ## JSON example
 

@@ -3,15 +3,25 @@
 ## Endpoint
 
 ```
-POST /person-sync/api/admin/persons/sync/bespokes
+POST /person-sync/api/admin/persons/sync/bespokes/{jobOid}/asset
 Content-Type: application/json
 Accept: application/octet-stream
 Authorization: Bearer <token> (if OAuth is configured)
 ```
 
+Where `{jobOid}` is the identifier of the *job* you obtained when [creating the request](./create-pull-from-admin-bespoke-job.md).
+
 ## Description
 
-Downloads the result of a DENA user export request in the specified format.
+Downloads the result (the persons file) of an export request **once its status is `FINISHED_OK`**. It is the **third and final step** of the bespoke flow:
+
+1. Create the request → you get a `jobOid`.
+2. Poll the status → wait for `FINISHED_OK`.
+3. **Download the file** (this endpoint).
+
+!!! warning "Download only when the job is `FINISHED_OK`"
+
+    If you try to download the asset before the job has finished, you will get an error. First check the status with [Get Pull from Admin Bespoke Job](./get-pull-from-admin-bespoke-job.md) until it returns `status: "FINISHED_OK"`.
 
 ## Request
 

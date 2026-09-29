@@ -109,20 +109,27 @@ DENA proactively notifies the administration when a change occurs:
 
 ## Endpoints
 
-### Pull
+### Pull — Pre-generated (hourly)
 
 | Document | Content |
 |---|---|
-| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Download of pre-generated files |
-| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Custom export request |
+| [Get Pull from Admin Pregen Job (by type and hour)](./endpoints/pull/get-pull-from-admin-pregen-job-by-type-hour.md) | Locates the pre-generated job by type and hour |
+| [Get Pull from Admin Pregen Job (by OID)](./endpoints/pull/get-pull-from-admin-pregen-job.md) | Queries a pre-generated job by its OID |
+| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Download of the pre-generated file |
+
+### Pull — Bespoke (on demand)
+
+| Document | Content |
+|---|---|
+| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Custom export request (with filters) |
 | [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Request status query |
-| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Download of custom files |
+| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Download of the custom file |
 
 ### Push
 
 | Document | Content |
 |---|---|
-| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Reception endpoint contract |
+| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Contract of the endpoint the administration exposes: request, per-event processing, response and checklist |
 
 ---
 

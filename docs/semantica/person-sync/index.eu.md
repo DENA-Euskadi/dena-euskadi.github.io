@@ -109,20 +109,27 @@ DENAk modu proaktiboan jakinarazten dio administrazioari aldaketa bat gertatzen 
 
 ## Endpoint-ak
 
-### Pull
+### Pull — Aurrez sortuak (orduro)
 
 | Dokumentua | Edukia |
 |---|---|
-| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Aurrez sortutako fitxategien deskarga |
-| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Neurri-esportazio eskaera |
-| [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Eskaeren egoera-kontsulta |
-| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Neurri-fitxategien deskarga |
+| [Get Pull from Admin Pregen Job (mota eta orduaren arabera)](./endpoints/pull/get-pull-from-admin-pregen-job-by-type-hour.md) | Aurrez sortutako job-a kokatzen du mota eta orduaren arabera |
+| [Get Pull from Admin Pregen Job (OIDaren arabera)](./endpoints/pull/get-pull-from-admin-pregen-job.md) | Aurrez sortutako job bat kontsultatzen du bere OIDaren arabera |
+| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Aurrez sortutako fitxategiaren deskarga |
+
+### Pull — Neurrira (bespoke)
+
+| Dokumentua | Edukia |
+|---|---|
+| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Neurrirako esportazio-eskaera (iragazkiekin) |
+| [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Eskaeraren egoera-kontsulta |
+| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Neurrirako fitxategiaren deskarga |
 
 ### Push
 
 | Dokumentua | Edukia |
 |---|---|
-| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Jasotze-endpoint-aren kontratua |
+| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Administrazioak erakusten duen endpointaren kontratua: eskaera, gertaeraka prozesatzea, erantzuna eta egiaztapena |
 
 ---
 

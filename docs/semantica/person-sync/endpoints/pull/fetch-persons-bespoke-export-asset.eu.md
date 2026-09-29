@@ -3,15 +3,25 @@
 ## Endpoint
 
 ```
-POST /person-sync/api/admin/persons/sync/bespokes
+POST /person-sync/api/admin/persons/sync/bespokes/{jobOid}/asset
 Content-Type: application/json
 Accept: application/octet-stream
 Authorization: Bearer <token> (OAuth konfiguratuta badago)
 ```
 
+Non `{jobOid}` [eskaera sortzean](./create-pull-from-admin-bespoke-job.md) lortu zenuen *job*-aren identifikatzailea den.
+
 ## Deskribapena
 
-DENAren erabiltzaileen esportazio-eskaera baten emaitza deskargatzen du adierazitako formatuan.
+Esportazio-eskaera baten emaitza (pertsonen fitxategia) deskargatzen du **bere egoera `FINISHED_OK` denean**. Bespoke fluxuaren **3. eta azken urratsa** da:
+
+1. Eskaera sortu → `jobOid` bat lortzen duzu.
+2. Egoera kontsultatu → `FINISHED_OK` izan arte itxaron.
+3. **Fitxategia deskargatu** (endpoint hau).
+
+!!! warning "Deskargatu job-a `FINISHED_OK` denean soilik"
+
+    Asset-a job-a amaitu baino lehen deskargatzen saiatzen bazara, errorea jasoko duzu. Egiaztatu egoera lehenik [Get Pull from Admin Bespoke Job](./get-pull-from-admin-bespoke-job.md)-ekin `status: "FINISHED_OK"` itzuli arte.
 
 ## Eskaera
 

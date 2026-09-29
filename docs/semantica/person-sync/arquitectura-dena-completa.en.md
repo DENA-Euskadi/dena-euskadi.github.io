@@ -229,8 +229,6 @@ The main architecture blocks are:
 
 A **connector** translates DENA semantics used internally to the specific semantics of the administration's data provider.
 
-![Connectors Architecture](../../adjuntos/imagenes/image6.png)
-
 **Two sides of the connector:**
 1. **Internal side**: Uses standard DENA semantics (transport, security, format)
 2. **External side**: Knows how to interact with the remote provider (URL, headers, authentication, data format)

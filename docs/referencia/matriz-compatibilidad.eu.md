@@ -26,10 +26,12 @@ Zein endpoint dira nahitaezkoak edo aukerakoak zure integrazio-motaren arabera?
 
 | Endpoint-a | Nork inplementatzen du | Nork deitzen du |
 |---|---|---|
-| `POST /api/retrieveData` | :material-domain: Administrazioa | :material-swap-horizontal: DENA |
-| `POST /syncMetadata` (DENA) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
-| `GET /persons/export` (DENA) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
-| `POST /api/person-push` | :material-domain: Administrazioa | :material-swap-horizontal: DENA |
+| `POST` Data-Retrieve (URL konfiguragarria; adib. `/api/retrieveData`) | :material-domain: Administrazioa | :material-swap-horizontal: DENA |
+| `POST` Person Push (URL konfiguragarria) | :material-domain: Administrazioa | :material-swap-horizontal: DENA |
+| `POST /api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
+| `POST /api/admin/persons/sync/...` (Person-Sync Pull: bespokes/pregens) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
+
+> Administrazioak **inplementatzen dituen** endpoint-ak (Data-Retrieve eta Person Push) administrazioak DENAn konfiguratzen duen URLan erakusten dira; erakutsitako bideak adibideak/erreferentzia dira. DENAk **inplementatzen dituen** endpoint-ek (Metadata-Sync eta Person-Sync Pull) bide finkoa dute.
 
 ---
 

@@ -94,6 +94,8 @@ nav:
           - Endpoint Pull (Create Job): semantica/person-sync/endpoints/pull/create-pull-from-admin-bespoke-job.md
           - Endpoint Pull (Get Job): semantica/person-sync/endpoints/pull/get-pull-from-admin-bespoke-job.md
           - Endpoint Pull (Fetch Bespoke): semantica/person-sync/endpoints/pull/fetch-persons-bespoke-export-asset.md
+          - Endpoint Pull (Get Pregen por tipo y hora): semantica/person-sync/endpoints/pull/get-pull-from-admin-pregen-job-by-type-hour.md
+          - Endpoint Pull (Get Pregen por OID): semantica/person-sync/endpoints/pull/get-pull-from-admin-pregen-job.md
           - Endpoint Pull (Fetch Pregen): semantica/person-sync/endpoints/pull/fetch-persons-pregen-export-asset.md
           - Modelo Export Spec: semantica/person-sync/modelo/pull/export-spec.md
           - Modelo Person Hashes: semantica/person-sync/modelo/push/person-hashes.md
@@ -202,6 +204,8 @@ plugins:
             Data-Retrieve (Servir Datos): Data-Retrieve (Serve Data)
             Metadata-Sync (Notificar Cambios): Metadata-Sync (Notify Changes)
             Person-Sync (Sincronizar Personas): Person-Sync (Sync People)
+            'Endpoint Pull (Get Pregen por tipo y hora)': Pull Endpoint (Get Pregen by type and hour)
+            'Endpoint Pull (Get Pregen por OID)': Pull Endpoint (Get Pregen by OID)
             Semántica: Semantics
             Tipos de Datos Disponibles: Available Data Types
             Campos Comunes: Common Fields
@@ -250,6 +254,8 @@ plugins:
             Data-Retrieve (Servir Datos): Data-Retrieve (Datuak Zerbitzatu)
             Metadata-Sync (Notificar Cambios): Metadata-Sync (Aldaketak Jakinarazi)
             Person-Sync (Sincronizar Personas): Person-Sync (Pertsonak Sinkronizatu)
+            'Endpoint Pull (Get Pregen por tipo y hora)': Pull Endpoint (Pregen lortu mota eta orduaren arabera)
+            'Endpoint Pull (Get Pregen por OID)': Pull Endpoint (Pregen lortu OIDaren arabera)
             Semántica: Semantika
             Tipos de Datos Disponibles: Datu Mota Eskuragarriak
             Campos Comunes: Eremu Komunak

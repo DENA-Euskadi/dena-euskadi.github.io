@@ -337,13 +337,13 @@ Behen, aukera bakoitzaren xehetasuna:
 ![Single](../adjuntos/imagenes/arquitectura/data-provider-single.png)
 
 **(b) Aggregated** — Instantzia barneko anitzak biltzen dituen endpoint bat:
-![Aggregated](../adjuntos/imagenes/arquitektura/data-provider-aggregated-instances.png)
+![Aggregated](../adjuntos/imagenes/arquitectura/data-provider-aggregated-instances.png)
 
 **(c) Distributed** — Endpoint anitz, bakoitza jatorri desberdin batenentzat (SRMDn `data origin instance` behar du):
-![Distributed](../adjuntos/imagenes/arquitektura/data-provider-distributed.png)
+![Distributed](../adjuntos/imagenes/arquitectura/data-provider-distributed.png)
 
 **(d)** Multi-admin — Admin anitzentzat datuak eskaintzen dituen endpoint bat:
-![Multi-admin](../adjuntos/imagenes/arquitektura/data-provider-multi-admin.png)
+![Multi-admin](../adjuntos/imagenes/arquitectura/data-provider-multi-admin.png)
 
 !!! success "Zure ardura: zure patroia aukeratu"
     - Admin gehienak **(a)** hasten dira: endpoint bat datu mota bakoitzeko. Errazena da.

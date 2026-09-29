@@ -26,10 +26,12 @@ Which endpoints are mandatory or optional depending on your integration type?
 
 | Endpoint | Who implements it | Who invokes it |
 |---|---|---|
-| `POST /api/retrieveData` | :material-domain: Administration | :material-swap-horizontal: DENA |
-| `POST /syncMetadata` (DENA) | :material-swap-horizontal: DENA | :material-domain: Administration |
-| `GET /persons/export` (DENA) | :material-swap-horizontal: DENA | :material-domain: Administration |
-| `POST /api/person-push` | :material-domain: Administration | :material-swap-horizontal: DENA |
+| `POST` Data-Retrieve (configurable URL; e.g. `/api/retrieveData`) | :material-domain: Administration | :material-swap-horizontal: DENA |
+| `POST` Person Push (configurable URL) | :material-domain: Administration | :material-swap-horizontal: DENA |
+| `POST /api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administration |
+| `POST /api/admin/persons/sync/...` (Person-Sync Pull: bespokes/pregens) | :material-swap-horizontal: DENA | :material-domain: Administration |
+
+> The endpoints **implemented by the administration** (Data-Retrieve and Person Push) are exposed at the URL the administration configures in DENA; the routes shown are examples/reference. The endpoints **implemented by DENA** (Metadata-Sync and Person-Sync Pull) have a fixed route.
 
 ---
 

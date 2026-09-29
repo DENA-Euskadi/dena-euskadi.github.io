@@ -45,7 +45,11 @@ flowchart LR
 | `personExportSpec` | `String` | ✅          | `data` (Pertsona bakoitzaren datu guztiak barne hartzen ditu) <br> `sync` (Sorrera/eguneratze denbora-zigiluak soilik barne hartzen ditu) |
 | `exportFileFormat` | `String` | ✅          | Datuak esportatzeko formatua. Balio posibleak: `SQLITE`, `CSV`, `ZIP_OF_JSON` edo `PARQUET` |
 | `lastUpdateRange`  | `Range`  | ❌          | Data-tartea tarte horretan sortutako edo eguneratutako pertsonak soilik iragazteko |
-| `syncEvent`        | `String` | ❌          | Gertaera motaren arabera iragazteko. Balio posibleak: <br> `CREATED`: Pertsona berriak soilik <br> `DELETED`: Ezabatutako pertsonak soilik <br> `UPDATED`: Aldatutako pertsonak soilik <br> `ID_CHANGED`: Identifikatzailea (NIF, NIE, etab.) aldatu zaien pertsonak soilik |
+| `syncEvent`        | `String` | ❌          | **`personExportSpec` = `sync` denean soilik aplikagarria.** Gertaera motaren arabera iragazteko. Balio posibleak: <br> `CREATED`: Pertsona berriak soilik <br> `DELETED`: Ezabatutako pertsonak soilik <br> `UPDATED`: Aldatutako pertsonak soilik <br> `ID_CHANGED`: Identifikatzailea (NIF, NIE, etab.) aldatu zaien pertsonak soilik |
+
+!!! note "`syncEvent` `sync` motaren esklusiboa da"
+
+    `syncEvent` eremua `sync` esportazioetan soilik existitzen da (`personExportSpec: "sync"`), sinkronizazio-metadatuak soilik esportatzen dituztenak. `data` esportazioetan (`personExportSpec: "data"`), pertsona bakoitzaren datu guztiak barne hartzen dituztenak, `syncEvent` eremua **ez da aplikatzen** eta ez ikusiarena egiten da.
 
 ## JSON adibidea
 

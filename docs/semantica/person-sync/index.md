@@ -109,20 +109,27 @@ DENA notifica proactivamente a la administración cuando se produce un cambio:
 
 ## Endpoints
 
-### Pull
+### Pull — Pregenerados (horarios)
 
 | Documento | Contenido |
 |---|---|
-| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Descarga de ficheros pregenerados |
-| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Solicitud de exportación a medida |
-| [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Consulta de estado de solicitudes |
-| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Descarga de ficheros a medida |
+| [Get Pull from Admin Pregen Job (por tipo y hora)](./endpoints/pull/get-pull-from-admin-pregen-job-by-type-hour.md) | Localiza el job pregenerado por tipo y hora |
+| [Get Pull from Admin Pregen Job (por OID)](./endpoints/pull/get-pull-from-admin-pregen-job.md) | Consulta un job pregenerado por su OID |
+| [Fetch Persons Pregen Export Asset](./endpoints/pull/fetch-persons-pregen-export-asset.md) | Descarga del fichero pregenerado |
+
+### Pull — A medida (bespoke)
+
+| Documento | Contenido |
+|---|---|
+| [Create Pull from Admin Bespoke Job](./endpoints/pull/create-pull-from-admin-bespoke-job.md) | Solicitud de exportación a medida (con filtros) |
+| [Get Pull from Admin Bespoke Job](./endpoints/pull/get-pull-from-admin-bespoke-job.md) | Consulta de estado de la solicitud |
+| [Fetch Persons Bespoke Export Asset](./endpoints/pull/fetch-persons-bespoke-export-asset.md) | Descarga del fichero a medida |
 
 ### Push
 
 | Documento | Contenido |
 |---|---|
-| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Contrato del endpoint de recepción |
+| [Person Push to Admin](./endpoints/push/endpoint-person-push-to-admin.md) | Contrato del endpoint que expone la administración: request, procesamiento por evento, respuesta y checklist |
 
 ---
 

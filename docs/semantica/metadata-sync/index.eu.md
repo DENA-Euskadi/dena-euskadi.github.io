@@ -14,7 +14,7 @@ sequenceDiagram
     participant DENA as CORE DENA
     participant App as Bezero-aplikazioa
 
-    Admin->>DENA: POST /syncMetadata (X pertsonak aldaketak ditu)
+    Admin->>DENA: POST /api/admin/interop/sync/metadata (X pertsonak aldaketak ditu)
     DENA-->>Admin: 200 OK
 
     Note over DENA: Metadatua gordetzen du: pertsona + mota + data
