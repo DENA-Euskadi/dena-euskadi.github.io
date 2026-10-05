@@ -139,7 +139,6 @@ DENAk modu proaktiboan jakinarazten dio administrazioari aldaketa bat gertatzen 
 |--------|--------------|
 | [Export Spec](./modelo/pull/export-spec.md) | Esportazio-formatuaren zehaztapena |
 | [Person Hashes](./modelo/push/person-hashes.md) | Push mekanismorako pertsonen hash-ak |
-| [Arkitektura Dokumentazioa (ref.)](./arquitectura-dena-completa.md) | DENA-Architecture.docx-tik ateratako dokumentazio osoa |
 
 ---
 

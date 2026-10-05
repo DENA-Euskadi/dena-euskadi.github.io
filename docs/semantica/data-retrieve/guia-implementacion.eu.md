@@ -117,6 +117,23 @@ public class RetrieveDataController {
 }
 ```
 
+!!! note "DENAren *model object*-ak Java/Spring-en erabiltzen badituzu"
+
+    DENAren *model object*-ek (`DN00ScheduleItem`, etab.) beren serializazio-konfigurazioa erabiltzen dute (R01F marshaller-a), ez Spring-en Jackson lehenetsia. Spring-ek objektu horiek zuzenean marshalatu/desmarshalatu ditzan (hala, `ResponseEntity<List<DN00ScheduleItem>>` itzultzeko, eskuz eraikitako JSON `String` baten ordez), DENAren **converter pertsonalizatuak** erregistratu behar dituzu web-konfigurazioan.
+
+    DENA ekosisteman hori `DN01CoreBootstrapRESTBootstrapConfigBase`-k egiten du, `extendMessageConverters(...)` gainidatziz `ModelObjectConverterBase(marshaller)` gehitzeko (eta, CORE zerbitzuetarako, `COREServiceMethodExecResultConverter` eta `CoreServiceExceptionConverter`):
+
+    ```java
+    @Override
+    public void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
+        converters.add(0, new ModelObjectConverterBase<>(_marshaller) { /* ... */ });
+        converters.add(1, new COREServiceMethodExecResultConverter(_marshaller));
+        converters.add(2, new CoreServiceExceptionConverter());
+    }
+    ```
+
+    DENAren artefaktuak erabiltzen ez badituzu, alternatiba erraza JSONa zuk zeuk DENAren marshaller-arekin marshalatzea eta `ResponseEntity<String>` bat itzultzea da (goiko adibidean bezala).
+
 ### C# adibidea (.NET)
 
 ```csharp

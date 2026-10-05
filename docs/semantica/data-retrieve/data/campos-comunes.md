@@ -65,6 +65,12 @@ flowchart LR
 
 Instante (formato ISO 8601) de la última modificación del dato **en el sistema de origen de la administración**. Es un campo clave: DENA-CORE lo compara con la última vez que ese tipo de dato fue recuperado de la administración para decidir el estado NEW/UPDATED/UNCHANGED que muestra la UI. Si `lastChangedAt` es más reciente que la última recuperación, el dato se marca como NEW/UPDATED.
 
+!!! warning "Rellena siempre `lastChangedAt` en cada objeto que devuelvas"
+
+    Este campo es **muy importante** para la experiencia de la persona en DENA-APP: es lo que permite a la UI marcar un dato como **nuevo o actualizado**. Si tu *data provider* no informa `lastChangedAt` (o lo deja fijo), DENA no podrá distinguir qué datos son novedad y la persona no verá los avisos de "nuevo/actualizado" correctamente.
+
+    Normalmente sale de la misma columna que usas para detectar cambios en [Metadata-Sync](../../metadata-sync/index.md): `COALESCE(LAST_UPDATED_AT, CREATED_AT)`.
+
 ```json
 {
   "lastChangedAt": "2026-08-19T08:07:56.742Z"

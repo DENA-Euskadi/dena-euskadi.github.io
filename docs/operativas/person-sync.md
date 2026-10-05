@@ -47,8 +47,8 @@ Tu admin consulta a DENA cuando quiere, de dos formas:
 | Modalidad | Descripción |
 |-----------|-------------|
 | **On-line** | Tu admin llama a un REST service de DENA para consultar personas en tiempo real |
-| **Off-line (pre-generado)** | DENA genera fichero periódicos con el listado de personas |
-| **Off-line (bespoke)** | Tu admin solicita un ficheo personalizado que DENA genera bajo demanda |
+| **Off-line (pre-generado)** | DENA genera ficheros periódicos con el listado de personas |
+| **Off-line (bespoke)** | Tu admin solicita un fichero personalizado que DENA genera bajo demanda |
 
 ![Person-Sync Pull Flow](../adjuntos/imagenes/person-sync-pull.png)
 
@@ -70,7 +70,7 @@ Tu admin consulta a DENA cuando quiere, de dos formas:
 
 ## Especificación completa
 
-Para la especificación detallada de endpoints, modelos y ficheos:
+Para la especificación detallada de endpoints, modelos y ficheros:
 
 | Mecanismo | Documentación |
 |-----------|---------------|

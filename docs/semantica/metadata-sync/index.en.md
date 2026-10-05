@@ -35,6 +35,40 @@ sequenceDiagram
 
 ---
 
+## How to detect changes in your administration
+
+The first thing a data origin has to do to integrate is to **detect what has changed**. For DENA, the only information needed is:
+
+- **Which person** has some modified data (per data type).
+- **When** the last change happened.
+
+The **specific data** that changed **does not matter**: only the fact that a change occurred in the data origin and when. An inserted or deleted row also counts as a change.
+
+This is usually a simple SQL query per data type. For example, for a business table with this structure:
+
+| PERSON_ID | PERSON_DATA | CREATED_AT | LAST_UPDATED_AT |
+|-----------|-------------|------------|-----------------|
+| 48291038Z | … | 2026-08-17T03:22:10Z | 2026-08-17T09:14:22Z |
+| 10593847H | … | 2026-08-17T14:05:49Z | 2026-08-17T18:41:03Z |
+
+the query that returns the people with changes after a given date is straightforward:
+
+```sql
+SELECT PERSON_ID,
+       MAX(COALESCE(LAST_UPDATED_AT, CREATED_AT)) AS LAST_CHANGE_AT
+  FROM DB_TABLE
+ WHERE COALESCE(LAST_UPDATED_AT, CREATED_AT) >= :from
+ GROUP BY PERSON_ID;
+```
+
+`COALESCE(LAST_UPDATED_AT, CREATED_AT)` uses `LAST_UPDATED_AT` if present, falling back to `CREATED_AT` if it is `NULL`. The result (person + instant of the last change) is exactly what becomes each SRMD item (`aboutPerson` + `someDataWasUpdatedAt` + `ofType`) sent to DENA.
+
+!!! tip "Centralized collector"
+
+    If your administration has many data origins, instead of one component per origin you can deploy a **centralized changes collector**. See [Integration reference architectures](../../arquitectura/arquitecturas-referencia.md).
+
+---
+
 ## Documentation
 
 | Document | Content |

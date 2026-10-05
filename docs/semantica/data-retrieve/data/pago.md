@@ -12,8 +12,8 @@
 
 Representa una obligación de pago asociada a un expediente. Dos modalidades:
 
-- **Pago único** (`oneOffPayment`) — Liquidación puntual (tasa, precio público, sanción)
-- **Domiciliación** (`directDebitPayment`) — Cargo periódico recurrente
+- **Pago único** (`type` = `payment`) — Liquidación puntual (tasa, precio público, sanción)
+- **Domiciliación** (`type` = `directDebitPayment`) — Cargo periódico recurrente
 
 > Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
 
@@ -113,7 +113,7 @@ flowchart LR
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
-| `type` | `String` | ✅ | `"oneOffPayment"` | `"oneOffPayment"` o `"directDebitPayment"` |
+| `type` | `String` | ✅ | `"payment"` | `"payment"` (pago único) o `"directDebitPayment"` (domiciliación) |
 | `oid` | `String` | ✅ | `"PAY-OID-001"` | Identificador técnico único |
 | `id` | `String` | ✅ | `"PAY-2024-00321"` | Identificador de negocio |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
@@ -312,7 +312,7 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 ```json
 {
-  "type": "oneOffPayment",
+  "type": "payment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
@@ -339,7 +339,7 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 ```json
 {
-  "type": "oneOffPayment",
+  "type": "payment",
   "oid": "PAY-OID-002",
   "id": "PAY-2024-00322",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
@@ -395,6 +395,7 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 ## Notas importantes
 
+- **Discriminador del pago único:** en el JSON intercambiado (data-retrieve), el pago único viaja con `"type": "payment"`. Internamente el modelo se llama `oneOffPayment` (nombre de tipo), pero el **discriminador polimórfico** que viaja en `dataItems[].data` es `payment` (`@MarshallType(as="oneOffPayment", typeId="payment")`). La domiciliación sí usa `"type": "directDebitPayment"`.
 - El campo `directDebitData.startDate` indica cuándo se dio de alta la domiciliación (en el JSON se serializa como `"startDate"`, no como `"setAt"`).
 - El campo `data.at` en pagos únicos indica el momento exacto en que se procesó el pago (solo relevante cuando `forStatus` ≠ `PENDING`).
 - El campo `data.messageByLang` permite incluir un mensaje explicativo multiidioma, útil para estados de error o rechazo.

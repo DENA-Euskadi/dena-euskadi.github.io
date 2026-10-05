@@ -204,11 +204,11 @@ POST /persons/search
 
 #### ADMIN PULL Off-line: sincronización por lotes
 
-La administración descarga listados de personas en ficheos.
+La administración descarga listados de personas en ficheros.
 
 **Ficheros pre-generados:**
 
-DENA genera ficheos periódicamente (cada hora) que la admin puede descargar.
+DENA genera ficheros periódicamente (cada hora) que la admin puede descargar.
 
 ```
 POST /pre-generated
@@ -221,7 +221,7 @@ POST /pre-generated
 
 **Ficheros a medida (Bespoke):**
 
-La admin solicita un ficheo con criterios específicos y hace polling del estado.
+La admin solicita un fichero con criterios específicos y hace polling del estado.
 
 ```
 POST /bespokes
@@ -263,7 +263,7 @@ graph LR
 
 - `REGISTERED`: Job creado, pendiente de procesar
 - `BEING_PROCESSED`: Job en ejecución
-- `FINISHED_OK`: Job completado, ficheo disponible
+- `FINISHED_OK`: Job completado, fichero disponible
 - `FINISHED_NOK`: Job falló (reintentará)
 
 !!! tip "Recomendación"

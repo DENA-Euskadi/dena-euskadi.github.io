@@ -51,6 +51,7 @@ nav:
       - Configuración: arquitectura/configuracion.md
       - Modelo de Datos Base: arquitectura/tipos-dato-base.md
       - Diagramas: arquitectura/diagramas.md
+      - Arquitecturas de Referencia: arquitectura/arquitecturas-referencia.md
       - Otra Documentación: arquitectura/otra-documentacion.md
   - Seguridad y Autenticación:
       - Visión General: seguridad/index.md
@@ -99,7 +100,6 @@ nav:
           - Endpoint Pull (Fetch Pregen): semantica/person-sync/endpoints/pull/fetch-persons-pregen-export-asset.md
           - Modelo Export Spec: semantica/person-sync/modelo/pull/export-spec.md
           - Modelo Person Hashes: semantica/person-sync/modelo/push/person-hashes.md
-          - Documentación Arquitectura (ref.): semantica/person-sync/arquitectura-dena-completa.md
       - Semántica Base:
           - Visión General: semantica/semantica-base/index.md
           - HTTP Headers: semantica/semantica-base/http-headers.md
@@ -127,6 +127,8 @@ nav:
       - DevTools Web: devtools/index.md
       - Ejemplos de Código: ejemplos-codigo/index.md
       - Recursos Postman: adjuntos/index.md
+      - Documentos (PDF): adjuntos/documentos.md
+      - JSON Schema (Mensajes REST): adjuntos/json-schema.md
   - Ayuda y Referencia:
       - Preguntas Frecuentes: referencia/faq.md
       - Resolver Problemas: referencia/troubleshooting.md
@@ -195,6 +197,7 @@ plugins:
             Configuración: Configuration
             Modelo de Datos Base: Base Data Model
             Diagramas: Diagrams
+            Arquitecturas de Referencia: Reference Architectures
             Otra Documentación: Other Documentation
             Seguridad y Autenticación: Security & Authentication
             Modelo de Usuarios: User Model
@@ -228,6 +231,8 @@ plugins:
             DevTools Web: Web DevTools
             Ejemplos de Código: Code Examples
             Recursos Postman: Postman Resources
+            Documentos (PDF): Documents (PDF)
+            'JSON Schema (Mensajes REST)': 'JSON Schema (REST Messages)'
             Ayuda y Referencia: Help & Reference
             Preguntas Frecuentes: FAQ
             Resolver Problemas: Troubleshooting
@@ -245,6 +250,7 @@ plugins:
             Configuración: Konfigurazioa
             Modelo de Datos Base: Oinarrizko Datu Eredua
             Diagramas: Diagramak
+            Arquitecturas de Referencia: Erreferentziako Arkitekturak
             Otra Documentación: Bestelako dokumentazioa
             Seguridad y Autenticación: Segurtasuna eta Autentifikazioa
             Modelo de Usuarios: Erabiltzaile Eredua
@@ -278,6 +284,8 @@ plugins:
             DevTools Web: Web DevTools
             Ejemplos de Código: Kode Adibideak
             Recursos Postman: Postman Baliabideak
+            Documentos (PDF): Dokumentuak (PDF)
+            'JSON Schema (Mensajes REST)': 'JSON Schema (REST Mezuak)'
             Ayuda y Referencia: Laguntza eta Erreferentzia
             Preguntas Frecuentes: Ohiko Galderak
             Resolver Problemas: Arazoen Konponketa

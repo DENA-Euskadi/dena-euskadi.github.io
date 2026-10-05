@@ -4,7 +4,7 @@ DENA dokumentazioaren bertsio-historia.
 
 ---
 
-## v0.5.2 <small>— 2026-09-07</small> { #v052 }
+## v0.5.2 <small>— 2026-09-29</small> { #v052 }
 
 !!! success "Unekoa"
 
@@ -43,12 +43,37 @@ Egiaztapena:
 - :material-check-all: Kode iturburuko 92 estekak (`{% raw %}{{ repos.*_blob }}{% endraw %}`) mirror publikoen `PUBLIC-v0.4.16` tag-aren aurka egiaztatuta: guztiek zuzen ebazten dute
 - :material-check-all: Semantika, endpoint, metadata-sync eta person-sync orri guztietako JSON/Java adibideak eta taulak 0.4.16 benetako klaseen aurka eremuz eremu kontrastatuta
 - :material-bug: `endpoint-sync-metadata.md` (SRMD): eskaeraren `payload` items-en **array** zuzena da (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); `payload.items` bilgarria kenduta. Erantzuna: `code`/`errorId`/`details` erro-mailan eta `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` zuzenean (transactionOid/receivedItemsCount/processedOK/processedNOK), `processingInfo` bilgarririk gabe
-- :material-bug: Kode-adibideak RETRIEVE formatu errealera lerrokatuta (snippets-codigo 5 lengoaietan, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): eskaera murriztua (`context` `subjectPerson`/`dataType`/`administration`-ekin) eta erantzuna `code` erro-mailan eta `dataItems[].data`-rekin
-- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): eskaera konektoreak (Spring Boot 3) administraziora bidaltzen duen benetako formatura berridatzita — `context` `subjectPerson.id`, `dataType.id` eta `administration.id`-rekin — administraziora iristen ez den interop bilgarri osoaren (`message`/`protocol`/`payload`) ordez. Erantzuna ere zuzenduta (`DN00DataRetrieveResponseFromAdmin`): `dataItems`-eko elementu bakoitzak objektua `data` eremu batean biltzen du, `proposedScheduleItems` eta `itemsPagingContext`-ekin; `code` erro-mailan. Konektorearen pipeline-a egiaztatuta (`standard` transformatzaile semantikoa = passthrough)
+- :material-bug: Kode-adibideak RETRIEVE formatu errealera lerrokatuta (snippets-codigo 5 lengoaietan, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): eskaera `context`-ekin (`subjectPerson`/`dataType`/`destinationAdmin`) eta erantzuna `dataItems[].data`-rekin
+- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): eskaera konektoreak administraziora bidaltzen duen benetako formatura berridatzita — `context` `subjectPerson`, `dataType` eta `destinationAdmin`-ekin (`DN01ConnectorRequestSerializer`-en eta demo1 konektorearen aurka egiaztatuta, `local/develop`) — interop bilgarri osoaren ordez. Argituta DENAk **ez duela bidea ezartzen**: administrazioak konfiguratzen duen URLera bidaltzen du (oinarrizko konektoreak `/api/connector/retrieveData`-n erakusten du erreferentzia gisa). Erantzuna ere zuzenduta (`DN00DataRetrieveResponseFromAdmin`): `dataItems`-eko elementu bakoitzak objektua `data` eremu batean biltzen du, `proposedScheduleItems` eta `itemsPagingContext`-ekin
 
 Itzulpenak:
 
 - :material-translate: EN eta EU-ra itzuli dira ES-en soilik zeuden orriak (arquitectura-servicios, configuracion, tipos-dato-base, data-retrieve/index)
+
+HTTP goiburuen eta deien berrikuspena (traffic-flow-aren eta demo1 konektorearen aurka egiaztatuta, `local/develop`):
+
+- :material-bug: `http-headers`: digest-en deskribapena zuzenduta `DN01HashService`/`DN00InteropHeaders`-en aurka — `Content-Digest` = **body-aren soilik** SHA-256; `X-DENA-Data-Digest` = `X-DENA-This-TimeStamp + X-DENA-Message-Correlation-Id + body`-ren SHA-256; balioaren benetako formatua `SHA-256=:<base64>:`; timestamp-ak milisegundotan
+- :material-minus: `http-headers`: `If-Modified-Since` goiburua kenduta (dokumentatua baina kodean existitzen ez dena)
+- :material-plus: `http-headers`: traffic-flow-aren nahitaezko goiburuen oharra gehituta (HTTP 400 falta badira; HTTP 401 digest-a bat ez badator)
+- :material-refresh: Person-Sync: aurrez sortutako Pull endpoint orriak gehituta (mota eta orduaren arabera, eta OIDaren arabera); Push endpoint-a berridatzita (bide finkorik gabe: DENAk konfiguratutako URLera bidaltzen du) gertaeraka prozesatzeko gidarekin (`CREATED`/`UPDATED`/`ID_CHANGED`/`DELETED`, `DELETED`-en lotutako datuak ezabatzeko gomendioa barne) eta HTTP kodearen araberako erantzunarekin; bespoke deskarga-bidea zuzenduta (`.../bespokes/{jobOid}/asset`)
+- :material-bug: Endpoint-en bideak lerrokatuta: administrazioak inplementatzen dituen endpoint-ek (Data-Retrieve, Person Push) admin-ak konfiguratzen duen URLa erabiltzen dute (bideak adibide gisa); metadata-sync = `/api/admin/interop/sync/metadata`; existitzen ez diren bideak kenduta (`/api/person-push`, `/syncMetadata`, `/persons/export`) faq, matriz-compatibilidad eta metadata-sync diagrametan
+- :material-check-all: Kodearen aurka eremuz eremu egiaztatuta data-retrieve-ren 8 datu-motak eta beren egoera-enum-ak (record/notice/register/payment/directDebit, contactType, schedulePriority) eta SRMD eredua (`DN00SyncMetaDataFromAdminToCOREItem`, `DN00SyncMetaDataFromAdminCOREProcessingInfo`): lerrokatuta
+
+Eduki berria (dokumentuak eta erreferentziako arkitekturak):
+
+- :material-plus: **Tresnak → Dokumentuak (PDF)** atal berria (`adjuntos/documentos.md`) erreferentziako PDF deskargagarriekin (DENA-Architecture, DENA-CORE Services for Admins, DENA-CORE Services for Client App)
+- :material-plus: **Arkitektura → Erreferentziako Arkitekturak** orri berria (`arquitectura/arquitecturas-referencia.md`), administrazioen PDFaren integrazio-atalari leiala (Person Sync, SRMD bidalketa Apache NiFi + Kafka-rekin, eta data-retrieve DB view-ekin), dokumentutik ateratako diagrama ofizialarekin
+
+PDFtik ateratako eduki-hobekuntzak (0.4.16 kodearen aurka egiaztatuta):
+
+- :material-plus: `metadata-sync/index.md`: "Nola detektatu aldaketak zure administrazioan" atala gehituta (zer+noiz eredua, adibidezko DB taula eta SQL `COALESCE(LAST_UPDATED_AT, CREATED_AT)`-rekin)
+- :material-plus: `data-retrieve/data/campos-comunes.md`: `lastChangedAt`-en garrantzia indartuta (zergatik den kritikoa DENA-APPren UIko berri/eguneratu egoerarako)
+- :material-plus: `data-retrieve/guia-implementacion.md`: DENAren *HttpMessageConverter* pertsonalizatuari buruzko oharra gehituta model object-ak Spring-en marshalatzeko (`ModelObjectConverterBase` `DN01CoreBootstrapRESTBootstrapConfigBase`-n), PDFak TODO gisa uzten zuena
+
+Garbiketa eta akatsak:
+
+- :material-minus: `arquitectura-dena-completa.md` aldi baterako orria kenduta (ES/EN/EU) eta bere erreferentziak nav-ean eta Person-Sync-eko aurkibidean: bere edukia jada `arquitectura/index.md`-n dago bateratuta
+- :material-bug: «ficheo» → «fichero» akatsak zuzenduta (operativas/person-sync, arquitectura/index, arquitectura-servicios)
 
 ---
 

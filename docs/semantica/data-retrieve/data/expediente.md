@@ -155,7 +155,7 @@ Los siguientes objetos referencian al expediente mediante `procedureRecord`:
 
 - Notificación (`administrativeNotice`)
 - Registro Oficial (`administrativeOfficialRegisterRecord`)
-- Pago (`oneOffPayment`, `directDebitPayment`)
+- Pago (`payment`, `directDebitPayment`)
 
 > **Nota:** Las citas (`scheduleItem`) NO dependen de expedientes.
 

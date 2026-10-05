@@ -117,6 +117,23 @@ public class RetrieveDataController {
 }
 ```
 
+!!! note "Si usas los *model objects* de DENA en Java/Spring"
+
+    Los *model objects* de DENA (`DN00ScheduleItem`, etc.) usan una configuración de serialización propia (marshaller R01F), no el Jackson por defecto de Spring. Para que Spring pueda marshalar/desmarshalar esos objetos directamente (y así devolver `ResponseEntity<List<DN00ScheduleItem>>` en vez de un `String` con el JSON a mano), hay que registrar los **converters personalizados** de DENA en la configuración web.
+
+    En el ecosistema DENA esto lo hace `DN01CoreBootstrapRESTBootstrapConfigBase` sobreescribiendo `extendMessageConverters(...)` para añadir `ModelObjectConverterBase(marshaller)` (y, para servicios CORE, `COREServiceMethodExecResultConverter` y `CoreServiceExceptionConverter`):
+
+    ```java
+    @Override
+    public void extendMessageConverters(final List<HttpMessageConverter<?>> converters) {
+        converters.add(0, new ModelObjectConverterBase<>(_marshaller) { /* ... */ });
+        converters.add(1, new COREServiceMethodExecResultConverter(_marshaller));
+        converters.add(2, new CoreServiceExceptionConverter());
+    }
+    ```
+
+    Si no usas los artefactos de DENA, la alternativa sencilla es marshalar tú el JSON con el marshaller de DENA y devolver un `ResponseEntity<String>` (como en el ejemplo de arriba).
+
 ### Ejemplo en C# (.NET)
 
 ```csharp

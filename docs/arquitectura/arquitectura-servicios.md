@@ -315,7 +315,7 @@ public COREServiceMethodExecResult<DN00PreGeneratedFileResponse>
 }
 ```
 
-**Response:** Devuelve un stream de bytes con el ficheo pre-generado.
+**Response:** Devuelve un stream de bytes con el fichero pre-generado.
 
 #### Pull Off-line: Ficheros bespoke
 
@@ -395,7 +395,7 @@ public COREServiceMethodExecResult<DN00BespokeJobResponse>
 }
 ```
 
-**Método Java API - Descargar ficheo:**
+**Método Java API - Descargar fichero:**
 
 ```java
 public InputStream downloadBespokeAsset(SecurityContext securityContext,

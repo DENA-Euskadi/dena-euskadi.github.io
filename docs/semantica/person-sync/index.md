@@ -139,7 +139,6 @@ DENA notifica proactivamente a la administración cuando se produce un cambio:
 |--------|-------------|
 | [Export Spec](./modelo/pull/export-spec.md) | Especificación del formato de exportación |
 | [Person Hashes](./modelo/push/person-hashes.md) | Hashes de personas para el mecanismo Push |
-| [Documentación Arquitectura (ref.)](./arquitectura-dena-completa.md) | Documentación completa extraída de DENA-Architecture.docx |
 
 ---
 

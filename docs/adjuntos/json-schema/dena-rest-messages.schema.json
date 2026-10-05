@@ -1,0 +1,3313 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "title" : "DenaRESTMessages",
+  "type" : "object",
+  "properties" : {
+    "DN00SyncMetaDataFromAdminRequestMessage" : {
+      "$ref" : "#/$defs/DN00SyncMetaDataFromAdminRequestMessage"
+    },
+    "DN00SyncMetaDataFromAdminResponseMessage" : {
+      "$ref" : "#/$defs/DN00SyncMetaDataFromAdminResponseMessage"
+    },
+    "DN00PersonInteropSearchRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropSearchRequestMessage"
+    },
+    "DN00PersonInteropSearchResponseMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropSearchResponseMessage"
+    },
+    "DN00PersonFetchInteropRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonFetchInteropRequestMessage"
+    },
+    "DN00PersonFetchInteropResponseMessage" : {
+      "$ref" : "#/$defs/DN00PersonFetchInteropResponseMessage"
+    },
+    "DN00PersonHeadInteropRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonHeadInteropRequestMessage"
+    },
+    "DN00PersonHeadInteropResponseMessage" : {
+      "$ref" : "#/$defs/DN00PersonHeadInteropResponseMessage"
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobCreateRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminBespokeJobCreateRequestMessage"
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobCreateResponseMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminBespokeJobCreateResponseMessage"
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobGetRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminBespokeJobGetRequestMessage"
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobGetResponseMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminBespokeJobGetResponseMessage"
+    },
+    "DN00PersonInteropPullFromAdminBespokeExportAssetFetchRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminBespokeExportAssetFetchRequestMessage"
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminPreGenJobGetRequestMessage"
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetResponseMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminPreGenJobGetResponseMessage"
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetRequestByOidMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminPreGenJobGetRequestByOidMessage"
+    },
+    "DN00PersonInteropPullFromAdminPreGenExportAssetFetchRequestMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPullFromAdminPreGenExportAssetFetchRequestMessage"
+    },
+    "DN00PersonInteropPushToAdminNotificationMessage" : {
+      "$ref" : "#/$defs/DN00PersonInteropPushToAdminNotificationMessage"
+    },
+    "DN00COREToConnectorDataRetrieveRequestMessage" : {
+      "$ref" : "#/$defs/DN00COREToConnectorDataRetrieveRequestMessage"
+    },
+    "DN00COREToConnectorDataRetrieveResponseMessage" : {
+      "$ref" : "#/$defs/DN00COREToConnectorDataRetrieveResponseMessage"
+    }
+  },
+  "$defs" : {
+    "BooleanQueryClause" : {
+      "type" : "object",
+      "properties" : {
+        "clauses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/QualifiedQueryClause_QueryClause_"
+          }
+        }
+      }
+    },
+    "BoundType" : {
+      "type" : "string",
+      "enum" : [ "OPEN", "CLOSED" ]
+    },
+    "Class_DN00Person_" : {
+      "type" : "object",
+      "properties" : {
+        "componentType" : {
+          "$ref" : "#/$defs/Class_Object_"
+        }
+      }
+    },
+    "Class_Object_" : {
+      "type" : "object",
+      "properties" : {
+        "componentType" : {
+          "$ref" : "#/$defs/Class_Object_"
+        }
+      }
+    },
+    "CollectionItemID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ContactEMail" : {
+      "type" : "object",
+      "properties" : {
+        "addr" : {
+          "$ref" : "#/$defs/EMail"
+        },
+        "default" : {
+          "type" : "boolean"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "usage" : {
+          "$ref" : "#/$defs/ContactInfoUsage"
+        },
+        "usageDetails" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ContactInfo" : {
+      "type" : "object",
+      "properties" : {
+        "emailChannels" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ContactEMail"
+          }
+        },
+        "geoPosition" : {
+          "$ref" : "#/$defs/GeoPosition"
+        },
+        "id" : {
+          "$ref" : "#/$defs/ContactInfoID"
+        },
+        "phoneChannels" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ContactPhone"
+          }
+        },
+        "preferredLanguage" : {
+          "$ref" : "#/$defs/Language"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "socialNetworkChannels" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ContactSocialNetwork"
+          }
+        },
+        "webSiteChannels" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/ContactWeb"
+          }
+        }
+      }
+    },
+    "ContactInfoID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ContactInfoUsage" : {
+      "type" : "string",
+      "enum" : [ "ANY", "WORK", "PERSONAL", "COMPANY", "OTHER" ]
+    },
+    "ContactPhone" : {
+      "type" : "object",
+      "properties" : {
+        "availability" : {
+          "type" : "string"
+        },
+        "default" : {
+          "type" : "boolean"
+        },
+        "extension" : {
+          "$ref" : "#/$defs/PhoneExtension"
+        },
+        "number" : {
+          "$ref" : "#/$defs/Phone"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "type" : {
+          "$ref" : "#/$defs/ContactPhoneType"
+        },
+        "usage" : {
+          "$ref" : "#/$defs/ContactInfoUsage"
+        },
+        "usageDetails" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ContactPhoneType" : {
+      "type" : "string",
+      "enum" : [ "FAX", "MOBILE", "NORMAL" ]
+    },
+    "ContactSocialNetwork" : {
+      "type" : "object",
+      "properties" : {
+        "default" : {
+          "type" : "boolean"
+        },
+        "lang" : {
+          "$ref" : "#/$defs/Language"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "profileUrl" : {
+          "$ref" : "#/$defs/Url"
+        },
+        "type" : {
+          "$ref" : "#/$defs/ContactSocialNetworkType"
+        },
+        "usage" : {
+          "$ref" : "#/$defs/ContactInfoUsage"
+        },
+        "usageDetails" : {
+          "type" : "string"
+        },
+        "user" : {
+          "$ref" : "#/$defs/LoginID"
+        }
+      }
+    },
+    "ContactSocialNetworkType" : {
+      "type" : "string",
+      "enum" : [ "TWITTER", "FACEBOOK", "LINKEDIN", "YOUTUBE", "VIMEO", "GOOGLE", "WHATSAPP", "TELEGRAM", "LINE", "SKYPE", "FLICKR", "PINTEREST", "INSTAGRAM", "SNAPCHAT" ]
+    },
+    "ContactWeb" : {
+      "type" : "object",
+      "properties" : {
+        "default" : {
+          "type" : "boolean"
+        },
+        "lang" : {
+          "$ref" : "#/$defs/Language"
+        },
+        "private" : {
+          "type" : "boolean"
+        },
+        "url" : {
+          "$ref" : "#/$defs/Url"
+        },
+        "usage" : {
+          "$ref" : "#/$defs/ContactInfoUsage"
+        },
+        "usageDetails" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Currency" : {
+      "type" : "object",
+      "properties" : {
+        "currencyCode" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00Account" : {
+      "type" : "object",
+      "properties" : {
+        "accountId" : {
+          "$ref" : "#/$defs/DN00AccountID"
+        },
+        "idType" : {
+          "$ref" : "#/$defs/DN00IdType"
+        }
+      }
+    },
+    "DN00AccountID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00Address" : {
+      "type" : "object",
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "addressDescription" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "countryDesc" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "countryNoraCode" : {
+          "$ref" : "#/$defs/DN00PersonDataCountryID"
+        },
+        "localityDesc" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "localityNoraCode" : {
+          "$ref" : "#/$defs/DN00PersonDataLocalityID"
+        },
+        "municipalityDesc" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "municipalityNoraCode" : {
+          "$ref" : "#/$defs/DN00PersonDataMunicipalityID"
+        },
+        "postalCode" : {
+          "type" : "string"
+        },
+        "provinceDesc" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "provinceNoraCode" : {
+          "$ref" : "#/$defs/DN00PersonDataProvinceID"
+        }
+      }
+    },
+    "DN00AddressCollection" : {
+      "type" : "object",
+      "properties" : {
+        "addresses" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00Address"
+          }
+        }
+      }
+    },
+    "DN00Addresses" : {
+      "type" : "object",
+      "properties" : {
+        "mainAddress" : {
+          "$ref" : "#/$defs/DN00Address"
+        },
+        "otherAddresses" : {
+          "$ref" : "#/$defs/DN00AddressCollection"
+        }
+      }
+    },
+    "DN00AdministrativeNotice" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "actSubjectByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00AdministrativeNoticeID"
+        },
+        "issuedAt" : {
+          "type" : "string"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00AdministrativeNoticeOID"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "procedureRecord" : {
+          "$ref" : "#/$defs/DN00AdmistrativeServiceProcedureRecord"
+        },
+        "readedAt" : {
+          "type" : "string"
+        },
+        "state" : {
+          "$ref" : "#/$defs/DN00AdministrativeNoticeStateCode"
+        },
+        "typeNotice" : {
+          "$ref" : "#/$defs/DN00AdministrativeNoticeType"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "administrativeNotice"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00AdministrativeNoticeID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeNoticeOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeNoticeStateCode" : {
+      "type" : "string",
+      "enum" : [ "PENDING_TO_BE_READED_BY_DESTINATION", "ACKNOWLEDGED_BY_DESTINATION", "REJECTED_BY_DESTINATION", "EXPIRED", "CANCELLED_BY_ISSUER", "DELETED_BY_ISSUER" ]
+    },
+    "DN00AdministrativeNoticeType" : {
+      "type" : "string",
+      "enum" : [ "OFFICIAL_NOTICE", "COMMUNICATION" ]
+    },
+    "DN00AdministrativeOfficialRegisterRecord" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00AdministrativeOfficialRegisterRecordID"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00AdministrativeOfficialRegisterRecordOID"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "procedureRecord" : {
+          "$ref" : "#/$defs/DN00AdmistrativeServiceProcedureRecord"
+        },
+        "registeredAt" : {
+          "type" : "string"
+        },
+        "state" : {
+          "$ref" : "#/$defs/DN00AdministrativeOfficialRegisterRecordState"
+        },
+        "subjectByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "administrativeOfficialRegisterRecord"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00AdministrativeOfficialRegisterRecordID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeOfficialRegisterRecordOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeOfficialRegisterRecordState" : {
+      "type" : "object",
+      "properties" : {
+        "description" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "stateCode" : {
+          "$ref" : "#/$defs/DN00AdministrativeOfficialRegisterRecordStateCode"
+        }
+      }
+    },
+    "DN00AdministrativeOfficialRegisterRecordStateCode" : {
+      "type" : "string",
+      "enum" : [ "PRESENTED", "RECEIVED_FROM_OTHER_ORG_UNIT", "TRANSFERRED_FROM_OTHER_ORG_UNIT" ]
+    },
+    "DN00AdministrativeServiceID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceInterested" : {
+      "type" : "object",
+      "properties" : {
+        "partyId" : {
+          "type" : "string"
+        },
+        "partyName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedure" : {
+      "type" : "object",
+      "properties" : {
+        "DENARef" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureReference"
+        },
+        "SIARef" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureReference"
+        },
+        "originRef" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureReference"
+        },
+        "participatingOrgUnits" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00OrgUnitReferenceWithRole"
+          }
+        },
+        "serviceNameByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "serviceUrls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedureID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedureOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedureRecordID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedureRecordOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedureRecordState" : {
+      "type" : "object",
+      "properties" : {
+        "description" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "stateCode" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureRecordStateCode"
+        }
+      }
+    },
+    "DN00AdministrativeServiceProcedureRecordStateCode" : {
+      "type" : "string",
+      "enum" : [ "REGISTERED_PENDING_TO_BE_OPENED", "OPENED", "IN_PROGRESS", "WAITING_FOR_INTERESTED_PARTY_RESPONSE", "WAITING_FOR_OTHER_ORG_WORK", "CLOSED" ]
+    },
+    "DN00AdministrativeServiceProcedureReference" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureOID"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        }
+      }
+    },
+    "DN00AdministrativeServiceReference" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceOID"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        }
+      }
+    },
+    "DN00AdmistrativeService" : {
+      "type" : "object",
+      "properties" : {
+        "DENARef" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceReference"
+        },
+        "SIARef" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceReference"
+        },
+        "originRef" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceReference"
+        },
+        "participatingOrgUnits" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00OrgUnitReferenceWithRole"
+          }
+        },
+        "serviceNameByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "serviceUrls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        }
+      }
+    },
+    "DN00AdmistrativeServiceProcedureRecord" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "applicationDate" : {
+          "type" : "string"
+        },
+        "createdAt" : {
+          "type" : "string"
+        },
+        "descriptionByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureRecordID"
+        },
+        "interested" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceInterested"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "lastUpdatedAt" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureRecordOID"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "procedure" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedure"
+        },
+        "regNumber" : {
+          "type" : "string"
+        },
+        "service" : {
+          "$ref" : "#/$defs/DN00AdmistrativeService"
+        },
+        "state" : {
+          "$ref" : "#/$defs/DN00AdministrativeServiceProcedureRecordState"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "administrativeServiceProcedureRecord"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00BankData" : {
+      "type" : "object",
+      "properties" : {
+        "account" : {
+          "$ref" : "#/$defs/DN00Account"
+        },
+        "entity" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00BankDataCollection" : {
+      "type" : "object",
+      "properties" : {
+        "bankData" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00BankData"
+          }
+        }
+      }
+    },
+    "DN00COREToConnectorDataRetrieveRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00DataRetrieveRequestFromCOREToConnectorInternalSide"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00COREToConnectorDataRetrieveResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00DataRetrieveResponseFromAdmin_DN00IsDENADataExchangedObject_"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00ClientInstallmentOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ConsentOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ContactData" : {
+      "type" : "object",
+      "properties" : {
+        "birthDate" : {
+          "type" : "string"
+        },
+        "contactLanguage" : {
+          "$ref" : "#/$defs/Language"
+        },
+        "contactMode" : {
+          "$ref" : "#/$defs/DN00ContactType"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "partyId" : {
+          "$ref" : "#/$defs/DN00PartyID"
+        },
+        "partyName" : {
+          "type" : "string"
+        },
+        "partySurName" : {
+          "type" : "string"
+        },
+        "phone" : {
+          "$ref" : "#/$defs/ContactPhone"
+        },
+        "phone2" : {
+          "$ref" : "#/$defs/ContactPhone"
+        }
+      }
+    },
+    "DN00ContactType" : {
+      "type" : "string",
+      "enum" : [ "POSTAL", "ELECTRONIC" ]
+    },
+    "DN00DIR3OrgID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DataExportFileFormat" : {
+      "type" : "string",
+      "enum" : [ "SQLITE", "CSV", "ZIP_OF_JSON", "PARQUET" ]
+    },
+    "DN00DataOriginConfigForDataTypeInAdmin" : {
+      "type" : "object",
+      "properties" : {
+        "dataOrigin" : {
+          "$ref" : "#/$defs/DN00DataOriginRef"
+        },
+        "dataOriginInstanceId" : {
+          "$ref" : "#/$defs/DN00DataOriginInstanceID"
+        },
+        "dataType" : {
+          "$ref" : "#/$defs/DN00DataTypeRef"
+        },
+        "internalSideConnectorConfig" : {
+          "$ref" : "#/$defs/DN00DataOriginConnectorConfigForInternalSide"
+        },
+        "orgAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "remotePartyConnectorConfig" : {
+          "$ref" : "#/$defs/DN00DataOriginConnectorConfigForRemoteParty"
+        }
+      }
+    },
+    "DN00DataOriginConnectorConfigForInternalSide" : {
+      "type" : "object",
+      "properties" : {
+        "conectionTimeOut" : {
+          "$ref" : "#/$defs/TimeLapse"
+        },
+        "internalUrl" : {
+          "$ref" : "#/$defs/Url"
+        },
+        "requestTimeOut" : {
+          "$ref" : "#/$defs/TimeLapse"
+        }
+      }
+    },
+    "DN00DataOriginConnectorConfigForRemoteParty" : {
+      "type" : "object",
+      "properties" : {
+        "securityConfig" : {
+          "$ref" : "#/$defs/DN00IsDENASecurityConfig"
+        },
+        "semanticsConfig" : {
+          "$ref" : "#/$defs/DN00IsDataOriginSemanticConfig"
+        },
+        "transportConfig" : {
+          "$ref" : "#/$defs/DN00IsDataOriginTransportConfig"
+        }
+      }
+    },
+    "DN00DataOriginID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DataOriginInstanceID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DataOriginOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DataOriginRef" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00DataOriginID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00DataOriginOID"
+        }
+      }
+    },
+    "DN00DataRetrieveFromAdminProposedScheduleItems" : {
+      "type" : "object",
+      "properties" : {
+        "dayOfMonth" : {
+          "$ref" : "#/$defs/DayOfMonth"
+        },
+        "displayNameByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "durationInMinutes" : {
+          "type" : "integer"
+        },
+        "hourOfDay" : {
+          "$ref" : "#/$defs/HourOfDay"
+        },
+        "minuteOfHour" : {
+          "$ref" : "#/$defs/MinuteOfHour"
+        },
+        "monthOfYear" : {
+          "$ref" : "#/$defs/MonthOfYear"
+        },
+        "recurrence" : {
+          "$ref" : "#/$defs/IsRecurrence"
+        },
+        "type" : {
+          "$ref" : "#/$defs/DN00ScheduleItemType"
+        },
+        "year" : {
+          "$ref" : "#/$defs/Year"
+        }
+      }
+    },
+    "DN00DataRetrieveRequest" : {
+      "type" : "object",
+      "properties" : {
+        "admin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "clientInstallment" : {
+          "$ref" : "#/$defs/DN00ClientInstallmentOID"
+        },
+        "dataOriginInstanceId" : {
+          "$ref" : "#/$defs/DN00DataOriginInstanceID"
+        },
+        "dataType" : {
+          "$ref" : "#/$defs/DN00DataTypeRef"
+        },
+        "page" : {
+          "$ref" : "#/$defs/DN00ResultPage"
+        },
+        "person" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        }
+      }
+    },
+    "DN00DataRetrieveRequestFromCOREToConnectorInternalSide" : {
+      "type" : "object",
+      "properties" : {
+        "dataOriginConfigForDataTypeInAdmin" : {
+          "$ref" : "#/$defs/DN00DataOriginConfigForDataTypeInAdmin"
+        },
+        "dataRetrieveRequest" : {
+          "$ref" : "#/$defs/DN00DataRetrieveRequest"
+        }
+      }
+    },
+    "DN00DataRetrieveResponseFromAdmin_DN00IsDENADataExchangedObject_" : {
+      "type" : "object",
+      "properties" : {
+        "dataItems" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00DataRetrievedFromAdmin_DN00IsDENADataExchangedObject_"
+          }
+        },
+        "itemsPagingContext" : {
+          "$ref" : "#/$defs/DN00DataRetrievedFromAdminItemsPagingContext"
+        }
+      }
+    },
+    "DN00DataRetrievedFromAdminItemsPagingContext" : {
+      "type" : "object",
+      "properties" : {
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "totalItemsCount" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "DN00DataRetrievedFromAdmin_DN00IsDENADataExchangedObject_" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "anyOf" : [ {
+            "$ref" : "#/$defs/DN00PersonData"
+          }, {
+            "$ref" : "#/$defs/DN00ScheduleItem"
+          }, {
+            "$ref" : "#/$defs/DN00AdmistrativeServiceProcedureRecord"
+          }, {
+            "$ref" : "#/$defs/DN00AdministrativeNotice"
+          }, {
+            "$ref" : "#/$defs/DN00AdministrativeOfficialRegisterRecord"
+          }, {
+            "$ref" : "#/$defs/DN00OneOffPayment"
+          }, {
+            "$ref" : "#/$defs/DN00DirectDebitPayment"
+          } ]
+        },
+        "proposedScheduleItems" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00DataRetrieveFromAdminProposedScheduleItems"
+          }
+        }
+      }
+    },
+    "DN00DataTypeID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DataTypeOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DataTypeRef" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00DataTypeID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00DataTypeOID"
+        }
+      }
+    },
+    "DN00DirectDebitData" : {
+      "type" : "object",
+      "properties" : {
+        "expiresAt" : {
+          "type" : "string"
+        },
+        "frequency" : {
+          "$ref" : "#/$defs/TimeFrequency"
+        },
+        "medium" : {
+          "$ref" : "#/$defs/DN00PaymentMedium"
+        },
+        "mediumHint" : {
+          "$ref" : "#/$defs/DN00PaymentMediumHint"
+        },
+        "startDate" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DirectDebitPayment" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "directDebitData" : {
+          "$ref" : "#/$defs/DN00DirectDebitData"
+        },
+        "history" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00DirectDebitPaymentHistoryItem"
+          }
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00PaymentID"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "nextChargeAmountInEuro" : {
+          "type" : "number"
+        },
+        "nextChargeAt" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PaymentOID"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "participatingOrgUnits" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00OrgUnitReferenceWithRole"
+          }
+        },
+        "paymentStatus" : {
+          "$ref" : "#/$defs/DN00DirectDebitStatus"
+        },
+        "paymentSubjectByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "paymentType" : {
+          "$ref" : "#/$defs/DN00PaymentType"
+        },
+        "procedureRecord" : {
+          "$ref" : "#/$defs/DN00AdmistrativeServiceProcedureRecord"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "directDebitPayment"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00DirectDebitPaymentHistoryItem" : {
+      "type" : "object",
+      "properties" : {
+        "amountInEuro" : {
+          "type" : "number"
+        },
+        "at" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00DirectDebitStatus" : {
+      "type" : "string",
+      "enum" : [ "ACTIVE", "CANCELED", "EXPIRED" ]
+    },
+    "DN00IdType" : {
+      "type" : "string",
+      "enum" : [ "IBAN", "CUSTOM" ]
+    },
+    "DN00InteropComponent" : {
+      "type" : "string",
+      "enum" : [ "CLIENT_INSTALLMENT", "DENA_CORE", "DENA_ADMIN_CONNECTOR", "ADMIN", "DENA_INTEROP_CLIENT_ORCHESTRATOR" ]
+    },
+    "DN00InteropContext" : {
+      "type" : "object",
+      "properties" : {
+        "dataType" : {
+          "$ref" : "#/$defs/DN00DataTypeRef"
+        },
+        "destinationAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "message" : {
+          "$ref" : "#/$defs/DN00InteropMessageData"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "originClientInstallment" : {
+          "$ref" : "#/$defs/DN00ClientInstallmentOID"
+        },
+        "subjectPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "userAgent" : {
+          "$ref" : "#/$defs/JsonString"
+        }
+      }
+    },
+    "DN00InteropMessageData" : {
+      "type" : "object",
+      "properties" : {
+        "correlationId" : {
+          "$ref" : "#/$defs/DN00MessageCorrelationOID"
+        },
+        "interopRouteData" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00IteropRouteDataItem"
+          }
+        },
+        "type" : {
+          "$ref" : "#/$defs/DN00InteropMessageType"
+        }
+      }
+    },
+    "DN00InteropMessageType" : {
+      "type" : "string",
+      "enum" : [ "CLIENT_LOGIN_DEMO", "CLIENT_LOGIN", "CLIENT_PASSKEY_CLEAN_CREDENTIALS", "CLIENT_PASSKEY_LOGIN_INIT", "CLIENT_PASSKEY_LOGIN_FINISH", "CLIENT_PASSKEY_REGISTER_INIT", "CLIENT_PASSKEY_REGISTER_FINISH", "CLIENT_INIT_REQ", "CLIENT_INIT_RESP", "CLIENT_SRMD_SYNC_REQ", "CLIENT_SRMD_SYNC_RESP", "ADMIN_SRMD_SYNC_REQ", "ADMIN_SRMD_SYNC_RESP", "CLIENT_RETRIEVE_REQ", "CLIENT_RETRIEVE_RESP", "CLIENT_USER_DELETE", "CLIENT_USER_DELETE_BY_ID", "ADMIN_PERSON_PULL_BESPOKE_CREATE_REQ", "ADMIN_PERSON_PULL_BESPOKE_FETCH", "ADMIN_PERSON_BESPOKE_EXPORT_ASSET_FETCH", "ADMIN_PERSON_PREGEN_EXPORT_ASSET_FETCH", "PERSON_ADMIN_SEARCH", "PERSON_FETCH_DATA", "PERSON_ADMIN_HEAD" ]
+    },
+    "DN00InteropProtocol" : {
+      "type" : "object",
+      "properties" : {
+        "timeOut" : {
+          "$ref" : "#/$defs/TimeLapse"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlTemplateCollectionItem"
+          }
+        }
+      }
+    },
+    "DN00InteropResponseStatus" : {
+      "type" : "string",
+      "enum" : [ "OK", "CLIENT_ERR", "SERVER_ERR", "QUEUED" ]
+    },
+    "DN00InteropResponseStatusCode" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00InteropResponseStatusDetails" : {
+      "type" : "object",
+      "properties" : {
+        "details" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00IsDENASecurityConfig" : {
+      "type" : "object"
+    },
+    "DN00IsDataOriginSemanticConfig" : {
+      "type" : "object"
+    },
+    "DN00IsDataOriginTransportConfig" : {
+      "type" : "object"
+    },
+    "DN00IsOneOffPaymentSchema" : {
+      "type" : "object"
+    },
+    "DN00IsPersonExportSpec" : {
+      "type" : "object"
+    },
+    "DN00IteropRouteDataItem" : {
+      "type" : "object",
+      "properties" : {
+        "denaComponentId" : {
+          "$ref" : "#/$defs/DN00InteropComponent"
+        },
+        "timestamp" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00MessageCorrelationOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00OneOffPayment" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "amount" : {
+          "$ref" : "#/$defs/Money"
+        },
+        "amountIfSurcharged" : {
+          "$ref" : "#/$defs/Money"
+        },
+        "data" : {
+          "$ref" : "#/$defs/DN00OneOffPaymentData"
+        },
+        "format" : {
+          "$ref" : "#/$defs/DN00OneOffPaymentSchemaFormat"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00PaymentID"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PaymentOID"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "participatingOrgUnits" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00OrgUnitReferenceWithRole"
+          }
+        },
+        "paymentDates" : {
+          "$ref" : "#/$defs/DN00PaymentDates"
+        },
+        "paymentSubjectByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "paymentType" : {
+          "$ref" : "#/$defs/DN00PaymentType"
+        },
+        "procedureRecord" : {
+          "$ref" : "#/$defs/DN00AdmistrativeServiceProcedureRecord"
+        },
+        "schema" : {
+          "$ref" : "#/$defs/DN00IsOneOffPaymentSchema"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "payment"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00OneOffPaymentData" : {
+      "type" : "object",
+      "properties" : {
+        "at" : {
+          "type" : "string"
+        },
+        "device" : {
+          "$ref" : "#/$defs/DN00PaymentDevice"
+        },
+        "forStatus" : {
+          "$ref" : "#/$defs/DN00PaymentStateCode"
+        },
+        "medium" : {
+          "$ref" : "#/$defs/DN00PaymentMedium"
+        },
+        "messageByLang" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "paymentProcessorId" : {
+          "$ref" : "#/$defs/DN00PaymentProcessorID"
+        },
+        "paymentProcessorTransactionId" : {
+          "$ref" : "#/$defs/DN00PaymentTransactionID"
+        }
+      }
+    },
+    "DN00OneOffPaymentSchemaFormat" : {
+      "type" : "string",
+      "enum" : [ "F_501", "F_502", "F_503", "F_508", "F_521", "F_522", "F_523", "F_507", "F_514", "F_515", "F_524", "F_525", "F_528", "F_529" ]
+    },
+    "DN00OrgAdminID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00OrgAdminOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00OrgAdminRef" : {
+      "type" : "object",
+      "properties" : {
+        "dir3Id" : {
+          "$ref" : "#/$defs/DN00DIR3OrgID"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00OrgAdminID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00OrgAdminOID"
+        }
+      }
+    },
+    "DN00OrgUnitID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00OrgUnitOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00OrgUnitReference" : {
+      "type" : "object",
+      "properties" : {
+        "dir3Id" : {
+          "$ref" : "#/$defs/DN00DIR3OrgID"
+        },
+        "displayNameByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00OrgUnitID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00OrgUnitOID"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        }
+      }
+    },
+    "DN00OrgUnitReferenceWithRole" : {
+      "type" : "object",
+      "properties" : {
+        "orgUnit" : {
+          "$ref" : "#/$defs/DN00OrgUnitReference"
+        },
+        "role" : {
+          "$ref" : "#/$defs/DN00OrgUnitRole"
+        }
+      }
+    },
+    "DN00OrgUnitRole" : {
+      "type" : "string",
+      "enum" : [ "RESPONSIBLE", "MANAGING", "INFORMER", "SOLVER", "OTHER" ]
+    },
+    "DN00PartyID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentDates" : {
+      "type" : "object",
+      "properties" : {
+        "dueDate" : {
+          "type" : "string"
+        },
+        "issuedAt" : {
+          "type" : "string"
+        },
+        "paidAt" : {
+          "type" : "string"
+        },
+        "surchargedAt" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentDevice" : {
+      "type" : "string",
+      "enum" : [ "WEB_BROWSER", "MOBILE_APP", "IN_PERSON_FINANCIAL_ENTITY", "IN_PERSON_OTHER", "ATM" ]
+    },
+    "DN00PaymentID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentMedium" : {
+      "type" : "string",
+      "enum" : [ "PAYMENT_CARD", "ACCOUNT_TRANSFER", "BIZUM", "CASH", "DIRECT_DEBIT" ]
+    },
+    "DN00PaymentMediumHint" : {
+      "type" : "object",
+      "properties" : {
+        "hint" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentProcessorID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentStateCode" : {
+      "type" : "string",
+      "enum" : [ "COMPLETED", "PENDING", "REJECTED_BY_PAYMENT_PROCESSOR", "CANCELLED_BY_ISSUER", "ERROR_WHEN_PROCESSING_PAYMENT" ]
+    },
+    "DN00PaymentTransactionID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PaymentType" : {
+      "type" : "string",
+      "enum" : [ "ONE_OFF_PAYMENT", "DIRECT_DEBIT" ]
+    },
+    "DN00Person" : {
+      "type" : "object",
+      "properties" : {
+        "contactInfo" : {
+          "$ref" : "#/$defs/ContactInfo"
+        },
+        "entityVersion" : {
+          "type" : "integer"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00PersonID"
+        },
+        "lastChangeEvent" : {
+          "$ref" : "#/$defs/DN00PersonChangeEvent"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "numericId" : {
+          "type" : "integer"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PersonOID"
+        },
+        "surname1" : {
+          "type" : "string"
+        },
+        "surname2" : {
+          "type" : "string"
+        },
+        "trackingInfo" : {
+          "$ref" : "#/$defs/ModelObjectTracking"
+        }
+      }
+    },
+    "DN00PersonChangeEvent" : {
+      "type" : "string",
+      "enum" : [ "CREATED", "DELETED", "UPDATED", "ID_CHANGED" ]
+    },
+    "DN00PersonData" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "addresses" : {
+          "$ref" : "#/$defs/DN00Addresses"
+        },
+        "bankDataCollection" : {
+          "$ref" : "#/$defs/DN00BankDataCollection"
+        },
+        "contactData" : {
+          "$ref" : "#/$defs/DN00ContactData"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00PersonDataID"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PersonDataOID"
+        },
+        "orgUnit" : {
+          "$ref" : "#/$defs/DN00OrgUnitReference"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "personData"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00PersonDataCountryID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonDataID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonDataLocalityID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonDataMunicipalityID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonDataOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonDataProvinceID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonExportType" : {
+      "type" : "string",
+      "enum" : [ "DATA", "SYNC" ]
+    },
+    "DN00PersonFetchInteropRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonFetchInteropResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00Person"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonHashes" : {
+      "type" : "object",
+      "properties" : {
+        "fullNameHash" : {
+          "$ref" : "#/$defs/Hash"
+        },
+        "nameHash" : {
+          "$ref" : "#/$defs/Hash"
+        },
+        "surname1Hash" : {
+          "$ref" : "#/$defs/Hash"
+        },
+        "surname2Hash" : {
+          "$ref" : "#/$defs/Hash"
+        }
+      }
+    },
+    "DN00PersonHeadInteropRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonHeadInteropResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "type" : "boolean"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminBespokeExportAssetFetchRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminBespokeJobOID"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobCreateRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonInteropPullFromAdminBespokeJobCreateRequestPayload"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobCreateRequestPayload" : {
+      "type" : "object",
+      "properties" : {
+        "exportSpec" : {
+          "$ref" : "#/$defs/DN00IsPersonExportSpec"
+        },
+        "orgAdminRef" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobCreateResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminBespokeJob"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobGetRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminBespokeJobOID"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminBespokeJobGetResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminBespokeJob"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminPreGenExportAssetFetchRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonInteropPullFromAdminPreGenExportAssetFetchRequestPayload"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminPreGenExportAssetFetchRequestPayload" : {
+      "type" : "object",
+      "properties" : {
+        "exportType" : {
+          "$ref" : "#/$defs/DN00PersonExportType"
+        },
+        "fileFormat" : {
+          "$ref" : "#/$defs/DN00DataExportFileFormat"
+        },
+        "hourOfDay" : {
+          "$ref" : "#/$defs/HourOfDay"
+        },
+        "jobType" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminPreGenJobType"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetRequestByOidMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminPreGenJobOID"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonInteropPullFromAdminPreGenJobGetRequestPayload"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetRequestPayload" : {
+      "type" : "object",
+      "properties" : {
+        "exportType" : {
+          "$ref" : "#/$defs/DN00PersonExportType"
+        },
+        "fileFormat" : {
+          "$ref" : "#/$defs/DN00DataExportFileFormat"
+        },
+        "hourOfDay" : {
+          "$ref" : "#/$defs/HourOfDay"
+        },
+        "jobType" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminPreGenJobType"
+        }
+      }
+    },
+    "DN00PersonInteropPullFromAdminPreGenJobGetResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminPreGenJob"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropPushToAdminNotificationMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonSyncPushToAdminNotification"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropSearchRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00PersonInteropSearchRequestPayload"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonInteropSearchRequestPayload" : {
+      "type" : "object",
+      "properties" : {
+        "filter" : {
+          "$ref" : "#/$defs/DN00SearchFilterForPerson"
+        },
+        "paginationRequest" : {
+          "$ref" : "#/$defs/PaginationRequest"
+        }
+      }
+    },
+    "DN00PersonInteropSearchResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/SearchResults_DN00SearchFilterForPerson.DN00SearchResultItemForPerson_"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00PersonOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonRef" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00PersonID"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PersonOID"
+        }
+      }
+    },
+    "DN00PersonSyncData" : {
+      "type" : "object",
+      "properties" : {
+        "createDate" : {
+          "type" : "string"
+        },
+        "lastUpdateDate" : {
+          "type" : "string"
+        },
+        "personHashes" : {
+          "$ref" : "#/$defs/DN00PersonHashes"
+        },
+        "personRef" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "syncEvent" : {
+          "$ref" : "#/$defs/DN00PersonChangeEvent"
+        }
+      }
+    },
+    "DN00PersonSyncPullFromAdminAsset" : {
+      "type" : "object",
+      "properties" : {
+        "exportContentSpec" : {
+          "$ref" : "#/$defs/DN00IsPersonExportSpec"
+        },
+        "fileStoreItemOid" : {
+          "$ref" : "#/$defs/DN00S3FileStoreItemOID"
+        },
+        "sizeBytes" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "DN00PersonSyncPullFromAdminBespokeJob" : {
+      "type" : "object",
+      "properties" : {
+        "admin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "details" : {
+          "type" : "string"
+        },
+        "entityVersion" : {
+          "type" : "integer"
+        },
+        "exportResultAssets" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00PersonSyncPullFromAdminAsset"
+          }
+        },
+        "exportSpec" : {
+          "$ref" : "#/$defs/DN00IsPersonExportSpec"
+        },
+        "finishedAt" : {
+          "type" : "string"
+        },
+        "lastDeliveredToAdminAt" : {
+          "type" : "string"
+        },
+        "numericId" : {
+          "type" : "integer"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminBespokeJobOID"
+        },
+        "processingAttempts" : {
+          "type" : "integer"
+        },
+        "registeredAt" : {
+          "type" : "string"
+        },
+        "startedAt" : {
+          "type" : "string"
+        },
+        "status" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminJobStatus"
+        },
+        "trackingInfo" : {
+          "$ref" : "#/$defs/ModelObjectTracking"
+        }
+      }
+    },
+    "DN00PersonSyncPullFromAdminBespokeJobOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonSyncPullFromAdminJobStatus" : {
+      "type" : "string",
+      "enum" : [ "REGISTERED", "BEING_PROCESSED", "FINISHED_OK", "FINISHED_NOK", "FINISHED_NOK_TOO_MANY_ATTEMPTS" ]
+    },
+    "DN00PersonSyncPullFromAdminPreGenJob" : {
+      "type" : "object",
+      "properties" : {
+        "details" : {
+          "type" : "string"
+        },
+        "entityVersion" : {
+          "type" : "integer"
+        },
+        "exportResultAssets" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00PersonSyncPullFromAdminAsset"
+          }
+        },
+        "finishedAt" : {
+          "type" : "string"
+        },
+        "jobType" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminPreGenJobType"
+        },
+        "numericId" : {
+          "type" : "integer"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminPreGenJobOID"
+        },
+        "processingAttempts" : {
+          "type" : "integer"
+        },
+        "registerdAt" : {
+          "type" : "string"
+        },
+        "startedAt" : {
+          "type" : "string"
+        },
+        "status" : {
+          "$ref" : "#/$defs/DN00PersonSyncPullFromAdminJobStatus"
+        },
+        "trackingInfo" : {
+          "$ref" : "#/$defs/ModelObjectTracking"
+        }
+      }
+    },
+    "DN00PersonSyncPullFromAdminPreGenJobOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00PersonSyncPullFromAdminPreGenJobType" : {
+      "type" : "string",
+      "enum" : [ "ALL_PERSONS", "UPDATED_PERSONS_SINCE_LAST_SUCCESSFUL_JOB" ]
+    },
+    "DN00PersonSyncPushToAdminNotification" : {
+      "type" : "object",
+      "properties" : {
+        "person" : {
+          "$ref" : "#/$defs/DN00Person"
+        },
+        "syncData" : {
+          "$ref" : "#/$defs/DN00PersonSyncData"
+        }
+      }
+    },
+    "DN00PopMessageAfterSyncAdminSpec" : {
+      "type" : "object",
+      "properties" : {
+        "how" : {
+          "$ref" : "#/$defs/DN00PopUpMessageAfterSyncHow"
+        },
+        "messageByLang" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        }
+      }
+    },
+    "DN00PopUpMessageAfterSyncHow" : {
+      "type" : "string",
+      "enum" : [ "PUSH_TO_CLIENT_AT_CORE", "AT_CLIENT_AFTER_SYNC" ]
+    },
+    "DN00ResultPage" : {
+      "type" : "object",
+      "properties" : {
+        "firstItemPosition" : {
+          "type" : "integer"
+        },
+        "numberOfItemsToBeReturned" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "DN00S3FileStoreItemOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00SRMD" : {
+      "type" : "object",
+      "properties" : {
+        "admin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "dataLastUpdatedAt" : {
+          "type" : "string"
+        },
+        "dataOriginInstanceId" : {
+          "$ref" : "#/$defs/DN00DataOriginInstanceID"
+        },
+        "dataType" : {
+          "$ref" : "#/$defs/DN00DataTypeRef"
+        },
+        "entityVersion" : {
+          "type" : "integer"
+        },
+        "lastTransactionOid" : {
+          "$ref" : "#/$defs/DN00SRMDTransactionOID"
+        },
+        "numericId" : {
+          "type" : "integer"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00SRMDOID"
+        },
+        "person" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "popMessageAfterSync" : {
+          "$ref" : "#/$defs/DN00PopMessageAfterSyncAdminSpec"
+        },
+        "trackingInfo" : {
+          "$ref" : "#/$defs/ModelObjectTracking"
+        }
+      }
+    },
+    "DN00SRMDOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00SRMDTransactionOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItem" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "dayOfMonth" : {
+          "$ref" : "#/$defs/DayOfMonth"
+        },
+        "details" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "durationMinutes" : {
+          "type" : "integer"
+        },
+        "hourOfDay" : {
+          "$ref" : "#/$defs/HourOfDay"
+        },
+        "id" : {
+          "$ref" : "#/$defs/DN00ScheduleItemID"
+        },
+        "lastChangedAt" : {
+          "type" : "string"
+        },
+        "location" : {
+          "$ref" : "#/$defs/DN00ScheduleItemLocation"
+        },
+        "minuteOfHour" : {
+          "$ref" : "#/$defs/MinuteOfHour"
+        },
+        "monthOfYear" : {
+          "$ref" : "#/$defs/MonthOfYear"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00ScheduleItemOID"
+        },
+        "originAdmin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "priority" : {
+          "$ref" : "#/$defs/DN00ScheduleItemPriority"
+        },
+        "subject" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "urls" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/UrlCollectionItem"
+          }
+        },
+        "year" : {
+          "$ref" : "#/$defs/Year"
+        },
+        "type" : {
+          "type" : "string",
+          "const" : "scheduleItem"
+        }
+      },
+      "required" : [ "type" ]
+    },
+    "DN00ScheduleItemGeoAdminAreaLevel1ID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemGeoAdminAreaLevel3ID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemGeoCountryID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemLocation" : {
+      "type" : "object",
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "administrativeAreaLevel1" : {
+          "$ref" : "#/$defs/DN00ScheduleItemLocationItem_DN00ScheduleItemGeoAdminAreaLevel1ID_"
+        },
+        "administrativeAreaLevel3" : {
+          "$ref" : "#/$defs/DN00ScheduleItemLocationItem_DN00ScheduleItemGeoAdminAreaLevel3ID_"
+        },
+        "country" : {
+          "$ref" : "#/$defs/DN00ScheduleItemLocationItem_DN00ScheduleItemGeoCountryID_"
+        },
+        "directionsByLanguage" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "zipCode" : {
+          "$ref" : "#/$defs/ZipCode"
+        }
+      }
+    },
+    "DN00ScheduleItemLocationItem_DN00ScheduleItemGeoAdminAreaLevel1ID_" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00ScheduleItemGeoAdminAreaLevel1ID"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemLocationItem_DN00ScheduleItemGeoAdminAreaLevel3ID_" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00ScheduleItemGeoAdminAreaLevel3ID"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemLocationItem_DN00ScheduleItemGeoCountryID_" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/DN00ScheduleItemGeoCountryID"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00ScheduleItemPriority" : {
+      "type" : "string",
+      "enum" : [ "HIGH", "MEDIUM", "NORMAL", "LOW" ]
+    },
+    "DN00ScheduleItemType" : {
+      "type" : "string",
+      "enum" : [ "INFORMATIVE", "WARNING", "USER_ACTION_REQUIRED" ]
+    },
+    "DN00SearchFilterForPerson" : {
+      "type" : "object",
+      "properties" : {
+        "booleanQuery" : {
+          "$ref" : "#/$defs/BooleanQueryClause"
+        },
+        "dateRange" : {
+          "$ref" : "#/$defs/Range_Instant_"
+        },
+        "ref" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00PersonRef"
+          }
+        },
+        "uiLanguage" : {
+          "$ref" : "#/$defs/Language"
+        }
+      }
+    },
+    "DN00SearchResultItemForPerson" : {
+      "type" : "object",
+      "properties" : {
+        "db" : {
+          "$ref" : "#/$defs/SearchEngineDBID"
+        },
+        "entityVersion" : {
+          "type" : "integer"
+        },
+        "modelObjectType" : {
+          "$ref" : "#/$defs/Class_DN00Person_"
+        },
+        "numericId" : {
+          "type" : "integer"
+        },
+        "objectTypeCode" : {
+          "type" : "integer"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/DN00PersonOID"
+        },
+        "orderNumberWithinResults" : {
+          "type" : "integer"
+        },
+        "person" : {
+          "$ref" : "#/$defs/DN00Person"
+        },
+        "score" : {
+          "type" : "number"
+        },
+        "sourceOid" : {
+          "$ref" : "#/$defs/SearchSourceID"
+        },
+        "trackingInfo" : {
+          "$ref" : "#/$defs/ModelObjectTracking"
+        }
+      }
+    },
+    "DN00SyncMetaDataFromAdminCOREProcessingInfo" : {
+      "type" : "object",
+      "properties" : {
+        "processedNOK" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00SyncMetaDataFromAdminToCOREItemError"
+          }
+        },
+        "processedOK" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00SRMD"
+          }
+        },
+        "receivedItemsCount" : {
+          "type" : "integer"
+        },
+        "transactionOid" : {
+          "$ref" : "#/$defs/DN00SRMDTransactionOID"
+        }
+      }
+    },
+    "DN00SyncMetaDataFromAdminRequestMessage" : {
+      "type" : "object",
+      "properties" : {
+        "consentOid" : {
+          "$ref" : "#/$defs/DN00ConsentOID"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "payload" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00SyncMetaDataFromAdminToCOREItem"
+          }
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00SyncMetaDataFromAdminResponseMessage" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatus"
+        },
+        "context" : {
+          "$ref" : "#/$defs/DN00InteropContext"
+        },
+        "details" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusDetails"
+        },
+        "errorId" : {
+          "$ref" : "#/$defs/DN00InteropResponseStatusCode"
+        },
+        "payload" : {
+          "$ref" : "#/$defs/DN00SyncMetaDataFromAdminCOREProcessingInfo"
+        },
+        "protocol" : {
+          "$ref" : "#/$defs/DN00InteropProtocol"
+        }
+      }
+    },
+    "DN00SyncMetaDataFromAdminToCOREItem" : {
+      "type" : "object",
+      "properties" : {
+        "aboutPerson" : {
+          "$ref" : "#/$defs/DN00PersonRef"
+        },
+        "admin" : {
+          "$ref" : "#/$defs/DN00OrgAdminRef"
+        },
+        "fromDataOriginInstance" : {
+          "$ref" : "#/$defs/DN00DataOriginInstanceID"
+        },
+        "ofType" : {
+          "$ref" : "#/$defs/DN00DataTypeRef"
+        },
+        "popMessageAfterSync" : {
+          "$ref" : "#/$defs/DN00PopMessageAfterSyncAdminSpec"
+        },
+        "someDataWasUpdatedAt" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DN00SyncMetaDataFromAdminToCOREItemError" : {
+      "type" : "object",
+      "properties" : {
+        "error" : {
+          "type" : "string"
+        },
+        "item" : {
+          "$ref" : "#/$defs/DN00SyncMetaDataFromAdminToCOREItem"
+        }
+      }
+    },
+    "DayOfMonth" : {
+      "type" : "object",
+      "properties" : {
+        "dayOfMonth" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "EMail" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoCountryID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoCountyID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoDistrictID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoLocalityID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoLocationItem_GeoCountryID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoCountryID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoCountyID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoCountyID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoDistrictID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoDistrictID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoLocalityID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoLocalityID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoMunicipalityID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoMunicipalityID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoNeighborhoodID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoNeighborhoodID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoPortalID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoPortalID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoRegionID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoRegionID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoStateID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoStateID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoStreetID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoStreetID"
+        }
+      }
+    },
+    "GeoLocationItem_GeoTerritoryID_" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "oid" : {
+          "$ref" : "#/$defs/GeoTerritoryID"
+        }
+      }
+    },
+    "GeoMunicipalityID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoNeighborhoodID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoPortalID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoPosition" : {
+      "type" : "object",
+      "properties" : {
+        "address" : {
+          "type" : "string"
+        },
+        "country" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoCountryID_"
+        },
+        "county" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoCountyID_"
+        },
+        "directions" : {
+          "$ref" : "#/$defs/LanguageTexts"
+        },
+        "district" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoDistrictID_"
+        },
+        "door" : {
+          "type" : "string"
+        },
+        "floor" : {
+          "type" : "string"
+        },
+        "locality" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoLocalityID_"
+        },
+        "municipality" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoMunicipalityID_"
+        },
+        "neighborhood" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoNeighborhoodID_"
+        },
+        "portal" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoPortalID_"
+        },
+        "position2D" : {
+          "$ref" : "#/$defs/GeoPosition2D"
+        },
+        "region" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoRegionID_"
+        },
+        "stairWay" : {
+          "type" : "string"
+        },
+        "state" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoStateID_"
+        },
+        "street" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoStreetID_"
+        },
+        "territory" : {
+          "$ref" : "#/$defs/GeoLocationItem_GeoTerritoryID_"
+        },
+        "zipCode" : {
+          "$ref" : "#/$defs/GeoZipCode"
+        }
+      }
+    },
+    "GeoPosition2D" : {
+      "type" : "object",
+      "properties" : {
+        "standard" : {
+          "$ref" : "#/$defs/GeoPositionStandard"
+        },
+        "x" : {
+          "type" : "number"
+        },
+        "y" : {
+          "type" : "number"
+        }
+      }
+    },
+    "GeoPositionStandard" : {
+      "type" : "string",
+      "enum" : [ "GOOGLE", "ETRS89", "ED50" ]
+    },
+    "GeoRegionID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoStateID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoStreetID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoTerritoryID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "GeoZipCode" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Hash" : {
+      "type" : "object",
+      "properties" : {
+        "theHash" : {
+          "type" : "string"
+        }
+      }
+    },
+    "HourOfDay" : {
+      "type" : "object",
+      "properties" : {
+        "hourOfDay" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "IsRecurrence" : {
+      "type" : "object"
+    },
+    "JsonString" : {
+      "type" : "object",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Language" : {
+      "type" : "string",
+      "enum" : [ "SPANISH", "BASQUE", "ENGLISH", "FRENCH", "DEUTCH", "ITALIAN", "PORTUGUESE", "POLISH", "SWEDISH", "HUNGARIAN", "CZECH", "ROMANIAN", "RUSSIAN", "KOREAN", "JAPANESE", "ANY" ]
+    },
+    "LanguageTexts" : {
+      "type" : "object"
+    },
+    "LoginID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "MinuteOfHour" : {
+      "type" : "object",
+      "properties" : {
+        "minuteOfHour" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "ModelObjectTracking" : {
+      "type" : "object",
+      "properties" : {
+        "createdAt" : {
+          "type" : "string"
+        },
+        "creatorSecurityPrincipalId" : {
+          "$ref" : "#/$defs/SecurityPrincipalID"
+        },
+        "creatorSecurityPrincipalOid" : {
+          "$ref" : "#/$defs/SecurityPrincipalOID"
+        },
+        "impersonatinSecurityPrincipalOid" : {
+          "$ref" : "#/$defs/SecurityPrincipalOID"
+        },
+        "lastUpdatedAt" : {
+          "type" : "string"
+        },
+        "lastUpdaterSecurityPrincipalId" : {
+          "$ref" : "#/$defs/SecurityPrincipalID"
+        },
+        "lastUpdaterSecurityPrincipalOid" : {
+          "$ref" : "#/$defs/SecurityPrincipalOID"
+        }
+      }
+    },
+    "Money" : {
+      "type" : "object",
+      "properties" : {
+        "amount" : {
+          "type" : "integer"
+        },
+        "base" : {
+          "$ref" : "#/$defs/MoneyBase"
+        },
+        "currency" : {
+          "$ref" : "#/$defs/Currency"
+        }
+      }
+    },
+    "MoneyBase" : {
+      "type" : "string",
+      "enum" : [ "CENTS", "UNITS" ]
+    },
+    "MonthOfYear" : {
+      "type" : "object",
+      "properties" : {
+        "monthOfYear" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "PaginationRequest" : {
+      "type" : "object",
+      "properties" : {
+        "firstItemPosition" : {
+          "type" : "integer"
+        },
+        "requestedNumberOfItems" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "Phone" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PhoneExtension" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "QualifiedQueryClause_QueryClause_" : {
+      "type" : "object",
+      "properties" : {
+        "clause" : {
+          "$ref" : "#/$defs/QueryClause"
+        },
+        "occur" : {
+          "$ref" : "#/$defs/QueryClauseOccur"
+        }
+      }
+    },
+    "QueryClause" : {
+      "type" : "object"
+    },
+    "QueryClauseOccur" : {
+      "type" : "string",
+      "enum" : [ "MUST", "MUST_NOT", "SHOULD" ]
+    },
+    "Range_Instant_" : {
+      "type" : "object",
+      "properties" : {
+        "lowerBound" : {
+          "type" : "string"
+        },
+        "lowerBoundType" : {
+          "$ref" : "#/$defs/BoundType"
+        },
+        "upperBound" : {
+          "type" : "string"
+        },
+        "upperBoundType" : {
+          "$ref" : "#/$defs/BoundType"
+        }
+      }
+    },
+    "SearchEngineDBID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SearchResults_DN00SearchFilterForPerson.DN00SearchResultItemForPerson_" : {
+      "type" : "object",
+      "properties" : {
+        "endPosition" : {
+          "type" : "integer"
+        },
+        "filter" : {
+          "$ref" : "#/$defs/DN00SearchFilterForPerson"
+        },
+        "pageItems" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/$defs/DN00SearchResultItemForPerson"
+          }
+        },
+        "requestedNumberOfItems" : {
+          "type" : "integer"
+        },
+        "startPosition" : {
+          "type" : "integer"
+        },
+        "totalItemsCount" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "SearchSourceID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SecurityPrincipalID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SecurityPrincipalOID" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TimeFrequency" : {
+      "type" : "string",
+      "enum" : [ "DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY" ]
+    },
+    "TimeLapse" : {
+      "type" : "object",
+      "properties" : {
+        "lapse" : {
+          "type" : "integer"
+        },
+        "unit" : {
+          "$ref" : "#/$defs/TimeUnit"
+        }
+      }
+    },
+    "TimeUnit" : {
+      "type" : "string",
+      "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ]
+    },
+    "Url" : {
+      "type" : "object",
+      "properties" : {
+        "url" : {
+          "type" : "string"
+        }
+      }
+    },
+    "UrlCollectionItem" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/CollectionItemID"
+        },
+        "lang" : {
+          "$ref" : "#/$defs/Language"
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "value" : {
+          "$ref" : "#/$defs/Url"
+        }
+      }
+    },
+    "UrlTemplate" : {
+      "type" : "object",
+      "properties" : {
+        "template" : {
+          "type" : "string"
+        }
+      }
+    },
+    "UrlTemplateCollectionItem" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "$ref" : "#/$defs/CollectionItemID"
+        },
+        "lang" : {
+          "$ref" : "#/$defs/Language"
+        },
+        "tags" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "value" : {
+          "$ref" : "#/$defs/UrlTemplate"
+        }
+      }
+    },
+    "Year" : {
+      "type" : "object",
+      "properties" : {
+        "year" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "ZipCode" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        }
+      }
+    }
+  },
+  "x-denaMessagesByProject" : {
+    "e80a021a-dena-interop-admin-sync-rest" : [ "DN00SyncMetaDataFromAdminRequestMessage", "DN00SyncMetaDataFromAdminResponseMessage" ],
+    "e80a021k-dena-person-admin-rest" : [ "DN00PersonInteropSearchRequestMessage", "DN00PersonInteropSearchResponseMessage", "DN00PersonFetchInteropRequestMessage", "DN00PersonFetchInteropResponseMessage", "DN00PersonHeadInteropRequestMessage", "DN00PersonHeadInteropResponseMessage" ],
+    "e80a021k-dena-person-admin-sync-rest" : [ "DN00PersonInteropPullFromAdminBespokeJobCreateRequestMessage", "DN00PersonInteropPullFromAdminBespokeJobCreateResponseMessage", "DN00PersonInteropPullFromAdminBespokeJobGetRequestMessage", "DN00PersonInteropPullFromAdminBespokeJobGetResponseMessage", "DN00PersonInteropPullFromAdminBespokeExportAssetFetchRequestMessage", "DN00PersonInteropPullFromAdminPreGenJobGetRequestMessage", "DN00PersonInteropPullFromAdminPreGenJobGetResponseMessage", "DN00PersonInteropPullFromAdminPreGenJobGetRequestByOidMessage", "DN00PersonInteropPullFromAdminPreGenExportAssetFetchRequestMessage" ],
+    "DENA-PUSH" : [ "DN00PersonInteropPushToAdminNotificationMessage" ],
+    "DENA-CONNECTOR-RETRIEVE" : [ "DN00COREToConnectorDataRetrieveRequestMessage", "DN00COREToConnectorDataRetrieveResponseMessage" ]
+  }
+}

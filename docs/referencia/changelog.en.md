@@ -4,7 +4,7 @@ DENA documentation version history.
 
 ---
 
-## v0.5.2 <small>— 2026-09-07</small> { #v052 }
+## v0.5.2 <small>— 2026-09-29</small> { #v052 }
 
 !!! success "Current"
 
@@ -43,12 +43,37 @@ Verification:
 - :material-check-all: Verified the 92 source-code links (`{% raw %}{{ repos.*_blob }}{% endraw %}`) against the `PUBLIC-v0.4.16` tag of the public mirrors: all resolve correctly
 - :material-check-all: Cross-checked field by field the JSON/Java examples and tables of all semantics, endpoints, metadata-sync and person-sync pages against the real 0.4.16 classes
 - :material-bug: `endpoint-sync-metadata.md` (SRMD): the request `payload` is a direct **array** of items (`Collection<DN00SyncMetaDataFromAdminToCOREItem>`); removed the `payload.items` wrapper. Response: `code`/`errorId`/`details` at root level and `payload` = `DN00SyncMetaDataFromAdminCOREProcessingInfo` directly (transactionOid/receivedItemsCount/processedOK/processedNOK), without the `processingInfo` wrapper
-- :material-bug: Code examples aligned to the real RETRIEVE format (snippets-codigo in 5 languages, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): reduced request (`context` with `subjectPerson`/`dataType`/`administration`) and response with `code` at root level and `dataItems[].data`
-- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): rewrote the request to the real format the connector (Spring Boot 3) sends to the administration — `context` with `subjectPerson.id`, `dataType.id` and `administration.id` — instead of the full interop envelope (`message`/`protocol`/`payload`) that never reaches the administration. Also fixed the response (`DN00DataRetrieveResponseFromAdmin`): each `dataItems` element wraps the object in a `data` field, with `proposedScheduleItems` and `itemsPagingContext`; `code` at root level. Verified the connector pipeline (`standard` semantic transformer = passthrough)
+- :material-bug: Code examples aligned to the real RETRIEVE format (snippets-codigo in 5 languages, guia-implementacion, ejemplos-codigo, ejemplo-end-to-end, operativas/data-retrieve, troubleshooting, errores-troubleshooting): request with `context` (`subjectPerson`/`dataType`/`destinationAdmin`) and response with `dataItems[].data`
+- :material-bug: `endpoint-data-retrieve.md` (RETRIEVE): rewrote the request to the real format the connector sends to the administration — `context` with `subjectPerson`, `dataType` and `destinationAdmin` (verified against `DN01ConnectorRequestSerializer` and the demo1 connector, `local/develop`) — instead of the full interop envelope. Clarified that DENA does **not** impose the route: it posts to the URL the administration configures (the base connector exposes it at `/api/connector/retrieveData` as a reference). Also fixed the response (`DN00DataRetrieveResponseFromAdmin`): each `dataItems` element wraps the object in a `data` field, with `proposedScheduleItems` and `itemsPagingContext`
 
 Translations:
 
 - :material-translate: Translated to EN and EU the pages that only existed in ES (arquitectura-servicios, configuracion, tipos-dato-base, data-retrieve/index)
+
+HTTP headers and calls review (verified against the traffic-flow and the demo1 connector on `local/develop`):
+
+- :material-bug: `http-headers`: fixed the digest description against `DN01HashService`/`DN00InteropHeaders` — `Content-Digest` = SHA-256 of the **body only**; `X-DENA-Data-Digest` = SHA-256 of `X-DENA-This-TimeStamp + X-DENA-Message-Correlation-Id + body`; real value format `SHA-256=:<base64>:`; timestamps in milliseconds
+- :material-minus: `http-headers`: removed the `If-Modified-Since` header (documented but nonexistent in the code)
+- :material-plus: `http-headers`: added a note on mandatory traffic-flow headers (HTTP 400 if missing; HTTP 401 if the digest does not match)
+- :material-refresh: Person-Sync: added the pre-generated Pull endpoint pages (by type and hour, and by OID); rewrote the Push endpoint (no fixed route: DENA posts to the configured URL) with per-event processing guidance (`CREATED`/`UPDATED`/`ID_CHANGED`/`DELETED`, including the recommendation to delete the associated data on `DELETED`) and HTTP-status-based response; fixed the bespoke download route (`.../bespokes/{jobOid}/asset`)
+- :material-bug: Endpoint routes aligned: the endpoints implemented by the administration (Data-Retrieve, Person Push) use the URL the admin configures (routes shown as examples); metadata-sync = `/api/admin/interop/sync/metadata`; removed nonexistent routes (`/api/person-push`, `/syncMetadata`, `/persons/export`) in faq, matriz-compatibilidad and metadata-sync diagrams
+- :material-check-all: Verified field by field against the code the 8 data-retrieve data types and their state enums (record/notice/register/payment/directDebit, contactType, schedulePriority) and the SRMD model (`DN00SyncMetaDataFromAdminToCOREItem`, `DN00SyncMetaDataFromAdminCOREProcessingInfo`): aligned
+
+New content (documents and reference architectures):
+
+- :material-plus: New **Tools → Documents (PDF)** section (`adjuntos/documentos.md`) with the downloadable reference PDFs (DENA-Architecture, DENA-CORE Services for Admins, DENA-CORE Services for Client App)
+- :material-plus: New **Architecture → Reference Architectures** page (`arquitectura/arquitecturas-referencia.md`), faithful to the integration section of the admins PDF (Person Sync, SRMD sending with Apache NiFi + Kafka, and data-retrieve with DB views), with the official diagram extracted from the document
+
+Content improvements from the PDF (verified against the 0.4.16 code):
+
+- :material-plus: `metadata-sync/index.md`: added the "How to detect changes in your administration" section (what+when pattern, sample DB table and SQL with `COALESCE(LAST_UPDATED_AT, CREATED_AT)`)
+- :material-plus: `data-retrieve/data/campos-comunes.md`: reinforced the importance of `lastChangedAt` (why it is critical for the new/updated state in the DENA-APP UI)
+- :material-plus: `data-retrieve/guia-implementacion.md`: added a note about DENA's custom *HttpMessageConverter* for marshalling model objects in Spring (`ModelObjectConverterBase` in `DN01CoreBootstrapRESTBootstrapConfigBase`), which the PDF left as a TODO
+
+Cleanup and typos:
+
+- :material-minus: Removed the temporary page `arquitectura-dena-completa.md` (ES/EN/EU) and its references in the nav and the Person-Sync index: its content is already consolidated into `arquitectura/index.md`
+- :material-bug: Fixed «ficheo» → «fichero» typos (operativas/person-sync, arquitectura/index, arquitectura-servicios)
 
 ---
 

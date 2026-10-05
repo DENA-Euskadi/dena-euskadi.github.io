@@ -65,6 +65,12 @@ flowchart LR
 
 Datuaren azken aldaketaren unea (ISO 8601 formatua) **administrazioaren jatorrizko sisteman**. Eremu gakoa da: DENA-COREk administrazioari datu-mota hori azken aldiz berreskuratu zitzaion unearekin alderatzen du, UIan erakusten den NEW/UPDATED/UNCHANGED egoera erabakitzeko. `lastChangedAt` azken berreskuratzea baino berriagoa bada, datua NEW/UPDATED gisa markatzen da.
 
+!!! warning "Bete beti `lastChangedAt` itzultzen duzun objektu bakoitzean"
+
+    Eremu hau **oso garrantzitsua** da pertsonaren esperientziarako DENA-APPn: UIari datu bat **berri edo eguneratu** gisa markatzeko aukera ematen diona da. Zure *data provider*-ak `lastChangedAt` ezartzen ez badu (edo finko uzten badu), DENAk ezin du jakin zein datu den berria eta pertsonak ez ditu "berri/eguneratu" adierazleak zuzen ikusiko.
+
+    Normalean [Metadata-Sync](../../metadata-sync/index.md)-en aldaketak detektatzeko erabiltzen duzun zutabe beretik dator: `COALESCE(LAST_UPDATED_AT, CREATED_AT)`.
+
 ```json
 {
   "lastChangedAt": "2026-08-19T08:07:56.742Z"

@@ -65,6 +65,12 @@ flowchart LR
 
 Instant (ISO 8601 format) of the last change of the data **in the administration's origin system**. It is a key field: DENA-CORE compares it with the last time that type of data was retrieved from the administration to decide the NEW/UPDATED/UNCHANGED state shown in the UI. If `lastChangedAt` is more recent than the last retrieval, the data is marked as NEW/UPDATED.
 
+!!! warning "Always fill in `lastChangedAt` on every object you return"
+
+    This field is **very important** for the person's experience in DENA-APP: it is what lets the UI mark a piece of data as **new or updated**. If your *data provider* does not set `lastChangedAt` (or leaves it fixed), DENA cannot tell which data is new and the person will not see the "new/updated" indicators correctly.
+
+    It usually comes from the same column you use to detect changes in [Metadata-Sync](../../metadata-sync/index.md): `COALESCE(LAST_UPDATED_AT, CREATED_AT)`.
+
 ```json
 {
   "lastChangedAt": "2026-08-19T08:07:56.742Z"
