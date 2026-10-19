@@ -164,7 +164,13 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
 
 ??? question "¿Hay un Swagger/OpenAPI de los endpoints de DENA?"
 
-    Está en proceso de publicación. Mientras tanto, la especificación completa está en esta documentación.
+    Sí. Cada servicio publica su Swagger UI en el entorno **PRE**:
+
+    - **Metadata-Sync** (admin-sync-rest): [`/sync/swagger-ui`](https://api-batera.pre.dena.eus/sync/swagger-ui/index.html)
+    - **Person-Sync** (person-admin-sync-rest): [`/person-sync/swagger-ui`](https://api-batera.pre.dena.eus/person-sync/swagger-ui/index.html)
+    - **Persona on-line** (person-admin-rest): [`/person/swagger-ui`](https://api-batera.pre.dena.eus/person/swagger-ui/index.html)
+
+    Cada Swagger UI está enlazado también desde la página de su operativa correspondiente.
 
 ---
 

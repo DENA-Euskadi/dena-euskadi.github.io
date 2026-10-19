@@ -12,11 +12,17 @@ Esquema **JSON Schema (draft 2020-12)** que describe la estructura de todos los 
 
 ---
 
-## Descarga
+## Acceso al esquema
 
-| Recurso | Descripción | Descarga |
+El esquema se sirve directamente desde el entorno **PRE**, siempre actualizado a partir de los modelos reales del CORE:
+
+| Recurso | Descripción | Acceso |
 |---------|-------------|:--------:|
-| **DENA REST Messages — JSON Schema** | Esquema de todos los mensajes REST (data-retrieve, metadata-sync, person-sync, person fetch/head/search) y de los modelos de datos intercambiados. | [:material-download: JSON Schema](./json-schema/dena-rest-messages.schema.json) |
+| **DENA REST Messages — JSON Schema** | Esquema de todos los mensajes REST (data-retrieve, metadata-sync, person-sync, person fetch/head/search) y de los modelos de datos intercambiados. | [:material-download: Descargar](https://api-batera.pre.dena.eus/jsonschema-utils/json-schema?download=true) · [:material-eye: Ver online](https://api-batera.pre.dena.eus/jsonschema-utils/json-schema?download=false) |
+
+!!! info "Descarga vs. visualización"
+    - `?download=true` entrega el esquema como **fichero** descargable.
+    - `?download=false` lo muestra **directamente** en el navegador.
 
 ---
 

@@ -65,6 +65,21 @@ Your admin queries DENA whenever it wants, in two ways:
 
 ---
 
+## Available resources
+
+| Resource | Description |
+|----------|-------------|
+| :material-api: [Swagger UI — person-admin-sync-rest](https://api-batera.pre.dena.eus/person-sync/swagger-ui/index.html) | Interactive API of the person Pull (bespoke/pregen jobs). OpenAPI JSON: [`/person-sync/v3/api-docs`](https://api-batera.pre.dena.eus/person-sync/v3/api-docs) |
+| :material-api: [Swagger UI — person-admin-rest](https://api-batera.pre.dena.eus/person/swagger-ui/index.html) | Interactive API of the person query (fetch / head / search). OpenAPI JSON: [`/person/v3/api-docs`](https://api-batera.pre.dena.eus/person/v3/api-docs) |
+| :material-code-json: [REST messages JSON Schema](../adjuntos/json-schema.md) | Formal, validatable schema of the messages (push, bespoke/pregen pull and person query) |
+| :material-rocket-launch: [Postman Resources](../adjuntos/index.md) | Collection and environment with sample Person-Sync requests |
+| :material-folder-table: [All Swagger resources](../adjuntos/swagger.md) | Index of the Swagger UIs and OpenAPI specifications of all services |
+
+!!! info "Reference environment"
+    The documentation reflects the **PRE** environment.
+
+---
+
 ## Full specification
 
 For the detailed specification of endpoints, models, and files:

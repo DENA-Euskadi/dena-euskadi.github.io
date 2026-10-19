@@ -68,6 +68,21 @@ Tu admin consulta a DENA cuando quiere, de dos formas:
 
 ---
 
+## Recursos disponibles
+
+| Recurso | Descripción |
+|---------|-------------|
+| :material-api: [Swagger UI — person-admin-sync-rest](https://api-batera.pre.dena.eus/person-sync/swagger-ui/index.html) | API interactiva del Pull de personas (jobs bespoke/pregen). OpenAPI JSON: [`/person-sync/v3/api-docs`](https://api-batera.pre.dena.eus/person-sync/v3/api-docs) |
+| :material-api: [Swagger UI — person-admin-rest](https://api-batera.pre.dena.eus/person/swagger-ui/index.html) | API interactiva de la consulta de personas (fetch / head / search). OpenAPI JSON: [`/person/v3/api-docs`](https://api-batera.pre.dena.eus/person/v3/api-docs) |
+| :material-code-json: [JSON Schema de los mensajes REST](../adjuntos/json-schema.md) | Esquema formal y validable de los mensajes (push, pull bespoke/pregen y consulta de personas) |
+| :material-rocket-launch: [Recursos Postman](../adjuntos/index.md) | Colección y environment con requests de ejemplo de Person-Sync |
+| :material-folder-table: [Todos los recursos Swagger](../adjuntos/swagger.md) | Índice de las Swagger UI y especificaciones OpenAPI de todos los servicios |
+
+!!! info "Entorno de referencia"
+    La documentación refleja el entorno **PRE**.
+
+---
+
 ## Especificación completa
 
 Para la especificación detallada de endpoints, modelos y ficheros:

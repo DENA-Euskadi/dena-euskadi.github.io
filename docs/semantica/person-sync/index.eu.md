@@ -109,6 +109,16 @@ DENAk modu proaktiboan jakinarazten dio administrazioari aldaketa bat gertatzen 
 
 ## Endpoint-ak
 
+### Pertsonen Kontsulta (denbora errealeko REST)
+
+`person-admin-rest` zerbitzuaren endpoint-ak, pertsonak eskaeraz kontsultatzeko fitxategirik deskargatu gabe (*on-line* modua).
+
+| Dokumentua | Edukia |
+|---|---|
+| [Pertsonen Kontsulta (Fetch)](./endpoints/query/fetch-person.md) | Pertsona baten datu osoak berreskuratzen ditu `oid` edo `id` bidez |
+| [Pertsonen Kontsulta (Head)](./endpoints/query/head-person.md) | Pertsona bat existitzen den egiaztatzen du (daturik itzuli gabe) `oid` edo `id` bidez |
+| [Pertsonen Kontsulta (Search)](./endpoints/query/search-persons.md) | Pertsonak iragazkiaren arabera bilatzen ditu (refs eta/edo data-tartea) emaitza paginatuekin |
+
 ### Pull — Aurrez sortuak (orduro)
 
 | Dokumentua | Edukia |

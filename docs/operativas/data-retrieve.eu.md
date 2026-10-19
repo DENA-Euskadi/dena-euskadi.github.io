@@ -228,6 +228,19 @@ Eremuen, baliozkotzeen eta erroreen zehaztapen xehatua ikusteko:
 
 ---
 
+## Baliabide eskuragarriak
+
+| Baliabidea | Deskribapena |
+|------------|--------------|
+| :material-code-json: [REST mezuen JSON Schema](../adjuntos/json-schema.md) | Data-Retrieve mezuen (`DN00COREToConnectorDataRetrieveRequest/ResponseMessage`) eta trukatutako datu moten eskema formal eta balidagarria |
+| :material-rocket-launch: [Postman Baliabideak](../adjuntos/index.md) | Data-Retrieve-ren adibide-eskaerak dituen bilduma eta environment-a |
+| :material-folder-table: [Swagger Baliabideak](../adjuntos/swagger.md) | DENAk argitaratzen dituen zerbitzuen Swagger UIen aurkibidea |
+
+!!! note "Endpoint hau zure administrazioak inplementatzen du"
+    Metadata-Sync eta Person-Sync-ekin ez bezala, Data-Retrieve endpoint-a **zure administrazioak** erakusten du (DENAk deitzen dio), beraz **ez dago DENAren Swagger UIrik** horretarako. Erabili JSON Schema eta beheko mock factory-ak espero den formatuaren erreferentzia gisa.
+
+---
+
 ## Erreferentziazko kodea
 
 Data-Retrieve eta segurtasun goiburuen test eta adibide-kodea duten biltegiak:

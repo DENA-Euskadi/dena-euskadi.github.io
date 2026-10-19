@@ -4,9 +4,30 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.5.2 <small>— 2026-09-29</small> { #v052 }
+## v0.5.3 <small>— 2026-10-19</small> { #v053 }
 
 !!! success "Actual"
+
+**Publicación de los Swagger/OpenAPI de los servicios y actualización del JSON Schema de mensajes REST.**
+
+Contenido nuevo:
+
+- :material-plus: `operativas/metadata-sync.md`: nueva sección "API interactiva (Swagger)" con el enlace a la Swagger UI del servicio **admin-sync-rest** en PRE ([`/sync/swagger-ui`](https://api-batera.pre.dena.eus/sync/swagger-ui/index.html)) y a su especificación OpenAPI (`/sync/v3/api-docs`)
+- :material-plus: `operativas/person-sync.md`: nueva sección "API interactiva (Swagger)" con los enlaces a las Swagger UI de **person-admin-sync-rest** ([`/person-sync/swagger-ui`](https://api-batera.pre.dena.eus/person-sync/swagger-ui/index.html)) y **person-admin-rest** ([`/person/swagger-ui`](https://api-batera.pre.dena.eus/person/swagger-ui/index.html)) en PRE
+
+- :material-plus: Nueva página **Herramientas → Recursos Swagger** (`adjuntos/swagger.md`) que centraliza los enlaces a las Swagger UI (PRE) y a las especificaciones OpenAPI JSON de los tres servicios
+- :material-plus: Nuevas páginas de endpoint **Consulta de Personas** (`semantica/person-sync/endpoints/query/`): Fetch (`/person/api/admin/persons/{oid}` y `/byId/{id}`), Head (`.../{oid}:head` y `.../byId/{id}:head`) y Search (`/person/api/admin/persons`), con request/response reales del servicio `person-admin-rest`; es la modalidad de Pull *on-line* (consulta REST en tiempo real). Enlazadas desde `person-sync/index.md` y el nav
+
+Actualizaciones:
+
+- :material-refresh: Operativas (Data-Retrieve, Metadata-Sync, Person-Sync): sección homogénea **Recursos disponibles** que enlaza Swagger UI (donde aplica), JSON Schema y Recursos Postman; en Data-Retrieve se aclara que el endpoint lo implementa la administración (sin Swagger de DENA)
+- :material-refresh: `adjuntos/json-schema.md`: el JSON Schema se referencia ahora por la URL de PRE (`/jsonschema-utils/json-schema`, con `download=true`/`false`) en lugar de un fichero local; eliminado el fichero `docs/adjuntos/json-schema/dena-rest-messages.schema.json`
+- :material-refresh: `referencia/faq.md`: la pregunta sobre Swagger/OpenAPI ahora enlaza directamente a las Swagger UI publicadas de cada servicio en lugar de indicar que estaban "en proceso de publicación"
+- :material-translate: Todos los cambios reflejados en ES, EN y EU; entorno de referencia **PRE**
+
+---
+
+## v0.5.2 <small>— 2026-09-29</small> { #v052 }
 
 **Sincronización de la documentación con la revisión de código 0.4.16 del API común DENA.**
 

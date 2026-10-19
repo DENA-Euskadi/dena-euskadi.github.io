@@ -109,6 +109,16 @@ DENA notifica proactivamente a la administración cuando se produce un cambio:
 
 ## Endpoints
 
+### Consulta de Personas (REST en tiempo real)
+
+Endpoints del servicio `person-admin-rest` para consultar personas bajo demanda sin descargar ficheros (modalidad *on-line*).
+
+| Documento | Contenido |
+|---|---|
+| [Consulta de Persona (Fetch)](./endpoints/query/fetch-person.md) | Recupera los datos completos de una persona por `oid` o por `id` |
+| [Consulta de Persona (Head)](./endpoints/query/head-person.md) | Comprueba si una persona existe (sin devolver datos) por `oid` o por `id` |
+| [Consulta de Personas (Search)](./endpoints/query/search-persons.md) | Busca personas por filtro (refs y/o rango de fechas) con resultados paginados |
+
 ### Pull — Pregenerados (horarios)
 
 | Documento | Contenido |

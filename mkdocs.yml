@@ -92,6 +92,9 @@ nav:
           - Push: semantica/person-sync/push.md
           - Pull: semantica/person-sync/pull.md
           - Endpoint Push: semantica/person-sync/endpoints/push/endpoint-person-push-to-admin.md
+          - Consulta de Personas (Fetch): semantica/person-sync/endpoints/query/fetch-person.md
+          - Consulta de Personas (Head): semantica/person-sync/endpoints/query/head-person.md
+          - Consulta de Personas (Search): semantica/person-sync/endpoints/query/search-persons.md
           - Endpoint Pull (Create Job): semantica/person-sync/endpoints/pull/create-pull-from-admin-bespoke-job.md
           - Endpoint Pull (Get Job): semantica/person-sync/endpoints/pull/get-pull-from-admin-bespoke-job.md
           - Endpoint Pull (Fetch Bespoke): semantica/person-sync/endpoints/pull/fetch-persons-bespoke-export-asset.md
@@ -127,6 +130,7 @@ nav:
       - DevTools Web: devtools/index.md
       - Ejemplos de Código: ejemplos-codigo/index.md
       - Recursos Postman: adjuntos/index.md
+      - Recursos Swagger: adjuntos/swagger.md
       - Documentos (PDF): adjuntos/documentos.md
       - JSON Schema (Mensajes REST): adjuntos/json-schema.md
   - Ayuda y Referencia:
@@ -209,6 +213,9 @@ plugins:
             Person-Sync (Sincronizar Personas): Person-Sync (Sync People)
             'Endpoint Pull (Get Pregen por tipo y hora)': Pull Endpoint (Get Pregen by type and hour)
             'Endpoint Pull (Get Pregen por OID)': Pull Endpoint (Get Pregen by OID)
+            'Consulta de Personas (Fetch)': Person Query (Fetch)
+            'Consulta de Personas (Head)': Person Query (Head)
+            'Consulta de Personas (Search)': Person Query (Search)
             Semántica: Semantics
             Tipos de Datos Disponibles: Available Data Types
             Campos Comunes: Common Fields
@@ -231,6 +238,7 @@ plugins:
             DevTools Web: Web DevTools
             Ejemplos de Código: Code Examples
             Recursos Postman: Postman Resources
+            Recursos Swagger: Swagger Resources
             Documentos (PDF): Documents (PDF)
             'JSON Schema (Mensajes REST)': 'JSON Schema (REST Messages)'
             Ayuda y Referencia: Help & Reference
@@ -262,6 +270,9 @@ plugins:
             Person-Sync (Sincronizar Personas): Person-Sync (Pertsonak Sinkronizatu)
             'Endpoint Pull (Get Pregen por tipo y hora)': Pull Endpoint (Pregen lortu mota eta orduaren arabera)
             'Endpoint Pull (Get Pregen por OID)': Pull Endpoint (Pregen lortu OIDaren arabera)
+            'Consulta de Personas (Fetch)': Pertsonen Kontsulta (Fetch)
+            'Consulta de Personas (Head)': Pertsonen Kontsulta (Head)
+            'Consulta de Personas (Search)': Pertsonen Kontsulta (Search)
             Semántica: Semantika
             Tipos de Datos Disponibles: Datu Mota Eskuragarriak
             Campos Comunes: Eremu Komunak
@@ -284,6 +295,7 @@ plugins:
             DevTools Web: Web DevTools
             Ejemplos de Código: Kode Adibideak
             Recursos Postman: Postman Baliabideak
+            Recursos Swagger: Swagger Baliabideak
             Documentos (PDF): Dokumentuak (PDF)
             'JSON Schema (Mensajes REST)': 'JSON Schema (REST Mezuak)'
             Ayuda y Referencia: Laguntza eta Erreferentzia

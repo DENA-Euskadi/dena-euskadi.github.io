@@ -109,6 +109,16 @@ DENA proactively notifies the administration when a change occurs:
 
 ## Endpoints
 
+### Person Query (real-time REST)
+
+Endpoints of the `person-admin-rest` service to query persons on demand without downloading files (*on-line* mode).
+
+| Document | Content |
+|---|---|
+| [Person Query (Fetch)](./endpoints/query/fetch-person.md) | Retrieves the full data of a person by `oid` or by `id` |
+| [Person Query (Head)](./endpoints/query/head-person.md) | Checks whether a person exists (without returning data) by `oid` or by `id` |
+| [Person Query (Search)](./endpoints/query/search-persons.md) | Searches persons by filter (refs and/or date range) with paginated results |
+
 ### Pull — Pre-generated (hourly)
 
 | Document | Content |

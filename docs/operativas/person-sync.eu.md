@@ -65,6 +65,21 @@ Zure admin-ak DENAri kontsulta egiten dio nahi duenean, bi modutan:
 
 ---
 
+## Baliabide eskuragarriak
+
+| Baliabidea | Deskribapena |
+|------------|--------------|
+| :material-api: [Swagger UI — person-admin-sync-rest](https://api-batera.pre.dena.eus/person-sync/swagger-ui/index.html) | Pertsonen Pull-aren API interaktiboa (bespoke/pregen job-ak). OpenAPI JSON: [`/person-sync/v3/api-docs`](https://api-batera.pre.dena.eus/person-sync/v3/api-docs) |
+| :material-api: [Swagger UI — person-admin-rest](https://api-batera.pre.dena.eus/person/swagger-ui/index.html) | Pertsonen kontsultaren API interaktiboa (fetch / head / search). OpenAPI JSON: [`/person/v3/api-docs`](https://api-batera.pre.dena.eus/person/v3/api-docs) |
+| :material-code-json: [REST mezuen JSON Schema](../adjuntos/json-schema.md) | Mezuen eskema formal eta balidagarria (push, bespoke/pregen pull eta pertsonen kontsulta) |
+| :material-rocket-launch: [Postman Baliabideak](../adjuntos/index.md) | Person-Sync-en adibide-eskaerak dituen bilduma eta environment-a |
+| :material-folder-table: [Swagger baliabide guztiak](../adjuntos/swagger.md) | Zerbitzu guztien Swagger UIen eta OpenAPI espezifikazioen aurkibidea |
+
+!!! info "Erreferentziako ingurunea"
+    Dokumentazioak **PRE** ingurunea islatzen du.
+
+---
+
 ## Zehaztapen osoa
 
 Endpoint-en, ereduen eta fitxategien zehaztapen xehatua ikusteko:

@@ -14,9 +14,13 @@
 
 ## Deskarga
 
-| Baliabidea | Deskribapena | Deskarga |
+| Baliabidea | Deskribapena | Sarbidea |
 |------------|--------------|:--------:|
-| **DENA REST Messages — JSON Schema** | REST mezu guztien eskema (data-retrieve, metadata-sync, person-sync, person fetch/head/search) eta trukatutako datu-ereduena. | [:material-download: JSON Schema](./json-schema/dena-rest-messages.schema.json) |
+| **DENA REST Messages — JSON Schema** | REST mezu guztien eskema (data-retrieve, metadata-sync, person-sync, person fetch/head/search) eta trukatutako datu-ereduena. | [:material-download: Deskargatu](https://api-batera.pre.dena.eus/jsonschema-utils/json-schema?download=true) · [:material-eye: Online ikusi](https://api-batera.pre.dena.eus/jsonschema-utils/json-schema?download=false) |
+
+!!! info "Deskarga vs. bistaratzea"
+    - `?download=true` eskema **fitxategi** deskargagarri gisa ematen du.
+    - `?download=false` nabigatzailean **zuzenean** erakusten du.
 
 ---
 

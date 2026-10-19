@@ -12,11 +12,17 @@
 
 ---
 
-## Download
+## Accessing the schema
 
-| Resource | Description | Download |
+The schema is served directly from the **PRE** environment, always up to date from the real CORE models:
+
+| Resource | Description | Access |
 |----------|-------------|:--------:|
-| **DENA REST Messages — JSON Schema** | Schema of all REST messages (data-retrieve, metadata-sync, person-sync, person fetch/head/search) and of the exchanged data models. | [:material-download: JSON Schema](./json-schema/dena-rest-messages.schema.json) |
+| **DENA REST Messages — JSON Schema** | Schema of all REST messages (data-retrieve, metadata-sync, person-sync, person fetch/head/search) and of the exchanged data models. | [:material-download: Download](https://api-batera.pre.dena.eus/jsonschema-utils/json-schema?download=true) · [:material-eye: View online](https://api-batera.pre.dena.eus/jsonschema-utils/json-schema?download=false) |
+
+!!! info "Download vs. view"
+    - `?download=true` serves the schema as a downloadable **file**.
+    - `?download=false` shows it **directly** in the browser.
 
 ---
 

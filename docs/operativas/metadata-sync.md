@@ -149,6 +149,20 @@ DENA devuelve que items se procesaron correctamente (`processedOK`) y cuales fal
 
 ---
 
+## Recursos disponibles
+
+| Recurso | Descripción |
+|---------|-------------|
+| :material-api: [Swagger UI — admin-sync-rest](https://api-batera.pre.dena.eus/sync/swagger-ui/index.html) | API interactiva del servicio que recibe los SRMD (entorno **PRE**). Permite explorar endpoints y probar llamadas. OpenAPI JSON: [`/sync/v3/api-docs`](https://api-batera.pre.dena.eus/sync/v3/api-docs) |
+| :material-code-json: [JSON Schema de los mensajes REST](../adjuntos/json-schema.md) | Esquema formal y validable de los mensajes (incluye `DN00SyncMetaDataFromAdminRequest/ResponseMessage`) |
+| :material-rocket-launch: [Recursos Postman](../adjuntos/index.md) | Colección y environment con requests de ejemplo de Metadata-Sync |
+| :material-folder-table: [Todos los recursos Swagger](../adjuntos/swagger.md) | Índice de las Swagger UI y especificaciones OpenAPI de todos los servicios |
+
+!!! info "Entorno de referencia"
+    La documentación refleja el entorno **PRE**.
+
+---
+
 ## Especificación completa
 
 Para la especificación detallada del endpoint, modelo y errores:

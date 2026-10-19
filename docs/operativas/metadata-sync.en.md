@@ -149,6 +149,20 @@ DENA returns which items were processed correctly (`processedOK`) and which ones
 
 ---
 
+## Available resources
+
+| Resource | Description |
+|----------|-------------|
+| :material-api: [Swagger UI — admin-sync-rest](https://api-batera.pre.dena.eus/sync/swagger-ui/index.html) | Interactive API of the service that receives the SRMD (**PRE** environment). Lets you explore endpoints and try out calls. OpenAPI JSON: [`/sync/v3/api-docs`](https://api-batera.pre.dena.eus/sync/v3/api-docs) |
+| :material-code-json: [REST messages JSON Schema](../adjuntos/json-schema.md) | Formal, validatable schema of the messages (includes `DN00SyncMetaDataFromAdminRequest/ResponseMessage`) |
+| :material-rocket-launch: [Postman Resources](../adjuntos/index.md) | Collection and environment with sample Metadata-Sync requests |
+| :material-folder-table: [All Swagger resources](../adjuntos/swagger.md) | Index of the Swagger UIs and OpenAPI specifications of all services |
+
+!!! info "Reference environment"
+    The documentation reflects the **PRE** environment.
+
+---
+
 ## Full specification
 
 For the detailed specification of the endpoint, model and errors:

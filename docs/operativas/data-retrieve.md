@@ -228,6 +228,19 @@ Para la especificacion detallada de campos, validaciones y errores:
 
 ---
 
+## Recursos disponibles
+
+| Recurso | Descripción |
+|---------|-------------|
+| :material-code-json: [JSON Schema de los mensajes REST](../adjuntos/json-schema.md) | Esquema formal y validable de los mensajes de Data-Retrieve (`DN00COREToConnectorDataRetrieveRequest/ResponseMessage`) y de los tipos de dato intercambiados |
+| :material-rocket-launch: [Recursos Postman](../adjuntos/index.md) | Colección y environment con requests de ejemplo de Data-Retrieve |
+| :material-folder-table: [Recursos Swagger](../adjuntos/swagger.md) | Índice de las Swagger UI de los servicios que publica DENA |
+
+!!! note "Este endpoint lo implementa tu administración"
+    A diferencia de Metadata-Sync y Person-Sync, el endpoint de Data-Retrieve lo expone **tu administración** (DENA lo invoca), por lo que **no hay una Swagger UI de DENA** para él. Usa el JSON Schema y los mock factories de abajo como referencia del formato esperado.
+
+---
+
 ## Codigo de referencia
 
 Repositorios con tests y codigo de ejemplo para Data-Retrieve y cabeceras de seguridad:

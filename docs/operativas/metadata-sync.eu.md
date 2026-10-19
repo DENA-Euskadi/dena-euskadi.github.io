@@ -149,6 +149,20 @@ DENAk itzultzen du zein elementu ondo prozesatu diren (`processedOK`) eta zeintz
 
 ---
 
+## Baliabide eskuragarriak
+
+| Baliabidea | Deskribapena |
+|------------|--------------|
+| :material-api: [Swagger UI — admin-sync-rest](https://api-batera.pre.dena.eus/sync/swagger-ui/index.html) | SRMDak jasotzen dituen zerbitzuaren API interaktiboa (**PRE** ingurunea). Endpoint-ak esploratu eta deiak proba ditzakezu. OpenAPI JSON: [`/sync/v3/api-docs`](https://api-batera.pre.dena.eus/sync/v3/api-docs) |
+| :material-code-json: [REST mezuen JSON Schema](../adjuntos/json-schema.md) | Mezuen eskema formal eta balidagarria (`DN00SyncMetaDataFromAdminRequest/ResponseMessage` barne) |
+| :material-rocket-launch: [Postman Baliabideak](../adjuntos/index.md) | Metadata-Sync-en adibide-eskaerak dituen bilduma eta environment-a |
+| :material-folder-table: [Swagger baliabide guztiak](../adjuntos/swagger.md) | Zerbitzu guztien Swagger UIen eta OpenAPI espezifikazioen aurkibidea |
+
+!!! info "Erreferentziako ingurunea"
+    Dokumentazioak **PRE** ingurunea islatzen du.
+
+---
+
 ## Zehaztapen osoa
 
 Endpoint-aren, ereduaren eta erroreen zehaztapen xehatuetarako:
