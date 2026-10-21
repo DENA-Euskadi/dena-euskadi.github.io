@@ -12,7 +12,7 @@ Agenda-elementu bat edo aurretiko hitzordu bat adierazten du. Iraupena duen hitz
 
 > **Oharra:** Beste objektuekin alderatuta (jakinarazpena, erregistroa, ordainketa), hitzorduak **espedienteetatik independenteak** dira. Ez dute `procedureRecord` eremurik.
 
-> Ikusi ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ikusi ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -77,12 +77,14 @@ flowchart LR
 
 ## JSON atributuak
 
+<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
 
 | Eremua | Mota | Nahitaezkoa | Adibidea | Deskribapena |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` | ✅ | `"scheduleItem"` | Diskriminatzaile polimorfokoa |
-| `oid` | `String` | ✅ | `"SCHED-OID-001"` | Identifikatzaile tekniko bakarra |
-| `id` | `String` | ✅ | `"CITA-2024-00050"` | Negozio-identifikatzailea |
+| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"SCHED-OID-001"` | Identifikatzaile tekniko bakarra |
+| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"CITA-2024-00050"` | Negozio-identifikatzailea |
+| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
 | `year` | `Number` | ✅ | `2024` | Urtea |
 | `monthOfYear` | `Number` | ✅ | `7` | Hilabetea (1-12) |
 | `dayOfMonth` | `Number` | ✅ | `15` | Hilabeteko eguna (1-31) |
@@ -93,7 +95,7 @@ flowchart LR
 | `subject` | `LanguageTexts` | ✅ | `{"SPANISH":"Cita renovación DNI"}` | Hitzorduaren gaia |
 | `details` | `LanguageTexts` | ❌ | `{"SPANISH":"Traer foto reciente"}` | Xehetasun gehigarriak |
 | `location` | `Object` | ❌ | *(ikusi [Kokapena](#kokapena-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Kokapena (gomendatua) |
-| `urls` | `Array` | ❌ | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide URLak |
+| `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide URLak |
 
 ---
 
@@ -123,11 +125,14 @@ flowchart LR
 
 ## JSON adibidea
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 32 33 34"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "year": 2024,
   "monthOfYear": 7,
   "dayOfMonth": 15,
@@ -160,15 +165,22 @@ flowchart LR
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ---
 
 ## Adibidea — Mugarria (iraupena = 0)
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-002",
   "id": "HITO-2024-00010",
+  "lastChangedAt": "2026-09-01T06:00:00.000Z",
   "year": 2024,
   "monthOfYear": 9,
   "dayOfMonth": 1,
@@ -181,6 +193,10 @@ flowchart LR
   }
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

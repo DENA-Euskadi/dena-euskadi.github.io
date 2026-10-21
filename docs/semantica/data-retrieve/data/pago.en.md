@@ -15,7 +15,7 @@ Represents a payment obligation associated with a record. Two modalities:
 - **One-off payment** (`oneOffPayment`) — One-time settlement (fee, public price, penalty)
 - **Direct debit** (`directDebitPayment`) — Recurring periodic charge
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -114,13 +114,14 @@ flowchart LR
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` | ✅ | `"oneOffPayment"` | `"oneOffPayment"` or `"directDebitPayment"` |
-| `oid` | `String` | ✅ | `"PAY-OID-001"` | Unique technical identifier |
-| `id` | `String` | ✅ | `"PAY-2024-00321"` | Business identifier |
+| `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"PAY-OID-001"` | Unique technical identifier |
+| `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"PAY-2024-00321"` | Business identifier |
+| `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(see [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Reference to the record |
 | `paymentType` | `String` | ✅ | `"ONE_OFF_PAYMENT"` | `ONE_OFF_PAYMENT` or `DIRECT_DEBIT` |
 | `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Tasa licencia"}` | Payment concept |
 | `participatingOrgUnits` | `Array` | ❌ | *(see [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Participating organizational units |
-| `urls` | `Array` | ❌ | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Payment and receipt URLs |
+| `urls` <span class="field-badge--common">common</span> | `Array` | ❌ | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Payment and receipt URLs |
 
 ---
 
@@ -310,11 +311,14 @@ Each element in the `history` array has the following structure:
 
 ## Example — One-off payment
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 20 21 22"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
@@ -335,13 +339,20 @@ Each element in the `history` array has the following structure:
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ### Example — Completed payment
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 21 22 23 24"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-002",
   "id": "PAY-2024-00322",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de obras", "BASQUE": "Obra-lizentziaren tasa" },
@@ -364,13 +375,20 @@ Each element in the `history` array has the following structure:
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ## Example — Direct debit
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "directDebitPayment",
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },
@@ -390,6 +408,10 @@ Each element in the `history` array has the following structure:
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

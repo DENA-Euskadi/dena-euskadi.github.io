@@ -4,9 +4,23 @@ DENA documentation version history.
 
 ---
 
-## v0.5.3 <small>— 2026-10-19</small> { #v053 }
+## v0.5.4 <small>— 2026-10-20</small> { #v054 }
 
 !!! success "Current"
+
+**Highlighting of common (inherited) fields in the Data-Retrieve data-type pages.**
+
+Updates:
+
+- :material-refresh: All root Data-Retrieve data-type pages (appointment, record, notification, official-registry, payment, person) now mark the **common** fields inherited from `DN00DENADataExchangedObjectBase` (`oid`, `id`, `lastChangedAt`, `urls`) with a DENA-green <span class="field-badge--common">common</span> badge in the attributes table
+- :material-plus: Each page's JSON examples highlight (in DENA green) the common-field lines and add an explanatory legend below the code block, with a reference to [campos-comunes.md](../../semantica/data-retrieve/data/campos-comunes.md)
+- :material-bug: Added the mandatory `lastChangedAt` field (previously missing) to the attributes table and to every JSON example of each type; it is the field DENA-CORE uses to compute the NEW/UPDATED/UNCHANGED state in the UI
+- :material-refresh: Completed the "inherited fields" reference of each page to include `lastChangedAt`
+- :material-translate: All changes reflected in ES, EN and EU
+
+---
+
+## v0.5.3 <small>— 2026-10-19</small> { #v053 }
 
 **Publication of the services' Swagger/OpenAPI and update of the REST messages JSON Schema.**
 

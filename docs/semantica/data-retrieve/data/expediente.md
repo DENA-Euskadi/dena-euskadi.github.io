@@ -10,7 +10,7 @@
 
 Representa un expediente administrativo vinculado a un servicio y procedimiento. Es el objeto central del modelo: notificaciones, registros y pagos dependen de él.
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -80,11 +80,14 @@ flowchart LR
 
 ## Atributos JSON
 
+Los campos marcados con <span class="field-badge--common">común</span> son **heredados** de [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) y están presentes en todos los tipos del data-retrieve. Ver [campos-comunes.md](./campos-comunes.md).
+
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` | ✅ | `"administrativeServiceProcedureRecord"` | Discriminador polimórfico |
-| `oid` | `String` | ✅ | `"EXP-OID-001"` | Identificador técnico único |
-| `id` | `String` | ✅ | `"EXP-2024-00123"` | Identificador de negocio |
+| `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"EXP-OID-001"` | Identificador técnico único |
+| `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"EXP-2024-00123"` | Identificador de negocio |
+| `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen. DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED |
 | `service` | `Object` | ✅ | *(ver [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdmistrativeService`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java))* | Servicio administrativo |
 | `procedure` | `Object` | ✅ | *(ver [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdministrativeServiceProcedure`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java))* | Procedimiento |
 | `createdAt` | `String` (ISO 8601) | ✅ | `"2024-03-15T10:30:00Z"` | Fecha de creación |
@@ -98,7 +101,7 @@ flowchart LR
 | `interested.partyId` | `String` | ❌ | `"12345678A"` | NIF/DNI del interesado |
 | `interested.partyName` | `String` | ❌ | `"Juan García"` | Nombre del interesado |
 | `descriptionByLanguage` | `LanguageTexts` | ❌ | `{"SPANISH":"Licencia apertura"}` | Descripción del expediente |
-| `urls` | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso a la sede electrónica |
+| `urls` <span class="field-badge--common">común</span> | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso a la sede electrónica |
 
 ---
 
@@ -117,11 +120,14 @@ flowchart LR
 
 ## Ejemplo JSON
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 24 25 26 27"
 {
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "service": {
     "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "id": "SRV-LIC-ACT" }
@@ -146,6 +152,10 @@ flowchart LR
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Las líneas resaltadas son los campos <strong>comunes</strong> heredados de la clase base (ver <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

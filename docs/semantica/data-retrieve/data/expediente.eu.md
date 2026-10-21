@@ -10,7 +10,7 @@
 
 Zerbitzu eta prozedura bati lotutako administrazio-espediente bat adierazten du. Ereduaren objektu nagusia da: jakinarazpenak, erregistroak eta ordainketak haren mende daude.
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -80,11 +80,14 @@ flowchart LR
 
 ## JSON atributuak
 
+<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
+
 | Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
 |--------|------|:-----------:|----------|--------------|
 | `type` | `String` | ✅ | `"administrativeServiceProcedureRecord"` | Diskriminatzaile polimorfiko |
-| `oid` | `String` | ✅ | `"EXP-OID-001"` | Identifikatzaile tekniko bakarra |
-| `id` | `String` | ✅ | `"EXP-2024-00123"` | Negozio-identifikatzailea |
+| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"EXP-OID-001"` | Identifikatzaile tekniko bakarra |
+| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"EXP-2024-00123"` | Negozio-identifikatzailea |
+| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
 | `service` | `Object` | ✅ | *(ikusi [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdmistrativeService`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java))* | Administrazio-zerbitzua |
 | `procedure` | `Object` | ✅ | *(ikusi [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdministrativeServiceProcedure`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java))* | Prozedura |
 | `createdAt` | `String` (ISO 8601) | ✅ | `"2024-03-15T10:30:00Z"` | Sorrera-data |
@@ -98,7 +101,7 @@ flowchart LR
 | `interested.partyId` | `String` | ❌ | `"12345678A"` | Interesdunaren IFZ/NAN |
 | `interested.partyName` | `String` | ❌ | `"Juan García"` | Interesdunaren izena |
 | `descriptionByLanguage` | `LanguageTexts` | ❌ | `{"SPANISH":"Licencia apertura"}` | Espedientearen deskribapena |
-| `urls` | `Array` | ❌ (gomendatua) | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Egoitza elektronikorako sarbide-URLak |
+| `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ (gomendatua) | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Egoitza elektronikorako sarbide-URLak |
 
 ---
 
@@ -117,11 +120,14 @@ flowchart LR
 
 ## JSON adibidea
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 24 25 26 27"
 {
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "service": {
     "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "id": "SRV-LIC-ACT" }
@@ -146,6 +152,10 @@ flowchart LR
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

@@ -2,8 +2,8 @@
 # Uso en markdown: {{ dena.version }}
 
 dena:
-  version: "0.5.3"
-  date: "2026-10-19"
+  version: "0.5.4"
+  date: "2026-10-20"
   java_version: "21+"
   maven_version: "3.9+"
   

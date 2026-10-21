@@ -12,7 +12,7 @@ Representa un elemento de agenda o cita previa. Puede ser una cita con duración
 
 > **Nota:** A diferencia de los demás objetos (notificación, registro, pago), las citas son **independientes de expedientes**. No tienen campo `procedureRecord`.
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -77,12 +77,14 @@ flowchart LR
 
 ## Atributos JSON
 
+Los campos marcados con <span class="field-badge--common">común</span> son **heredados** de [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) y están presentes en todos los tipos del data-retrieve. Ver [campos-comunes.md](./campos-comunes.md).
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` | ✅ | `"scheduleItem"` | Discriminador polimórfico |
-| `oid` | `String` | ✅ | `"SCHED-OID-001"` | Identificador técnico único |
-| `id` | `String` | ✅ | `"CITA-2024-00050"` | Identificador de negocio |
+| `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"SCHED-OID-001"` | Identificador técnico único |
+| `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"CITA-2024-00050"` | Identificador de negocio |
+| `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen. DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED |
 | `year` | `Number` | ✅ | `2024` | Año |
 | `monthOfYear` | `Number` | ✅ | `7` | Mes (1-12) |
 | `dayOfMonth` | `Number` | ✅ | `15` | Día del mes (1-31) |
@@ -93,7 +95,7 @@ flowchart LR
 | `subject` | `LanguageTexts` | ✅ | `{"SPANISH":"Cita renovación DNI"}` | Asunto de la cita |
 | `details` | `LanguageTexts` | ❌ | `{"SPANISH":"Traer foto reciente"}` | Detalles adicionales |
 | `location` | `Object` | ❌ | *(ver [Ubicación](#ubicacion-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Ubicación (recomendado) |
-| `urls` | `Array` | ❌ | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
+| `urls` <span class="field-badge--common">común</span> | `Array` | ❌ | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
 
 ---
 
@@ -123,11 +125,14 @@ flowchart LR
 
 ## Ejemplo JSON
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 32 33 34"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "year": 2024,
   "monthOfYear": 7,
   "dayOfMonth": 15,
@@ -160,15 +165,22 @@ flowchart LR
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Las líneas resaltadas son los campos <strong>comunes</strong> heredados de la clase base (ver <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ---
 
 ## Ejemplo — Hito (duración = 0)
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-002",
   "id": "HITO-2024-00010",
+  "lastChangedAt": "2026-09-01T06:00:00.000Z",
   "year": 2024,
   "monthOfYear": 9,
   "dayOfMonth": 1,
@@ -181,6 +193,10 @@ flowchart LR
   }
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Las líneas resaltadas son los campos <strong>comunes</strong> heredados de la clase base (ver <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

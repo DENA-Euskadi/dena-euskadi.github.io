@@ -15,7 +15,7 @@ Espediente bati lotutako ordainketa-betebehar bat adierazten du. Bi modalitate:
 - **Ordainketa bakarra** (`oneOffPayment`) — Likidazio puntuala (tasa, prezio publikoa, zehapena)
 - **Helbideratze bankarioa** (`directDebitPayment`) — Aldizkako kargu errepikakorra
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -111,16 +111,19 @@ flowchart LR
 ## Atributu komunak
 
 
+<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
+
 | Eremua | Mota | Nahitaezkoa | Adibidea | Deskribapena |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` | ✅ | `"oneOffPayment"` | `"oneOffPayment"` edo `"directDebitPayment"` |
-| `oid` | `String` | ✅ | `"PAY-OID-001"` | Identifikatzaile tekniko bakarra |
-| `id` | `String` | ✅ | `"PAY-2024-00321"` | Negozio-identifikatzailea |
+| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PAY-OID-001"` | Identifikatzaile tekniko bakarra |
+| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PAY-2024-00321"` | Negozio-identifikatzailea |
+| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
 | `paymentType` | `String` | ✅ | `"ONE_OFF_PAYMENT"` | `ONE_OFF_PAYMENT` edo `DIRECT_DEBIT` |
 | `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Tasa licencia"}` | Ordainketaren kontzeptua |
 | `participatingOrgUnits` | `Array` | ❌ | *(ikusi [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Parte hartzen duten unitate organikoak |
-| `urls` | `Array` | ❌ | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Ordainketa eta ordainagiri URLak |
+| `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Ordainketa eta ordainagiri URLak |
 
 ---
 
@@ -310,11 +313,14 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 ## Adibidea — Ordainketa bakarra
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 20 21 22"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
@@ -335,13 +341,20 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ### Adibidea — Ordainketa osatua
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 21 22 23 24"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-002",
   "id": "PAY-2024-00322",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de obras", "BASQUE": "Obra-lizentziaren tasa" },
@@ -364,13 +377,20 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ## Adibidea — Helbideratze bankarioa
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "directDebitPayment",
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },
@@ -390,6 +410,10 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

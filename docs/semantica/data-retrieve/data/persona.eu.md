@@ -12,7 +12,7 @@
 
 `DN00DENADataExchangedObjectBase` hedatzen du (DATA-RETRIEVE ereduaren objektu trukatu nagusia da).
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -97,11 +97,14 @@ flowchart LR
 
 ## PersonData — JSON atributuak
 
+<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
+
 | Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
 |--------|------|:-----------:|----------|--------------|
 | `type` | `String` | ✅ | `"personData"` | Diskriminatzaile polimorfiko |
-| `oid` | `String` | ✅ | `"PDATA-OID-001"` | Identifikatzaile teknikoa |
-| `id` | `String` | ✅ | `"12345678A"` | Negozio-identifikatzailea |
+| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PDATA-OID-001"` | Identifikatzaile teknikoa |
+| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"12345678A"` | Negozio-identifikatzailea |
+| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
 | `contactData` | [`DN00ContactData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) | ✅ | *(ikusi [contactData](#kontaktu-datuak-contactdata))* | Kontaktu-datu xehatuak |
 | `addresses` | [`DN00Addresses`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) | ❌ | *(ikusi [Helbideak](#helbideak-addresses))* | Helbideak (nagusia + besteak) |
 | `bankDataCollection` | [`DN00BankDataCollection`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) | ❌ | *(ikusi [Banku-datuak](#banku-datuak-bankdatacollection))* | Banku-datuak |
@@ -183,11 +186,14 @@ flowchart LR
 
 ## JSON adibidea
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "personData",
   "oid": "PDATA-OID-001",
   "id": "12345678A",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "contactData": {
     "partyId": "12345678A",
     "partyName": "María",
@@ -231,6 +237,10 @@ flowchart LR
   }
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

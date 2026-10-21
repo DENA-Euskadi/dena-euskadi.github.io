@@ -167,3 +167,64 @@
   display: flex;
   align-items: center;
 }
+
+/* ==========================================================================
+   Campos comunes (heredados de DN00DENADataExchangedObjectBase)
+   ========================================================================== */
+
+/* --- Badge "común" para marcar en las tablas los campos heredados --- */
+.field-badge--common {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background-color: rgba(112, 214, 128, 0.18);
+  color: var(--dena-green-950);
+  border: 1px solid var(--dena-green-500);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+[data-md-color-scheme="slate"] .field-badge--common {
+  background-color: rgba(112, 214, 128, 0.22);
+  color: #8de49a;
+  border-color: var(--dena-green-500);
+}
+
+/* --- Leyenda de color de los campos comunes (debajo del bloque de código) --- */
+.md-typeset p.common-fields-legend {
+  margin-top: -0.4rem;
+  margin-bottom: 1rem;
+  padding: 6px 10px;
+  background-color: var(--md-code-bg-color);
+  border-left: 3px solid var(--dena-green-500);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset p.common-fields-legend .swatch {
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: -1px;
+  margin-right: 4px;
+  border-radius: 3px;
+  background-color: rgba(112, 214, 128, 0.35);
+  border: 1px solid var(--dena-green-500);
+}
+
+/* --- Resaltado verde DENA de las líneas de campos comunes --- */
+/* Acotado al contenedor .common-highlight para NO afectar al resto de bloques de código */
+.md-typeset .common-highlight .highlight .hll {
+  background-color: rgba(112, 214, 128, 0.22);
+  box-shadow: inset 3px 0 0 0 var(--dena-green-500);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .common-highlight .highlight .hll {
+  background-color: rgba(112, 214, 128, 0.16);
+  box-shadow: inset 3px 0 0 0 var(--dena-green-500);
+}

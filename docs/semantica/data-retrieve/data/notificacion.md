@@ -10,7 +10,7 @@
 
 Representa una notificación oficial o comunicación administrativa emitida hacia una persona ciudadana, vinculada a un expediente.
 
-> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ver también: [campos-comunes.md](./campos-comunes.md) para campos heredados (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -76,17 +76,20 @@ flowchart LR
 
 ## Atributos JSON
 
+Los campos marcados con <span class="field-badge--common">común</span> son **heredados** de [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) y están presentes en todos los tipos del data-retrieve. Ver [campos-comunes.md](./campos-comunes.md).
+
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Tipo de notificación: `OFFICIAL_NOTICE` o `COMMUNICATION` (enum `DN00AdministrativeNoticeType`). No confundir con el discriminador polimórfico |
-| `oid` | `String` | ✅ | `"NOT-OID-001"` | Identificador técnico único |
-| `id` | `String` | ✅ | `"NOT-2024-00456"` | Identificador de negocio |
+| `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"NOT-OID-001"` | Identificador técnico único |
+| `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"NOT-2024-00456"` | Identificador de negocio |
+| `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen. DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
 | `issuedAt` | `String` (ISO 8601) | ✅ | `"2024-05-20T09:00:00Z"` | Fecha de emisión |
 | `readedAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Fecha de lectura (null si no leída) |
 | `state` | `String` | ✅ | `"PENDING_TO_BE_READED_BY_DESTINATION"` | Estado actual (string directo, NO objeto) |
 | `actSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Asunto del acto notificado |
-| `urls` | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
+| `urls` <span class="field-badge--common">común</span> | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
 
 > **Importante:** En notificaciones, el campo `state` es directamente un **string** con el código de estado (ej: `"PENDING_TO_BE_READED_BY_DESTINATION"`), a diferencia de expedientes y registros donde `state` es un objeto con `stateCode` y `description`.
 
@@ -118,11 +121,14 @@ flowchart LR
 
 ## Ejemplo JSON
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 14 15 16"
 {
   "type": "OFFICIAL_NOTICE",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-20T09:00:00Z",
   "readedAt": null,
@@ -137,13 +143,20 @@ flowchart LR
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Las líneas resaltadas son los campos <strong>comunes</strong> heredados de la clase base (ver <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ### Ejemplo — Notificación leída
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 14 15 16"
 {
   "type": "COMMUNICATION",
   "oid": "NOT-OID-002",
   "id": "NOT-2024-00457",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-15T08:00:00Z",
   "readedAt": "2024-05-16T10:30:00Z",
@@ -157,6 +170,10 @@ flowchart LR
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Las líneas resaltadas son los campos <strong>comunes</strong> heredados de la clase base (ver <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

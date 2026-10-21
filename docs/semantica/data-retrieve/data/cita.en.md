@@ -12,7 +12,7 @@ Represents a schedule item or appointment. It can be an appointment with a durat
 
 > **Note:** Unlike other objects (notification, registry, payment), appointments are **independent of records**. They do not have a `procedureRecord` field.
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -77,12 +77,14 @@ flowchart LR
 
 ## JSON attributes
 
+Fields marked with <span class="field-badge--common">common</span> are **inherited** from [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) and are present in all data-retrieve types. See [campos-comunes.md](./campos-comunes.md).
 
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:-----------:|---------|-------------|
 | `type` | `String` | ✅ | `"scheduleItem"` | Polymorphic discriminator |
-| `oid` | `String` | ✅ | `"SCHED-OID-001"` | Unique technical identifier |
-| `id` | `String` | ✅ | `"CITA-2024-00050"` | Business identifier |
+| `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"SCHED-OID-001"` | Unique technical identifier |
+| `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"CITA-2024-00050"` | Business identifier |
+| `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
 | `year` | `Number` | ✅ | `2024` | Year |
 | `monthOfYear` | `Number` | ✅ | `7` | Month (1-12) |
 | `dayOfMonth` | `Number` | ✅ | `15` | Day of month (1-31) |
@@ -93,7 +95,7 @@ flowchart LR
 | `subject` | `LanguageTexts` | ✅ | `{"SPANISH":"Cita renovación DNI"}` | Appointment subject |
 | `details` | `LanguageTexts` | ❌ | `{"SPANISH":"Traer foto reciente"}` | Additional details |
 | `location` | `Object` | ❌ | *(see [Location](#location-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Location (recommended) |
-| `urls` | `Array` | ❌ | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs |
+| `urls` <span class="field-badge--common">common</span> | `Array` | ❌ | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs |
 
 ---
 
@@ -123,11 +125,14 @@ flowchart LR
 
 ## JSON example
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 32 33 34"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "year": 2024,
   "monthOfYear": 7,
   "dayOfMonth": 15,
@@ -160,15 +165,22 @@ flowchart LR
 }
 ```
 
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
+
 ---
 
 ## Example — Milestone (duration = 0)
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-002",
   "id": "HITO-2024-00010",
+  "lastChangedAt": "2026-09-01T06:00:00.000Z",
   "year": 2024,
   "monthOfYear": 9,
   "dayOfMonth": 1,

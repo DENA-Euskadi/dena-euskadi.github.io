@@ -10,7 +10,7 @@
 
 Represents an administrative record linked to a service and procedure. It is the central object of the model: notifications, registrations and payments depend on it.
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -80,11 +80,14 @@ flowchart LR
 
 ## JSON attributes
 
+Fields marked with <span class="field-badge--common">common</span> are **inherited** from [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) and are present in all data-retrieve types. See [campos-comunes.md](./campos-comunes.md).
+
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
 | `type` | `String` | ✅ | `"administrativeServiceProcedureRecord"` | Polymorphic discriminator |
-| `oid` | `String` | ✅ | `"EXP-OID-001"` | Unique technical identifier |
-| `id` | `String` | ✅ | `"EXP-2024-00123"` | Business identifier |
+| `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"EXP-OID-001"` | Unique technical identifier |
+| `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"EXP-2024-00123"` | Business identifier |
+| `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
 | `service` | `Object` | ✅ | *(see [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdmistrativeService`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java))* | Administrative service |
 | `procedure` | `Object` | ✅ | *(see [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdministrativeServiceProcedure`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java))* | Procedure |
 | `createdAt` | `String` (ISO 8601) | ✅ | `"2024-03-15T10:30:00Z"` | Creation date |
@@ -98,7 +101,7 @@ flowchart LR
 | `interested.partyId` | `String` | ❌ | `"12345678A"` | NIF/DNI of the interested party |
 | `interested.partyName` | `String` | ❌ | `"Juan García"` | Name of the interested party |
 | `descriptionByLanguage` | `LanguageTexts` | ❌ | `{"SPANISH":"Licencia apertura"}` | Record description |
-| `urls` | `Array` | ❌ (recommended) | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs to the e-government portal |
+| `urls` <span class="field-badge--common">common</span> | `Array` | ❌ (recommended) | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs to the e-government portal |
 
 ---
 
@@ -117,11 +120,14 @@ flowchart LR
 
 ## JSON example
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 24 25 26 27"
 {
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "service": {
     "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "id": "SRV-LIC-ACT" }
@@ -146,6 +152,10 @@ flowchart LR
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

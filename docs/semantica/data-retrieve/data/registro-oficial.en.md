@@ -10,7 +10,7 @@
 
 Represents an inbound or outbound register entry in an official register, linked to a record.
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -72,18 +72,21 @@ flowchart LR
 
 ## JSON attributes
 
+Fields marked with <span class="field-badge--common">common</span> are **inherited** from [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) and are present in all data-retrieve types. See [campos-comunes.md](./campos-comunes.md).
+
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
 | `type` | `String` | ✅ | `"administrativeOfficialRegisterRecord"` | Polymorphic discriminator |
-| `oid` | `String` | ✅ | `"REG-OID-001"` | Unique technical identifier |
-| `id` | `String` | ✅ | `"REG-2024-00789"` | Business identifier |
+| `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"REG-OID-001"` | Unique technical identifier |
+| `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"REG-2024-00789"` | Business identifier |
+| `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(see [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Reference to the record |
 | `registeredAt` | `String` (ISO 8601) | ✅ | `"2024-04-10T08:30:00Z"` | Registration date/time |
 | `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Subject of the register entry |
 | `state` | `Object` | ✅ | *(see [`DN00AdministrativeOfficialRegisterRecordState`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecordState.java))* | Current state |
 | `state.stateCode` | `String` | ✅ | `"PRESENTED"` | State code |
 | `state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"Presentado"}` | Multilingual description |
-| `urls` | `Array` | ❌ (recommended) | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs |
+| `urls` <span class="field-badge--common">common</span> | `Array` | ❌ (recommended) | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs |
 
 ---
 
@@ -99,11 +102,14 @@ flowchart LR
 
 ## JSON example
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 16 17 18"
 {
   "type": "administrativeOfficialRegisterRecord",
   "oid": "REG-OID-001",
   "id": "REG-2024-00789",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "registeredAt": "2024-04-10T08:30:00Z",
   "subjectByLanguage": {
@@ -119,6 +125,10 @@ flowchart LR
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

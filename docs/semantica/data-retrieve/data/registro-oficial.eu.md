@@ -10,7 +10,7 @@
 
 Espediente bati lotutako erregistro ofizial bateko sarrera edo irteera-erregistroko idazpena adierazten du.
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -72,18 +72,21 @@ flowchart LR
 
 ## JSON atributuak
 
+<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
+
 | Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
 |--------|------|:-----------:|----------|--------------|
 | `type` | `String` | ✅ | `"administrativeOfficialRegisterRecord"` | Diskriminatzaile polimorfiko |
-| `oid` | `String` | ✅ | `"REG-OID-001"` | Identifikatzaile tekniko bakarra |
-| `id` | `String` | ✅ | `"REG-2024-00789"` | Negozio-identifikatzailea |
+| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"REG-OID-001"` | Identifikatzaile tekniko bakarra |
+| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"REG-2024-00789"` | Negozio-identifikatzailea |
+| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
 | `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
 | `registeredAt` | `String` (ISO 8601) | ✅ | `"2024-04-10T08:30:00Z"` | Erregistro-data/ordua |
 | `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Erregistro-idazpenaren gaia |
 | `state` | `Object` | ✅ | *(ikusi [`DN00AdministrativeOfficialRegisterRecordState`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecordState.java))* | Uneko egoera |
 | `state.stateCode` | `String` | ✅ | `"PRESENTED"` | Egoera-kodea |
 | `state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"Presentado"}` | Deskribapen eleanitza |
-| `urls` | `Array` | ❌ (gomendatua) | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide-URLak |
+| `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ (gomendatua) | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide-URLak |
 
 ---
 
@@ -99,11 +102,14 @@ flowchart LR
 
 ## JSON adibidea
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5 16 17 18"
 {
   "type": "administrativeOfficialRegisterRecord",
   "oid": "REG-OID-001",
   "id": "REG-2024-00789",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "registeredAt": "2024-04-10T08:30:00Z",
   "subjectByLanguage": {
@@ -119,6 +125,10 @@ flowchart LR
   ]
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 

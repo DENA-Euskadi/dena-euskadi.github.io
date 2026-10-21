@@ -4,9 +4,23 @@ DENA dokumentazioaren bertsio-historia.
 
 ---
 
-## v0.5.3 <small>— 2026-10-19</small> { #v053 }
+## v0.5.4 <small>— 2026-10-20</small> { #v054 }
 
 !!! success "Unekoa"
+
+**Data-Retrieve datu-moten fitxetan eremu komunak (heredatutakoak) nabarmentzea.**
+
+Eguneraketak:
+
+- :material-refresh: Data-Retrieve-ren datu-moten fitxa nagusi guztiek (hitzordua, espedientea, jakinarazpena, erregistro ofiziala, ordainketa, pertsona) `DN00DENADataExchangedObjectBase`-tik heredatutako eremu **komunak** (`oid`, `id`, `lastChangedAt`, `urls`) <span class="field-badge--common">komuna</span> DENA-berde intsigniarekin markatzen dituzte atributuen taulan
+- :material-plus: Fitxa bakoitzaren JSON adibideek eremu komunen lerroak nabarmentzen dituzte (DENA berdez) eta kode-blokearen azpian azalpen-leienda bat gehitzen dute, [campos-comunes.md](../../semantica/data-retrieve/data/campos-comunes.md) erreferentziarekin
+- :material-bug: `lastChangedAt` nahitaezko eremua (lehen falta zena) gehitu zaie atributuen taulari eta mota bakoitzaren JSON adibide guztiei; DENA-COREk UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko erabiltzen duen eremua da
+- :material-refresh: Fitxa bakoitzaren "heredatutako eremuak" erreferentzia osatu da `lastChangedAt` sartzeko
+- :material-translate: Aldaketa guztiak ES, EN eta EU-n islatuta
+
+---
+
+## v0.5.3 <small>— 2026-10-19</small> { #v053 }
 
 **Zerbitzuen Swagger/OpenAPI argitaratzea eta REST mezuen JSON Schema eguneratzea.**
 

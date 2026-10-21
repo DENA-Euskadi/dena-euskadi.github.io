@@ -12,7 +12,7 @@ The **PersonData** model (`DN00PersonData`) represents the data of a person exch
 
 It extends `DN00DENADataExchangedObjectBase` (it is a main exchanged object of the DATA-RETRIEVE model).
 
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `urls`, `originAdmin`, `aboutPerson`)
+> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
 ```mermaid
 ---
@@ -97,11 +97,14 @@ flowchart LR
 
 ## PersonData — JSON attributes
 
+Fields marked with <span class="field-badge--common">common</span> are **inherited** from [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) and are present in all data-retrieve types. See [campos-comunes.md](./campos-comunes.md).
+
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
 | `type` | `String` | ✅ | `"personData"` | Polymorphic discriminator |
-| `oid` | `String` | ✅ | `"PDATA-OID-001"` | Technical identifier |
-| `id` | `String` | ✅ | `"12345678A"` | Business identifier |
+| `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"PDATA-OID-001"` | Technical identifier |
+| `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"12345678A"` | Business identifier |
+| `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
 | `contactData` | [`DN00ContactData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) | ✅ | *(see [contactData](#contact-data-contactdata))* | Detailed contact data |
 | `addresses` | [`DN00Addresses`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) | ❌ | *(see [Addresses](#addresses-addresses))* | Addresses (main + others) |
 | `bankDataCollection` | [`DN00BankDataCollection`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) | ❌ | *(see [Bank data](#bank-data-bankdatacollection))* | Bank data |
@@ -183,11 +186,14 @@ flowchart LR
 
 ## JSON example
 
-```json
+<div class="common-highlight" markdown>
+
+```json hl_lines="3 4 5"
 {
   "type": "personData",
   "oid": "PDATA-OID-001",
   "id": "12345678A",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "contactData": {
     "partyId": "12345678A",
     "partyName": "María",
@@ -231,6 +237,10 @@ flowchart LR
   }
 }
 ```
+
+<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
+
+</div>
 
 ---
 
