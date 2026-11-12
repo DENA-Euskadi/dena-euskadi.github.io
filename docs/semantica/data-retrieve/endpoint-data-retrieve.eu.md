@@ -39,7 +39,7 @@ Administrazioak DENA konektoretik eskaera bat jasotzen du `context` objektu bate
 | Eremua | Nahitaezkoa | Deskribapena |
 |-------|:-----------:|-------------|
 | `context.subjectPerson.id` | ✅ | Datuak eskatzen diren pertsonaren DNI/NIE/NIF |
-| `context.dataType.id` | ✅ | Eskatutako datu-mota (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`. Ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) eta [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.dataType.id` | ✅ | Eskatutako datu-mota (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`, `personCredential`, `personCredentialForBasqueLanguageDegree`, `economicBenefit`, `administrativeLedger`, `administrativePersonRegister`, `administrativePersonRegisterForHousingPEV`, `administrativePersonRegisterForLastWill`, `administrativePersonRegisterForRevisionPEV`, `personEnrollment`, `personAcademicEnrollment`, `personMedicalData`. Ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md) eta [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
 | `context.destinationAdmin.id` | ✅ | Helmugako administrazioaren identifikatzailea (datuak zerbitzatzen dituena) |
 | `context.originAdmin.id` | ❌ | Eskaeraren jatorriaren identifikatzailea (DENA konektorea) |
 
@@ -150,10 +150,16 @@ Administrazioak DENA konektoretik eskaera bat jasotzen du `context` objektu bate
 |--------|--------|---------------|
 | `administrativeServiceProcedureRecord` | Espedientea | [expediente.md](./data/expediente.md) |
 | `administrativeNotice` | Jakinarazpena | [notificacion.md](./data/notificacion.md) |
-| `administrativeOfficialRegisterRecord` | Erregistro ofiziala | [registro-oficial.md](./data/registro-oficial.md) |
 | `oneOffPayment` | Ordainketa bakarra | [pago.md](./data/pago.md) |
 | `directDebitPayment` | Helbideratze bankarioa | [pago.md](./data/pago.md) |
 | `scheduleItem` | Hitzordua | [cita.md](./data/cita.md) |
+| `personData` | Pertsonaren datuak | [persona.md](./data/persona.md) |
+| `personCredential` · `personCredentialForBasqueLanguageDegree` | Pertsonaren kredentzialak | [credencial-persona.md](./data/credencial-persona.md) |
+| `economicBenefit` | Prestazio ekonomikoa | [beneficio-economico.md](./data/beneficio-economico.md) |
+| `administrativeLedger` | Liburu erregistroa (Sarrerak/Irteerak) | [libro-registro.md](./data/libro-registro.md) |
+| `administrativePersonRegister` · `administrativePersonRegisterForHousingPEV` · `administrativePersonRegisterForLastWill` · `administrativePersonRegisterForRevisionPEV` | Pertsona erregistroa | [registro-persona.md](./data/registro-persona.md) |
+| `personEnrollment` · `personAcademicEnrollment` | Matrikula | [matricula.md](./data/matricula.md) |
+| `personMedicalData` | Datu medikoak | [datos-medicos.md](./data/datos-medicos.md) |
 
 Erreferentziatutako objektu lagungarriak:
 
@@ -169,14 +175,15 @@ Erreferentziatutako objektu lagungarriak:
 
 ```json
 {
-  "type": "OFFICIAL_NOTICE",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "typeNotice": "OFFICIAL_NOTICE",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-20T09:00:00Z",
-  "readedAt": null,
-  "state": "PENDING_TO_BE_READED_BY_DESTINATION",
-  "actSubjectByLanguage": { "SPANISH": "Resolución de concesión de ayuda", "BASQUE": "Laguntza emateko ebazpena" },
+  "readAt": null,
+  "state": "PENDING_TO_BE_READ_BY_DESTINATION",
+  "subjectByLanguage": { "SPANISH": "Resolución de concesión de ayuda", "BASQUE": "Laguntza emateko ebazpena" },
   "urls": [{ "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }]
 }
 ```
@@ -188,7 +195,7 @@ Erreferentziatutako objektu lagungarriak:
   "type": "oneOffPayment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
   "paymentDates": { "dueDate": "2024-06-30", "surchargedAt": "2024-07-15", "paidAt": null },
@@ -200,17 +207,24 @@ Erreferentziatutako objektu lagungarriak:
 }
 ```
 
-## Adibidea — Erregistro ofiziala
+## Adibidea — Liburu Erregistroa (Sarrerak/Irteerak)
 
 ```json
 {
-  "type": "administrativeOfficialRegisterRecord",
-  "oid": "REG-OID-001",
-  "id": "REG-2024-00789",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "type": "administrativeLedger",
+  "oid": "LED-OID-001",
+  "id": "LED-2024-00789",
+  "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "registeredAt": "2024-04-10T08:30:00Z",
-  "subjectByLanguage": { "SPANISH": "Solicitud de licencia de obras", "BASQUE": "Obra-lizentzia eskaera" },
-  "state": { "stateCode": "PRESENTED", "description": { "SPANISH": "Presentado", "BASQUE": "Aurkeztua" } }
+  "entryDirection": { "stateCode": "ENTRY", "description": { "SPANISH": "Entrada", "BASQUE": "Sarrera" } },
+  "subjectByLanguage": {
+    "SPANISH": "Solicitud de licencia de obras",
+    "BASQUE": "Obra-lizentzia eskaera"
+  },
+  "urls": [
+    { "id": "main", "tags": ["default"], "value": "https://sede.miadmin.eus/registro/LED-2024-00789" }
+  ]
 }
 ```
 
@@ -246,11 +260,11 @@ Erreferentziatutako objektu lagungarriak:
   "type": "directDebitPayment",
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },
   "directDebitData": {
-    "startDate": "2024-01-15",
+    "startedAt": "2024-01-15",
     "expiresAt": null,
     "frequency": "MONTHLY",
     "medium": "DIRECT_DEBIT",

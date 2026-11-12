@@ -58,11 +58,24 @@ Baliozko `id` balioak `DN00DataTypeEnum` enum-ean definitzen dira. Balio bakoitz
 |---|---|---|
 | `administrativeServiceProcedureRecord` | Espedientea | `ADMINISTRATIVE_RECORD` |
 | `administrativeNotice` | Jakinarazpena | `ADMINISTRATIVE_NOTICE` |
-| `administrativeOfficialRegisterRecord` | Erregistro ofiziala | `ADMINISTRATIVE_REGISTER` |
 | `oneOffPayment` | Ordainketa bakarra | `PAYMENT_ONE_OFF_PAYMENT` |
 | `directDebitPayment` | Helbideratzea | `PAYMENT_DIRECT_DEBIT_PAYMENT` |
 | `scheduleItem` | Hitzordua | `SCHEDULE` |
 | `personData` | Pertsonaren datuak | `PERSON_DATA` |
+| `personCredential` | Pertsonaren kredentziala | `PERSON_CREDENTIAL` |
+| `personCredentialForBasqueLanguageDegree` | Euskara-mailaren kredentziala | `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` |
+| `economicBenefit` | Onura ekonomikoa | `ECONOMIC_BENEFIT` |
+| `administrativeLedger` | Erregistro liburua | `ADMINISTRATIVE_LEDGER` |
+| `administrativePersonRegister` | Pertsonaren erregistroa (oinarria) | `ADMINISTRATIVE_PERSON_REGISTER` |
+| `administrativePersonRegisterForHousingPEV` | Pertsonaren erregistroa — etxebizitza PEB | `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` |
+| `administrativePersonRegisterForLastWill` | Pertsonaren erregistroa — azken nahia | `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` |
+| `administrativePersonRegisterForRevisionPEV` | Pertsonaren erregistroa — PEB berrikuspena | `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` |
+| `personEnrollment` | Matrikula | `PERSON_ENROLLMENT` |
+| `personAcademicEnrollment` | Matrikula akademikoa | `PERSON_ACADEMIC_ENROLLMENT` |
+| `personMedicalData` | Datu medikoak | `PERSON_MEDICAL_DATA` |
+
+> ⚠️ `administrativeOfficialRegisterRecord` (`ADMINISTRATIVE_REGISTER`) mota **zaharkituta** dago eta
+> jada ez da `DN00DataTypeEnum` enum-aren parte; haren ordezkoa `administrativeLedger` da.
 
 > `DN00DataTypeEnum` enum-a `dena-common-data-api`-n dago; identifikatzaileak (`DN00DataTypeID`/`DN00DataTypeOID`) eta `DN00DataTypeRef` edukiontzia `dena-common-api`-n daude.
 

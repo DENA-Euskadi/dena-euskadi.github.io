@@ -26,11 +26,11 @@ config:
 flowchart LR
     NOT["<b>Jakinarazpena</b><br/><i>administrativeNotice</i>"]
 
-    NOT --> EXP["procedureRecord<br/><i>oid · id</i>"]
-    NOT --> TYPE["type<br/><i>OFFICIAL_NOTICE<br/>COMMUNICATION</i>"]
-    NOT --> DATES["issuedAt<br/>readedAt"]
+    NOT --> EXP["record<br/><i>oid · id</i>"]
+    NOT --> TYPE["typeNotice<br/><i>OFFICIAL_NOTICE<br/>COMMUNICATION</i>"]
+    NOT --> DATES["issuedAt<br/>readAt"]
     NOT --> STATE["state<br/><i>(string zuzena)</i>"]
-    NOT --> SUBJECT["actSubjectByLanguage"]
+    NOT --> SUBJECT["subjectByLanguage"]
     NOT --> URLS["urls[]"]
 
     style NOT fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
@@ -80,29 +80,30 @@ flowchart LR
 
 | Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
 |--------|------|:-----------:|----------|--------------|
-| `type` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Jakinarazpen mota: `OFFICIAL_NOTICE` edo `COMMUNICATION` (`DN00AdministrativeNoticeType` enum-a). Ez nahastu diskriminatzaile polimorfikoarekin |
+| `type` | `String` | ✅ | `"administrativeNotice"` | Diskriminatzaile polimorfiko (beti `"administrativeNotice"`) |
+| `typeNotice` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Jakinarazpen mota: `OFFICIAL_NOTICE` edo `COMMUNICATION` (`DN00AdministrativeNoticeType` enum-a). Ikusi oharra behean. |
 | `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"NOT-OID-001"` | Identifikatzaile tekniko bakarra |
 | `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"NOT-2024-00456"` | Negozio-identifikatzailea |
 | `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
+| `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
 | `issuedAt` | `String` (ISO 8601) | ✅ | `"2024-05-20T09:00:00Z"` | Igorpen-data |
-| `readedAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Irakurketa-data (null irakurri ez bada) |
-| `state` | `String` | ✅ | `"PENDING_TO_BE_READED_BY_DESTINATION"` | Uneko egoera (string zuzena, EZ objektua) |
-| `actSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Jakinarazitako egintzaren gaia |
+| `readAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Irakurketa-data (null irakurri ez bada) |
+| `state` | `String` | ✅ | `"PENDING_TO_BE_READ_BY_DESTINATION"` | Uneko egoera (string zuzena, EZ objektua) |
+| `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Jakinarazitako egintzaren gaia |
 | `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ (gomendatua) | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide-URLak |
 
-> **Garrantzitsua:** Jakinarazpenetan, `state` eremua zuzenean **string** bat da egoera-kodearekin (adib. `"PENDING_TO_BE_READED_BY_DESTINATION"`), espediente eta erregistroetan ez bezala, non `state` `stateCode` eta `description`-rekin objektu bat den.
+> **Garrantzitsua:** Jakinarazpenetan, `state` eremua zuzenean **string** bat da egoera-kodearekin (adib. `"PENDING_TO_BE_READ_BY_DESTINATION"`), espediente eta erregistroetan ez bezala, non `state` `stateCode` eta `description`-rekin objektu bat den.
 
 ---
 
-## Motak (`type`)
+## Motak (`typeNotice`)
 
 | Kodea | Deskribapena |
 |-------|--------------|
 | `OFFICIAL_NOTICE` | Jakinarazpen administratibo ofiziala |
 | `COMMUNICATION` | Administrazio-komunikazioa |
 
-> **Oharra:** `type` eremua (`OFFICIAL_NOTICE` / `COMMUNICATION` balioak) `administrativeNotice` **diskriminatzaile polimorfikotik** desberdina da. Diskriminatzaileak (`DN00AdministrativeNotice` klaseko `@MarshallType(as="administrativeNotice")`) payload-aren barruko objektu mota identifikatzen du eta finkoa da; `type` eremuak jakinarazpena objektu horren barruan sailkatzen du.
+> **Oharra:** `typeNotice` eremuak jakinarazpena sailkatzen du (`OFFICIAL_NOTICE` / `COMMUNICATION`). Ez nahastu `type` diskriminatzaile polimorfikoarekin, zeina beti `"administrativeNotice"` balioa duen eta serializatzaileak automatikoki kudeatzen duen.
 
 ---
 
@@ -110,7 +111,7 @@ flowchart LR
 
 | Kodea | Deskribapena |
 |-------|--------------|
-| `PENDING_TO_BE_READED_BY_DESTINATION` | Irakurtzeko zain |
+| `PENDING_TO_BE_READ_BY_DESTINATION` | Irakurtzeko zain |
 | `ACKNOWLEDGED_BY_DESTINATION` | Irakurrita eta onartuta |
 | `REJECTED_BY_DESTINATION` | Ukatuta |
 | `EXPIRED` | Iraungita |
@@ -123,23 +124,24 @@ flowchart LR
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 14 15 16"
+```json hl_lines="3 4 5 6"
 {
-  "type": "OFFICIAL_NOTICE",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
-  "issuedAt": "2024-05-20T09:00:00Z",
-  "readedAt": null,
-  "state": "PENDING_TO_BE_READED_BY_DESTINATION",
-  "actSubjectByLanguage": {
-    "SPANISH": "Resolución de concesión de ayuda",
-    "BASQUE": "Laguntza emateko ebazpena"
-  },
   "urls": [
     { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }
-  ]
+  ],
+  "typeNotice": "OFFICIAL_NOTICE",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "issuedAt": "2024-05-20T09:00:00Z",
+  "readAt": null,
+  "state": "PENDING_TO_BE_READ_BY_DESTINATION",
+  "subjectByLanguage": {
+    "SPANISH": "Resolución de concesión de ayuda",
+    "BASQUE": "Laguntza emateko ebazpena"
+  }
 }
 ```
 
@@ -151,23 +153,24 @@ flowchart LR
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 14 15 16"
+```json hl_lines="3 4 5 6"
 {
-  "type": "COMMUNICATION",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-002",
   "id": "NOT-2024-00457",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
-  "issuedAt": "2024-05-15T08:00:00Z",
-  "readedAt": "2024-05-16T10:30:00Z",
-  "state": "ACKNOWLEDGED_BY_DESTINATION",
-  "actSubjectByLanguage": {
-    "SPANISH": "Comunicación de subsanación de documentación",
-    "BASQUE": "Dokumentazioa zuzentzeko jakinarazpena"
-  },
   "urls": [
     { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00457", "language": "SPANISH", "tags": ["default"] }
-  ]
+  ],
+  "typeNotice": "COMMUNICATION",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "issuedAt": "2024-05-15T08:00:00Z",
+  "readAt": "2024-05-16T10:30:00Z",
+  "state": "ACKNOWLEDGED_BY_DESTINATION",
+  "subjectByLanguage": {
+    "SPANISH": "Comunicación de subsanación de documentación",
+    "BASQUE": "Dokumentazioa zuzentzeko jakinarazpena"
+  }
 }
 ```
 
@@ -179,9 +182,9 @@ flowchart LR
 
 ## Balioztatze-arauak
 
-- `state` = `PENDING_TO_BE_READED_BY_DESTINATION` bada, `readedAt` `null` izan behar da.
-- `state` = `ACKNOWLEDGED_BY_DESTINATION` edo `REJECTED_BY_DESTINATION` bada, `readedAt`-ek balio bat izan behar du.
-- `issuedAt` `readedAt` baino lehenagokoa edo berdina izan behar da (existitzen bada).
+- `state` = `PENDING_TO_BE_READ_BY_DESTINATION` bada, `readAt` `null` izan behar da.
+- `state` = `ACKNOWLEDGED_BY_DESTINATION` edo `REJECTED_BY_DESTINATION` bada, `readAt`-ek balio bat izan behar du.
+- `issuedAt` `readAt` baino lehenagokoa edo berdina izan behar da (existitzen bada).
 - Ikusi [validaciones.md](../validaciones.md) arau osoentzat.
 
 

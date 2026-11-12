@@ -3,7 +3,7 @@
 > - **Versión:** `v{{ dena.version }}`
 > - **Fecha:** {{ dena.date }}
 > - **ID de Tipo (DataTypeID):** `PAYMENT_ONE_OFF_PAYMENT` (pago único) · `PAYMENT_DIRECT_DEBIT_PAYMENT` (domiciliación)
-> - **Test:** [DN99DENATestMockObjFactoryForOneOffPayment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
+> - **Test:** [DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java)
 > - **Código:**
 >   - [DN00OneOffPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java)
 >   - [DN00DirectDebitPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitPayment.java)
@@ -29,9 +29,9 @@ config:
     fontSize: "12px"
 ---
 flowchart LR
-    PAYBASE["<b>Payment BASE</b><br/><i>procedureRecord · paymentType<br/>paymentSubjectByLanguage</i>"]
+    PAYBASE["<b>Payment BASE</b><br/><i>record · paymentType<br/>paymentSubjectByLanguage</i>"]
 
-    PAYBASE --> EXP["procedureRecord<br/><i>oid · id</i>"]
+    PAYBASE --> EXP["record<br/><i>oid · id</i>"]
 
     PAYBASE --> ONEOFF["<b>Pago Único</b><br/><i>oneOffPayment</i>"]
     PAYBASE --> DD["<b>Domiciliación</b><br/><i>directDebitPayment</i>"]
@@ -41,7 +41,7 @@ flowchart LR
     ONEOFF --> AMOUNT["amount<br/>amountIfSurcharged"]
     ONEOFF --> DATA["data<br/><i>forStatus · at · medium<br/>device · messageByLang</i>"]
 
-    DD --> DDDATA["directDebitData<br/><i>startDate · expiresAt<br/>frequency · medium · mediumHint</i>"]
+    DD --> DDDATA["directDebitData<br/><i>startedAt · expiresAt<br/>frequency · medium · mediumHint</i>"]
     DD --> NEXT["nextChargeAt<br/>nextChargeAmountInEuro"]
     DD --> STATUS["paymentStatus"]
     DD --> HIST["history[]<br/><i>at · amountInEuro</i>"]
@@ -95,16 +95,10 @@ flowchart LR
 
 | Test | Repositorio |
 |------|-------------|
-| DN00PayOffPaymentTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java) |
-| DN00DirectDebitPaymentsTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitPayment.java) |
-| DN00PaymentDatesTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDates.java) |
-| DN00PaymentStatusTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentStateCode.java) |
-| DN00PaymentStatusDataWhenCompletedTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenRejectedTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenCancelledTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenErrorTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00OneOffPaymentSchemaTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
-| DN00PaymentIDTest | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDataExchangedBase.java) |
+| DN99DENATestMockObjFactoryForPaymentDates | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDates.java) |
+| DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
+| DN99DENATestMockObjFactoryForDirectDebitStatus | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitStatus.java) |
+| DN99DENATestMockObjFactoryForDirectDebitPaymentHistoryItem | [Ver test]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitPaymentHistoryItem.java) |
 
 ---
 
@@ -118,7 +112,7 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 | `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"PAY-OID-001"` | Identificador técnico único |
 | `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"PAY-2024-00321"` | Identificador de negocio |
 | `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen. DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
+| `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
 | `paymentType` | `String` | ✅ | `"ONE_OFF_PAYMENT"` | `ONE_OFF_PAYMENT` o `DIRECT_DEBIT` |
 | `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Tasa licencia"}` | Concepto del pago |
 | `participatingOrgUnits` | `Array` | ❌ | *(ver [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Unidades orgánicas participantes |
@@ -157,6 +151,15 @@ El tipo `Money` es un objeto con la siguiente estructura:
 |-------|------|-------------|
 | `amount` | `Number` | Importe numérico |
 | `currency` | `String` | Código de moneda ISO 4217 (por defecto `"EUR"`) |
+
+!!! warning "Tipo Money: `amount` es entero en centavos"
+    El campo `amount` es de tipo `long` y representa el importe en **centavos/céntimos** (no como decimal). El campo `base` (opcional, `CENTS` | `UNITS`) indica si la unidad es céntimos o unidades. En la mayoría de casos prácticos para la Administración Vasca, el importe se envía en céntimos:
+    
+    ```json
+    { "amount": 4550, "base": "CENTS", "currency": "EUR" }
+    ```
+    
+    Esto equivale a 45,50 € (4550 céntimos). Si tu sistema trabaja con importes decimales, multiplica por 100 antes de enviar.
 
 ---
 
@@ -229,7 +232,7 @@ Cada formato compone su código de cobro a partir de un subconjunto de estas par
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
-| `directDebitData.startDate` | `String` (date) | ✅ | `"2024-01-15"` | Fecha de alta de la domiciliación |
+| `directDebitData.startedAt` | `String` (date) | ✅ | `"2024-01-15"` | Fecha de alta de la domiciliación |
 | `directDebitData.expiresAt` | `String` (date) | ❌ | `null` | Fecha de expiración (null = vigente indefinidamente) |
 | `directDebitData.frequency` | `String` | ✅ | `"MONTHLY"` | Frecuencia (ver [frecuencias](#frecuencias-directdebitdatafrequency)) |
 | `directDebitData.medium` | `String` | ❌ | `"DIRECT_DEBIT"` | Medio de pago |
@@ -314,13 +317,16 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 20 21 22"
+```json hl_lines="3 4 5 6"
 {
   "type": "payment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "urls": [
+    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00321", "language": "SPANISH", "tags": ["payment"] }
+  ],
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
   "paymentDates": { "dueDate": "2024-06-30", "surchargedAt": "2024-07-15", "paidAt": null },
@@ -333,10 +339,7 @@ Cada elemento del array `history` tiene la siguiente estructura:
     "medium": null,
     "device": null,
     "messageByLang": null
-  },
-  "urls": [
-    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00321", "language": "SPANISH", "tags": ["payment"] }
-  ]
+  }
 }
 ```
 
@@ -348,13 +351,17 @@ Cada elemento del array `history` tiene la siguiente estructura:
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 21 22 23 24"
+```json hl_lines="3 4 5 6"
 {
   "type": "payment",
   "oid": "PAY-OID-002",
   "id": "PAY-2024-00322",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "urls": [
+    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00322", "language": "SPANISH", "tags": ["payment"] },
+    { "url": "https://pago.miadmin.eus/receipt/PAY-2024-00322", "language": "SPANISH", "tags": ["payment-receipt"] }
+  ],
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de obras", "BASQUE": "Obra-lizentziaren tasa" },
   "paymentDates": { "dueDate": "2024-05-30", "surchargedAt": "2024-06-15", "paidAt": "2024-05-28" },
@@ -368,11 +375,7 @@ Cada elemento del array `history` tiene la siguiente estructura:
     "device": "WEB_BROWSER",
     "paymentProcessorId": "BANKIA",
     "paymentProcessorTransactionId": "TXN-2024-ABC123"
-  },
-  "urls": [
-    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00322", "language": "SPANISH", "tags": ["payment"] },
-    { "url": "https://pago.miadmin.eus/receipt/PAY-2024-00322", "language": "SPANISH", "tags": ["payment-receipt"] }
-  ]
+  }
 }
 ```
 
@@ -390,11 +393,11 @@ Cada elemento del array `history` tiene la siguiente estructura:
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },
   "directDebitData": {
-    "startDate": "2024-01-15",
+    "startedAt": "2024-01-15",
     "expiresAt": null,
     "frequency": "MONTHLY",
     "medium": "DIRECT_DEBIT",
@@ -419,10 +422,10 @@ Cada elemento del array `history` tiene la siguiente estructura:
 ## Notas importantes
 
 - **Discriminador del pago único:** en el JSON intercambiado (data-retrieve), el pago único viaja con `"type": "payment"`. Internamente el modelo se llama `oneOffPayment` (nombre de tipo), pero el **discriminador polimórfico** que viaja en `dataItems[].data` es `payment` (`@MarshallType(as="oneOffPayment", typeId="payment")`). La domiciliación sí usa `"type": "directDebitPayment"`.
-- El campo `directDebitData.startDate` indica cuándo se dio de alta la domiciliación (en el JSON se serializa como `"startDate"`, no como `"setAt"`).
+- El campo `directDebitData.startedAt` indica cuándo se dio de alta la domiciliación (en el JSON se serializa como `"startedAt"`).
 - El campo `data.at` en pagos únicos indica el momento exacto en que se procesó el pago (solo relevante cuando `forStatus` ≠ `PENDING`).
 - El campo `data.messageByLang` permite incluir un mensaje explicativo multiidioma, útil para estados de error o rechazo.
-- Las citas (`scheduleItem`) NO tienen relación con pagos. Los pagos siempre dependen de un expediente (`procedureRecord`).
+- Las citas (`scheduleItem`) NO tienen relación con pagos. Los pagos siempre dependen de un expediente (`record`).
 
 
 

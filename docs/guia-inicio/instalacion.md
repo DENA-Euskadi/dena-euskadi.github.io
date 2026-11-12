@@ -26,7 +26,7 @@ Guía para preparar tu entorno de desarrollo y poder trabajar con los repositori
 # Repositorio principal de documentación
 git clone {{ repos.docs_clone }}
 cd dena-common-docs
-git checkout v0.3.26
+git checkout PUBLIC-v{{ dena.version }}
 
 # Test de conectividad (para validar tu entorno)
 git clone {{ repos.conx_test_clone }}

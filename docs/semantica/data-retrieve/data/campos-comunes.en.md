@@ -2,7 +2,6 @@
 
 > - **Version:** `v{{ dena.version }}`
 > - **Date:** {{ dena.date }}
-> - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
 > - **Code:** [DN00DENADataExchangedObjectBase.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
 
 ## Description
@@ -25,7 +24,7 @@ flowchart LR
 
     BASE --> OID["oid<br/><i>Unique technical identifier</i>"]
     BASE --> ID["id<br/><i>Business identifier</i>"]
-    BASE --> URLS["urls[]<br/><i>url · language · tags</i>"]
+    BASE --> URLS["urls[]<br/><i>value · lang · tags</i>"]
     BASE --> CHANGED["lastChangedAt<br/><i>last change at origin</i>"]
     BASE --> ADMIN["originAdmin<br/><i>oid · id · dir3Id</i>"]
     BASE --> PERSON["aboutPerson<br/><i>oid · id</i>"]
@@ -118,13 +117,15 @@ Array of URLs that provide access to the object in the e-government portal. Each
 {
   "urls": [
     {
-      "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123",
-      "language": "SPANISH",
+      "id": "main-es",
+      "value": "https://sede.miadmin.eus/expediente/EXP-2024-00123",
+      "lang": "SPANISH",
       "tags": ["default"]
     },
     {
-      "url": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123",
-      "language": "BASQUE",
+      "id": "main-eu",
+      "value": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123",
+      "lang": "BASQUE",
       "tags": ["default"]
     }
   ]
@@ -133,8 +134,8 @@ Array of URLs that provide access to the object in the e-government portal. Each
 
 | Field | Type | Mandatory | Description |
 |-------|------|:---------:|-------------|
-| `url` | `String` | ✅ | Full URL (HTTPS) |
-| `language` | `String` | ❌ | Language of the URL: `SPANISH`, `BASQUE`, `ENGLISH` |
+| `value` | `String` | ✅ | Full URL (HTTPS) |
+| `lang` | `String` | ❌ | Language of the URL: `SPANISH`, `BASQUE`, `ENGLISH` |
 | `tags` | `Array<String>` | ❌ | Tags to classify the URL |
 
 ### Common tags
@@ -165,7 +166,7 @@ Array of URLs that provide access to the object in the e-government portal. Each
     "id": "12345678A"
   },
   "urls": [
-    { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
+    { "id": "main", "value": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "lang": "SPANISH", "tags": ["default"] }
   ],
   "...": "object-specific fields"
 }
@@ -188,11 +189,21 @@ Array of URLs that provide access to the object in the e-government portal. Each
 |---------------|--------|----------|
 | `administrativeServiceProcedureRecord` | Record | [expediente.md](./expediente.md) |
 | `administrativeNotice` | Notification | [notificacion.md](./notificacion.md) |
-| `administrativeOfficialRegisterRecord` | Official Registration | [registro-oficial.md](./registro-oficial.md) |
 | `oneOffPayment` | One-off payment | [pago.md](./pago.md) |
 | `directDebitPayment` | Direct debit | [pago.md](./pago.md) |
 | `scheduleItem` | Appointment | [cita.md](./cita.md) |
 | `personData` | Person data | [persona.md](./persona.md) |
+| `personCredential` | Person Credential | [credencial-persona.md](./credencial-persona.md) |
+| `personCredentialForBasqueLanguageDegree` | Basque Language Accreditation | [credencial-persona.md](./credencial-persona.md) |
+| `economicBenefit` | Economic Benefit | [beneficio-economico.md](./beneficio-economico.md) |
+| `administrativeLedger` | Administrative Ledger (Entry/Exit) | [libro-registro.md](./libro-registro.md) |
+| `administrativePersonRegister` | Person Register | [registro-persona.md](./registro-persona.md) |
+| `administrativePersonRegisterForHousingPEV` | Housing PEV Register | [registro-persona.md](./registro-persona.md) |
+| `administrativePersonRegisterForLastWill` | Last Will Register | [registro-persona.md](./registro-persona.md) |
+| `administrativePersonRegisterForRevisionPEV` | PEV Revision | [registro-persona.md](./registro-persona.md) |
+| `personEnrollment` | Enrollment | [matricula.md](./matricula.md) |
+| `personAcademicEnrollment` | Academic Enrollment | [matricula.md](./matricula.md) |
+| `personMedicalData` | Medical Data | [datos-medicos.md](./datos-medicos.md) |
 
 See also: [`DN00DataTypeEnum.java`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) — enumeration with all available data types.
 
@@ -219,7 +230,6 @@ See also: [`DN00DataTypeEnum.java`]({{ repos.common_data_api_blob }}/denaCommonD
 
 | Mock Factory | Repository |
 |--------------|------------|
-| DN99DENATestMockObjFactoryForDENADataExchangedObjectBase | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java) |
 | DN99DENATestMockObjFactoryForStateWithDescriptionBase | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForStateWithDescriptionBase.java) |
 
 <!-- DENA-DOC-FOOTER -->

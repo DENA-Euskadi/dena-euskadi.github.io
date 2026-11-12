@@ -15,7 +15,7 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 | JSON inválido en el body | Validar que el body es JSON válido antes de procesarlo |
 | Falta `context.subjectPerson.id` | Campo obligatorio — verificar que se recibe |
 | Falta `context.dataType.id` | Campo obligatorio — verificar que se recibe |
-| `dataType.id` con valor no reconocido | Aceptar solo: `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData` |
+| `dataType.id` con valor no reconocido | Aceptar solo: `administrativeServiceProcedureRecord`, `administrativeNotice`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`, `personCredential`, `personCredentialForBasqueLanguageDegree`, `economicBenefit`, `administrativeLedger`, `administrativePersonRegister`, `administrativePersonRegisterForHousingPEV`, `administrativePersonRegisterForLastWill`, `administrativePersonRegisterForRevisionPEV`, `personEnrollment`, `personAcademicEnrollment`, `personMedicalData` |
 
 ### 401 — No autorizado
 
@@ -97,7 +97,7 @@ Guía de errores comunes al implementar el endpoint DATA-RETRIEVE y cómo resolv
 |----------|---------|----------|
 | Expediente sin servicio ni procedimiento | Objeto rechazado por validación | `service` y `procedure` son obligatorios en expedientes |
 | Pago con `forStatus: COMPLETED` pero sin `paidAt` | Inconsistencia de datos | Si el pago está completado, incluir `paymentDates.paidAt` |
-| Notificación con `readedAt` pero estado `PENDING` | Inconsistencia de datos | Si tiene fecha de lectura, el estado debe ser `ACKNOWLEDGED` o `REJECTED` |
+| Notificación con `readAt` pero estado `PENDING` | Inconsistencia de datos | Si tiene fecha de lectura, el estado debe ser `ACKNOWLEDGED` o `REJECTED` |
 | Cita con `durationMinutes` negativo | Validación fallida | Usar 0 para hitos, valores positivos para citas con duración |
 | Domiciliación sin `directDebitData` | Objeto incompleto | El bloque `directDebitData` es obligatorio para domiciliaciones |
 

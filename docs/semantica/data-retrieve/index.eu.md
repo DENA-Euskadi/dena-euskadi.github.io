@@ -43,7 +43,7 @@ flowchart LR
 
     RECORD["Record\n(espedientea)"]
     NOTICE["Administrative Notice\n(jakinarazpena)"]
-    REGISTRY["Official Register\n(erregistroak)"]
+    REGISTRY["Administrative Ledger\n(erregistro liburua)"]
     PAYBASE["Payment BASE"]
     SCHEDULE["Schedule\n(egutegia)"]
 
@@ -74,7 +74,7 @@ flowchart LR
 
     click RECORD "./data/expediente/" "Ver documentación de Expediente"
     click NOTICE "./data/notificacion/" "Ver documentación de Notificación"
-    click REGISTRY "./data/registro-oficial/" "Ver documentación de Registro Oficial"
+    click REGISTRY "./data/libro-registro/" "Ikusi Erregistro Liburuaren dokumentazioa"
     click PAYBASE "./data/pago/" "Ver documentación de Pagos"
     click ONEOFF "./data/pago/" "Ver documentación de Pago Único"
     click DIRECTDEBIT "./data/pago/" "Ver documentación de Domiciliación"
@@ -132,12 +132,18 @@ flowchart LR
     |---|---|---|
     | **:material-folder-open: Espedientea** | Izapidetzen ari den administrazio-espedientea | [expediente.md](./data/expediente.md) |
     | **:material-email-open: Jakinarazpena** | Jakinarazpen ofiziala edo komunikazioa | [notificacion.md](./data/notificacion.md) |
-    | **:material-book-open-page-variant: Erregistro Ofiziala** | Sarrera/irteera erregistro-idazpena | [registro-oficial.md](./data/registro-oficial.md) |
     | **:material-credit-card: Ordainketa** | Ordainketa bakarra edo banku-helbideratzea | [pago.md](./data/pago.md) |
     | **:material-calendar-clock: Hitzordua** | Aurretiazko hitzordua edo agenda-elementua | [cita.md](./data/cita.md) |
     | **:material-account-circle: Pertsona** | Herritarraren datuak | [persona.md](./data/persona.md) |
+    | **:material-card-account-details: Pertsonaren kredentziala** | Txartelak, tituluak eta hizkuntza-profilak | [credencial-persona.md](./data/credencial-persona.md) |
+    | **:material-cash: Onura ekonomikoa** | Laguntzak eta diru-laguntzak | [beneficio-economico.md](./data/beneficio-economico.md) |
+    | **:material-book-open-page-variant: Erregistro Liburua** | Sarrera/irteera erregistro-idazpena | [libro-registro.md](./data/libro-registro.md) |
+    | **:material-account-box-multiple: Pertsonaren erregistroa** | Pertsonaren erregistroa (PEB, azken nahia…) | [registro-persona.md](./data/registro-persona.md) |
+    | **:material-school: Matrikula** | Matrikulak eta matrikula akademikoak | [matricula.md](./data/matricula.md) |
+    | **:material-medical-bag: Datu medikoak** | Datu medikoak (DBEO kategoria berezia) | [datos-medicos.md](./data/datos-medicos.md) |
     | **:material-cog: Administrazio Zerbitzua** | Zerbitzua eta prozedura | [servicio-administrativo.md](./data/servicio-administrativo.md) |
     | **:material-office-building: Unitate Organikoa** | Parte hartzen duen unitate antolatzailea | [unidad-organica.md](./data/unidad-organica.md) |
+    | **:material-book-off: Erregistro Ofiziala** *(zaharkitua)* | ⚠️ Erregistro Liburuak ordezkatua | [registro-oficial.md](./data/registro-oficial.md) |
 
 ### Gida osagarriak
 
@@ -165,12 +171,17 @@ flowchart LR
 |--------------|-----------------|
 | `administrativeServiceProcedureRecord` | Espedienteak |
 | `administrativeNotice` | Jakinarazpenak |
-| `administrativeOfficialRegisterRecord` | Erregistro ofizialak |
 | `oneOffPayment` / `directDebitPayment` | Ordainketak |
 | `scheduleItem` | Hitzorduak |
 | `personData` | Pertsonaren datuak |
+| `personCredential` / `personCredentialForBasqueLanguageDegree` | Pertsonaren kredentzialak |
+| `economicBenefit` | Onura ekonomikoak |
+| `administrativeLedger` | Erregistro liburua |
+| `administrativePersonRegister` (+ `…ForHousingPEV` / `…ForLastWill` / `…ForRevisionPEV`) | Pertsonaren erregistroa |
+| `personEnrollment` / `personAcademicEnrollment` | Matrikulak |
+| `personMedicalData` | Datu medikoak |
 
-> **Oharra:** Ikusi zerrenda osoa hemen: [DataTypeRef](../semantica-base/modelo/data-type-ref.md).
+> **Oharra:** Zerrenda osoa (`DN00DataTypeEnum` enum-aren 17 motak) hemen dago: [DataTypeRef](../semantica-base/modelo/data-type-ref.md). `administrativeOfficialRegisterRecord` mota **zaharkituta** dago; erabili `administrativeLedger`.
 
 ---
 
@@ -328,13 +339,13 @@ flowchart LR
     PAYLOAD --> ITEMS["dataItems"]
     ITEMS --> RECORD["Espedientea"]
     ITEMS --> NOTICE["Jakinarazpena"]
-    ITEMS --> REGISTRY["Erregistro Ofiziala"]
+    ITEMS --> REGISTRY["Erregistro Liburua"]
     ITEMS --> PAYMENT["Ordainketa"]
     ITEMS --> SCHEDULE["Hitzordua"]
 
     click RECORD "./data/expediente/" "Ver documentación de Expediente"
     click NOTICE "./data/notificacion/" "Ver documentación de Notificación"
-    click REGISTRY "./data/registro-oficial/" "Ver documentación de Registro Oficial"
+    click REGISTRY "./data/libro-registro/" "Ikusi Erregistro Liburuaren dokumentazioa"
     click PAYMENT "./data/pago/" "Ver documentación de Pagos"
     click SCHEDULE "./data/cita/" "Ver documentación de Cita"
 

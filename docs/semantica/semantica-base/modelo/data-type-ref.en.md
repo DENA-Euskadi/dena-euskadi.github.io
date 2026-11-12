@@ -58,11 +58,24 @@ The valid `id` values are defined in the `DN00DataTypeEnum` enum. Each value mat
 |---|---|---|
 | `administrativeServiceProcedureRecord` | Record | `ADMINISTRATIVE_RECORD` |
 | `administrativeNotice` | Notification | `ADMINISTRATIVE_NOTICE` |
-| `administrativeOfficialRegisterRecord` | Official register | `ADMINISTRATIVE_REGISTER` |
 | `oneOffPayment` | One-off payment | `PAYMENT_ONE_OFF_PAYMENT` |
 | `directDebitPayment` | Direct debit | `PAYMENT_DIRECT_DEBIT_PAYMENT` |
 | `scheduleItem` | Appointment | `SCHEDULE` |
 | `personData` | Person data | `PERSON_DATA` |
+| `personCredential` | Person credential | `PERSON_CREDENTIAL` |
+| `personCredentialForBasqueLanguageDegree` | Basque language degree credential | `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` |
+| `economicBenefit` | Economic benefit | `ECONOMIC_BENEFIT` |
+| `administrativeLedger` | Register ledger | `ADMINISTRATIVE_LEDGER` |
+| `administrativePersonRegister` | Person register (base) | `ADMINISTRATIVE_PERSON_REGISTER` |
+| `administrativePersonRegisterForHousingPEV` | Person register — housing PEV | `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` |
+| `administrativePersonRegisterForLastWill` | Person register — last will | `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` |
+| `administrativePersonRegisterForRevisionPEV` | Person register — PEV revision | `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` |
+| `personEnrollment` | Enrollment | `PERSON_ENROLLMENT` |
+| `personAcademicEnrollment` | Academic enrollment | `PERSON_ACADEMIC_ENROLLMENT` |
+| `personMedicalData` | Medical data | `PERSON_MEDICAL_DATA` |
+
+> ⚠️ The `administrativeOfficialRegisterRecord` (`ADMINISTRATIVE_REGISTER`) type is **deprecated**
+> and no longer part of the `DN00DataTypeEnum` enum; its replacement is `administrativeLedger`.
 
 > The `DN00DataTypeEnum` enum lives in `dena-common-data-api`; the identifiers (`DN00DataTypeID`/`DN00DataTypeOID`) and the `DN00DataTypeRef` container live in `dena-common-api`.
 

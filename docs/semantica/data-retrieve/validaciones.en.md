@@ -36,7 +36,7 @@ This document describes the validation rules, expected formats and restrictions 
 
 ### ISO 8601 format (`Instant` fields)
 
-Fields such as `createdAt`, `lastUpdatedAt`, `issuedAt`, `readedAt`, `registeredAt`.
+Fields such as `createdAt`, `lastUpdatedAt`, `issuedAt`, `readAt`, `registeredAt`.
 
 | Rule | Detail |
 |-------|---------| 
@@ -119,9 +119,9 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 
 | Rule | Detail |
 |-------|---------| 
-| `readedAt` = `null` if `state` = `PENDING_TO_BE_READED_BY_DESTINATION` | Cannot have a read date if pending |
-| `readedAt` ≠ `null` if `state` = `ACKNOWLEDGED_BY_DESTINATION` or `REJECTED_BY_DESTINATION` | Must have a read date if read/rejected |
-| `issuedAt` ≤ `readedAt` | The issue date cannot be later than the read date |
+| `readAt` = `null` if `state` = `PENDING_TO_BE_READ_BY_DESTINATION` | Cannot have a read date if pending |
+| `readAt` ≠ `null` if `state` = `ACKNOWLEDGED_BY_DESTINATION` or `REJECTED_BY_DESTINATION` | Must have a read date if read/rejected |
+| `issuedAt` ≤ `readAt` | The issue date cannot be later than the read date |
 
 ### One-off payment
 
@@ -129,8 +129,8 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 |-------|---------| 
 | `data.forStatus` = `COMPLETED` → `paymentDates.paidAt` ≠ `null` | If completed, must have a payment date |
 | `data.forStatus` = `PENDING` → `paymentDates.paidAt` = `null` | If pending, must not have a payment date |
-| `amountInEuro` > 0 | The amount must be positive |
-| `amountInEuroIfSurcharged` ≥ `amountInEuro` | The surcharged amount cannot be less than the normal one |
+| `amount` > 0 | The amount must be positive |
+| `amountIfSurcharged` ≥ `amount` | The surcharged amount cannot be less than the normal one |
 | `paymentDates.dueDate` ≤ `paymentDates.surchargedAt` | The due date is before the surcharge start |
 
 ### Direct debit
@@ -174,21 +174,23 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
-| `noticeType` | ✅ |
+| `record` | ✅ |
+| `typeNotice` | ✅ |
 | `issuedAt` | ✅ |
 | `state` | ✅ |
-| `actSubjectByLanguage` | ✅ |
-| `readedAt` | ❌ |
+| `subjectByLanguage` | ✅ |
+| `readAt` | ❌ |
 | `urls` | ❌ (recommended) |
 
 ### Official Registry (`administrativeOfficialRegisterRecord`)
+
+> ⚠️ **OBSOLETE TYPE** — `administrativeOfficialRegisterRecord` is not in `DN00DataTypeEnum` in v0.5.20. Use [`libro-registro.md`](data/libro-registro.md) (`administrativeLedger`) instead.
 
 | Field | Mandatory |
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `registeredAt` | ✅ |
 | `subjectByLanguage` | ✅ |
 | `state` | ✅ |
@@ -200,13 +202,13 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `paymentType` | ✅ |
 | `paymentSubjectByLanguage` | ✅ |
 | `paymentDates` | ✅ |
-| `amountInEuro` | ✅ |
+| `amount` | ✅ |
 | `data.forStatus` | ✅ |
-| `amountInEuroIfSurcharged` | ❌ |
+| `amountIfSurcharged` | ❌ |
 | `data.medium` | ❌ |
 | `data.device` | ❌ |
 | `data.at` | ❌ |
@@ -220,7 +222,7 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `paymentType` | ✅ |
 | `paymentSubjectByLanguage` | ✅ |
 | `directDebitData` | ✅ |
@@ -264,6 +266,95 @@ Fields such as `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextC
 | `contactData.contactMode` | ❌ |
 | `addresses` | ❌ |
 | `bankDataCollection` | ❌ |
+
+### Person credential (`personCredential`, `personCredentialForBasqueLanguageDegree`)
+
+| Field | Mandatory |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `issuedAt` | ✅ |
+| `state` | ✅ |
+| `record` | ❌ |
+| `expiresAt` | ❌ |
+| `CEFRTier` (only `personCredentialForBasqueLanguageDegree`) | ✅ |
+| `certifyingEntityByLanguage` (only `personCredentialForBasqueLanguageDegree`) | ✅ |
+| `urls` | ❌ (recommended) |
+
+### Economic benefit (`economicBenefit`)
+
+| Field | Mandatory |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `amount` | ✅ |
+| `state` | ✅ |
+| `medium` | ✅ |
+| `record` | ❌ |
+| `paymentOrderedAt` | ❌ |
+| `mediumHint` | ❌ |
+| `urls` | ❌ (recommended) |
+
+### Administrative ledger (`administrativeLedger`)
+
+| Field | Mandatory |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `entryDirection` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `record` | ❌ |
+| `urls` | ❌ (recommended) |
+
+### Person register (`administrativePersonRegister` and variants)
+
+| Field | Mandatory |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `state` | ✅ |
+| `expiresAt` | ❌ |
+| `startDate` (only `administrativePersonRegisterForRevisionPEV`) | ✅ |
+| `endDate` (only `administrativePersonRegisterForRevisionPEV`) | ✅ |
+| `urls` | ❌ (recommended) |
+
+### Enrollment (`personEnrollment`, `personAcademicEnrollment`)
+
+| Field | Mandatory |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `enrollmentDateRange` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `institutionNameByLanguage` | ✅ |
+| `state` | ✅ |
+| `academicYear` (only `personAcademicEnrollment`) | ✅ |
+| `levelByLanguage` (only `personAcademicEnrollment`) | ✅ |
+| `urls` | ❌ (recommended) |
+
+### Medical data (`personMedicalData`)
+
+!!! warning "No `oid` or `id`"
+    This type extends `DN00DENADataExchangedNOTIdentifiedObject`. **It has no `oid` or `id`**, but it does have `lastChangedAt`.
+
+| Field | Mandatory |
+|-------|:-----------:|
+| `lastChangedAt` | ✅ |
+| `medicalPassId` | ❌ |
+| `medicalInsuranceId` | ❌ |
+| `doctorFullName` | ❌ |
+| `medicalCenterGeoPosition` | ❌ |
+| `contactData` | ❌ |
+| `bankAccountData` | ❌ |
 
 ---
 

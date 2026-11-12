@@ -15,7 +15,7 @@ Guide to common errors when implementing the DATA-RETRIEVE endpoint and how to r
 | Invalid JSON in the body | Validate that the body is valid JSON before processing it |
 | Missing `context.subjectPerson.id` | Mandatory field — verify it is received |
 | Missing `context.dataType.id` | Mandatory field — verify it is received |
-| `dataType.id` with unrecognised value | Accept only: `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData` |
+| `dataType.id` with unrecognised value | Accept only: `administrativeServiceProcedureRecord`, `administrativeNotice`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`, `personCredential`, `personCredentialForBasqueLanguageDegree`, `economicBenefit`, `administrativeLedger`, `administrativePersonRegister`, `administrativePersonRegisterForHousingPEV`, `administrativePersonRegisterForLastWill`, `administrativePersonRegisterForRevisionPEV`, `personEnrollment`, `personAcademicEnrollment`, `personMedicalData` |
 
 ### 401 — Unauthorised
 
@@ -97,7 +97,7 @@ Guide to common errors when implementing the DATA-RETRIEVE endpoint and how to r
 |---------|---------|----------|
 | Record without service or procedure | Object rejected by validation | `service` and `procedure` are mandatory in records |
 | Payment with `forStatus: COMPLETED` but without `paidAt` | Data inconsistency | If the payment is completed, include `paymentDates.paidAt` |
-| Notification with `readedAt` but status `PENDING` | Data inconsistency | If it has a read date, the status must be `ACKNOWLEDGED` or `REJECTED` |
+| Notification with `readAt` but status `PENDING` | Data inconsistency | If it has a read date, the status must be `ACKNOWLEDGED` or `REJECTED` |
 | Appointment with negative `durationMinutes` | Validation failed | Use 0 for milestones, positive values for appointments with a duration |
 | Direct debit without `directDebitData` | Incomplete object | The `directDebitData` block is mandatory for direct debits |
 

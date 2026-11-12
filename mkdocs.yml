@@ -82,6 +82,12 @@ nav:
               - Registro Oficial: semantica/data-retrieve/data/registro-oficial.md
               - Servicio Administrativo: semantica/data-retrieve/data/servicio-administrativo.md
               - Unidad Orgánica: semantica/data-retrieve/data/unidad-organica.md
+              - Credencial de Persona: semantica/data-retrieve/data/credencial-persona.md
+              - Beneficio Económico: semantica/data-retrieve/data/beneficio-economico.md
+              - Libro Registro (Entradas/Salidas): semantica/data-retrieve/data/libro-registro.md
+              - Registro de Persona: semantica/data-retrieve/data/registro-persona.md
+              - Matrícula: semantica/data-retrieve/data/matricula.md
+              - Datos Médicos: semantica/data-retrieve/data/datos-medicos.md
       - Metadata-Sync:
           - Visión General: semantica/metadata-sync/index.md
           - Endpoint: semantica/metadata-sync/endpoint-sync-metadata.md
@@ -227,6 +233,12 @@ plugins:
             Registro Oficial: Official Registry
             Servicio Administrativo: Administrative Service
             Unidad Orgánica: Organizational Unit
+            Credencial de Persona: Person Credential
+            Beneficio Económico: Economic Benefit
+            Libro Registro (Entradas/Salidas): Administrative Ledger (Entry/Exit)
+            Registro de Persona: Person Register
+            Matrícula: Enrollment
+            Datos Médicos: Medical Data
             Modelos Base: Base Models
             Primeros Pasos: Getting Started
             Checklist de Onboarding: Onboarding Checklist
@@ -284,6 +296,12 @@ plugins:
             Registro Oficial: Erregistro Ofiziala
             Servicio Administrativo: Administrazio Zerbitzua
             Unidad Orgánica: Unitate Organikoa
+            Credencial de Persona: Pertsonaren Egiaztagiria
+            Beneficio Económico: Prestazioa
+            Libro Registro (Entradas/Salidas): Erregistro Liburua (Sarrerak/Irteerak)
+            Registro de Persona: Pertsona Erregistroa
+            Matrícula: Matrikula
+            Datos Médicos: Datu Medikoak
             Modelos Base: Oinarrizko Ereduak
             Primeros Pasos: Lehen Urratsak
             Checklist de Onboarding: Onboardinga Egiaztapen-zerrenda

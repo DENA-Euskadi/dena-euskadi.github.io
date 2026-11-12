@@ -26,7 +26,7 @@ Guide to prepare your development environment and work with the DENA repositorie
 # Main documentation repository
 git clone {{ repos.docs_clone }}
 cd dena-common-docs
-git checkout v0.3.26
+git checkout PUBLIC-v{{ dena.version }}
 
 # Connectivity test (to validate your environment)
 git clone {{ repos.conx_test_clone }}

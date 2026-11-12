@@ -36,7 +36,7 @@ Este documento describe las reglas de validación, formatos esperados y restricc
 
 ### Formato ISO 8601 (campos `Instant`)
 
-Campos como `createdAt`, `lastUpdatedAt`, `issuedAt`, `readedAt`, `registeredAt`.
+Campos como `createdAt`, `lastUpdatedAt`, `issuedAt`, `readAt`, `registeredAt`.
 
 | Regla | Detalle |
 |-------|---------|
@@ -119,9 +119,9 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 
 | Regla | Detalle |
 |-------|---------|
-| `readedAt` = `null` si `state` = `PENDING_TO_BE_READED_BY_DESTINATION` | No puede tener fecha de lectura si está pendiente |
-| `readedAt` ≠ `null` si `state` = `ACKNOWLEDGED_BY_DESTINATION` o `REJECTED_BY_DESTINATION` | Debe tener fecha de lectura si fue leída/rechazada |
-| `issuedAt` ≤ `readedAt` | La fecha de emisión no puede ser posterior a la de lectura |
+| `readAt` = `null` si `state` = `PENDING_TO_BE_READ_BY_DESTINATION` | No puede tener fecha de lectura si está pendiente |
+| `readAt` ≠ `null` si `state` = `ACKNOWLEDGED_BY_DESTINATION` o `REJECTED_BY_DESTINATION` | Debe tener fecha de lectura si fue leída/rechazada |
+| `issuedAt` ≤ `readAt` | La fecha de emisión no puede ser posterior a la de lectura |
 
 ### Pago único
 
@@ -129,8 +129,8 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 |-------|---------|
 | `data.forStatus` = `COMPLETED` → `paymentDates.paidAt` ≠ `null` | Si está completado, debe tener fecha de pago |
 | `data.forStatus` = `PENDING` → `paymentDates.paidAt` = `null` | Si está pendiente, no debe tener fecha de pago |
-| `amountInEuro` > 0 | El importe debe ser positivo |
-| `amountInEuroIfSurcharged` ≥ `amountInEuro` | El importe con recargo no puede ser menor que el normal |
+| `amount` > 0 | El importe debe ser positivo |
+| `amountIfSurcharged` ≥ `amount` | El importe con recargo no puede ser menor que el normal |
 | `paymentDates.dueDate` ≤ `paymentDates.surchargedAt` | El vencimiento es anterior al inicio del recargo |
 
 ### Domiciliación
@@ -174,21 +174,23 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
-| `noticeType` | ✅ |
+| `record` | ✅ |
+| `typeNotice` | ✅ |
 | `issuedAt` | ✅ |
 | `state` | ✅ |
-| `actSubjectByLanguage` | ✅ |
-| `readedAt` | ❌ |
+| `subjectByLanguage` | ✅ |
+| `readAt` | ❌ |
 | `urls` | ❌ (recomendado) |
 
 ### Registro Oficial (`administrativeOfficialRegisterRecord`)
+
+> ⚠️ **TIPO OBSOLETO** — `administrativeOfficialRegisterRecord` no está en `DN00DataTypeEnum` en v0.5.20. Usar [`libro-registro.md`](data/libro-registro.md) (`administrativeLedger`) en su lugar.
 
 | Campo | Obligatorio |
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `registeredAt` | ✅ |
 | `subjectByLanguage` | ✅ |
 | `state` | ✅ |
@@ -200,13 +202,13 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `paymentType` | ✅ |
 | `paymentSubjectByLanguage` | ✅ |
 | `paymentDates` | ✅ |
-| `amountInEuro` | ✅ |
+| `amount` | ✅ |
 | `data.forStatus` | ✅ |
-| `amountInEuroIfSurcharged` | ❌ |
+| `amountIfSurcharged` | ❌ |
 | `data.medium` | ❌ |
 | `data.device` | ❌ |
 | `data.at` | ❌ |
@@ -220,7 +222,7 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `paymentType` | ✅ |
 | `paymentSubjectByLanguage` | ✅ |
 | `directDebitData` | ✅ |
@@ -264,6 +266,95 @@ Campos como `dueDate`, `surchargedAt`, `paidAt`, `setAt`, `expiresAt`, `nextChar
 | `contactData.contactMode` | ❌ |
 | `addresses` | ❌ |
 | `bankDataCollection` | ❌ |
+
+### Credencial de persona (`personCredential`, `personCredentialForBasqueLanguageDegree`)
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `issuedAt` | ✅ |
+| `state` | ✅ |
+| `record` | ❌ |
+| `expiresAt` | ❌ |
+| `CEFRTier` (solo `personCredentialForBasqueLanguageDegree`) | ✅ |
+| `certifyingEntityByLanguage` (solo `personCredentialForBasqueLanguageDegree`) | ✅ |
+| `urls` | ❌ (recomendado) |
+
+### Beneficio económico (`economicBenefit`)
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `amount` | ✅ |
+| `state` | ✅ |
+| `medium` | ✅ |
+| `record` | ❌ |
+| `paymentOrderedAt` | ❌ |
+| `mediumHint` | ❌ |
+| `urls` | ❌ (recomendado) |
+
+### Libro Registro (`administrativeLedger`)
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `entryDirection` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `record` | ❌ |
+| `urls` | ❌ (recomendado) |
+
+### Registro de persona (`administrativePersonRegister` y variantes)
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `state` | ✅ |
+| `expiresAt` | ❌ |
+| `startDate` (solo `administrativePersonRegisterForRevisionPEV`) | ✅ |
+| `endDate` (solo `administrativePersonRegisterForRevisionPEV`) | ✅ |
+| `urls` | ❌ (recomendado) |
+
+### Matrícula (`personEnrollment`, `personAcademicEnrollment`)
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `enrollmentDateRange` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `institutionNameByLanguage` | ✅ |
+| `state` | ✅ |
+| `academicYear` (solo `personAcademicEnrollment`) | ✅ |
+| `levelByLanguage` (solo `personAcademicEnrollment`) | ✅ |
+| `urls` | ❌ (recomendado) |
+
+### Datos médicos (`personMedicalData`)
+
+!!! warning "Sin `oid` ni `id`"
+    Este tipo extiende `DN00DENADataExchangedNOTIdentifiedObject`. **No tiene `oid` ni `id`**, pero sí tiene `lastChangedAt`.
+
+| Campo | Obligatorio |
+|-------|:-----------:|
+| `lastChangedAt` | ✅ |
+| `medicalPassId` | ❌ |
+| `medicalInsuranceId` | ❌ |
+| `doctorFullName` | ❌ |
+| `medicalCenterGeoPosition` | ❌ |
+| `contactData` | ❌ |
+| `bankAccountData` | ❌ |
 
 ---
 

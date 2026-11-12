@@ -36,7 +36,7 @@ public class DenaRetrieveDataController {
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
             case "administrativeServiceProcedureRecord"    -> fetchRecords(personId);
             case "administrativeNotice"                    -> fetchNotices(personId);
-            case "administrativeOfficialRegisterRecord"    -> fetchRegistry(personId);
+            case "administrativeLedger"    -> fetchLedger(personId);
             case "oneOffPayment", "directDebitPayment"     -> fetchPayments(personId);
             case "scheduleItem"                            -> fetchSchedule(personId);
             default                                        -> List.of();
@@ -106,10 +106,10 @@ public class DenaRetrieveDataController {
         );
     }
 
-    // Implementa fetchNotices, fetchRegistry, fetchPayments, fetchSchedule
+    // Implementa fetchNotices, fetchLedger, fetchPayments, fetchSchedule
     // siguiendo el mismo patron...
     private List<Map<String, Object>> fetchNotices(String personId) { return List.of(); }
-    private List<Map<String, Object>> fetchRegistry(String personId) { return List.of(); }
+    private List<Map<String, Object>> fetchLedger(String personId) { return List.of(); }
     private List<Map<String, Object>> fetchPayments(String personId) { return List.of(); }
     private List<Map<String, Object>> fetchSchedule(String personId) { return List.of(); }
 }

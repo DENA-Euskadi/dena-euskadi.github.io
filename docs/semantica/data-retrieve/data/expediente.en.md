@@ -26,24 +26,25 @@ config:
 flowchart LR
     EXP["<b>Record</b><br/><i>administrativeServiceProcedureRecord</i>"]
 
-    EXP --> SRV["service<br/><i>serviceNameByLanguage<br/>originRef · DENARef · SIARef</i>"]
-    EXP --> PROC["procedure<br/><i>serviceNameByLanguage<br/>originRef · DENARef · SIARef</i>"]
-    EXP --> STATE["state<br/><i>stateCode · description</i>"]
-    EXP --> DATES["createdAt · lastUpdatedAt<br/>applicationDate"]
-    EXP --> REGNUMBER["regNumber"]
-    EXP --> INTERESTED["interested<br/><i>partyId · partyName</i>"]
+    EXP --> SRV["service<br/><i>nameByLanguage · originRef</i>"]
+    EXP --> PROC["procedure<br/><i>nameByLanguage · originRef</i>"]
+    EXP --> APPDATA["applicationData<br/><i>date · ledgerId</i>"]
+    EXP --> RECDATA["recordData<br/><i>createdAt · lastModifiedAt</i>"]
     EXP --> DESC["descriptionByLanguage"]
     EXP --> URLS["urls[]"]
+
+    RECDATA --> STATE["state<br/><i>stateCode · description</i>"]
+    RECDATA --> PARTY["interestedParty<br/><i>personId · displayName</i>"]
 
     style EXP fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
     style SRV fill:#f5f5f5,stroke:#666666,color:#000000,rx:6,ry:6
     style PROC fill:#f5f5f5,stroke:#666666,color:#000000,rx:6,ry:6
-    style STATE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
-    style DATES fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style REGNUMBER fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style INTERESTED fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style APPDATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style RECDATA fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style DESC fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+    style STATE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
+    style PARTY fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 
     click SRV "../servicio-administrativo/" "View Administrative Service"
     click PROC "../servicio-administrativo/" "View Procedure"
@@ -63,6 +64,9 @@ flowchart LR
 | Class | Repository |
 |-------|------------|
 | DN00AdmistrativeServiceProcedureRecord | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java) |
+| DN00AdmistrativeServiceProcedureApplicationData | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureApplicationData.java) |
+| DN00AdmistrativeServiceProcedureRecordData | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecordData.java) |
+| DN00AdministrativeServiceInterestedParty | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceInterestedParty.java) |
 | DN00AdministrativeServiceProcedureRecordState | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordState.java) |
 | DN00AdministrativeServiceProcedureRecordStateCode | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordStateCode.java) |
 
@@ -90,16 +94,18 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 | `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
 | `service` | `Object` | ✅ | *(see [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdmistrativeService`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java))* | Administrative service |
 | `procedure` | `Object` | ✅ | *(see [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdministrativeServiceProcedure`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java))* | Procedure |
-| `createdAt` | `String` (ISO 8601) | ✅ | `"2024-03-15T10:30:00Z"` | Creation date |
-| `lastUpdatedAt` | `String` (ISO 8601) | ❌ | `"2024-06-01T14:00:00Z"` | Last update date |
-| `applicationDate` | `String` (ISO 8601) | ❌ | `"2024-03-14T09:00:00Z"` | Application submission date |
-| `regNumber` | `String` | ❌ | `"REG-2024-00123"` | Registration number |
-| `state` | `Object` | ✅ | *(see [`DN00AdministrativeServiceProcedureRecordState`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedureRecordState.java))* | Current state |
-| `state.stateCode` | `String` | ✅ | `"IN_PROGRESS"` | State code |
-| `state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"En tramitación"}` | Multilingual state description |
-| `interested` | `Object` | ❌ | *(see [`DN00AdministrativeServiceInterested`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceInterested.java))* | Interested party in the record |
-| `interested.partyId` | `String` | ❌ | `"12345678A"` | NIF/DNI of the interested party |
-| `interested.partyName` | `String` | ❌ | `"Juan García"` | Name of the interested party |
+| `applicationData` | `Object` | ❌ | *(see [applicationData](#applicationdata))* | Application submission data |
+| `applicationData.date` | `String` (ISO 8601) | ❌ | `"2024-03-14T09:00:00Z"` | Application submission date |
+| `applicationData.ledgerId` | `String` | ❌ | `"REG-2024-00123"` | Assigned register entry number |
+| `recordData` | `Object` | ❌ | *(see [recordData](#recorddata))* | Record data (state, dates, interested party) |
+| `recordData.createdAt` | `String` (ISO 8601) | ❌ | `"2024-03-15T10:30:00Z"` | Record creation date |
+| `recordData.lastModifiedAt` | `String` (ISO 8601) | ❌ | `"2024-06-01T14:00:00Z"` | Last modification date |
+| `recordData.state` | `Object` | ❌ | `{"stateCode":"IN_PROGRESS"}` | Record state |
+| `recordData.state.stateCode` | `String` | ❌ | `"IN_PROGRESS"` | State code |
+| `recordData.state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"En tramitación"}` | Multilingual state description |
+| `recordData.interestedParty` | `Object` | ❌ | `{"personId":"12345678A","displayName":"Juan García"}` | Interested party in the record |
+| `recordData.interestedParty.personId` | `String` | ❌ | `"12345678A"` | NIF/DNI of the interested party |
+| `recordData.interestedParty.displayName` | `String` | ❌ | `"Juan García"` | Name of the interested party |
 | `descriptionByLanguage` | `LanguageTexts` | ❌ | `{"SPANISH":"Licencia apertura"}` | Record description |
 | `urls` <span class="field-badge--common">common</span> | `Array` | ❌ (recommended) | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs to the e-government portal |
 
@@ -122,34 +128,44 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 24 25 26 27"
+```json hl_lines="3 4 5 6"
 {
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "service": {
-    "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
-    "originRef": { "id": "SRV-LIC-ACT" }
-  },
-  "procedure": {
-    "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
-    "originRef": { "id": "PROC-LIC-APER" }
-  },
-  "createdAt": "2024-03-15T10:30:00Z",
-  "lastUpdatedAt": "2024-06-01T14:00:00Z",
-  "applicationDate": "2024-03-14T09:00:00Z",
-  "regNumber": "REG-2024-00123",
-  "interested": { "partyId": "12345678A", "partyName": "Juan García" },
-  "state": {
-    "stateCode": "IN_PROGRESS",
-    "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
-  },
-  "descriptionByLanguage": { "SPANISH": "Expediente de licencia de apertura", "BASQUE": "Irekiera-lizentzia espedientea" },
   "urls": [
     { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] },
     { "url": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123", "language": "BASQUE", "tags": ["default"] }
-  ]
+  ],
+  "service": {
+    "nameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+    "originRef": { "id": "SRV-LIC-ACT" }
+  },
+  "procedure": {
+    "nameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
+    "originRef": { "id": "PROC-LIC-APER" }
+  },
+  "applicationData": {
+    "date": "2024-03-14T09:00:00Z",
+    "ledgerId": "REG-2024-00123"
+  },
+  "recordData": {
+    "createdAt": "2024-03-15T10:30:00Z",
+    "lastModifiedAt": "2024-06-01T14:00:00Z",
+    "state": {
+      "stateCode": "IN_PROGRESS",
+      "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
+    },
+    "interestedParty": {
+      "personId": "12345678A",
+      "displayName": "Juan García"
+    }
+  },
+  "descriptionByLanguage": {
+    "SPANISH": "Expediente de licencia de apertura",
+    "BASQUE": "Irekiera-lizentzia espedientea"
+  }
 }
 ```
 
@@ -161,21 +177,22 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 ## Relationship with other objects
 
-The following objects reference the record via `procedureRecord`:
+The following objects reference the record via `record` (previously `procedureRecord`):
 
 - Notification (`administrativeNotice`)
-- Official Registration (`administrativeOfficialRegisterRecord`)
+- Register Ledger (`administrativeLedger`)
 - Payment (`oneOffPayment`, `directDebitPayment`)
-
-> **Note:** Appointments (`scheduleItem`) do NOT depend on records.
+- Economic benefit (`economicBenefit`)
+- Person credential (`personCredential`)
+- Appointment (`scheduleItem`) — `record` field is optional in appointments
 
 ---
 
 ## Validation rules
 
-- `createdAt` is mandatory and must be a valid ISO 8601 date.
-- If `lastUpdatedAt` is included, it must be ≥ `createdAt`.
-- `service` and `procedure` must include at least `serviceNameByLanguage` with texts in `SPANISH` and `BASQUE`.
+- `service` and `procedure` must include at least `nameByLanguage` with texts in `SPANISH` and `BASQUE`.
+- `recordData.createdAt`, if included, must be a valid ISO 8601 date.
+- If `recordData.lastModifiedAt` is included, it must be ≥ `recordData.createdAt`.
 - See [validaciones.md](../validaciones.md) for full rules.
 
 

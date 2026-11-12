@@ -40,6 +40,78 @@ DENA envía un mensaje a un servicio de tu admin cada vez que:
 
 Tu admin expone un endpoint que DENA llama automáticamente cuando hay cambios.
 
+#### Ejemplo real de llamada Push
+
+DENA envía este mensaje a tu endpoint cuando una persona se crea o actualiza. El mensaje contiene los datos básicos de la persona:
+
+##### Petición (REQUEST)
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "PERSON_PUSH_TO_ADMIN_REQ",
+            "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
+            "interopRouteData": [
+                { "denaComponentId": "DENA_CORE", "timestamp": "2026-11-09T18:48:01.1692680Z" },
+                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T18:48:01.2682590Z" }
+            ]
+        },
+        "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+        "subjectPerson": { "id": "20202020E", "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA" }
+    },
+    "payload": {
+        "syncData": {
+            "personRef": { "id": "20202020E", "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA" },
+            "createDate": "2026-11-09T17:48:01.1630320Z",
+            "lastUpdateDate": "2026-11-09T18:48:01.1630770Z",
+            "syncEvent": "CREATED"
+        },
+        "person": {
+            "entityVersion": 0,
+            "id": "20202020E",
+            "lastChangeEvent": "CREATED",
+            "name": "John",
+            "numericId": 0,
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA",
+            "surname1": "Doe",
+            "surname2": "Smith"
+        }
+    }
+}
+```
+
+##### Respuesta (RESPONSE)
+
+Tu endpoint devuelve un resultado simple:
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "PERSON_PUSH_TO_ADMIN_RESP",
+            "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
+            "interopRouteData": [
+                { "denaComponentId": "DENA_CORE", "timestamp": "2026-11-09T18:48:01.1692680Z" },
+                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T18:48:01.2682590Z" },
+                { "denaComponentId": "ADMIN", "timestamp": "2026-11-09T18:48:01.2682590Z" }
+            ]
+        },
+        "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+        "subjectPerson": { "id": "20202020E", "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA" }
+    },
+    "payload": { "result": "OK" }
+}
+```
+
+!!! info "Estructura del mensaje"
+    - **`context.message.type`**: `PERSON_PUSH_TO_ADMIN_REQ` / `PERSON_PUSH_TO_ADMIN_RESP`
+    - **`payload.syncData`**: metadatos de sincronización (createDate, lastUpdateDate, syncEvent: `CREATED`/`UPDATED`/`DELETED`)
+    - **`payload.person`**: datos básicos de la persona (id NIF, oid, name, surname1, surname2)
+    - **`payload.result`**: `"OK"` si tu endpoint procesa correctamente
+
+---
+
 ### Pull: tu admin consulta
 
 Tu admin consulta a DENA cuando quiere, de dos formas:
@@ -57,8 +129,6 @@ Tu admin consulta a DENA cuando quiere, de dos formas:
 ## ¿Cuál elegir?
 
 | Situación | Recomendación |
-|-----------|---------------|
-| Necesitas saber al instante cuando alguien se inscribe | **Push** |
 | Tienes un proceso batch nocturno que sincroniza | **Pull off-line** |
 | Quieres consultar personas bajo demanda | **Pull on-line** |
 | Quieres ambos (recomendado) | **Push** + **Pull off-line** como respaldo |

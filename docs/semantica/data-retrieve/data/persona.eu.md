@@ -8,11 +8,10 @@
 
 ## Deskribapena
 
-**PersonData** ereduak (`DN00PersonData`) administrazioaren eta DENAren artean trukatutako herritarren datuak adierazten ditu: kontaktu-informazioa, helbideak eta banku-datuak.
+**PersonData** ereduak (`DN00PersonData`) administrazioaren eta DENAren artean trukatutako herritarren datuak adierazten ditu: kontaktu-informazioa eta banku-kontuaren datuak.
 
-`DN00DENADataExchangedObjectBase` hedatzen du (DATA-RETRIEVE ereduaren objektu trukatu nagusia da).
-
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
+!!! warning "Identifikatu GABEKO objektua — oid eta id gabe"
+    `DN00PersonData`-k `DN00DENADataExchangedNOTIdentifiedObject` hedatzen du `DN00DENADataExchangedObjectBase` erabiliz beharrean. Horrek esan nahi du objektu honek **EZ dituela** `oid` eta `id` eremuak, baina **BAI dituela** `lastChangedAt`, `urls`, `originAdmin` eta `aboutPerson` (`DN00DENADataExchangedNOTIdentifiedObject` oinarrizko klasetik heredatuak).
 
 ```mermaid
 ---
@@ -28,36 +27,24 @@ config:
 flowchart LR
     PDATA["<b>PersonData</b><br/><i>personData</i>"]
 
-    PDATA --> CONTACT["contactData<br/><i>partyId · partyName · partySurName<br/>birthDate · phone · email<br/>contactLanguage · contactMode</i>"]
-    PDATA --> ADDR["addresses<br/><i>mainAddress · otherAddresses</i>"]
-    PDATA --> BANK["bankDataCollection<br/><i>bankData[]</i>"]
-    PDATA --> ORG["orgUnit"]
+    PDATA --> CONTACT["contactData<br/><i>DN00PersonDataCollection</i>"]
+    PDATA --> BANK["bankAccountData<br/><i>DN00PersonDataCollection</i>"]
 
-    ADDR --> MAIN["mainAddress<br/><i>country · province<br/>municipality · locality<br/>address · postalCode</i>"]
-    ADDR --> OTHER["otherAddresses<br/><i>addresses[]</i>"]
-
-    BANK --> BANKITEM["bankData<br/><i>account · entity</i>"]
-    BANKITEM --> ACCOUNT["account<br/><i>accountId · idType</i>"]
+    CONTACT --> CITEM["dataItems[]<br/><i>id · scope · data</i>"]
+    BANK --> BITEM["dataItems[]<br/><i>id · scope · data (IBAN)</i>"]
 
     style PDATA fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
     style CONTACT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style ADDR fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style BANK fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style ORG fill:#f5f5f5,stroke:#666666,color:#000000,rx:6,ry:6
-    style MAIN fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-    style OTHER fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-    style BANKITEM fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-    style ACCOUNT fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-
-    click ORG "../unidad-organica/" "Ikusi Unitate Organikoa"
+    style CITEM fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style BITEM fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
 ```
 
 | Kolorea | Esanahia |
 |---------|----------|
 | 🟠 Laranja | Objektu nagusia (PersonData) |
-| 🔵 Urdin argia | Lehen mailako blokeak |
-| 🟢 Berde argia | Xehetasun-azpiobjektuak |
-| ⚪ Grisa | Beste objektuetarako erreferentziak |
+| 🔵 Urdin argia | Datu-blokeak (bildumak) |
+| 🟢 Berde argia | Bilduma bakoitzeko banako ítems-ak |
 
 ---
 
@@ -66,14 +53,11 @@ flowchart LR
 | Klasea | Biltegia |
 |--------|----------|
 | DN00PersonData | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonData.java) |
-| DN00ContactData | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) |
-| DN00Address | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Address.java) |
-| DN00Addresses | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) |
-| DN00BankData | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java) |
-| DN00BankDataCollection | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) |
-| DN00Account | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Account.java) |
-| DN00ContactType | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java) |
-| DN00IdType | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java) |
+| DN00PersonDataCollection | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataCollection.java) |
+| DN00PersonDataItemBase | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataItemBase.java) |
+| DN00PersonDataItemForContact | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataItemForContact.java) |
+| DN00PersonDataItemForBankAccount | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataItemForBankAccount.java) |
+| DN00PersonDataCategory | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataCategory.java) |
 
 ---
 
@@ -84,103 +68,42 @@ flowchart LR
 | Mock Factory | Biltegia |
 |--------------|----------|
 | DN99DENATestMockObjFactoryForPersonData | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForPersonData.java) |
-| DN99DENATestMockObjFactoryForContactData | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactData.java) |
-| DN99DENATestMockObjFactoryForAddress | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddress.java) |
-| DN99DENATestMockObjFactoryForAddresses | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddresses.java) |
-| DN99DENATestMockObjFactoryForBankData | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankData.java) |
-| DN99DENATestMockObjFactoryForBankDataCollection | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankDataCollection.java) |
-| DN99DENATestMockObjFactoryForAccount | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAccount.java) |
-| DN99DENATestMockObjFactoryForContactType | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactType.java) |
-| DN99DENATestMockObjFactoryForIdType | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForIdType.java) |
 
 ---
 
 ## PersonData — JSON atributuak
 
-<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
-
 | Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
 |--------|------|:-----------:|----------|--------------|
 | `type` | `String` | ✅ | `"personData"` | Diskriminatzaile polimorfiko |
-| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PDATA-OID-001"` | Identifikatzaile teknikoa |
-| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"12345678A"` | Negozio-identifikatzailea |
-| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
-| `contactData` | [`DN00ContactData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) | ✅ | *(ikusi [contactData](#kontaktu-datuak-contactdata))* | Kontaktu-datu xehatuak |
-| `addresses` | [`DN00Addresses`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) | ❌ | *(ikusi [Helbideak](#helbideak-addresses))* | Helbideak (nagusia + besteak) |
-| `bankDataCollection` | [`DN00BankDataCollection`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) | ❌ | *(ikusi [Banku-datuak](#banku-datuak-bankdatacollection))* | Banku-datuak |
-| `orgUnit` | [`DN00OrgUnitReference`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) | ❌ | *(ikusi [unidad-organica.md](./unidad-organica.md))* | Lotutako unitate organikoa |
+| ~~`oid`~~ | — | — | — | **Ez da existitzen** mota honetan |
+| ~~`id`~~ | — | — | — | **Ez da existitzen** mota honetan |
+| `lastChangedAt` | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
+| `contactData` | `Object` | ❌ | *(ikusi [Kontaktu-datuak](#kontaktu-datuak-contactdata))* | Kontaktu-datuen bilduma |
+| `contactData.dataCategory` | `String` | ✅ | `"CONTACT"` | Beti `"CONTACT"` kontaktu-datuetarako |
+| `contactData.dataItems` | `Array` | ✅ | — | Kontaktu-ítems-en zerrenda |
+| `contactData.dataItems[].id` | `String` | ✅ | `"contact-001"` | Ítem-aren identifikatzailea |
+| `contactData.dataItems[].scope` | `String` | ❌ | `"INDIVIDUAL"` | Kontaktu-datuaren esparrua |
+| `contactData.dataItems[].data` | `Object` | ✅ | *(r01f ContactInfo — ikusi oharra)* | Kontaktu-informazioa ⚠️ Barne-egitura EGIAZTATU GABE |
+| `bankAccountData` | `Object` | ❌ | *(ikusi [Banku-datuak](#banku-datuak-bankaccountdata))* | Banku-kontuen datuen bilduma |
+| `bankAccountData.dataCategory` | `String` | ✅ | `"BANK_ACCOUNT"` | Beti `"BANK_ACCOUNT"` |
+| `bankAccountData.dataItems` | `Array` | ✅ | — | Banku-kontuen zerrenda |
+| `bankAccountData.dataItems[].id` | `String` | ✅ | `"bank-001"` | Ítem-aren identifikatzailea |
+| `bankAccountData.dataItems[].scope` | `String` | ❌ | `"INDIVIDUAL"` | Banku-datuaren esparrua |
+| `bankAccountData.dataItems[].data` | `String` | ✅ | `"ES9121000418450200051332"` | IBAN edo beste banku-kontu identifikatzaile bat |
 
 ---
 
-## Kontaktu-datuak ([`contactData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java))
+## Kontaktu-datuak (`contactData`)
 
-| Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
-|--------|------|:-----------:|----------|--------------|
-| `partyId` | `String` | ✅ | `"12345678A"` | Interesdunaren IFZ/AIZ |
-| `partyName` | `String` | ✅ | `"María"` | Izena |
-| `partySurName` | `String` | ✅ | `"García López"` | Abizenak |
-| `birthDate` | `String` (ISO 8601) | ❌ | `"1985-03-20T00:00:00Z"` | Jaiotze-data |
-| `phone` | `String` | ❌ | `"+34600000001"` | Telefono nagusia |
-| `phone2` | `String` | ❌ | `null` | Bigarren telefonoa |
-| `email` | `String` | ❌ | `"maria@example.com"` | Helbide elektronikoa |
-| `contactLanguage` | `String` | ❌ | `"SPANISH"` | Hizkuntza hobetsia (`SPANISH`, `BASQUE`, `ENGLISH`) |
-| `contactMode` | `String` | ❌ | `"ELECTRONIC"` | Kontaktu-modu hobetsia |
-
-### Kontaktu-moduak ([`contactMode`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java))
-
-| Kodea | Deskribapena |
-|-------|--------------|
-| `POSTAL` | Posta arrunta |
-| `ELECTRONIC` | Bide elektronikoak |
+!!! info "r01f ContactInfo mota dokumentatzeko"
+    `contactData`-ko ítem bakoitzaren `data` eremuaren barne-egitura r01f `ContactInfo` motakoa da. Telefonoak, emailak, posta-helbideak, web URLa, etab. eduki ditzake. Bere egituraren dokumentazio xehatua hurrengo bertsio batean osatuko da. Eskuragarri dauden eremuetarako, DENA taldearekin harremanetan jarri.
 
 ---
 
-## Helbideak ([`addresses`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java))
+## Banku-datuak (`bankAccountData`)
 
-| Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
-|--------|------|:-----------:|----------|--------------|
-| `mainAddress` | `Object` | ❌ | *(ikusi [Helbidea](#helbidea-mainaddress--otheraddressesaddresses-elementu-bakoitza))* | Helbide nagusia |
-| `otherAddresses` | `Object` | ❌ | | Beste helbideak |
-| `otherAddresses.addresses` | `Array` | ❌ | | Helbide osagarrien zerrenda |
-
-### Helbidea (`mainAddress` / `otherAddresses.addresses` elementu bakoitza) { #helbidea-mainaddress--otheraddressesaddresses-elementu-bakoitza }
-
-| Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
-|--------|------|:-----------:|----------|--------------|
-| `addressDescription` | `LanguageTexts` | ❌ | `{"SPANISH":"Domicilio habitual"}` | Helbidearen deskribapena |
-| `countryNoraCode` | `String` | ❌ | `"108"` | Herrialdeko NORA kodea |
-| `countryDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"España"}` | Herrialdearen izena |
-| `provinceNoraCode` | `String` | ❌ | `"48"` | Probintziako NORA kodea |
-| `provinceDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bizkaia"}` | Probintziaren izena |
-| `municipalityNoraCode` | `String` | ❌ | `"48020"` | Udalerriko NORA kodea |
-| `municipalityDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bilbao"}` | Udalerriren izena |
-| `localityNoraCode` | `String` | ❌ | `"48020"` | Herriguneko NORA kodea |
-| `localityDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bilbao"}` | Herrigunearen izena |
-| `address` | `String` | ❌ | `"Gran Vía 50, 3º B"` | Posta-helbide osoa |
-| `postalCode` | `String` | ❌ | `"48001"` | Posta-kodea |
-
----
-
-## Banku-datuak ([`bankDataCollection`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java))
-
-| Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
-|--------|------|:-----------:|----------|--------------|
-| `bankData` | `Array` | ❌ | | Banku-datuen zerrenda |
-
-### [`bankData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java) elementu bakoitza
-
-| Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
-|--------|------|:-----------:|----------|--------------|
-| `account.accountId` | `String` | ✅ | `"ES9121000418450200051332"` | Kontu-zenbakia (IBAN edo beste bat) |
-| `account.idType` | `String` | ✅ | `"IBAN"` | Identifikatzaile mota |
-| `entity` | `String` | ❌ | `"CAIXESBB"` | Banku-erakundea (BIC/SWIFT kodea) |
-
-### Kontu-identifikatzaile motak ([`idType`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java))
-
-| Kodea | Deskribapena |
-|-------|--------------|
-| `IBAN` | IBAN formatua |
-| `CUSTOM` | Beste formatua |
+`bankAccountData`-ko ítem bakoitzaren `data` eremua `String` bat da IBAN edo beste banku-kontu identifikatzaile bat duena (r01f `FinantialIDs.BankAccountID` mota).
 
 ---
 
@@ -188,68 +111,43 @@ flowchart LR
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json
 {
   "type": "personData",
-  "oid": "PDATA-OID-001",
-  "id": "12345678A",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "contactData": {
-    "partyId": "12345678A",
-    "partyName": "María",
-    "partySurName": "García López",
-    "birthDate": "1985-03-20T00:00:00Z",
-    "phone": "+34600000001",
-    "phone2": null,
-    "email": "maria.garcia@example.com",
-    "contactLanguage": "SPANISH",
-    "contactMode": "ELECTRONIC"
-  },
-  "addresses": {
-    "mainAddress": {
-      "countryNoraCode": "108",
-      "countryDesc": { "SPANISH": "España", "BASQUE": "Espainia" },
-      "provinceNoraCode": "48",
-      "provinceDesc": { "SPANISH": "Bizkaia", "BASQUE": "Bizkaia" },
-      "municipalityNoraCode": "48020",
-      "municipalityDesc": { "SPANISH": "Bilbao", "BASQUE": "Bilbo" },
-      "address": "Gran Vía 50, 3º B",
-      "postalCode": "48001"
-    },
-    "otherAddresses": {
-      "addresses": []
-    }
-  },
-  "bankDataCollection": {
-    "bankData": [
+    "dataCategory": "CONTACT",
+    "dataItems": [
       {
-        "account": {
-          "accountId": "ES9121000418450200051332",
-          "idType": "IBAN"
-        },
-        "entity": "CAIXESBB"
+        "id": "contact-001",
+        "scope": "INDIVIDUAL",
+        "data": "⚠️ EGIAZTATU GABE — r01f ContactInfo motaren barne-egitura DENA taldearekin dokumentatzeko"
       }
     ]
   },
-  "orgUnit": {
-    "id": "ORG-HACIENDA",
-    "displayNameByLanguage": { "SPANISH": "Hacienda Foral de Bizkaia", "BASQUE": "Bizkaiko Foru Ogasuna" }
+  "bankAccountData": {
+    "dataCategory": "BANK_ACCOUNT",
+    "dataItems": [
+      {
+        "id": "bank-001",
+        "scope": "INDIVIDUAL",
+        "data": "ES9121000418450200051332"
+      }
+    ]
   }
 }
 ```
-
-<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
 
 </div>
 
 ---
 
-## Balioztatze-arauak
+## Ohar garrantzitsuak
 
-- `contactData.partyId` derrigorrez da eta IFZ/AIZ balioduna izan behar du.
-- `contactData.partyName` eta `contactData.partySurName` derrigorrez dira.
-- Helbideak sartzen badira, NORA kodeak NORA katalogoan baliodun izan behar dira.
-- Banku-datuak `idType: "IBAN"`-rekin sartzen badira, `accountId` IBAN balioduna izan behar da.
+- `DN00PersonData`-k `DN00DENADataExchangedNOTIdentifiedObject` hedatzen du, oinarrizko klase arrunta ez. Hori dela eta **ez ditu** `oid` eta `id`, baina **bai ditu** `lastChangedAt`, `urls`, `originAdmin` eta `aboutPerson`.
+- r01f `ContactInfo` motaren barne-egitura (`contactData`-ko ítem bakoitzaren `data` eremua) **egiaztatu eta dokumentatzeko dago**. DENA taldearekin harremanetan jarri.
+- `bankAccountData`-ko ítem bakoitzaren `data` eremua zuzenean `String` bat da kontu-zenbakiarekin (IBAN edo beste formatu bat).
+
 
 ---
 

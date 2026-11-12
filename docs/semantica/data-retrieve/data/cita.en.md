@@ -10,7 +10,7 @@
 
 Represents a schedule item or appointment. It can be an appointment with a duration or a point-in-time milestone (duration = 0).
 
-> **Note:** Unlike other objects (notification, registry, payment), appointments are **independent of records**. They do not have a `procedureRecord` field.
+> **Note:** The `record` field (record/expediente) is **optional** in appointments; unlike notifications and payments, appointments can exist without an associated record.
 
 > See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
@@ -30,24 +30,29 @@ flowchart LR
 
     CITA --> WHEN["year · monthOfYear<br/>dayOfMonth · hourOfDay<br/>minuteOfHour · durationMinutes"]
     CITA --> PRIO["priority"]
-    CITA --> SUBJECT["subject<br/>details"]
-    CITA --> LOC["location<br/><i>country · administrativeAreaLevel1<br/>administrativeAreaLevel3 · zipCode<br/>address · directionsByLanguage</i>"]
+    CITA --> TYPE["type<br/><i>REMINDER · IN_PERSON<br/>PHONE · VIDEO · CHAT</i>"]
+    CITA --> SUBJECT["subject"]
+    CITA --> CONTACT["contactInfo<br/><i>r01f ContactInfo</i>"]
+    CITA --> RECORD["record<br/><i>oid · id (optional)</i>"]
     CITA --> URLS["urls[]"]
 
     style CITA fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
     style WHEN fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style PRIO fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
+    style TYPE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
     style SUBJECT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style LOC fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style CONTACT fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style RECORD fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
     style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 ```
 
 | Colour | Meaning |
 |-------|-------------|
 | 🟠 Orange | Main object (Appointment) |
-| 🟣 Purple | Enums (priority) |
+| 🟣 Purple | Enums (priority, type) |
 | 🔵 Light blue | Data fields |
-| 🟢 Green | Physical location |
+| 🟢 Green | Contact information (contactInfo) |
+| 🟡 Yellow | Reference to record (optional) |
 
 ---
 
@@ -56,8 +61,7 @@ flowchart LR
 | Class | Repository |
 |-------|-------------|
 | DN00ScheduleItem | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItem.java) |
-| DN00ScheduleItemLocation | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java) |
-| DN00ScheduleItemLocationItem | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocationItem.java) |
+| DN00ScheduleItemType | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemType.java) |
 | DN00ScheduleItemPriority | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemPriority.java) |
 
 ---
@@ -69,8 +73,6 @@ flowchart LR
 | Mock Factory | Repository |
 |--------------|-------------|
 | DN99DENATestMockObjFactoryForScheduleItem | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java) |
-| DN99DENATestMockObjFactoryForScheduleItemLocation | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemLocation.java) |
-| DN99DENATestMockObjFactoryForScheduleItemLocationItem | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemLocationItem.java) |
 | DN99DENATestMockObjFactoryForScheduleItemPriority | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemPriority.java) |
 
 ---
@@ -92,10 +94,23 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 | `minuteOfHour` | `Number` | ✅ | `30` | Minute (0-59) |
 | `durationMinutes` | `Number` | ✅ | `30` | Duration in minutes (0 = point-in-time milestone) |
 | `priority` | `String` | ❌ | `"NORMAL"` | Priority |
+| `type` (DN00ScheduleItemType) | `String` | ❌ | `"IN_PERSON_APPOINTMENT"` | Appointment type (see [Types](#types-type)) |
 | `subject` | `LanguageTexts` | ✅ | `{"SPANISH":"Cita renovación DNI"}` | Appointment subject |
-| `details` | `LanguageTexts` | ❌ | `{"SPANISH":"Traer foto reciente"}` | Additional details |
-| `location` | `Object` | ❌ | *(see [Location](#location-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Location (recommended) |
+| `contactInfo` | `Object` | ❌ | *(see note below)* | Contact information of the location/organiser (r01f ContactInfo). May include phone, email, address, URL. ⚠️ Internal structure of r01f type pending documentation. |
+| `record` | `Object` | ❌ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` | Record linked to the appointment (optional) |
 | `urls` <span class="field-badge--common">common</span> | `Array` | ❌ | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs |
+
+---
+
+## Types (`type`)
+
+| Code | Description |
+|------|-------------|
+| `REMINDER` | Reminder/milestone (no in-person appointment) |
+| `IN_PERSON_APPOINTMENT` | In-person appointment |
+| `PHONE_CALL_APPOINTMENT` | Phone appointment |
+| `VIDEO_CALL_APPOINTMENT` | Video call appointment |
+| `CHAT_APPOINTMENT` | Chat appointment |
 
 ---
 
@@ -110,16 +125,12 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 ---
 
-## Location (`location`)
+## Contact information (`contactInfo`)
 
-| Field | Type | Mandatory | Description |
-|-------|------|:-----------:|-------------|
-| `country` | `Object` | ❌ | Country (`id`, `name`) |
-| `administrativeAreaLevel1` | `Object` | ❌ | Territory / Region (`id`, `name`) |
-| `administrativeAreaLevel3` | `Object` | ❌ | Municipality (`id`, `name`) |
-| `zipCode` | `String` | ❌ | Postal code |
-| `address` | `String` | ❌ | Address |
-| `directionsByLanguage` | `LanguageTexts` | ❌ | Multilingual access directions |
+> **Note:** The `contactInfo` field is of r01f type `ContactInfo`. It can contain phones, emails, postal address, web URL, fax. ⚠️ The internal structure of this r01f type is pending documentation with the DENA team.
+
+!!! info "r01f ContactInfo type pending documentation"
+    The internal structure of the `contactInfo` field is the r01f `ContactInfo` type. It may contain phones, emails, postal addresses, web URL, etc. Detailed documentation of its structure will be completed in a future version. Consult with the DENA team for the available fields.
 
 ---
 
@@ -127,41 +138,28 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 32 33 34"
+```json hl_lines="3 4 5 6"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "url": "https://sede.miadmin.eus/cita/CITA-2024-00050", "language": "SPANISH", "tags": ["default"] }
+  ],
   "year": 2024,
   "monthOfYear": 7,
   "dayOfMonth": 15,
   "hourOfDay": 10,
   "minuteOfHour": 30,
   "durationMinutes": 30,
+  "type": "IN_PERSON_APPOINTMENT",
   "priority": "NORMAL",
   "subject": {
     "SPANISH": "Cita previa para renovación de DNI",
     "BASQUE": "NAN berritzeko aurretiko hitzordua"
   },
-  "details": {
-    "SPANISH": "Traer fotografía reciente y DNI anterior",
-    "BASQUE": "Ekarri argazki berria eta aurreko NANa"
-  },
-  "location": {
-    "country": { "id": "ES", "name": "España" },
-    "administrativeAreaLevel1": { "id": "PV", "name": "País Vasco" },
-    "administrativeAreaLevel3": { "id": "48020", "name": "Bilbao" },
-    "zipCode": "48001",
-    "address": "Gran Vía 50, Bilbao",
-    "directionsByLanguage": {
-      "SPANISH": "Planta 2, oficina 201. Acceso por la entrada principal.",
-      "BASQUE": "2. solairua, 201 bulegoa. Sarrera nagusitik sartu."
-    }
-  },
-  "urls": [
-    { "url": "https://sede.miadmin.eus/cita/CITA-2024-00050", "language": "SPANISH", "tags": ["default"] }
-  ]
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" }
 }
 ```
 
@@ -200,10 +198,10 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 | Characteristic | Appointment | Record / Notification / Registry / Payment |
 |----------------|------|----------------------------------------------|
-| Depends on a record | ❌ No | ✅ Yes (`procedureRecord` field) |
+| Depends on a record | ❌ Optional (`record`) | ✅ Yes (`record` field) |
 | Has state | ❌ No | ✅ Yes |
 | Has ISO 8601 date | ❌ (uses separate fields year/month/day/hour/minute) | ✅ Yes |
-| Has physical location | ✅ Yes | ❌ No |
+| Has contact information | ✅ Yes (`contactInfo`) | ❌ No |
 
 
 

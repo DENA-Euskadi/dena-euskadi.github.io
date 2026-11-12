@@ -13,7 +13,7 @@ Historial de versiones de la documentación DENA.
 Actualizaciones:
 
 - :material-refresh: Todas las fichas de tipo de dato raíz de Data-Retrieve (cita, expediente, notificación, registro-oficial, pago, persona) marcan ahora los campos **comunes** heredados de `DN00DENADataExchangedObjectBase` (`oid`, `id`, `lastChangedAt`, `urls`) con una insignia <span class="field-badge--common">común</span> verde DENA en la tabla de atributos
-- :material-plus: Los ejemplos JSON de cada ficha resaltan (en verde DENA) las líneas de los campos comunes y añaden una leyenda explicativa bajo el bloque de código, con referencia a [campos-comunes.md](../../semantica/data-retrieve/data/campos-comunes.md)
+- :material-plus: Los ejemplos JSON de cada ficha resaltan (en verde DENA) las líneas de los campos comunes y añaden una leyenda explicativa bajo el bloque de código, con referencia a [campos-comunes.md](../semantica/data-retrieve/data/campos-comunes.md)
 - :material-bug: Añadido el campo obligatorio `lastChangedAt` (ausente) a la tabla de atributos y a todos los ejemplos JSON de cada tipo; es el campo que DENA-CORE usa para calcular el estado NEW/UPDATED/UNCHANGED en la UI
 - :material-refresh: Completada la referencia "campos heredados" de cada ficha para incluir `lastChangedAt`
 - :material-translate: Todos los cambios reflejados en ES, EN y EU

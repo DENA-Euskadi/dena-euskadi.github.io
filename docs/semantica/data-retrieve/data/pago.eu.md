@@ -3,7 +3,7 @@
 > - **Bertsioa:** `v{{ dena.version }}`
 > - **Data:** {{ dena.date }}
 > - **Mota ID (DataTypeID):** `PAYMENT_ONE_OFF_PAYMENT` (ordainketa bakarra) · `PAYMENT_DIRECT_DEBIT_PAYMENT` (helbideratzea)
-> - **Testa:** [DN99DENATestMockObjFactoryForOneOffPayment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
+> - **Testa:** [DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java)
 > - **Kodea:**
 >   - [DN00OneOffPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/oneoff/DN00OneOffPayment.java)
 >   - [DN00DirectDebitPayment.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIPaymentModelClasses/src/main/java/dena/api/data/model/payments/directdebit/DN00DirectDebitPayment.java)
@@ -29,9 +29,9 @@ config:
     fontSize: "12px"
 ---
 flowchart LR
-    PAYBASE["<b>Payment BASE</b><br/><i>procedureRecord · paymentType<br/>paymentSubjectByLanguage</i>"]
+    PAYBASE["<b>Payment BASE</b><br/><i>record · paymentType<br/>paymentSubjectByLanguage</i>"]
 
-    PAYBASE --> EXP["procedureRecord<br/><i>oid · id</i>"]
+    PAYBASE --> EXP["record<br/><i>oid · id</i>"]
 
     PAYBASE --> ONEOFF["<b>Ordainketa Bakarra</b><br/><i>oneOffPayment</i>"]
     PAYBASE --> DD["<b>Helbideratze Bankarioa</b><br/><i>directDebitPayment</i>"]
@@ -41,7 +41,7 @@ flowchart LR
     ONEOFF --> AMOUNT["amount<br/>amountIfSurcharged"]
     ONEOFF --> DATA["data<br/><i>forStatus · at · medium<br/>device · messageByLang</i>"]
 
-    DD --> DDDATA["directDebitData<br/><i>startDate · expiresAt<br/>frequency · medium · mediumHint</i>"]
+    DD --> DDDATA["directDebitData<br/><i>startedAt · expiresAt<br/>frequency · medium · mediumHint</i>"]
     DD --> NEXT["nextChargeAt<br/>nextChargeAmountInEuro"]
     DD --> STATUS["paymentStatus"]
     DD --> HIST["history[]<br/><i>at · amountInEuro</i>"]
@@ -95,16 +95,10 @@ flowchart LR
 
 | Testa | Biltegia |
 |------|-------------|
-| DN00PayOffPaymentTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java) |
-| DN00DirectDebitPaymentsTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitPayment.java) |
-| DN00PaymentDatesTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDates.java) |
-| DN00PaymentStatusTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentStateCode.java) |
-| DN00PaymentStatusDataWhenCompletedTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenRejectedTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenCancelledTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00PaymentStatusDataWhenErrorTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentData.java) |
-| DN00OneOffPaymentSchemaTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
-| DN00PaymentIDTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDataExchangedBase.java) |
+| DN99DENATestMockObjFactoryForPaymentDates | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForPaymentDates.java) |
+| DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
+| DN99DENATestMockObjFactoryForDirectDebitStatus | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitStatus.java) |
+| DN99DENATestMockObjFactoryForDirectDebitPaymentHistoryItem | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForDirectDebitPaymentHistoryItem.java) |
 
 ---
 
@@ -119,7 +113,7 @@ flowchart LR
 | `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PAY-OID-001"` | Identifikatzaile tekniko bakarra |
 | `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PAY-2024-00321"` | Negozio-identifikatzailea |
 | `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
+| `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
 | `paymentType` | `String` | ✅ | `"ONE_OFF_PAYMENT"` | `ONE_OFF_PAYMENT` edo `DIRECT_DEBIT` |
 | `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Tasa licencia"}` | Ordainketaren kontzeptua |
 | `participatingOrgUnits` | `Array` | ❌ | *(ikusi [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Parte hartzen duten unitate organikoak |
@@ -158,6 +152,15 @@ flowchart LR
 |-------|------|-------------|
 | `amount` | `Number` | Zenbateko numerikoa |
 | `currency` | `String` | ISO 4217 moneta-kodea (lehenetsita `"EUR"`) |
+
+!!! warning "`Money` mota: `amount` zenbaki osoa da zentimetan"
+    `amount` eremua `long` motakoa da eta zenbatekoa **zentimo/zentaboetan** adierazten du (ez dezimaletan). `base` eremua (aukerakoa, `CENTS` | `UNITS`) unitatea zentimoak edo unitateak diren adierazten du. Euskal Administrazioko kasu praktikoetan zenbatekoa zentimetan bidaltzen da:
+    
+    ```json
+    { "amount": 4550, "base": "CENTS", "currency": "EUR" }
+    ```
+    
+    45,50 €-ren baliokidea da (4550 zentimo). Zure sistemak zenbateko dezimalak erabiltzen baditu, bidali baino lehen 100ez bidertu.
 
 ---
 
@@ -230,7 +233,7 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 | Eremua | Mota | Nahitaezkoa | Adibidea | Deskribapena |
 |-------|------|:-----------:|---------|-------------|
-| `directDebitData.startDate` | `String` (date) | ✅ | `"2024-01-15"` | Helbideratzearen alta-data |
+| `directDebitData.startedAt` | `String` (date) | ✅ | `"2024-01-15"` | Helbideratzearen alta-data |
 | `directDebitData.expiresAt` | `String` (date) | ❌ | `null` | Iraungitze-data (null = mugagabeki indarrean) |
 | `directDebitData.frequency` | `String` | ✅ | `"MONTHLY"` | Maiztasuna (ikusi [maiztasunak](#maiztasunak-directdebitdatafrequency)) |
 | `directDebitData.medium` | `String` | ❌ | `"DIRECT_DEBIT"` | Ordainketa-bitartekoa |
@@ -315,13 +318,16 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 20 21 22"
+```json hl_lines="3 4 5 6"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "urls": [
+    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00321", "language": "SPANISH", "tags": ["payment"] }
+  ],
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
   "paymentDates": { "dueDate": "2024-06-30", "surchargedAt": "2024-07-15", "paidAt": null },
@@ -334,10 +340,7 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
     "medium": null,
     "device": null,
     "messageByLang": null
-  },
-  "urls": [
-    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00321", "language": "SPANISH", "tags": ["payment"] }
-  ]
+  }
 }
 ```
 
@@ -349,13 +352,17 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 21 22 23 24"
+```json hl_lines="3 4 5 6"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-002",
   "id": "PAY-2024-00322",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "urls": [
+    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00322", "language": "SPANISH", "tags": ["payment"] },
+    { "url": "https://pago.miadmin.eus/receipt/PAY-2024-00322", "language": "SPANISH", "tags": ["payment-receipt"] }
+  ],
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de obras", "BASQUE": "Obra-lizentziaren tasa" },
   "paymentDates": { "dueDate": "2024-05-30", "surchargedAt": "2024-06-15", "paidAt": "2024-05-28" },
@@ -369,11 +376,7 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
     "device": "WEB_BROWSER",
     "paymentProcessorId": "BANKIA",
     "paymentProcessorTransactionId": "TXN-2024-ABC123"
-  },
-  "urls": [
-    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00322", "language": "SPANISH", "tags": ["payment"] },
-    { "url": "https://pago.miadmin.eus/receipt/PAY-2024-00322", "language": "SPANISH", "tags": ["payment-receipt"] }
-  ]
+  }
 }
 ```
 
@@ -391,11 +394,11 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },
   "directDebitData": {
-    "startDate": "2024-01-15",
+    "startedAt": "2024-01-15",
     "expiresAt": null,
     "frequency": "MONTHLY",
     "medium": "DIRECT_DEBIT",
@@ -419,10 +422,10 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 ## Ohar garrantzitsuak
 
-- `directDebitData.startDate` eremuak helbideratzea altan noiz eman zen adierazten du (JSON-en `"startDate"` gisa serializatzen da, ez `"setAt"` gisa).
+- `directDebitData.startedAt` eremuak helbideratzea altan noiz eman zen adierazten du (JSON-en `"startedAt"` gisa serializatzen da).
 - Ordainketa bakarretan `data.at` eremuak ordainketa prozesatu zen une zehatza adierazten du (soilik garrantzitsua `forStatus` ≠ `PENDING` denean).
 - `data.messageByLang` eremuak hizkuntza anitzeko mezu azaltzaile bat sartzeko aukera ematen du, errore edo baztertze egoeretan erabilgarria.
-- Hitzorduek (`scheduleItem`) EZ dute ordainketekin loturarik. Ordainketak beti espediente baten menpekoak dira (`procedureRecord`).
+- Hitzorduek (`scheduleItem`) EZ dute ordainketekin loturarik. Ordainketak beti espediente baten menpekoak dira (`record`).
 
 
 

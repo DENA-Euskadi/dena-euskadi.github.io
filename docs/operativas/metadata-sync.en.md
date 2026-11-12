@@ -52,14 +52,12 @@ SELECT PERSON_ID,
 private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
         final Collection<DBPersonLastChange> dbChanges) {
     return dbChanges.stream()
-        .map(dbChange -> DN00SyncMetaDataBuilder
-            .syncMetaDataFromAdminToCOREBuilder()
-            .atAdmin(DN00OrgAdminID.forId("MY_ADMIN"))
-            .fromSingleDataOrigin()
-            .aboutPerson(DN00PersonID.forId(dbChange.personId()))
-            .someDataWasUpdatedAt(dbChange.lastChangedAt())
-            .ofType(DN00DataTypeID.forId("citizen_service_appointment"))
-            .build())
+        .map(dbChange -> new DN00SyncMetaDataFromAdminToCOREItem(
+            new DN00OrgAdminRef(DN00OrgAdminID.forId("MY_ADMIN")),
+            DN00PersonRef.from(DN00PersonID.forId(dbChange.personId())),
+            dbChange.lastChangedAt(),
+            new DN00DataTypeRef(DN00DataTypeID.forId("citizen_service_appointment")),
+            null))  // null = instancia de origen por defecto (DEFAULT)
         .toList();
 }
 ```
@@ -67,18 +65,18 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
 ### Step 3: Wrap in an interop message and send
 
 ```java
-// Create the interop message
+// Create the interop context
 DN00InteropContext ctx = DN00InteropContextBuilder
     .createMessageOfType(DN00InteropMessageType.ADMIN_SRMD_SYNC_REQ)
-    .withCorrelationOID(DN00MessageCorrelationOID.supply())
-    .fromAdministration(DN00OrgAdminID.forId("MY_ADMIN"))
+    .withGeneratedCorrelationOID()
+    .fromAdmin(DN00OrgAdminID.forId("MY_ADMIN"))
+    .withSubjectPerson(null)
+    .aboutDataType(null)
     .build();
 
-DN00SyncMetaDataFromAdminRequestPayload payload =
-    DN00SyncMetaDataFromAdminRequestPayload.from(srmdItems);
-
+// Create the request message (items passed directly, no wrapper needed)
 DN00SyncMetaDataFromAdminRequestMessage reqMsg =
-    new DN00SyncMetaDataFromAdminRequestMessage(ctx, payload);
+    new DN00SyncMetaDataFromAdminRequestMessage(ctx, srmdItems);
 
 // Serialize to JSON
 String json = marshaller.forWriting().toJSON(reqMsg);

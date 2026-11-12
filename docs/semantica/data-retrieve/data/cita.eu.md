@@ -10,7 +10,7 @@
 
 Agenda-elementu bat edo aurretiko hitzordu bat adierazten du. Iraupena duen hitzordu bat edo une puntualeko mugarri bat izan daiteke (iraupena = 0).
 
-> **Oharra:** Beste objektuekin alderatuta (jakinarazpena, erregistroa, ordainketa), hitzorduak **espedienteetatik independenteak** dira. Ez dute `procedureRecord` eremurik.
+> **Oharra:** `record` eremua (espedientea) **aukerakoa** da hitzorduetan; jakinarazpen eta ordainketekin alderatuta, hitzorduek ez dute nahitaez espediente bat.
 
 > Ikusi ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
 
@@ -30,24 +30,29 @@ flowchart LR
 
     CITA --> WHEN["year · monthOfYear<br/>dayOfMonth · hourOfDay<br/>minuteOfHour · durationMinutes"]
     CITA --> PRIO["priority"]
-    CITA --> SUBJECT["subject<br/>details"]
-    CITA --> LOC["location<br/><i>country · administrativeAreaLevel1<br/>administrativeAreaLevel3 · zipCode<br/>address · directionsByLanguage</i>"]
+    CITA --> TYPE["type<br/><i>REMINDER · IN_PERSON<br/>PHONE · VIDEO · CHAT</i>"]
+    CITA --> SUBJECT["subject"]
+    CITA --> CONTACT["contactInfo<br/><i>r01f ContactInfo</i>"]
+    CITA --> RECORD["record<br/><i>oid · id (aukerakoa)</i>"]
     CITA --> URLS["urls[]"]
 
     style CITA fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
     style WHEN fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style PRIO fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
+    style TYPE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
     style SUBJECT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style LOC fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style CONTACT fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style RECORD fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
     style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
 ```
 
 | Kolorea | Esanahia |
 |-------|-------------|
 | 🟠 Laranja | Objektu nagusia (Hitzordua) |
-| 🟣 Morea | Enum-ak (lehentasuna) |
+| 🟣 Morea | Enum-ak (lehentasuna, mota) |
 | 🔵 Urdin argia | Datu-eremuak |
-| 🟢 Berdea | Kokapen fisikoa |
+| 🟢 Berdea | Kontaktu-informazioa (contactInfo) |
+| 🟡 Horia | Espedientearen erreferentzia (aukerakoa) |
 
 ---
 
@@ -56,8 +61,7 @@ flowchart LR
 | Klasea | Biltegia |
 |-------|-------------|
 | DN00ScheduleItem | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItem.java) |
-| DN00ScheduleItemLocation | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java) |
-| DN00ScheduleItemLocationItem | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocationItem.java) |
+| DN00ScheduleItemType | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemType.java) |
 | DN00ScheduleItemPriority | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemPriority.java) |
 
 ---
@@ -69,8 +73,6 @@ flowchart LR
 | Mock Factory | Biltegia |
 |--------------|-------------|
 | DN99DENATestMockObjFactoryForScheduleItem | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java) |
-| DN99DENATestMockObjFactoryForScheduleItemLocation | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemLocation.java) |
-| DN99DENATestMockObjFactoryForScheduleItemLocationItem | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemLocationItem.java) |
 | DN99DENATestMockObjFactoryForScheduleItemPriority | [Ikusi kodea]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItemPriority.java) |
 
 ---
@@ -92,10 +94,23 @@ flowchart LR
 | `minuteOfHour` | `Number` | ✅ | `30` | Minutua (0-59) |
 | `durationMinutes` | `Number` | ✅ | `30` | Iraupena minututan (0 = une puntualeko mugarria) |
 | `priority` | `String` | ❌ | `"NORMAL"` | Lehentasuna |
+| `type` (DN00ScheduleItemType) | `String` | ❌ | `"IN_PERSON_APPOINTMENT"` | Hitzordu mota (ikusi [Motak](#motak-type)) |
 | `subject` | `LanguageTexts` | ✅ | `{"SPANISH":"Cita renovación DNI"}` | Hitzorduaren gaia |
-| `details` | `LanguageTexts` | ❌ | `{"SPANISH":"Traer foto reciente"}` | Xehetasun gehigarriak |
-| `location` | `Object` | ❌ | *(ikusi [Kokapena](#kokapena-location) · [`DN00ScheduleItemLocation`]({{ repos.common_data_api_blob }}/denaCommonDataAPIScheduleModelClasses/src/main/java/dena/api/data/model/schedule/DN00ScheduleItemLocation.java))* | Kokapena (gomendatua) |
+| `contactInfo` | `Object` | ❌ | *(ikusi oharra behean)* | Lekuaren/antolatzailearen kontaktu-informazioa (r01f ContactInfo). Telefonoa, emaila, helbidea, URLa... ⚠️ r01f motaren barne-egitura dokumentatzeko. |
+| `record` | `Object` | ❌ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` | Hitzorduari lotutako espedientea (aukerakoa) |
 | `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide URLak |
+
+---
+
+## Motak (`type`)
+
+| Kodea | Deskribapena |
+|-------|--------------|
+| `REMINDER` | Gogorarazlea/mugarria (aurrez aurreko hitzordurik gabe) |
+| `IN_PERSON_APPOINTMENT` | Aurrez aurreko hitzordua |
+| `PHONE_CALL_APPOINTMENT` | Telefono bidezko hitzordua |
+| `VIDEO_CALL_APPOINTMENT` | Bideo-deien hitzordua |
+| `CHAT_APPOINTMENT` | Chat bidezko hitzordua |
 
 ---
 
@@ -110,16 +125,12 @@ flowchart LR
 
 ---
 
-## Kokapena (`location`)
+## Kontaktu-informazioa (`contactInfo`)
 
-| Eremua | Mota | Nahitaezkoa | Deskribapena |
-|-------|------|:-----------:|-------------|
-| `country` | `Object` | ❌ | Herrialdea (`id`, `name`) |
-| `administrativeAreaLevel1` | `Object` | ❌ | Lurraldea / Autonomia Erkidegoa (`id`, `name`) |
-| `administrativeAreaLevel3` | `Object` | ❌ | Udalerria (`id`, `name`) |
-| `zipCode` | `String` | ❌ | Posta-kodea |
-| `address` | `String` | ❌ | Helbidea |
-| `directionsByLanguage` | `LanguageTexts` | ❌ | Sarbide-argibide eleaniztun |
+> **Oharra:** `contactInfo` eremua r01f `ContactInfo` motakoa da. Telefonoak, emailak, posta-helbidea, web URLa, faxa... eduki ditzake. ⚠️ r01f mota honen barne-egitura DENA taldearekin dokumentatzeko.
+
+!!! info "r01f ContactInfo mota dokumentatzeko"
+    `contactInfo` eremuaren barne-egitura r01f `ContactInfo` motakoa da. Telefonoak, emailak, posta-helbideak, web URLa, etab. eduki ditzake. Bere egituraren dokumentazio xehatua hurrengo bertsio batean osatuko da. Eskuragarri dauden eremuetarako, DENA taldearekin harremanetan jarri.
 
 ---
 
@@ -127,41 +138,28 @@ flowchart LR
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 32 33 34"
+```json hl_lines="3 4 5 6"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "url": "https://sede.miadmin.eus/cita/CITA-2024-00050", "language": "SPANISH", "tags": ["default"] }
+  ],
   "year": 2024,
   "monthOfYear": 7,
   "dayOfMonth": 15,
   "hourOfDay": 10,
   "minuteOfHour": 30,
   "durationMinutes": 30,
+  "type": "IN_PERSON_APPOINTMENT",
   "priority": "NORMAL",
   "subject": {
     "SPANISH": "Cita previa para renovación de DNI",
     "BASQUE": "NANa berritzeko aurretiko hitzordua"
   },
-  "details": {
-    "SPANISH": "Traer fotografía reciente y DNI anterior",
-    "BASQUE": "Ekarri argazki berria eta aurreko NANa"
-  },
-  "location": {
-    "country": { "id": "ES", "name": "España" },
-    "administrativeAreaLevel1": { "id": "PV", "name": "País Vasco" },
-    "administrativeAreaLevel3": { "id": "48020", "name": "Bilbao" },
-    "zipCode": "48001",
-    "address": "Gran Vía 50, Bilbao",
-    "directionsByLanguage": {
-      "SPANISH": "Planta 2, oficina 201. Acceso por la entrada principal.",
-      "BASQUE": "2. solairua, 201 bulegoa. Sarrera nagusitik sartu."
-    }
-  },
-  "urls": [
-    { "url": "https://sede.miadmin.eus/cita/CITA-2024-00050", "language": "SPANISH", "tags": ["default"] }
-  ]
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" }
 }
 ```
 
@@ -204,10 +202,10 @@ flowchart LR
 
 | Ezaugarria | Hitzordua | Espedientea / Jakinarazpena / Erregistroa / Ordainketa |
 |----------------|------|----------------------------------------------|
-| Espediente baten menpekoa | ❌ Ez | ✅ Bai (`procedureRecord` eremua) |
+| Espediente baten menpekoa | ❌ Aukerakoa (`record`) | ✅ Bai (`record` eremua) |
 | Egoera du | ❌ Ez | ✅ Bai |
 | ISO 8601 data du | ❌ (eremu bereiziak erabiltzen ditu year/month/day/hour/minute) | ✅ Bai |
-| Kokapen fisikoa du | ✅ Bai | ❌ Ez |
+| Kontaktu-informazioa du | ✅ Bai (`contactInfo`) | ❌ Ez |
 
 
 

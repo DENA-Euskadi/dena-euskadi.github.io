@@ -36,7 +36,7 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 
 ### ISO 8601 formatua (`Instant` eremuak)
 
-`createdAt`, `lastUpdatedAt`, `issuedAt`, `readedAt`, `registeredAt` bezalako eremuak.
+`createdAt`, `lastUpdatedAt`, `issuedAt`, `readAt`, `registeredAt` bezalako eremuak.
 
 | Araua | Xehetasuna |
 |-------|---------| 
@@ -119,9 +119,9 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 
 | Araua | Xehetasuna |
 |-------|---------| 
-| `readedAt` = `null` baldin `state` = `PENDING_TO_BE_READED_BY_DESTINATION` | Ezin du irakurketa-datarik izan zain badago |
-| `readedAt` ≠ `null` baldin `state` = `ACKNOWLEDGED_BY_DESTINATION` edo `REJECTED_BY_DESTINATION` | Irakurketa-data izan behar du irakurri/baztertu bada |
-| `issuedAt` ≤ `readedAt` | Jaulkipen-data ezin da irakurketa-data baino beranduagokoa izan |
+| `readAt` = `null` baldin `state` = `PENDING_TO_BE_READ_BY_DESTINATION` | Ezin du irakurketa-datarik izan zain badago |
+| `readAt` ≠ `null` baldin `state` = `ACKNOWLEDGED_BY_DESTINATION` edo `REJECTED_BY_DESTINATION` | Irakurketa-data izan behar du irakurri/baztertu bada |
+| `issuedAt` ≤ `readAt` | Jaulkipen-data ezin da irakurketa-data baino beranduagokoa izan |
 
 ### Ordainketa bakarra
 
@@ -129,8 +129,8 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 |-------|---------| 
 | `data.forStatus` = `COMPLETED` → `paymentDates.paidAt` ≠ `null` | Osatuta badago, ordainketa-data izan behar du |
 | `data.forStatus` = `PENDING` → `paymentDates.paidAt` = `null` | Zain badago, ez du ordainketa-datarik izan behar |
-| `amountInEuro` > 0 | Zenbatekoa positiboa izan behar da |
-| `amountInEuroIfSurcharged` ≥ `amountInEuro` | Errekargudun zenbatekoa ezin da normala baino txikiagoa izan |
+| `amount` > 0 | Zenbatekoa positiboa izan behar da |
+| `amountIfSurcharged` ≥ `amount` | Errekargudun zenbatekoa ezin da normala baino txikiagoa izan |
 | `paymentDates.dueDate` ≤ `paymentDates.surchargedAt` | Iraungitzea errekarguaren hasiera baino lehenagokoa da |
 
 ### Helbideratze bankarioa
@@ -174,21 +174,23 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
-| `noticeType` | ✅ |
+| `record` | ✅ |
+| `typeNotice` | ✅ |
 | `issuedAt` | ✅ |
 | `state` | ✅ |
-| `actSubjectByLanguage` | ✅ |
-| `readedAt` | ❌ |
+| `subjectByLanguage` | ✅ |
+| `readAt` | ❌ |
 | `urls` | ❌ (gomendatua) |
 
 ### Erregistro Ofiziala (`administrativeOfficialRegisterRecord`)
+
+> ⚠️ **MOTA ZAHARKITUA** — `administrativeOfficialRegisterRecord` ez dago `DN00DataTypeEnum`-en v0.5.20-n. Erabili [`libro-registro.md`](data/libro-registro.md) (`administrativeLedger`) horren ordez.
 
 | Eremua | Nahitaezkoa |
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `registeredAt` | ✅ |
 | `subjectByLanguage` | ✅ |
 | `state` | ✅ |
@@ -200,13 +202,13 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `paymentType` | ✅ |
 | `paymentSubjectByLanguage` | ✅ |
 | `paymentDates` | ✅ |
-| `amountInEuro` | ✅ |
+| `amount` | ✅ |
 | `data.forStatus` | ✅ |
-| `amountInEuroIfSurcharged` | ❌ |
+| `amountIfSurcharged` | ❌ |
 | `data.medium` | ❌ |
 | `data.device` | ❌ |
 | `data.at` | ❌ |
@@ -220,7 +222,7 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 |-------|:-----------:|
 | `oid` | ✅ |
 | `id` | ✅ |
-| `procedureRecord` | ✅ |
+| `record` | ✅ |
 | `paymentType` | ✅ |
 | `paymentSubjectByLanguage` | ✅ |
 | `directDebitData` | ✅ |
@@ -264,6 +266,95 @@ Dokumentu honek DATA-RETRIEVE endpoint-ean administrazioak itzulitako datuek bet
 | `contactData.contactMode` | ❌ |
 | `addresses` | ❌ |
 | `bankDataCollection` | ❌ |
+
+### Pertsonaren kredentzialak (`personCredential`, `personCredentialForBasqueLanguageDegree`)
+
+| Eremua | Nahitaezkoa |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `issuedAt` | ✅ |
+| `state` | ✅ |
+| `record` | ❌ |
+| `expiresAt` | ❌ |
+| `CEFRTier` (soilik `personCredentialForBasqueLanguageDegree`) | ✅ |
+| `certifyingEntityByLanguage` (soilik `personCredentialForBasqueLanguageDegree`) | ✅ |
+| `urls` | ❌ (gomendatua) |
+
+### Prestazio ekonomikoa (`economicBenefit`)
+
+| Eremua | Nahitaezkoa |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `amount` | ✅ |
+| `state` | ✅ |
+| `medium` | ✅ |
+| `record` | ❌ |
+| `paymentOrderedAt` | ❌ |
+| `mediumHint` | ❌ |
+| `urls` | ❌ (gomendatua) |
+
+### Liburu erregistroa (`administrativeLedger`)
+
+| Eremua | Nahitaezkoa |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `entryDirection` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `record` | ❌ |
+| `urls` | ❌ (gomendatua) |
+
+### Pertsona erregistroa (`administrativePersonRegister` eta aldaerak)
+
+| Eremua | Nahitaezkoa |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `state` | ✅ |
+| `expiresAt` | ❌ |
+| `startDate` (soilik `administrativePersonRegisterForRevisionPEV`) | ✅ |
+| `endDate` (soilik `administrativePersonRegisterForRevisionPEV`) | ✅ |
+| `urls` | ❌ (gomendatua) |
+
+### Matrikula (`personEnrollment`, `personAcademicEnrollment`)
+
+| Eremua | Nahitaezkoa |
+|-------|:-----------:|
+| `oid` | ✅ |
+| `id` | ✅ |
+| `lastChangedAt` | ✅ |
+| `registeredAt` | ✅ |
+| `enrollmentDateRange` | ✅ |
+| `subjectByLanguage` | ✅ |
+| `institutionNameByLanguage` | ✅ |
+| `state` | ✅ |
+| `academicYear` (soilik `personAcademicEnrollment`) | ✅ |
+| `levelByLanguage` (soilik `personAcademicEnrollment`) | ✅ |
+| `urls` | ❌ (gomendatua) |
+
+### Datu medikoak (`personMedicalData`)
+
+!!! warning "`oid` eta `id` gabe"
+    Mota honek `DN00DENADataExchangedNOTIdentifiedObject` hedatzen du. **Ez du `oid` edo `id`-rik**, baina `lastChangedAt` bai du.
+
+| Eremua | Nahitaezkoa |
+|-------|:-----------:|
+| `lastChangedAt` | ✅ |
+| `medicalPassId` | ❌ |
+| `medicalInsuranceId` | ❌ |
+| `doctorFullName` | ❌ |
+| `medicalCenterGeoPosition` | ❌ |
+| `contactData` | ❌ |
+| `bankAccountData` | ❌ |
 
 ---
 

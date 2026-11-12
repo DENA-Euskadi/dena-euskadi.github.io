@@ -15,7 +15,7 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 | Body-ko JSON baliogabea | Egiaztatu body-a JSON balioduna dela prozesatu aurretik |
 | `context.subjectPerson.id` falta da | Derrigorrezko eremua — egiaztatu jasotzen dela |
 | `context.dataType.id` falta da | Derrigorrezko eremua — egiaztatu jasotzen dela |
-| `dataType.id` ezagutzen ez den balioarekin | Onartu soilik: `administrativeServiceProcedureRecord`, `administrativeNotice`, `administrativeOfficialRegisterRecord`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData` |
+| `dataType.id` ezagutzen ez den balioarekin | Onartu soilik: `administrativeServiceProcedureRecord`, `administrativeNotice`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`, `personCredential`, `personCredentialForBasqueLanguageDegree`, `economicBenefit`, `administrativeLedger`, `administrativePersonRegister`, `administrativePersonRegisterForHousingPEV`, `administrativePersonRegisterForLastWill`, `administrativePersonRegisterForRevisionPEV`, `personEnrollment`, `personAcademicEnrollment`, `personMedicalData` |
 
 ### 401 — Baimenik gabe
 
@@ -97,7 +97,7 @@ DATA-RETRIEVE endpoint-a inplementatzean ohiko erroreen gida eta nola konpondu.
 |--------|---------|-------------|
 | Espedientea zerbitzurik eta prozedurarik gabe | Objektua balioztatze-erroreak baztertua | `service` eta `procedure` derrigorrez dira espedienteetan |
 | Ordainketa `forStatus: COMPLETED`-rekin baina `paidAt` gabe | Datu-inkoherentzia | Ordainketa osatuta badago, sartu `paymentDates.paidAt` |
-| Jakinarazpena `readedAt`-rekin baina `PENDING` egoerarekin | Datu-inkoherentzia | Irakurketa-data badu, egoera `ACKNOWLEDGED` edo `REJECTED` izan behar da |
+| Jakinarazpena `readAt`-rekin baina `PENDING` egoerarekin | Datu-inkoherentzia | Irakurketa-data badu, egoera `ACKNOWLEDGED` edo `REJECTED` izan behar da |
 | Hitzordua `durationMinutes` negatiboarekin | Balioztatze-errorea | Erabili 0 mugarrietarako, balio positiboak iraupena duten hitzorduetarako |
 | Domiziliazioa `directDebitData` gabe | Objektu osatugabea | `directDebitData` blokea derrigorrez da domiziliazioetan |
 

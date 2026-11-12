@@ -80,9 +80,20 @@ The key fields you must interpret:
 |-------|----------------------|-------|
 | `administrativeServiceProcedureRecord` | Records | [expediente.md](./data/expediente.md) |
 | `administrativeNotice` | Notifications | [notificacion.md](./data/notificacion.md) |
-| `administrativeOfficialRegisterRecord` | Official registrations | [registro-oficial.md](./data/registro-oficial.md) |
-| `oneOffPayment` | Payments (one-off + direct debits) | [pago.md](./data/pago.md) |
+| `oneOffPayment` | One-off payment | [pago.md](./data/pago.md) |
+| `directDebitPayment` | Direct debit | [pago.md](./data/pago.md) |
 | `scheduleItem` | Appointments | [cita.md](./data/cita.md) |
+| `personData` | Person data | [persona.md](./data/persona.md) |
+| `personCredential` · `personCredentialForBasqueLanguageDegree` | Person credentials | [credencial-persona.md](./data/credencial-persona.md) |
+| `economicBenefit` | Economic benefits | [beneficio-economico.md](./data/beneficio-economico.md) |
+| `administrativeLedger` | Register ledger (entries/exits) | [libro-registro.md](./data/libro-registro.md) |
+| `administrativePersonRegister` · `…ForHousingPEV` · `…ForLastWill` · `…ForRevisionPEV` | Person register | [registro-persona.md](./data/registro-persona.md) |
+| `personEnrollment` · `personAcademicEnrollment` | Enrollments | [matricula.md](./data/matricula.md) |
+| `personMedicalData` | Medical data | [datos-medicos.md](./data/datos-medicos.md) |
+
+> The full catalog of values is defined by the `DN00DataTypeEnum` enum (17 types). See [DataTypeRef](../semantica-base/modelo/data-type-ref.md).
+>
+> ⚠️ The `administrativeOfficialRegisterRecord` type is **deprecated** and no longer part of the v0.5.20 catalog; its replacement is `administrativeLedger` ([libro-registro.md](./data/libro-registro.md)).
 
 > Full endpoint specification: [endpoint-data-retrieve.md](./endpoint-data-retrieve.md)
 
@@ -222,76 +233,66 @@ Possible states: `REGISTERED_PENDING_TO_BE_OPENED`, `OPENED`, `IN_PROGRESS`, `WA
 
 > Full documentation: [expediente.md](./data/expediente.md)
 
-### 3.3 — Notification (`NOTICES`)
+### 3.3 — Notification (`administrativeNotice`)
 
 ```json
 {
+  "type": "administrativeNotice",
   "oid": "NOT-001",
   "id": "NOT-2024/456",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
-  "type": "OFFICIAL_NOTICE",
+  "record": { "oid": "EXP-001", "id": "2024/00123" },
+  "typeNotice": "OFFICIAL_NOTICE",
   "issuedAt": "2024-05-20T09:00:00Z",
-  "readedAt": null,
-  "state": "PENDING_TO_BE_READED_BY_DESTINATION",
-  "actSubjectByLanguage": { "SPANISH": "Resolución de ayuda", "BASQUE": "Laguntza ebazpena" }
+  "readAt": null,
+  "state": "PENDING_TO_BE_READ_BY_DESTINATION",
+  "subjectByLanguage": { "SPANISH": "Resolución de ayuda", "BASQUE": "Laguntza ebazpena" }
 }
 ```
 
-Types: `OFFICIAL_NOTICE`, `COMMUNICATION`
+> The polymorphic discriminator is `type` and is always `"administrativeNotice"`. The notice type
+> (`OFFICIAL_NOTICE` / `COMMUNICATION`) goes in the `typeNotice` field. The `state` is a **plain
+> string** (not an object with `stateCode`).
 
-States: `PENDING_TO_BE_READED_BY_DESTINATION`, `ACKNOWLEDGED_BY_DESTINATION`, `REJECTED_BY_DESTINATION`, `EXPIRED`, `CANCELLED_BY_ISSUER`, `DELETED_BY_ISSUER`
+Types (`typeNotice`): `OFFICIAL_NOTICE`, `COMMUNICATION`
+
+States (`state`): `PENDING_TO_BE_READ_BY_DESTINATION`, `ACKNOWLEDGED_BY_DESTINATION`, `REJECTED_BY_DESTINATION`, `EXPIRED`, `CANCELLED_BY_ISSUER`, `DELETED_BY_ISSUER`
 
 > Full documentation: [notificacion.md](./data/notificacion.md)
 
-### 3.4 — Official registration (`REGISTER`)
+### 3.4 — One-off payment (`oneOffPayment`)
 
 ```json
 {
-  "oid": "REG-001",
-  "id": "REG-2024/789",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
-  "registeredAt": "2024-04-10T08:30:00Z",
-  "subjectByLanguage": { "SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera" },
-  "state": {
-    "stateCode": "PRESENTED",
-    "description": { "SPANISH": "Presentado", "BASQUE": "Aurkeztua" }
-  }
-}
-```
-
-States: `PRESENTED`, `RECEIVED_FROM_OTHER_ORG_UNIT`, `TRANSFERRED_FROM_OTHER_ORG_UNIT`
-
-> Full documentation: [registro-oficial.md](./data/registro-oficial.md)
-
-### 3.5 — One-off payment (`PAYMENTS`)
-
-```json
-{
+  "type": "oneOffPayment",
   "oid": "PAY-001",
   "id": "PAY-2024/321",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
+  "record": { "oid": "EXP-001", "id": "2024/00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa de actividad", "BASQUE": "Jarduera tasa" },
   "paymentDates": { "dueDate": "2024-06-30" },
   "format": "502",
-  "amount": { "amount": 45.50, "currency": "EUR" },
+  "amount": { "amount": 4550, "base": "CENTS", "currency": "EUR" },
   "data": { "forStatus": "PENDING" }
 }
 ```
 
+> The amount (`amount`) is a `Money` object: `amount` is an integer (`long`) in the unit indicated by
+> `base` (`CENTS` or `UNITS`). The example shows €45.50 as `4550` cents.
+
 > Full documentation: [pago.md](./data/pago.md)
 
-### 3.6 — Direct debit (`PAYMENTS`)
+### 3.5 — Direct debit (`directDebitPayment`)
 
 ```json
 {
+  "type": "directDebitPayment",
   "oid": "DD-001",
   "id": "DD-2024/100",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
+  "record": { "oid": "EXP-001", "id": "2024/00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota guardería", "BASQUE": "Haur-eskola kuota" },
   "directDebitData": {
-    "startDate": "2024-01-15",
+    "startedAt": "2024-01-15",
     "frequency": "MONTHLY",
     "medium": "DIRECT_DEBIT",
     "mediumHint": "2100 ***** 051332"
@@ -303,6 +304,22 @@ States: `PRESENTED`, `RECEIVED_FROM_OTHER_ORG_UNIT`, `TRANSFERRED_FROM_OTHER_ORG
 ```
 
 > Full documentation: [pago.md](./data/pago.md)
+
+### 3.6 — New types in v0.5.20
+
+From v0.5.20 the catalog includes these additional types. See the full model on the corresponding page:
+
+| Type (`type`) | What it represents | Model |
+|---|---|---|
+| `personCredential` · `personCredentialForBasqueLanguageDegree` | Person credentials | [credencial-persona.md](./data/credencial-persona.md) |
+| `economicBenefit` | Economic benefits (grants, subsidies) | [beneficio-economico.md](./data/beneficio-economico.md) |
+| `administrativeLedger` | Register ledger (entries/exits) — replaces the deprecated official register | [libro-registro.md](./data/libro-registro.md) |
+| `administrativePersonRegister` · `…ForHousingPEV` · `…ForLastWill` · `…ForRevisionPEV` | Person register | [registro-persona.md](./data/registro-persona.md) |
+| `personEnrollment` · `personAcademicEnrollment` | Enrollments | [matricula.md](./data/matricula.md) |
+| `personMedicalData` | Medical data (GDPR special category, Art. 9) | [datos-medicos.md](./data/datos-medicos.md) |
+
+> The old `administrativeOfficialRegisterRecord` type is **deprecated** and no longer part of the
+> catalog; its replacement is `administrativeLedger`.
 
 ### 3.7 — Appointment (`SCHEDULE`)
 
@@ -317,12 +334,16 @@ States: `PRESENTED`, `RECEIVED_FROM_OTHER_ORG_UNIT`, `TRANSFERRED_FROM_OTHER_ORG
   "minuteOfHour": 30,
   "durationMinutes": 30,
   "subject": { "SPANISH": "Cita renovación DNI", "BASQUE": "NAN berritzeko hitzordua" },
-  "location": {
-    "administrativeAreaLevel3": { "id": "48020", "name": "Bilbao" },
-    "address": "Gran Vía 50"
+  "type": "IN_PERSON_APPOINTMENT",
+  "contactInfo": {
+    "address": "Gran Vía 50, Bilbao"
   }
 }
 ```
+
+> The appointment location/contact is expressed through the `contactInfo` field (there is no
+> `location` field). The `type` field (enum `DN00ScheduleItemType`) classifies the appointment:
+> `REMINDER`, `IN_PERSON_APPOINTMENT`, `PHONE_CALL_APPOINTMENT`, `VIDEO_CALL_APPOINTMENT`, `CHAT_APPOINTMENT`.
 
 > Full documentation: [cita.md](./data/cita.md)
 
@@ -429,7 +450,7 @@ You can use the mock factories from the test project to generate sample objects:
 
 - [Record tests]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
 - [Notification tests]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
-- [Payment tests]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
+- [Payment tests]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java)
 
 ---
 
@@ -471,9 +492,16 @@ You can use the mock factories from the test project to generate sample objects:
 | [campos-comunes.md](./data/campos-comunes.md) | Base fields inherited by all objects |
 | [expediente.md](./data/expediente.md) | Record model |
 | [notificacion.md](./data/notificacion.md) | Notification model |
-| [registro-oficial.md](./data/registro-oficial.md) | Official registration model |
-| [pago.md](./data/pago.md) | Payment model |
+| [pago.md](./data/pago.md) | Payment model (one-off and direct debit) |
 | [cita.md](./data/cita.md) | Appointment model |
+| [persona.md](./data/persona.md) | Person data |
+| [credencial-persona.md](./data/credencial-persona.md) | Person credentials |
+| [beneficio-economico.md](./data/beneficio-economico.md) | Economic benefits |
+| [libro-registro.md](./data/libro-registro.md) | Register ledger (entries/exits) |
+| [registro-persona.md](./data/registro-persona.md) | Person register |
+| [matricula.md](./data/matricula.md) | Enrollments |
+| [datos-medicos.md](./data/datos-medicos.md) | Medical data |
+| [registro-oficial.md](./data/registro-oficial.md) | ⚠️ Official registration (deprecated → use register ledger) |
 | [servicio-administrativo.md](./data/servicio-administrativo.md) | Service and procedure |
 | [unidad-organica.md](./data/unidad-organica.md) | Organisational units |
 | [validaciones.md](./validaciones.md) | Validation rules |

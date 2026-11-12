@@ -26,11 +26,11 @@ config:
 flowchart LR
     NOT["<b>Notification</b><br/><i>administrativeNotice</i>"]
 
-    NOT --> EXP["procedureRecord<br/><i>oid · id</i>"]
-    NOT --> TYPE["type<br/><i>OFFICIAL_NOTICE<br/>COMMUNICATION</i>"]
-    NOT --> DATES["issuedAt<br/>readedAt"]
+    NOT --> EXP["record<br/><i>oid · id</i>"]
+    NOT --> TYPE["typeNotice<br/><i>OFFICIAL_NOTICE<br/>COMMUNICATION</i>"]
+    NOT --> DATES["issuedAt<br/>readAt"]
     NOT --> STATE["state<br/><i>(direct string)</i>"]
-    NOT --> SUBJECT["actSubjectByLanguage"]
+    NOT --> SUBJECT["subjectByLanguage"]
     NOT --> URLS["urls[]"]
 
     style NOT fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
@@ -80,29 +80,30 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
-| `type` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Notification type: `OFFICIAL_NOTICE` or `COMMUNICATION` (enum `DN00AdministrativeNoticeType`). Not to be confused with the polymorphic discriminator |
+| `type` | `String` | ✅ | `"administrativeNotice"` | Polymorphic discriminator (always `"administrativeNotice"`) |
+| `typeNotice` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Notification type: `OFFICIAL_NOTICE` or `COMMUNICATION` (enum `DN00AdministrativeNoticeType`). See note below. |
 | `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"NOT-OID-001"` | Unique technical identifier |
 | `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"NOT-2024-00456"` | Business identifier |
 | `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(see [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Reference to the record |
+| `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(see [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Reference to the record |
 | `issuedAt` | `String` (ISO 8601) | ✅ | `"2024-05-20T09:00:00Z"` | Issue date |
-| `readedAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Read date (null if not read) |
-| `state` | `String` | ✅ | `"PENDING_TO_BE_READED_BY_DESTINATION"` | Current state (direct string, NOT an object) |
-| `actSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Subject of the notified act |
+| `readAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Read date (null if not read) |
+| `state` | `String` | ✅ | `"PENDING_TO_BE_READ_BY_DESTINATION"` | Current state (direct string, NOT an object) |
+| `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Subject of the notified act |
 | `urls` <span class="field-badge--common">common</span> | `Array` | ❌ (recommended) | *(see [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Access URLs |
 
-> **Important:** In notifications, the `state` field is directly a **string** with the status code (e.g. `"PENDING_TO_BE_READED_BY_DESTINATION"`), unlike records and registrations where `state` is an object with `stateCode` and `description`.
+> **Important:** In notifications, the `state` field is directly a **string** with the status code (e.g. `"PENDING_TO_BE_READ_BY_DESTINATION"`), unlike records and registrations where `state` is an object with `stateCode` and `description`.
 
 ---
 
-## Types (`type`)
+## Types (`typeNotice`)
 
 | Code | Description |
 |------|-------------|
 | `OFFICIAL_NOTICE` | Official administrative notification |
 | `COMMUNICATION` | Administrative communication |
 
-> **Note:** The `type` field (values `OFFICIAL_NOTICE` / `COMMUNICATION`) is different from the **polymorphic discriminator** `administrativeNotice`. The discriminator (`@MarshallType(as="administrativeNotice")` on the `DN00AdministrativeNotice` class) identifies the object type within the payload and is fixed; the `type` field classifies the notification within that object.
+> **Note:** The `typeNotice` field classifies the notification (`OFFICIAL_NOTICE` / `COMMUNICATION`). Do not confuse it with the polymorphic discriminator `type`, which always equals `"administrativeNotice"` and is managed automatically by the serializer.
 
 ---
 
@@ -110,7 +111,7 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 | Code | Description |
 |------|-------------|
-| `PENDING_TO_BE_READED_BY_DESTINATION` | Pending reading |
+| `PENDING_TO_BE_READ_BY_DESTINATION` | Pending reading |
 | `ACKNOWLEDGED_BY_DESTINATION` | Read and accepted |
 | `REJECTED_BY_DESTINATION` | Rejected |
 | `EXPIRED` | Expired |
@@ -122,23 +123,24 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 ## JSON example
 
 <div class="common-highlight" markdown>
-```json hl_lines="3 4 5 14 15 16"
+```json hl_lines="3 4 5 6"
 {
-  "type": "OFFICIAL_NOTICE",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
-  "issuedAt": "2024-05-20T09:00:00Z",
-  "readedAt": null,
-  "state": "PENDING_TO_BE_READED_BY_DESTINATION",
-  "actSubjectByLanguage": {
-    "SPANISH": "Resolución de concesión de ayuda",
-    "BASQUE": "Laguntza emateko ebazpena"
-  },
   "urls": [
     { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }
-  ]
+  ],
+  "typeNotice": "OFFICIAL_NOTICE",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "issuedAt": "2024-05-20T09:00:00Z",
+  "readAt": null,
+  "state": "PENDING_TO_BE_READ_BY_DESTINATION",
+  "subjectByLanguage": {
+    "SPANISH": "Resolución de concesión de ayuda",
+    "BASQUE": "Laguntza emateko ebazpena"
+  }
 }
 ```
 <p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
@@ -147,23 +149,24 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 ### Example — Read notification
 
 <div class="common-highlight" markdown>
-```json hl_lines="3 4 5 14 15 16"
+```json hl_lines="3 4 5 6"
 {
-  "type": "COMMUNICATION",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-002",
   "id": "NOT-2024-00457",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
-  "issuedAt": "2024-05-15T08:00:00Z",
-  "readedAt": "2024-05-16T10:30:00Z",
-  "state": "ACKNOWLEDGED_BY_DESTINATION",
-  "actSubjectByLanguage": {
-    "SPANISH": "Comunicación de subsanación de documentación",
-    "BASQUE": "Dokumentazioa zuzentzeko jakinarazpena"
-  },
   "urls": [
     { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00457", "language": "SPANISH", "tags": ["default"] }
-  ]
+  ],
+  "typeNotice": "COMMUNICATION",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "issuedAt": "2024-05-15T08:00:00Z",
+  "readAt": "2024-05-16T10:30:00Z",
+  "state": "ACKNOWLEDGED_BY_DESTINATION",
+  "subjectByLanguage": {
+    "SPANISH": "Comunicación de subsanación de documentación",
+    "BASQUE": "Dokumentazioa zuzentzeko jakinarazpena"
+  }
 }
 ```
 <p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
@@ -173,9 +176,9 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 ## Validation rules
 
-- If `state` = `PENDING_TO_BE_READED_BY_DESTINATION`, then `readedAt` must be `null`.
-- If `state` = `ACKNOWLEDGED_BY_DESTINATION` or `REJECTED_BY_DESTINATION`, then `readedAt` must have a value.
-- `issuedAt` must be earlier than or equal to `readedAt` (if present).
+- If `state` = `PENDING_TO_BE_READ_BY_DESTINATION`, then `readAt` must be `null`.
+- If `state` = `ACKNOWLEDGED_BY_DESTINATION` or `REJECTED_BY_DESTINATION`, then `readAt` must have a value.
+- `issuedAt` must be earlier than or equal to `readAt` (if present).
 - See [validaciones.md](../validaciones.md) for full rules.
 
 

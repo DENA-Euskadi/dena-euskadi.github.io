@@ -80,9 +80,20 @@ Interpretatu behar dituzun eremu nagusiak:
 |--------|------------------------|--------|
 | `administrativeServiceProcedureRecord` | Espedienteak | [expediente.md](./data/expediente.md) |
 | `administrativeNotice` | Jakinarazpenak | [notificacion.md](./data/notificacion.md) |
-| `administrativeOfficialRegisterRecord` | Erregistro ofizialak | [registro-oficial.md](./data/registro-oficial.md) |
-| `oneOffPayment` | Ordainketak (bakarrak + domiziliazioak) | [pago.md](./data/pago.md) |
+| `oneOffPayment` | Ordainketa bakarra | [pago.md](./data/pago.md) |
+| `directDebitPayment` | Domiziliazioa | [pago.md](./data/pago.md) |
 | `scheduleItem` | Hitzorduak | [cita.md](./data/cita.md) |
+| `personData` | Pertsona-datuak | [persona.md](./data/persona.md) |
+| `personCredential` · `personCredentialForBasqueLanguageDegree` | Pertsonaren kredentzialak | [credencial-persona.md](./data/credencial-persona.md) |
+| `economicBenefit` | Onura ekonomikoak | [beneficio-economico.md](./data/beneficio-economico.md) |
+| `administrativeLedger` | Erregistro liburua (sarrerak/irteerak) | [libro-registro.md](./data/libro-registro.md) |
+| `administrativePersonRegister` · `…ForHousingPEV` · `…ForLastWill` · `…ForRevisionPEV` | Pertsonaren erregistroa | [registro-persona.md](./data/registro-persona.md) |
+| `personEnrollment` · `personAcademicEnrollment` | Matrikulak | [matricula.md](./data/matricula.md) |
+| `personMedicalData` | Datu medikoak | [datos-medicos.md](./data/datos-medicos.md) |
+
+> Balioen katalogo osoa `DN00DataTypeEnum` enum-ak definitzen du (17 mota). Ikusi [DataTypeRef](../semantica-base/modelo/data-type-ref.md).
+>
+> ⚠️ `administrativeOfficialRegisterRecord` mota **zaharkituta** dago eta ez dago v0.5.20 katalogoan; haren ordezkoa `administrativeLedger` da ([libro-registro.md](./data/libro-registro.md)).
 
 > Endpoint-aren zehaztapen osoa: [endpoint-data-retrieve.md](./endpoint-data-retrieve.md)
 
@@ -222,76 +233,66 @@ Egoera posibleak: `REGISTERED_PENDING_TO_BE_OPENED`, `OPENED`, `IN_PROGRESS`, `W
 
 > Dokumentazio osoa: [expediente.md](./data/expediente.md)
 
-### 3.3 — Jakinarazpena (`NOTICES`)
+### 3.3 — Jakinarazpena (`administrativeNotice`)
 
 ```json
 {
+  "type": "administrativeNotice",
   "oid": "NOT-001",
   "id": "NOT-2024/456",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
-  "type": "OFFICIAL_NOTICE",
+  "record": { "oid": "EXP-001", "id": "2024/00123" },
+  "typeNotice": "OFFICIAL_NOTICE",
   "issuedAt": "2024-05-20T09:00:00Z",
-  "readedAt": null,
-  "state": "PENDING_TO_BE_READED_BY_DESTINATION",
-  "actSubjectByLanguage": { "SPANISH": "Resolución de ayuda", "BASQUE": "Laguntza ebazpena" }
+  "readAt": null,
+  "state": "PENDING_TO_BE_READ_BY_DESTINATION",
+  "subjectByLanguage": { "SPANISH": "Resolución de ayuda", "BASQUE": "Laguntza ebazpena" }
 }
 ```
 
-Motak: `OFFICIAL_NOTICE`, `COMMUNICATION`
+> Diskriminatzaile polimorfikoa `type` da eta beti `"administrativeNotice"` balioa du.
+> Jakinarazpen mota (`OFFICIAL_NOTICE` / `COMMUNICATION`) `typeNotice` eremuan doa. `state` eremua
+> **kate soila** da (ez da `stateCode` duen objektua).
 
-Egoerak: `PENDING_TO_BE_READED_BY_DESTINATION`, `ACKNOWLEDGED_BY_DESTINATION`, `REJECTED_BY_DESTINATION`, `EXPIRED`, `CANCELLED_BY_ISSUER`, `DELETED_BY_ISSUER`
+Motak (`typeNotice`): `OFFICIAL_NOTICE`, `COMMUNICATION`
+
+Egoerak (`state`): `PENDING_TO_BE_READ_BY_DESTINATION`, `ACKNOWLEDGED_BY_DESTINATION`, `REJECTED_BY_DESTINATION`, `EXPIRED`, `CANCELLED_BY_ISSUER`, `DELETED_BY_ISSUER`
 
 > Dokumentazio osoa: [notificacion.md](./data/notificacion.md)
 
-### 3.4 — Erregistro ofiziala (`REGISTER`)
+### 3.4 — Ordainketa bakarra (`oneOffPayment`)
 
 ```json
 {
-  "oid": "REG-001",
-  "id": "REG-2024/789",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
-  "registeredAt": "2024-04-10T08:30:00Z",
-  "subjectByLanguage": { "SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera" },
-  "state": {
-    "stateCode": "PRESENTED",
-    "description": { "SPANISH": "Presentado", "BASQUE": "Aurkeztua" }
-  }
-}
-```
-
-Egoerak: `PRESENTED`, `RECEIVED_FROM_OTHER_ORG_UNIT`, `TRANSFERRED_FROM_OTHER_ORG_UNIT`
-
-> Dokumentazio osoa: [registro-oficial.md](./data/registro-oficial.md)
-
-### 3.5 — Ordainketa bakarra (`PAYMENTS`)
-
-```json
-{
+  "type": "oneOffPayment",
   "oid": "PAY-001",
   "id": "PAY-2024/321",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
+  "record": { "oid": "EXP-001", "id": "2024/00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa de actividad", "BASQUE": "Jarduera tasa" },
   "paymentDates": { "dueDate": "2024-06-30" },
   "format": "502",
-  "amount": { "amount": 45.50, "currency": "EUR" },
+  "amount": { "amount": 4550, "base": "CENTS", "currency": "EUR" },
   "data": { "forStatus": "PENDING" }
 }
 ```
 
+> Zenbatekoa (`amount`) `Money` objektu bat da: `amount` zenbaki osoa (`long`) da, `base`-k
+> adierazitako unitatean (`CENTS` edo `UNITS`). Adibidean 45,50 € `4550` zentimo gisa ageri da.
+
 > Dokumentazio osoa: [pago.md](./data/pago.md)
 
-### 3.6 — Domiziliazioa (`PAYMENTS`)
+### 3.5 — Domiziliazioa (`directDebitPayment`)
 
 ```json
 {
+  "type": "directDebitPayment",
   "oid": "DD-001",
   "id": "DD-2024/100",
-  "procedureRecord": { "oid": "EXP-001", "id": "2024/00123" },
+  "record": { "oid": "EXP-001", "id": "2024/00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota guardería", "BASQUE": "Haur-eskola kuota" },
   "directDebitData": {
-    "startDate": "2024-01-15",
+    "startedAt": "2024-01-15",
     "frequency": "MONTHLY",
     "medium": "DIRECT_DEBIT",
     "mediumHint": "2100 ***** 051332"
@@ -303,6 +304,22 @@ Egoerak: `PRESENTED`, `RECEIVED_FROM_OTHER_ORG_UNIT`, `TRANSFERRED_FROM_OTHER_OR
 ```
 
 > Dokumentazio osoa: [pago.md](./data/pago.md)
+
+### 3.6 — v0.5.20-ko mota berriak
+
+v0.5.20-tik aurrera katalogoak mota osagarri hauek ditu. Ikusi eredu osoa dagokion orrian:
+
+| Mota (`type`) | Zer adierazten duen | Eredua |
+|---|---|---|
+| `personCredential` · `personCredentialForBasqueLanguageDegree` | Pertsonaren kredentzialak | [credencial-persona.md](./data/credencial-persona.md) |
+| `economicBenefit` | Onura ekonomikoak (laguntzak, diru-laguntzak) | [beneficio-economico.md](./data/beneficio-economico.md) |
+| `administrativeLedger` | Erregistro liburua (sarrerak/irteerak) — erregistro ofizial zaharkituaren ordezkoa | [libro-registro.md](./data/libro-registro.md) |
+| `administrativePersonRegister` · `…ForHousingPEV` · `…ForLastWill` · `…ForRevisionPEV` | Pertsonaren erregistroa | [registro-persona.md](./data/registro-persona.md) |
+| `personEnrollment` · `personAcademicEnrollment` | Matrikulak | [matricula.md](./data/matricula.md) |
+| `personMedicalData` | Datu medikoak (DBEO kategoria berezia, 9. art.) | [datos-medicos.md](./data/datos-medicos.md) |
+
+> `administrativeOfficialRegisterRecord` mota zaharra **zaharkituta** dago eta jada ez dago
+> katalogoan; haren ordezkoa `administrativeLedger` da.
 
 ### 3.7 — Hitzordua (`SCHEDULE`)
 
@@ -317,12 +334,16 @@ Egoerak: `PRESENTED`, `RECEIVED_FROM_OTHER_ORG_UNIT`, `TRANSFERRED_FROM_OTHER_OR
   "minuteOfHour": 30,
   "durationMinutes": 30,
   "subject": { "SPANISH": "Cita renovación DNI", "BASQUE": "NAN berritzeko hitzordua" },
-  "location": {
-    "administrativeAreaLevel3": { "id": "48020", "name": "Bilbao" },
-    "address": "Gran Vía 50"
+  "type": "IN_PERSON_APPOINTMENT",
+  "contactInfo": {
+    "address": "Gran Vía 50, Bilbao"
   }
 }
 ```
+
+> Hitzorduaren kokapena/kontaktua `contactInfo` eremuaren bidez adierazten da (ez dago `location`
+> eremurik). `type` eremuak (`DN00ScheduleItemType` enum) hitzordua sailkatzen du:
+> `REMINDER`, `IN_PERSON_APPOINTMENT`, `PHONE_CALL_APPOINTMENT`, `VIDEO_CALL_APPOINTMENT`, `CHAT_APPOINTMENT`.
 
 > Dokumentazio osoa: [cita.md](./data/cita.md)
 
@@ -429,7 +450,7 @@ Test proiektuko mock factory-ak erabil ditzakezu adibide-objektuak sortzeko:
 
 - [Espediente-testak]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java)
 - [Jakinarazpen-testak]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java)
-- [Ordainketa-testak]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java)
+- [Ordainketa-testak]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java)
 
 ---
 
@@ -471,9 +492,16 @@ Test proiektuko mock factory-ak erabil ditzakezu adibide-objektuak sortzeko:
 | [campos-comunes.md](./data/campos-comunes.md) | Objektu guztiek heredatzen dituzten oinarrizko eremuak |
 | [expediente.md](./data/expediente.md) | Espediente-eredua |
 | [notificacion.md](./data/notificacion.md) | Jakinarazpen-eredua |
-| [registro-oficial.md](./data/registro-oficial.md) | Erregistro ofizialaren eredua |
-| [pago.md](./data/pago.md) | Ordainketa-eredua |
+| [pago.md](./data/pago.md) | Ordainketa-eredua (bakarra eta domiziliazioa) |
 | [cita.md](./data/cita.md) | Hitzordu-eredua |
+| [persona.md](./data/persona.md) | Pertsona-datuak |
+| [credencial-persona.md](./data/credencial-persona.md) | Pertsonaren kredentzialak |
+| [beneficio-economico.md](./data/beneficio-economico.md) | Onura ekonomikoak |
+| [libro-registro.md](./data/libro-registro.md) | Erregistro liburua (sarrerak/irteerak) |
+| [registro-persona.md](./data/registro-persona.md) | Pertsonaren erregistroa |
+| [matricula.md](./data/matricula.md) | Matrikulak |
+| [datos-medicos.md](./data/datos-medicos.md) | Datu medikoak |
+| [registro-oficial.md](./data/registro-oficial.md) | ⚠️ Erregistro ofiziala (zaharkitua → erabili erregistro liburua) |
 | [servicio-administrativo.md](./data/servicio-administrativo.md) | Zerbitzua eta prozedura |
 | [unidad-organica.md](./data/unidad-organica.md) | Unitate organikoak |
 | [validaciones.md](./validaciones.md) | Balioztatze-arauak |

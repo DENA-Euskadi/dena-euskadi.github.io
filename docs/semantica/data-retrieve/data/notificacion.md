@@ -26,11 +26,11 @@ config:
 flowchart LR
     NOT["<b>Notificación</b><br/><i>administrativeNotice</i>"]
 
-    NOT --> EXP["procedureRecord<br/><i>oid · id</i>"]
-    NOT --> TYPE["type<br/><i>OFFICIAL_NOTICE<br/>COMMUNICATION</i>"]
-    NOT --> DATES["issuedAt<br/>readedAt"]
+    NOT --> EXP["record<br/><i>oid · id</i>"]
+    NOT --> TYPE["typeNotice<br/><i>OFFICIAL_NOTICE<br/>COMMUNICATION</i>"]
+    NOT --> DATES["issuedAt<br/>readAt"]
     NOT --> STATE["state<br/><i>(string directo)</i>"]
-    NOT --> SUBJECT["actSubjectByLanguage"]
+    NOT --> SUBJECT["subjectByLanguage"]
     NOT --> URLS["urls[]"]
 
     style NOT fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
@@ -80,29 +80,30 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 | Campo | Tipo | Obligatorio | Ejemplo | Descripción |
 |-------|------|:-----------:|---------|-------------|
-| `type` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Tipo de notificación: `OFFICIAL_NOTICE` o `COMMUNICATION` (enum `DN00AdministrativeNoticeType`). No confundir con el discriminador polimórfico |
+| `type` | `String` | ✅ | `"administrativeNotice"` | Discriminador polimórfico (siempre `"administrativeNotice"`) |
+| `typeNotice` | `String` (enum) | ✅ | `"OFFICIAL_NOTICE"` | Tipo de notificación: `OFFICIAL_NOTICE` o `COMMUNICATION` (enum `DN00AdministrativeNoticeType`). Ver nota abajo. |
 | `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"NOT-OID-001"` | Identificador técnico único |
 | `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"NOT-2024-00456"` | Identificador de negocio |
 | `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen. DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
+| `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ver [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Referencia al expediente |
 | `issuedAt` | `String` (ISO 8601) | ✅ | `"2024-05-20T09:00:00Z"` | Fecha de emisión |
-| `readedAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Fecha de lectura (null si no leída) |
-| `state` | `String` | ✅ | `"PENDING_TO_BE_READED_BY_DESTINATION"` | Estado actual (string directo, NO objeto) |
-| `actSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Asunto del acto notificado |
+| `readAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Fecha de lectura (null si no leída) |
+| `state` | `String` | ✅ | `"PENDING_TO_BE_READ_BY_DESTINATION"` | Estado actual (string directo, NO objeto) |
+| `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Resolución de ayuda"}` | Asunto del acto notificado |
 | `urls` <span class="field-badge--common">común</span> | `Array` | ❌ (recomendado) | *(ver [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | URLs de acceso |
 
-> **Importante:** En notificaciones, el campo `state` es directamente un **string** con el código de estado (ej: `"PENDING_TO_BE_READED_BY_DESTINATION"`), a diferencia de expedientes y registros donde `state` es un objeto con `stateCode` y `description`.
+> **Importante:** En notificaciones, el campo `state` es directamente un **string** con el código de estado (ej: `"PENDING_TO_BE_READ_BY_DESTINATION"`), a diferencia de expedientes y registros donde `state` es un objeto con `stateCode` y `description`.
 
 ---
 
-## Tipos (`type`)
+## Tipos (`typeNotice`)
 
 | Código | Descripción |
 |--------|-------------|
 | `OFFICIAL_NOTICE` | Notificación administrativa oficial |
 | `COMMUNICATION` | Comunicación administrativa |
 
-> **Nota:** El campo `type` (valores `OFFICIAL_NOTICE` / `COMMUNICATION`) es distinto del **discriminador polimórfico** `administrativeNotice`. El discriminador (`@MarshallType(as="administrativeNotice")` en la clase `DN00AdministrativeNotice`) identifica el tipo de objeto dentro del payload y es fijo; el campo `type` clasifica la notificación dentro de ese objeto.
+> **Nota:** El campo `typeNotice` clasifica la notificación (`OFFICIAL_NOTICE` / `COMMUNICATION`). No confundir con el campo `type` del discriminador polimórfico, que siempre vale `"administrativeNotice"` y lo gestiona el serializador automáticamente.
 
 ---
 
@@ -110,7 +111,7 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 | Código | Descripción |
 |--------|-------------|
-| `PENDING_TO_BE_READED_BY_DESTINATION` | Pendiente de lectura |
+| `PENDING_TO_BE_READ_BY_DESTINATION` | Pendiente de lectura |
 | `ACKNOWLEDGED_BY_DESTINATION` | Leída y aceptada |
 | `REJECTED_BY_DESTINATION` | Rechazada |
 | `EXPIRED` | Expirada |
@@ -123,23 +124,22 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 14 15 16"
+```json hl_lines="3 4 5 6"
 {
-  "type": "OFFICIAL_NOTICE",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "urls": [{ "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }],
+  "typeNotice": "OFFICIAL_NOTICE",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-20T09:00:00Z",
-  "readedAt": null,
-  "state": "PENDING_TO_BE_READED_BY_DESTINATION",
-  "actSubjectByLanguage": {
+  "readAt": null,
+  "state": "PENDING_TO_BE_READ_BY_DESTINATION",
+  "subjectByLanguage": {
     "SPANISH": "Resolución de concesión de ayuda",
     "BASQUE": "Laguntza emateko ebazpena"
-  },
-  "urls": [
-    { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }
-  ]
+  }
 }
 ```
 
@@ -151,23 +151,22 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 14 15 16"
+```json hl_lines="3 4 5 6"
 {
-  "type": "COMMUNICATION",
+  "type": "administrativeNotice",
   "oid": "NOT-OID-002",
   "id": "NOT-2024-00457",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
+  "urls": [{ "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00457", "language": "SPANISH", "tags": ["default"] }],
+  "typeNotice": "COMMUNICATION",
+  "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-15T08:00:00Z",
-  "readedAt": "2024-05-16T10:30:00Z",
+  "readAt": "2024-05-16T10:30:00Z",
   "state": "ACKNOWLEDGED_BY_DESTINATION",
-  "actSubjectByLanguage": {
+  "subjectByLanguage": {
     "SPANISH": "Comunicación de subsanación de documentación",
     "BASQUE": "Dokumentazioa zuzentzeko jakinarazpena"
-  },
-  "urls": [
-    { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00457", "language": "SPANISH", "tags": ["default"] }
-  ]
+  }
 }
 ```
 
@@ -179,9 +178,9 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 ## Reglas de validación
 
-- Si `state` = `PENDING_TO_BE_READED_BY_DESTINATION`, entonces `readedAt` debe ser `null`.
-- Si `state` = `ACKNOWLEDGED_BY_DESTINATION` o `REJECTED_BY_DESTINATION`, entonces `readedAt` debe tener valor.
-- `issuedAt` debe ser anterior o igual a `readedAt` (si existe).
+- Si `state` = `PENDING_TO_BE_READ_BY_DESTINATION`, entonces `readAt` debe ser `null`.
+- Si `state` = `ACKNOWLEDGED_BY_DESTINATION` o `REJECTED_BY_DESTINATION`, entonces `readAt` debe tener valor.
+- `issuedAt` debe ser anterior o igual a `readAt` (si existe).
 - Ver [validaciones.md](../validaciones.md) para reglas completas.
 
 

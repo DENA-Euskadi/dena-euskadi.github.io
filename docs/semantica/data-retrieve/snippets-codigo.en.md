@@ -31,7 +31,7 @@ public class RetrieveDataController {
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
             case "administrativeServiceProcedureRecord"  -> fetchRecords(personId);
             case "administrativeNotice"                  -> fetchNotices(personId);
-            case "administrativeOfficialRegisterRecord"  -> fetchRegistry(personId);
+            case "administrativeLedger"  -> fetchLedger(personId);
             case "oneOffPayment"                         -> fetchPayments(personId);
             case "scheduleItem"                          -> fetchSchedule(personId);
             case "personData"                            -> fetchPersonData(personId);
@@ -94,7 +94,7 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
     {
         "administrativeServiceProcedureRecord"  => GetRecords(personId),
         "administrativeNotice"                  => GetNotices(personId),
-        "administrativeOfficialRegisterRecord"  => GetRegistry(personId),
+        "administrativeLedger"  => GetLedger(personId),
         "oneOffPayment"                         => GetPayments(personId),
         "scheduleItem"                          => GetSchedule(personId),
         "personData"                            => GetPersonData(personId),
@@ -135,7 +135,7 @@ async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
     fetchers = {
         "administrativeServiceProcedureRecord": fetch_records,
         "administrativeNotice": fetch_notices,
-        "administrativeOfficialRegisterRecord": fetch_registry,
+        "administrativeLedger": fetch_ledger,
         "oneOffPayment": fetch_payments,
         "scheduleItem": fetch_schedule,
         "personData": fetch_person_data,
@@ -196,7 +196,7 @@ app.post('/api/retrieveData', (req, res) => {
   const fetchers = {
     administrativeServiceProcedureRecord: fetchRecords,
     administrativeNotice: fetchNotices,
-    administrativeOfficialRegisterRecord: fetchRegistry,
+    administrativeLedger: fetchLedger,
     oneOffPayment: fetchPayments,
     scheduleItem: fetchSchedule,
     personData: fetchPersonData,
@@ -261,7 +261,7 @@ Route::post('/api/retrieveData', function (Request $request) {
     $dataItems = match ($dataTypeId) {
         'administrativeServiceProcedureRecord'  => fetchRecords($personId),
         'administrativeNotice'                  => fetchNotices($personId),
-        'administrativeOfficialRegisterRecord'  => fetchRegistry($personId),
+        'administrativeLedger'  => fetchLedger($personId),
         'oneOffPayment'                         => fetchPayments($personId),
         'scheduleItem'                          => fetchSchedule($personId),
         'personData'                            => fetchPersonData($personId),

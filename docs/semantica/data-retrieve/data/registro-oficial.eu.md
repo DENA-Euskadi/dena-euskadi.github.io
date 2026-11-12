@@ -1,146 +1,34 @@
-# :material-book-open-page-variant: Erregistro Ofiziala (Official Register Record)
+!!! danger "⚠️ MOTA ZAHARKITUA — Erabili Erregistro Liburua haren ordez"
+    `DN00AdministrativeOfficialRegisterRecord` eta `ADMINISTRATIVE_REGISTER` mota **zaharkituta** daude: **ez daude** v0.5.20-ko `DN00DataTypeEnum` katalogoan eta **ez dute Java inplementaziorik** iturburu-kodean. Ez erabili mota hau inplementazio berrietan; `"type": "administrativeOfficialRegisterRecord"` balioarekin bidalitako edozein objektu baztertuko da.
 
-> - **Bertsioa:** `v{{ dena.version }}`
-> - **Data:** {{ dena.date }}
-> - **Mota ID (DataTypeID):** `ADMINISTRATIVE_REGISTER`
-> - **Testa:** [DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/register/DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java)
-> - **Kodea:** [DN00AdministrativeOfficialRegisterRecord.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecord.java)
+    **Erregistroko sarrerak/irteerak dokumentatzen dituen mota [`libro-registro.md`](./libro-registro.md) da (`AdministrativeLedger` / `administrativeLedger`).**
 
-## Deskribapena
+# :material-book-open-page-variant: Erregistro Ofiziala (Official Register Record) — ZAHARKITUA
 
-Espediente bati lotutako erregistro ofizial bateko sarrera edo irteera-erregistroko idazpena adierazten du.
+> - **Egoera:** ❌ Zaharkitua / v{{ dena.version }}-n inplementatu gabe
+> - **Ordezkoa:** [Erregistro Liburua](./libro-registro.md) (`administrativeLedger`)
 
-> Ikusi baita ere: [campos-comunes.md](./campos-comunes.md) heredatutako eremuetarako (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
+## Zergatik dago zaharkitua?
 
-```mermaid
----
-config:
-  theme: base
-  themeVariables:
-    primaryColor: "#FFFFFF"
-    primaryTextColor: "#000000"
-    primaryBorderColor: "#CCCCCC"
-    lineColor: "#4A4A4A"
-    fontSize: "12px"
----
-flowchart LR
-    REG["<b>Erregistro Ofiziala</b><br/><i>administrativeOfficialRegisterRecord</i>"]
+Mota honek espediente bati lotutako sarrera/irteera erregistroko idazpena dokumentatzen zuen.
+v0.5.20-n haren funtzionaltasuna **Erregistro Liburuak** (`administrativeLedger`) estaltzen du,
+erregistroko sarrerak eta irteerak `entryDirection` eremuaren bidez modelatzen baititu
+(`ENTRY` / `EXIT`).
 
-    REG --> EXP["procedureRecord<br/><i>oid · id</i>"]
-    REG --> DATE["registeredAt"]
-    REG --> SUBJECT["subjectByLanguage"]
-    REG --> STATE["state<br/><i>stateCode · description</i>"]
-    REG --> URLS["urls[]"]
+`administrativeOfficialRegisterRecord` mota:
 
-    style REG fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
-    style EXP fill:#fff2cc,stroke:#d6b656,color:#000000,rx:6,ry:6
-    style DATE fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style SUBJECT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style STATE fill:#e1d5e7,stroke:#9673a6,color:#000000,rx:6,ry:6
-    style URLS fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
+- **Ez dago** `DN00DataTypeEnum` katalogoan (ikusi [DataTypeRef](../../semantica-base/modelo/data-type-ref.md)).
+- **Ez du** Java klaserik iturburu-kodean (`DN00AdministrativeOfficialRegisterRecord` eta bere
+  egoerak ez dira iturburu gisa existitzen).
 
-    click EXP "../expediente/" "Ikusi Espedientea"
-```
+## Zer erabili haren ordez
 
-| Kolorea | Esanahia |
-|---------|----------|
-| 🟠 Laranja | Objektu nagusia (Erregistro Ofiziala) |
-| 🟡 Horia | Beste objektu baten erreferentzia (Espedientea) |
-| 🟣 Morea | Enumak / egoerak |
-| 🔵 Urdin argia | Datu-eremuak |
+| Lehen (zaharkitua) | Orain (v0.5.20) |
+|---|---|
+| `administrativeOfficialRegisterRecord` | [`administrativeLedger`](./libro-registro.md) |
+| `PRESENTED` / `RECEIVED_FROM_OTHER_ORG_UNIT` / `TRANSFERRED_FROM_OTHER_ORG_UNIT` egoerak | `entryDirection`: `ENTRY` / `EXIT` |
 
----
-
-## 🔗 Iturburu-kodea
-
-| Klasea | Biltegia |
-|--------|----------|
-| DN00AdministrativeOfficialRegisterRecord | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecord.java) |
-| DN00AdministrativeOfficialRegisterRecordState | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecordState.java) |
-| DN00AdministrativeOfficialRegisterRecordStateCode | [Ikusi kodea]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecordStateCode.java) |
-
----
-
-## 🧪 Testak eta adibideak
-
-| Testa | Biltegia |
-|-------|----------|
-| DN00AdminFileTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/register/DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java) |
-| DN00AdminFileStateTest | [Ikusi testa]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/register/DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecordState.java) |
-
----
-
-## JSON atributuak
-
-<span class="field-badge--common">komuna</span> markarekin adierazitako eremuak [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) oinarri-klasetik **heredatutakoak** dira eta data-retrieve mota guztietan daude. Ikusi [campos-comunes.md](./campos-comunes.md).
-
-| Eremua | Mota | Derrigorrez | Adibidea | Deskribapena |
-|--------|------|:-----------:|----------|--------------|
-| `type` | `String` | ✅ | `"administrativeOfficialRegisterRecord"` | Diskriminatzaile polimorfiko |
-| `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"REG-OID-001"` | Identifikatzaile tekniko bakarra |
-| `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"REG-2024-00789"` | Negozio-identifikatzailea |
-| `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
-| `procedureRecord` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
-| `registeredAt` | `String` (ISO 8601) | ✅ | `"2024-04-10T08:30:00Z"` | Erregistro-data/ordua |
-| `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Erregistro-idazpenaren gaia |
-| `state` | `Object` | ✅ | *(ikusi [`DN00AdministrativeOfficialRegisterRecordState`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeOfficialRegisterModelClasses/src/main/java/dena/api/data/model/register/DN00AdministrativeOfficialRegisterRecordState.java))* | Uneko egoera |
-| `state.stateCode` | `String` | ✅ | `"PRESENTED"` | Egoera-kodea |
-| `state.description` | `LanguageTexts` | ❌ | `{"SPANISH":"Presentado"}` | Deskribapen eleanitza |
-| `urls` <span class="field-badge--common">komuna</span> | `Array` | ❌ (gomendatua) | *(ikusi [campos-comunes.md](./campos-comunes.md) · [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java))* | Sarbide-URLak |
-
----
-
-## Egoerak (`state.stateCode`)
-
-| Kodea | Deskribapena |
-|-------|--------------|
-| `PRESENTED` | Aurkeztua (sarrera zuzena) |
-| `RECEIVED_FROM_OTHER_ORG_UNIT` | Beste unitate batetik jasoa |
-| `TRANSFERRED_FROM_OTHER_ORG_UNIT` | Beste unitate batetik transferitua |
-
----
-
-## JSON adibidea
-
-<div class="common-highlight" markdown>
-
-```json hl_lines="3 4 5 16 17 18"
-{
-  "type": "administrativeOfficialRegisterRecord",
-  "oid": "REG-OID-001",
-  "id": "REG-2024-00789",
-  "lastChangedAt": "2026-08-19T08:07:56.742Z",
-  "procedureRecord": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
-  "registeredAt": "2024-04-10T08:30:00Z",
-  "subjectByLanguage": {
-    "SPANISH": "Solicitud de licencia de obras",
-    "BASQUE": "Obra-lizentzia eskaera"
-  },
-  "state": {
-    "stateCode": "PRESENTED",
-    "description": { "SPANISH": "Presentado", "BASQUE": "Aurkeztua" }
-  },
-  "urls": [
-    { "url": "https://sede.miadmin.eus/registro/REG-2024-00789", "language": "SPANISH", "tags": ["default"] }
-  ]
-}
-```
-
-<p class="common-fields-legend"><span class="swatch"></span> Nabarmendutako lerroak oinarri-klasetik <strong>heredatutako</strong> eremu <strong>komunak</strong> dira (ikusi <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
-
-</div>
-
----
-
-## Balioztatze-arauak
-
-- `registeredAt` derrigorrez da eta ISO 8601 data balioduna izan behar du.
-- `subjectByLanguage`-k gutxienez `SPANISH` eta `BASQUE` testua sartu behar du.
-- `state.stateCode` egoeren taulan definitutako balioen bat izan behar da.
-- Ikusi [validaciones.md](../validaciones.md) arau osoentzat.
-
-
-
+[:octicons-arrow-right-24: Joan Erregistro Liburura (`administrativeLedger`)](./libro-registro.md)
 
 ---
 

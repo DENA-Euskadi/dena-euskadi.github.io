@@ -220,6 +220,126 @@ La respuesta completa incluye la estructura del mensaje interop DENA (context + 
 
 ---
 
+## Ejemplo real de llamada completa
+
+Los siguientes ejemplos muestran un intercambio real completo de la operativa Data-Retrieve, incluyendo el mensaje de petición y la respuesta.
+
+### Petición (REQUEST)
+
+DENA llama a tu endpoint con este mensaje. El tipo de dato solicitado es `SCHEDULE` para la persona `11189396B` en la administración `SANDBOXCIF`:
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "CLIENT_RETRIEVE_REQ",
+            "correlationId": "541ECEAE-228B-4588-9504-44D9094322B5",
+            "interopRouteData": [{ "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T20:37:55.847000900Z" }]
+        },
+        "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+        "subjectPerson": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+        "dataType": { "id": "SCHEDULE", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006" }
+    },
+    "payload": {
+        "dataType": { "id": "SCHEDULE", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006" },
+        "admin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+        "person": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" }
+    }
+}
+```
+
+### Respuesta (RESPONSE)
+
+Tu endpoint devuelve la lista de elementos de tipo `scheduleItem` en `payload.dataItems`:
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "CLIENT_RETRIEVE_RESP",
+            "correlationId": "541ECEAE-228B-4588-9504-44D9094322B5",
+            "interopRouteData": [
+                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T20:37:55.8470009Z" },
+                { "denaComponentId": "DENA_ADMIN", "timestamp": "2026-11-10T08:17:46.029Z" }
+            ]
+        },
+        "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+        "subjectPerson": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+        "dataType": { "id": "SCHEDULE", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006" }
+    },
+    "payload": {
+        "dataItems": [
+            {
+                "data": {
+                    "type": "scheduleItem",
+                    "dayOfMonth": "20",
+                    "details": { "SPANISH": "Título de familia numerosa", "BASQUE": "Título de familia numerosa" },
+                    "durationMinutes": 30,
+                    "hourOfDay": "10",
+                    "id": "SANDBOX-SCHED-1794256626566",
+                    "lastChangedAt": "2026-11-09T20:37:06.5668985Z",
+                    "minuteOfHour": "0",
+                    "monthOfYear": "9",
+                    "oid": "D8815353-5B1D-47DE-9B65-57ABB58CEDAB",
+                    "priority": "MEDIUM",
+                    "subject": { "SPANISH": "Título de familia numerosa", "BASQUE": "Título de familia numerosa" },
+                    "urls": [{ "id": "48D2", "tags": ["default"], "value": "https://sandbox.dena.eus/schedules" }],
+                    "year": "2040"
+                }
+            },
+            {
+                "data": {
+                    "type": "scheduleItem",
+                    "dayOfMonth": "22",
+                    "details": { "SPANISH": "Caducidad BakQ", "BASQUE": "Caducidad BakQ" },
+                    "durationMinutes": 30,
+                    "hourOfDay": "10",
+                    "id": "SANDBOX-SCHED-1794256564175",
+                    "lastChangedAt": "2026-11-09T20:36:04.1756730Z",
+                    "minuteOfHour": "0",
+                    "monthOfYear": "12",
+                    "oid": "A03F751D-E58B-4767-A0A6-35A7859B3EAA",
+                    "priority": "MEDIUM",
+                    "subject": { "SPANISH": "Caducidad BakQ", "BASQUE": "Caducidad BakQ" },
+                    "urls": [{ "id": "AA46", "tags": ["default"], "value": "https://sandbox.dena.eus/schedules" }],
+                    "year": "2026"
+                }
+            },
+            {
+                "data": {
+                    "type": "scheduleItem",
+                    "dayOfMonth": "12",
+                    "details": { "SPANISH": "Cita Osakidetza", "BASQUE": "Cita Osakidetza" },
+                    "durationMinutes": 30,
+                    "hourOfDay": "10",
+                    "id": "SANDBOX-SCHED-1794256666986",
+                    "lastChangedAt": "2026-11-09T20:37:46.9870283Z",
+                    "minuteOfHour": "0",
+                    "monthOfYear": "11",
+                    "oid": "31FB5F96-0F9E-491C-B70A-A126F056C12B",
+                    "priority": "MEDIUM",
+                    "subject": { "SPANISH": "Cita Osakidetza", "BASQUE": "Cita Osakidetza" },
+                    "urls": [{ "id": "A754", "tags": ["default"], "value": "https://sandbox.dena.eus/schedules" }],
+                    "year": "2026"
+                }
+            }
+        ]
+    }
+}
+```
+
+!!! note "Campo `details` en ejemplos del sandbox"
+    Los ejemplos anteriores proceden de una ejecución real del sandbox y contienen el campo `details` en los items de tipo `scheduleItem`. Este campo **no existe en el modelo Java actual** `DN00ScheduleItem` (fue eliminado en una revisión posterior del modelo). Si ves `details` en respuestas reales de un sistema sandbox antiguo, es un campo heredado que el serializador incluye pero que no debe usarse en implementaciones nuevas. El campo correcto para el asunto es `subject`.
+
+!!! info "Estructura del mensaje"
+    - **`context.message.type`**: `CLIENT_RETRIEVE_REQ` en la petición / `CLIENT_RETRIEVE_RESP` en la respuesta
+    - **`context.destinationAdmin`**: Administración destino (la tuya)
+    - **`context.subjectPerson`**: Persona sobre la que se solicitan datos
+    - **`context.dataType`**: Tipo de dato solicitado (en este ejemplo: `SCHEDULE`)
+    - **`payload.dataItems[]`**: Array de datos devueltos por tu endpoint
+
+---
+
 ## Especificacion completa
 
 Para la especificacion detallada de campos, validaciones y errores:
@@ -250,10 +370,14 @@ Repositorios con tests y codigo de ejemplo para Data-Retrieve y cabeceras de seg
 | Definicion de cabeceras HTTP (constantes) | [DN00InteropHeaders.java]({{ repos.common_interop_api_blob }}/denaCommonInteropAPIModelClasses/src/main/java/dena/api/common/model/interop/DN00InteropHeaders.java) |
 | Mock factory para expedientes | [DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/services/DN99DENATestMockObjFactoryForAdmistrativeServiceProcedureRecord.java) |
 | Mock factory para notificaciones | [DN99DENATestMockObjFactoryForAdministrativeNotice.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/notification/DN99DENATestMockObjFactoryForAdministrativeNotice.java) |
-| Mock factory para pagos | [DN99DENATestMockObjFactoryForOneOffPayment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPayment.java) |
+| Mock factory para pagos | [DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/payment/DN99DENATestMockObjFactoryForOneOffPaymentSchemaFormat.java) |
 | Mock factory para citas | [DN99DENATestMockObjFactoryForScheduleItem.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/schedule/DN99DENATestMockObjFactoryForScheduleItem.java) |
-| Mock factory para registros oficiales | [DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/register/DN99DENATestMockObjFactoryForAdministrativeOfficialRegisterRecord.java) |
-| Campos base (oid, id, urls) | [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java) |
+| Mock factory para credenciales de persona | [DN99DENATestMockObjFactoryForPersonCredential.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/credential/DN99DENATestMockObjFactoryForPersonCredential.java) |
+| Mock factory para beneficios económicos | [DN99DENATestMockObjFactoryForEconomicBenefit.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/economicbenefit/DN99DENATestMockObjFactoryForEconomicBenefit.java) |
+| Mock factory para libro registro | [DN99DENATestMockObjFactoryForAdministrativeLedger.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/ledger/DN99DENATestMockObjFactoryForAdministrativeLedger.java) |
+| Mock factory para registro de persona | [DN99DENATestMockObjFactoryForAdministrativePersonRegister.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/personregister/DN99DENATestMockObjFactoryForAdministrativePersonRegister.java) |
+| Mock factory para matrículas | [DN99DENATestMockObjFactoryForPersonEnrollment.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/enrollment/DN99DENATestMockObjFactoryForPersonEnrollment.java) |
+| Mock factory para datos médicos | [DN99DENATestMockObjFactoryForPersonMedicalData.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/medical/DN99DENATestMockObjFactoryForPersonMedicalData.java) |
 
 !!! tip "Usa los mock factories como referencia"
     Estos tests generan objetos de ejemplo completamente validos. Puedes usarlos para ver el formato exacto esperado por DENA, incluidas las cabeceras de seguridad y la estructura del mensaje interop.

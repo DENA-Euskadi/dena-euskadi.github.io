@@ -26,7 +26,7 @@ Zure garapen-ingurunea prestatzeko eta DENAren biltegiekin lan egiteko gida.
 # Dokumentazioaren biltegi nagusia
 git clone {{ repos.docs_clone }}
 cd dena-common-docs
-git checkout v0.3.26
+git checkout PUBLIC-v{{ dena.version }}
 
 # Konektibitate testa (zure ingurunea baliozkotu)
 git clone {{ repos.conx_test_clone }}

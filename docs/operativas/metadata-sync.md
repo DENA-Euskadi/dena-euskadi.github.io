@@ -52,14 +52,12 @@ SELECT PERSON_ID,
 private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
         final Collection<DBPersonLastChange> dbChanges) {
     return dbChanges.stream()
-        .map(dbChange -> DN00SyncMetaDataBuilder
-            .syncMetaDataFromAdminToCOREBuilder()
-            .atAdmin(DN00OrgAdminID.forId("MY_ADMIN"))
-            .fromSingleDataOrigin()
-            .aboutPerson(DN00PersonID.forId(dbChange.personId()))
-            .someDataWasUpdatedAt(dbChange.lastChangedAt())
-            .ofType(DN00DataTypeID.forId("citizen_service_appointment"))
-            .build())
+        .map(dbChange -> new DN00SyncMetaDataFromAdminToCOREItem(
+            new DN00OrgAdminRef(DN00OrgAdminID.forId("MY_ADMIN")),
+            DN00PersonRef.from(DN00PersonID.forId(dbChange.personId())),
+            dbChange.lastChangedAt(),
+            new DN00DataTypeRef(DN00DataTypeID.forId("citizen_service_appointment")),
+            null))  // null = instancia de origen por defecto (DEFAULT)
         .toList();
 }
 ```
@@ -67,18 +65,18 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
 ### Paso 3: Envolver en un interop message y enviar
 
 ```java
-// Crear el interop message
+// Crear el interop context
 DN00InteropContext ctx = DN00InteropContextBuilder
     .createMessageOfType(DN00InteropMessageType.ADMIN_SRMD_SYNC_REQ)
-    .withCorrelationOID(DN00MessageCorrelationOID.supply())
-    .fromAdministration(DN00OrgAdminID.forId("MY_ADMIN"))
+    .withGeneratedCorrelationOID()
+    .fromAdmin(DN00OrgAdminID.forId("MY_ADMIN"))
+    .withSubjectPerson(null)
+    .aboutDataType(null)
     .build();
 
-DN00SyncMetaDataFromAdminRequestPayload payload =
-    DN00SyncMetaDataFromAdminRequestPayload.from(srmdItems);
-
+// Crear el mensaje de petición (los items se pasan directamente, sin wrapper)
 DN00SyncMetaDataFromAdminRequestMessage reqMsg =
-    new DN00SyncMetaDataFromAdminRequestMessage(ctx, payload);
+    new DN00SyncMetaDataFromAdminRequestMessage(ctx, srmdItems);
 
 // Serializar a JSON
 String json = marshaller.forWriting().toJSON(reqMsg);
@@ -146,6 +144,104 @@ DENA devuelve que items se procesaron correctamente (`processedOK`) y cuales fal
 
 !!! warning "Error clasico: data origin no configurado"
     El fallo mas habitual en `processedNOK` es un `fromDataOriginInstance` que no esta dado de alta en la configuracion de DENA. Si recibes errores de validacion en el data origin, verifica con el equipo DENA que el identificador que usas coincide con el configurado en el conector.
+
+---
+
+## Ejemplo real de llamada completa
+
+### Petición (REQUEST) — tu admin notifica a DENA
+
+Tu administración envía al endpoint SRMD de DENA una lista de cambios detectados. En este ejemplo se notifican 2 cambios de tipo `PERSON_DATA` para 2 personas distintas de la administración `SANDBOXCIF`:
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "ADMIN_SRMD_SYNC_REQ",
+            "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
+            "interopRouteData": [
+                { "denaComponentId": "ADMIN", "timestamp": "2026-11-10T08:07:38.934Z" }
+            ]
+        },
+        "originAdmin": { "id": "SANDBOXCIF" }
+    },
+    "payload": [
+        {
+            "admin": { "id": "SANDBOXCIF" },
+            "aboutPerson": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+            "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+            "ofType": { "id": "PERSON_DATA" }
+        },
+        {
+            "admin": { "id": "SANDBOXCIF" },
+            "aboutPerson": { "id": "11111111B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+            "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+            "ofType": { "id": "PERSON_DATA" }
+        }
+    ]
+}
+```
+
+### Respuesta (RESPONSE) — DENA acusa recibo
+
+DENA procesa cada item individualmente y devuelve los aceptados (`processedOK`) y los rechazados (`processedNOK`) con el motivo del error:
+
+```json
+{
+    "code": "OK",
+    "context": {
+        "message": {
+            "type": "ADMIN_SRMD_SYNC_RESP",
+            "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
+            "interopRouteData": [
+                { "denaComponentId": "DENA_INTEROP_ADMIN_SYNC", "timestamp": "2026-11-10T08:07:39.5179823Z" },
+                { "denaComponentId": "ADMIN", "timestamp": "2026-11-10T08:07:38.934Z" }
+            ]
+        }
+    },
+    "payload": {
+        "transactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+        "receivedItemsCount": 2,
+        "processedOK": [
+            {
+                "admin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+                "dataLastUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+                "dataOriginInstanceId": "DEFAULT",
+                "dataType": { "id": "PERSON_DATA", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007" },
+                "entityVersion": 5,
+                "numericId": 0,
+                "lastTransactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+                "oid": "6485BF2C-5C53-4EC0-ABE3-212DD4403913",
+                "person": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+                "trackingInfo": {
+                    "createdAt": "2026-11-04T17:22:41.6877234Z",
+                    "lastUpdatedAt": "2026-11-10T08:07:39.4321202Z",
+                    "lastUpdaterSecurityPrincipalOid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                }
+            }
+        ],
+        "processedNOK": [
+            {
+                "item": {
+                    "admin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+                    "aboutPerson": { "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+                    "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+                    "ofType": { "id": "PERSON_DATA", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007" },
+                    "fromDataOriginInstance": "DEFAULT"
+                },
+                "error": "The [person] with ref=631011F3-9A2F-4D08-9F56-B7F4D6A0749E;null could NOT be validated"
+            }
+        ]
+    }
+}
+```
+
+!!! info "Estructura del mensaje"
+    - **`context.message.type`**: `ADMIN_SRMD_SYNC_REQ` / `ADMIN_SRMD_SYNC_RESP`
+    - **`payload[]`** (petición): array de SRMD items (admin + persona + tipo de dato + timestamp)
+    - **`payload.receivedItemsCount`** (respuesta): total de items recibidos
+    - **`payload.processedOK[]`**: items aceptados con sus metadatos de seguimiento
+    - **`payload.processedNOK[]`**: items rechazados con el motivo del error
 
 ---
 

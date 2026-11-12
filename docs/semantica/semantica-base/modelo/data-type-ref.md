@@ -58,11 +58,24 @@ Los valores válidos de `id` están definidos en el enum `DN00DataTypeEnum`. Cad
 |---|---|---|
 | `administrativeServiceProcedureRecord` | Expediente | `ADMINISTRATIVE_RECORD` |
 | `administrativeNotice` | Notificación | `ADMINISTRATIVE_NOTICE` |
-| `administrativeOfficialRegisterRecord` | Registro oficial | `ADMINISTRATIVE_REGISTER` |
 | `oneOffPayment` | Pago único | `PAYMENT_ONE_OFF_PAYMENT` |
 | `directDebitPayment` | Domiciliación | `PAYMENT_DIRECT_DEBIT_PAYMENT` |
 | `scheduleItem` | Cita | `SCHEDULE` |
 | `personData` | Datos de persona | `PERSON_DATA` |
+| `personCredential` | Credencial de persona | `PERSON_CREDENTIAL` |
+| `personCredentialForBasqueLanguageDegree` | Credencial de perfil lingüístico de euskera | `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` |
+| `economicBenefit` | Beneficio económico | `ECONOMIC_BENEFIT` |
+| `administrativeLedger` | Libro registro | `ADMINISTRATIVE_LEDGER` |
+| `administrativePersonRegister` | Registro de persona (base) | `ADMINISTRATIVE_PERSON_REGISTER` |
+| `administrativePersonRegisterForHousingPEV` | Registro de persona — PEV vivienda | `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` |
+| `administrativePersonRegisterForLastWill` | Registro de persona — últimas voluntades | `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` |
+| `administrativePersonRegisterForRevisionPEV` | Registro de persona — revisión PEV | `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` |
+| `personEnrollment` | Matrícula | `PERSON_ENROLLMENT` |
+| `personAcademicEnrollment` | Matrícula académica | `PERSON_ACADEMIC_ENROLLMENT` |
+| `personMedicalData` | Datos médicos | `PERSON_MEDICAL_DATA` |
+
+> ⚠️ El tipo `administrativeOfficialRegisterRecord` (`ADMINISTRATIVE_REGISTER`) está **obsoleto** y
+> ya no forma parte del enum `DN00DataTypeEnum`; su sustituto es `administrativeLedger`.
 
 > El enum `DN00DataTypeEnum` vive en `dena-common-data-api`; los identificadores (`DN00DataTypeID`/`DN00DataTypeOID`) y el contenedor `DN00DataTypeRef` viven en `dena-common-api`.
 

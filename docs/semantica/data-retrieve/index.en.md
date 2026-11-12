@@ -43,7 +43,7 @@ flowchart LR
 
     RECORD["Record\n(record)"]
     NOTICE["Administrative Notice\n(notification)"]
-    REGISTRY["Official Register\n(registers)"]
+    REGISTRY["Administrative Ledger\n(register ledger)"]
     PAYBASE["Payment BASE"]
     SCHEDULE["Schedule\n(calendar)"]
 
@@ -74,7 +74,7 @@ flowchart LR
 
     click RECORD "./data/expediente/" "Ver documentación de Expediente"
     click NOTICE "./data/notificacion/" "Ver documentación de Notificación"
-    click REGISTRY "./data/registro-oficial/" "Ver documentación de Registro Oficial"
+    click REGISTRY "./data/libro-registro/" "See Register Ledger documentation"
     click PAYBASE "./data/pago/" "Ver documentación de Pagos"
     click ONEOFF "./data/pago/" "Ver documentación de Pago Único"
     click DIRECTDEBIT "./data/pago/" "Ver documentación de Domiciliación"
@@ -132,12 +132,18 @@ flowchart LR
     |---|---|---|
     | **:material-folder-open: Record** | Administrative record in processing | [expediente.md](./data/expediente.md) |
     | **:material-email-open: Notification** | Official notification or communication | [notificacion.md](./data/notificacion.md) |
-    | **:material-book-open-page-variant: Official Register** | Incoming/outgoing register entry | [registro-oficial.md](./data/registro-oficial.md) |
     | **:material-credit-card: Payment** | One-off payment or direct debit | [pago.md](./data/pago.md) |
     | **:material-calendar-clock: Appointment** | Prior appointment or agenda item | [cita.md](./data/cita.md) |
     | **:material-account-circle: Person** | Citizen's data | [persona.md](./data/persona.md) |
+    | **:material-card-account-details: Person credential** | Cards, degrees and language profiles | [credencial-persona.md](./data/credencial-persona.md) |
+    | **:material-cash: Economic benefit** | Grants and subsidies | [beneficio-economico.md](./data/beneficio-economico.md) |
+    | **:material-book-open-page-variant: Register Ledger** | Incoming/outgoing register entry | [libro-registro.md](./data/libro-registro.md) |
+    | **:material-account-box-multiple: Person register** | Person register (PEV, last will…) | [registro-persona.md](./data/registro-persona.md) |
+    | **:material-school: Enrollment** | Enrollments and academic enrollments | [matricula.md](./data/matricula.md) |
+    | **:material-medical-bag: Medical data** | Medical data (GDPR special category) | [datos-medicos.md](./data/datos-medicos.md) |
     | **:material-cog: Administrative Service** | Service and procedure | [servicio-administrativo.md](./data/servicio-administrativo.md) |
     | **:material-office-building: Organic Unit** | Participating organizational unit | [unidad-organica.md](./data/unidad-organica.md) |
+    | **:material-book-off: Official Register** *(deprecated)* | ⚠️ Replaced by Register Ledger | [registro-oficial.md](./data/registro-oficial.md) |
 
 ### Complementary guides
 
@@ -165,12 +171,17 @@ The `id` of `dataType` corresponds to the marshallTypeId of each object (enum `D
 |--------------|-----------------|
 | `administrativeServiceProcedureRecord` | Records |
 | `administrativeNotice` | Notifications |
-| `administrativeOfficialRegisterRecord` | Official registers |
 | `oneOffPayment` / `directDebitPayment` | Payments |
 | `scheduleItem` | Appointments |
 | `personData` | Person data |
+| `personCredential` / `personCredentialForBasqueLanguageDegree` | Person credentials |
+| `economicBenefit` | Economic benefits |
+| `administrativeLedger` | Register ledger |
+| `administrativePersonRegister` (+ `…ForHousingPEV` / `…ForLastWill` / `…ForRevisionPEV`) | Person register |
+| `personEnrollment` / `personAcademicEnrollment` | Enrollments |
+| `personMedicalData` | Medical data |
 
-> **Note:** See the full list in [DataTypeRef](../semantica-base/modelo/data-type-ref.md).
+> **Note:** The full list (17 types from the `DN00DataTypeEnum` enum) is in [DataTypeRef](../semantica-base/modelo/data-type-ref.md). The `administrativeOfficialRegisterRecord` type is **deprecated**; use `administrativeLedger`.
 
 ---
 
@@ -328,13 +339,13 @@ flowchart LR
     PAYLOAD --> ITEMS["dataItems"]
     ITEMS --> RECORD["Record"]
     ITEMS --> NOTICE["Notification"]
-    ITEMS --> REGISTRY["Official Register"]
+    ITEMS --> REGISTRY["Register Ledger"]
     ITEMS --> PAYMENT["Payment"]
     ITEMS --> SCHEDULE["Appointment"]
 
     click RECORD "./data/expediente/" "Ver documentación de Expediente"
     click NOTICE "./data/notificacion/" "Ver documentación de Notificación"
-    click REGISTRY "./data/registro-oficial/" "Ver documentación de Registro Oficial"
+    click REGISTRY "./data/libro-registro/" "See Register Ledger documentation"
     click PAYMENT "./data/pago/" "Ver documentación de Pagos"
     click SCHEDULE "./data/cita/" "Ver documentación de Cita"
 

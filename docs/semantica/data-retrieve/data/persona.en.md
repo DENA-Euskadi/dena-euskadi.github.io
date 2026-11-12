@@ -8,11 +8,10 @@
 
 ## Description
 
-The **PersonData** model (`DN00PersonData`) represents the data of a person exchanged between the administration and DENA: contact information, addresses and bank details.
+The **PersonData** model (`DN00PersonData`) represents the data of a person exchanged between the administration and DENA: contact information and bank account data.
 
-It extends `DN00DENADataExchangedObjectBase` (it is a main exchanged object of the DATA-RETRIEVE model).
-
-> See also: [campos-comunes.md](./campos-comunes.md) for inherited fields (`oid`, `id`, `lastChangedAt`, `urls`, `originAdmin`, `aboutPerson`)
+!!! warning "NOT identified object — no oid or id"
+    `DN00PersonData` extends `DN00DENADataExchangedNOTIdentifiedObject` instead of `DN00DENADataExchangedObjectBase`. This means this object **does NOT have** the fields `oid` or `id`, but **DOES have** `lastChangedAt`, `urls`, `originAdmin` and `aboutPerson` (inherited from the base class `DN00DENADataExchangedNOTIdentifiedObject`).
 
 ```mermaid
 ---
@@ -28,36 +27,24 @@ config:
 flowchart LR
     PDATA["<b>PersonData</b><br/><i>personData</i>"]
 
-    PDATA --> CONTACT["contactData<br/><i>partyId · partyName · partySurName<br/>birthDate · phone · email<br/>contactLanguage · contactMode</i>"]
-    PDATA --> ADDR["addresses<br/><i>mainAddress · otherAddresses</i>"]
-    PDATA --> BANK["bankDataCollection<br/><i>bankData[]</i>"]
-    PDATA --> ORG["orgUnit"]
+    PDATA --> CONTACT["contactData<br/><i>DN00PersonDataCollection</i>"]
+    PDATA --> BANK["bankAccountData<br/><i>DN00PersonDataCollection</i>"]
 
-    ADDR --> MAIN["mainAddress<br/><i>country · province<br/>municipality · locality<br/>address · postalCode</i>"]
-    ADDR --> OTHER["otherAddresses<br/><i>addresses[]</i>"]
-
-    BANK --> BANKITEM["bankData<br/><i>account · entity</i>"]
-    BANKITEM --> ACCOUNT["account<br/><i>accountId · idType</i>"]
+    CONTACT --> CITEM["dataItems[]<br/><i>id · scope · data</i>"]
+    BANK --> BITEM["dataItems[]<br/><i>id · scope · data (IBAN)</i>"]
 
     style PDATA fill:#ffe6cc,stroke:#d79b00,color:#000000,rx:8,ry:8
     style CONTACT fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style ADDR fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
     style BANK fill:#dae8fc,stroke:#6c8ebf,color:#000000,rx:6,ry:6
-    style ORG fill:#f5f5f5,stroke:#666666,color:#000000,rx:6,ry:6
-    style MAIN fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-    style OTHER fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-    style BANKITEM fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-    style ACCOUNT fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
-
-    click ORG "../unidad-organica/" "View Organisational Unit"
+    style CITEM fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
+    style BITEM fill:#d5e8d4,stroke:#82b366,color:#000000,rx:6,ry:6
 ```
 
 | Colour | Meaning |
 |--------|---------|
 | 🟠 Orange | Main object (PersonData) |
-| 🔵 Light blue | First-level blocks |
-| 🟢 Light green | Detail sub-objects |
-| ⚪ Grey | References to other objects |
+| 🔵 Light blue | Data blocks (collections) |
+| 🟢 Light green | Individual items within each collection |
 
 ---
 
@@ -66,14 +53,11 @@ flowchart LR
 | Class | Repository |
 |-------|------------|
 | DN00PersonData | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonData.java) |
-| DN00ContactData | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) |
-| DN00Address | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Address.java) |
-| DN00Addresses | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) |
-| DN00BankData | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java) |
-| DN00BankDataCollection | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) |
-| DN00Account | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Account.java) |
-| DN00ContactType | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java) |
-| DN00IdType | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java) |
+| DN00PersonDataCollection | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataCollection.java) |
+| DN00PersonDataItemBase | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataItemBase.java) |
+| DN00PersonDataItemForContact | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataItemForContact.java) |
+| DN00PersonDataItemForBankAccount | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataItemForBankAccount.java) |
+| DN00PersonDataCategory | [View code]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00PersonDataCategory.java) |
 
 ---
 
@@ -84,103 +68,42 @@ flowchart LR
 | Mock Factory | Repository |
 |--------------|------------|
 | DN99DENATestMockObjFactoryForPersonData | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForPersonData.java) |
-| DN99DENATestMockObjFactoryForContactData | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactData.java) |
-| DN99DENATestMockObjFactoryForAddress | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddress.java) |
-| DN99DENATestMockObjFactoryForAddresses | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAddresses.java) |
-| DN99DENATestMockObjFactoryForBankData | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankData.java) |
-| DN99DENATestMockObjFactoryForBankDataCollection | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForBankDataCollection.java) |
-| DN99DENATestMockObjFactoryForAccount | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForAccount.java) |
-| DN99DENATestMockObjFactoryForContactType | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForContactType.java) |
-| DN99DENATestMockObjFactoryForIdType | [View code]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/persondata/DN99DENATestMockObjFactoryForIdType.java) |
 
 ---
 
 ## PersonData — JSON attributes
 
-Fields marked with <span class="field-badge--common">common</span> are **inherited** from [`DN00DENADataExchangedObjectBase`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java) and are present in all data-retrieve types. See [campos-comunes.md](./campos-comunes.md).
-
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:---------:|---------|-------------|
 | `type` | `String` | ✅ | `"personData"` | Polymorphic discriminator |
-| `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"PDATA-OID-001"` | Technical identifier |
-| `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"12345678A"` | Business identifier |
-| `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
-| `contactData` | [`DN00ContactData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java) | ✅ | *(see [contactData](#contact-data-contactdata))* | Detailed contact data |
-| `addresses` | [`DN00Addresses`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java) | ❌ | *(see [Addresses](#addresses-addresses))* | Addresses (main + others) |
-| `bankDataCollection` | [`DN00BankDataCollection`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java) | ❌ | *(see [Bank data](#bank-data-bankdatacollection))* | Bank data |
-| `orgUnit` | [`DN00OrgUnitReference`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReference.java) | ❌ | *(see [unidad-organica.md](./unidad-organica.md))* | Associated organisational unit |
+| ~~`oid`~~ | — | — | — | **Does not exist** in this type |
+| ~~`id`~~ | — | — | — | **Does not exist** in this type |
+| `lastChangedAt` | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
+| `contactData` | `Object` | ❌ | *(see [Contact data](#contact-data-contactdata))* | Contact data collection |
+| `contactData.dataCategory` | `String` | ✅ | `"CONTACT"` | Always `"CONTACT"` for contact data |
+| `contactData.dataItems` | `Array` | ✅ | — | List of contact items |
+| `contactData.dataItems[].id` | `String` | ✅ | `"contact-001"` | Item identifier |
+| `contactData.dataItems[].scope` | `String` | ❌ | `"INDIVIDUAL"` | Scope of the contact data |
+| `contactData.dataItems[].data` | `Object` | ✅ | *(r01f ContactInfo — see note)* | Contact information ⚠️ Internal structure UNVERIFIED |
+| `bankAccountData` | `Object` | ❌ | *(see [Bank data](#bank-data-bankaccountdata))* | Bank account data collection |
+| `bankAccountData.dataCategory` | `String` | ✅ | `"BANK_ACCOUNT"` | Always `"BANK_ACCOUNT"` |
+| `bankAccountData.dataItems` | `Array` | ✅ | — | List of bank accounts |
+| `bankAccountData.dataItems[].id` | `String` | ✅ | `"bank-001"` | Item identifier |
+| `bankAccountData.dataItems[].scope` | `String` | ❌ | `"INDIVIDUAL"` | Scope of the bank data |
+| `bankAccountData.dataItems[].data` | `String` | ✅ | `"ES9121000418450200051332"` | IBAN or other bank account identifier |
 
 ---
 
-## Contact data ([`contactData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactData.java))
+## Contact data (`contactData`)
 
-| Field | Type | Mandatory | Example | Description |
-|-------|------|:---------:|---------|-------------|
-| `partyId` | `String` | ✅ | `"12345678A"` | NIF/NIE of the interested party |
-| `partyName` | `String` | ✅ | `"María"` | First name |
-| `partySurName` | `String` | ✅ | `"García López"` | Surname(s) |
-| `birthDate` | `String` (ISO 8601) | ❌ | `"1985-03-20T00:00:00Z"` | Date of birth |
-| `phone` | `String` | ❌ | `"+34600000001"` | Primary phone number |
-| `phone2` | `String` | ❌ | `null` | Secondary phone number |
-| `email` | `String` | ❌ | `"maria@example.com"` | Email address |
-| `contactLanguage` | `String` | ❌ | `"SPANISH"` | Preferred language (`SPANISH`, `BASQUE`, `ENGLISH`) |
-| `contactMode` | `String` | ❌ | `"ELECTRONIC"` | Preferred contact mode |
-
-### Contact modes ([`contactMode`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00ContactType.java))
-
-| Code | Description |
-|------|-------------|
-| `POSTAL` | Postal mail |
-| `ELECTRONIC` | Electronic means |
+!!! info "r01f ContactInfo type pending documentation"
+    The internal structure of the `data` field in each `contactData` item is the r01f `ContactInfo` type. It may contain phones, emails, postal addresses, web URL, etc. Detailed documentation of its structure will be completed in a future version. Consult with the DENA team for the available fields.
 
 ---
 
-## Addresses ([`addresses`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00Addresses.java))
+## Bank data (`bankAccountData`)
 
-| Field | Type | Mandatory | Example | Description |
-|-------|------|:---------:|---------|-------------|
-| `mainAddress` | `Object` | ❌ | *(see [Address](#address-mainaddress-each-element-of-otheraddressesaddresses))* | Main address |
-| `otherAddresses` | `Object` | ❌ | | Other addresses |
-| `otherAddresses.addresses` | `Array` | ❌ | | List of additional addresses |
-
-### Address (`mainAddress` / each element of `otherAddresses.addresses`)
-
-| Field | Type | Mandatory | Example | Description |
-|-------|------|:---------:|---------|-------------|
-| `addressDescription` | `LanguageTexts` | ❌ | `{"SPANISH":"Domicilio habitual"}` | Address description |
-| `countryNoraCode` | `String` | ❌ | `"108"` | NORA code of the country |
-| `countryDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"España"}` | Country name |
-| `provinceNoraCode` | `String` | ❌ | `"48"` | NORA code of the province |
-| `provinceDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bizkaia"}` | Province name |
-| `municipalityNoraCode` | `String` | ❌ | `"48020"` | NORA code of the municipality |
-| `municipalityDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bilbao"}` | Municipality name |
-| `localityNoraCode` | `String` | ❌ | `"48020"` | NORA code of the locality |
-| `localityDesc` | `LanguageTexts` | ❌ | `{"SPANISH":"Bilbao"}` | Locality name |
-| `address` | `String` | ❌ | `"Gran Vía 50, 3º B"` | Full postal address |
-| `postalCode` | `String` | ❌ | `"48001"` | Postal code |
-
----
-
-## Bank data ([`bankDataCollection`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankDataCollection.java))
-
-| Field | Type | Mandatory | Example | Description |
-|-------|------|:---------:|---------|-------------|
-| `bankData` | `Array` | ❌ | | List of bank data entries |
-
-### Each element of [`bankData`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00BankData.java)
-
-| Field | Type | Mandatory | Example | Description |
-|-------|------|:---------:|---------|-------------|
-| `account.accountId` | `String` | ✅ | `"ES9121000418450200051332"` | Account number (IBAN or other) |
-| `account.idType` | `String` | ✅ | `"IBAN"` | Identifier type |
-| `entity` | `String` | ❌ | `"CAIXESBB"` | Banking entity (BIC/SWIFT code) |
-
-### Account identifier types ([`idType`]({{ repos.common_data_api_blob }}/denaCommonDataAPIPersonDataModelClasses/src/main/java/dena/api/data/model/persondata/DN00IdType.java))
-
-| Code | Description |
-|------|-------------|
-| `IBAN` | IBAN format |
-| `CUSTOM` | Other format |
+The `data` field in each `bankAccountData` item is a `String` containing the IBAN or other bank account identifier (r01f `FinantialIDs.BankAccountID` type).
 
 ---
 
@@ -188,68 +111,43 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json
 {
   "type": "personData",
-  "oid": "PDATA-OID-001",
-  "id": "12345678A",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "contactData": {
-    "partyId": "12345678A",
-    "partyName": "María",
-    "partySurName": "García López",
-    "birthDate": "1985-03-20T00:00:00Z",
-    "phone": "+34600000001",
-    "phone2": null,
-    "email": "maria.garcia@example.com",
-    "contactLanguage": "SPANISH",
-    "contactMode": "ELECTRONIC"
-  },
-  "addresses": {
-    "mainAddress": {
-      "countryNoraCode": "108",
-      "countryDesc": { "SPANISH": "España", "BASQUE": "Espainia" },
-      "provinceNoraCode": "48",
-      "provinceDesc": { "SPANISH": "Bizkaia", "BASQUE": "Bizkaia" },
-      "municipalityNoraCode": "48020",
-      "municipalityDesc": { "SPANISH": "Bilbao", "BASQUE": "Bilbo" },
-      "address": "Gran Vía 50, 3º B",
-      "postalCode": "48001"
-    },
-    "otherAddresses": {
-      "addresses": []
-    }
-  },
-  "bankDataCollection": {
-    "bankData": [
+    "dataCategory": "CONTACT",
+    "dataItems": [
       {
-        "account": {
-          "accountId": "ES9121000418450200051332",
-          "idType": "IBAN"
-        },
-        "entity": "CAIXESBB"
+        "id": "contact-001",
+        "scope": "INDIVIDUAL",
+        "data": "⚠️ UNVERIFIED — internal structure of r01f ContactInfo type pending documentation with the DENA team"
       }
     ]
   },
-  "orgUnit": {
-    "id": "ORG-HACIENDA",
-    "displayNameByLanguage": { "SPANISH": "Hacienda Foral de Bizkaia", "BASQUE": "Bizkaiko Foru Ogasuna" }
+  "bankAccountData": {
+    "dataCategory": "BANK_ACCOUNT",
+    "dataItems": [
+      {
+        "id": "bank-001",
+        "scope": "INDIVIDUAL",
+        "data": "ES9121000418450200051332"
+      }
+    ]
   }
 }
 ```
-
-<p class="common-fields-legend"><span class="swatch"></span> Highlighted lines are <strong>common</strong> fields inherited from the base class (see <a href="./campos-comunes.md">campos-comunes.md</a>).</p>
 
 </div>
 
 ---
 
-## Validation rules
+## Important notes
 
-- `contactData.partyId` is mandatory and must be a valid NIF/NIE.
-- `contactData.partyName` and `contactData.partySurName` are mandatory.
-- If addresses are included, NORA codes must be valid according to the NORA catalogue.
-- If bank data is included with `idType: "IBAN"`, the `accountId` must be a valid IBAN.
+- `DN00PersonData` extends `DN00DENADataExchangedNOTIdentifiedObject`, **not** the usual base class. For this reason it **does not have** `oid` or `id`, but **does have** `lastChangedAt`, `urls`, `originAdmin` and `aboutPerson`.
+- The internal structure of the r01f `ContactInfo` type (`data` field in each `contactData` item) is **pending verification and documentation**. Consult with the DENA team.
+- The `data` field in each `bankAccountData` item is directly a `String` containing the account number (IBAN or other format).
+
 
 ---
 

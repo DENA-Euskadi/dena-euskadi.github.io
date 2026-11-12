@@ -2,7 +2,6 @@
 
 > - **Versión:** `v{{ dena.version }}`
 > - **Fecha:** {{ dena.date }}
-> - **Test:** [DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java)
 > - **Código:** [DN00DENADataExchangedObjectBase.java]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DENADataExchangedObjectBase.java)
 
 ## Descripción
@@ -25,7 +24,7 @@ flowchart LR
 
     BASE --> OID["oid<br/><i>Identificador técnico único</i>"]
     BASE --> ID["id<br/><i>Identificador de negocio</i>"]
-    BASE --> URLS["urls[]<br/><i>url · language · tags</i>"]
+    BASE --> URLS["urls[]<br/><i>value · lang · tags</i>"]
     BASE --> CHANGED["lastChangedAt<br/><i>última modificación en origen</i>"]
     BASE --> ADMIN["originAdmin<br/><i>oid · id · dir3Id</i>"]
     BASE --> PERSON["aboutPerson<br/><i>oid · id</i>"]
@@ -118,13 +117,15 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
 {
   "urls": [
     {
-      "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123",
-      "language": "SPANISH",
+      "id": "main-es",
+      "value": "https://sede.miadmin.eus/expediente/EXP-2024-00123",
+      "lang": "SPANISH",
       "tags": ["default"]
     },
     {
-      "url": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123",
-      "language": "BASQUE",
+      "id": "main-eu",
+      "value": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123",
+      "lang": "BASQUE",
       "tags": ["default"]
     }
   ]
@@ -133,8 +134,8 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
 
 | Campo | Tipo | Obligatorio | Descripción |
 |-------|------|:-----------:|-------------|
-| `url` | `String` | ✅ | URL completa (HTTPS) |
-| `language` | `String` | ❌ | Idioma de la URL: `SPANISH`, `BASQUE`, `ENGLISH` |
+| `value` | `String` | ✅ | URL completa (HTTPS) |
+| `lang` | `String` | ❌ | Idioma de la URL: `SPANISH`, `BASQUE`, `ENGLISH` |
 | `tags` | `Array<String>` | ❌ | Etiquetas para clasificar la URL |
 
 ### Tags comunes
@@ -165,7 +166,7 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
     "id": "12345678A"
   },
   "urls": [
-    { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
+    { "id": "main", "value": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "lang": "SPANISH", "tags": ["default"] }
   ],
   "...": "campos específicos del objeto"
 }
@@ -188,11 +189,21 @@ Array de URLs que permiten acceder al objeto en la sede electrónica. Cada eleme
 |---------------|--------|-----------|
 | `administrativeServiceProcedureRecord` | Expediente | [expediente.md](./expediente.md) |
 | `administrativeNotice` | Notificación | [notificacion.md](./notificacion.md) |
-| `administrativeOfficialRegisterRecord` | Registro Oficial | [registro-oficial.md](./registro-oficial.md) |
 | `oneOffPayment` | Pago único | [pago.md](./pago.md) |
 | `directDebitPayment` | Domiciliación | [pago.md](./pago.md) |
 | `scheduleItem` | Cita | [cita.md](./cita.md) |
 | `personData` | Datos de persona | [persona.md](./persona.md) |
+| `personCredential` | Credencial de Persona | [credencial-persona.md](./credencial-persona.md) |
+| `personCredentialForBasqueLanguageDegree` | Acreditación Euskera | [credencial-persona.md](./credencial-persona.md) |
+| `economicBenefit` | Beneficio Económico | [beneficio-economico.md](./beneficio-economico.md) |
+| `administrativeLedger` | Libro Registro (Entradas/Salidas) | [libro-registro.md](./libro-registro.md) |
+| `administrativePersonRegister` | Registro de Persona | [registro-persona.md](./registro-persona.md) |
+| `administrativePersonRegisterForHousingPEV` | Registro Prestación Vivienda (PEV) | [registro-persona.md](./registro-persona.md) |
+| `administrativePersonRegisterForLastWill` | Registro Últimas Voluntades | [registro-persona.md](./registro-persona.md) |
+| `administrativePersonRegisterForRevisionPEV` | Revisión PEV | [registro-persona.md](./registro-persona.md) |
+| `personEnrollment` | Matrícula | [matricula.md](./matricula.md) |
+| `personAcademicEnrollment` | Matrícula Académica | [matricula.md](./matricula.md) |
+| `personMedicalData` | Datos Médicos | [datos-medicos.md](./datos-medicos.md) |
 
 Ver también: [`DN00DataTypeEnum.java`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) — enumerado con todos los tipos de datos disponibles.
 
@@ -219,7 +230,6 @@ Ver también: [`DN00DataTypeEnum.java`]({{ repos.common_data_api_blob }}/denaCom
 
 | Mock Factory | Repositorio |
 |--------------|-------------|
-| DN99DENATestMockObjFactoryForDENADataExchangedObjectBase | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForDENADataExchangedObjectBase.java) |
 | DN99DENATestMockObjFactoryForStateWithDescriptionBase | [Ver código]({{ repos.interop_test_blob }}/denaTestCommonDataClasses/src/main/java/dena/test/common/data/DN99DENATestMockObjFactoryForStateWithDescriptionBase.java) |
 
 
