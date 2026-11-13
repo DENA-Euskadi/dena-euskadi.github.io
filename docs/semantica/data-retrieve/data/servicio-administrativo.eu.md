@@ -137,7 +137,7 @@ Erreferentzia guztiek egitura bera partekatzen dute:
   "oid": "SRV-OID-001",
   "id": "SRV-LIC-ACT",
   "urls": [
-    { "url": "https://catalogo.miadmin.eus/servicio/SRV-LIC-ACT", "language": "SPANISH" }
+    { "value": "https://catalogo.miadmin.eus/servicio/SRV-LIC-ACT", "lang": "SPANISH" }
   ]
 }
 ```

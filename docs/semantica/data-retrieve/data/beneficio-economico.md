@@ -74,6 +74,9 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 | `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"BEN-OID-001"` | Identificador técnico único |
 | `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"PEV-2024-00001"` | Identificador de negocio |
 | `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen |
+| `urls` <span class="field-badge--common">común</span> | `Array` | ❌ | `[{"value":"https://sede.miadmin.eus/objeto/OID-001","lang":"SPANISH","tags":["default"]}]` | URLs de acceso al objeto en la sede electrónica (DENA lo completa automáticamente) |
+| `originAdmin` <span class="field-badge--common">común</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">común</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `record` | `Object` | ❌ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` | Referencia al expediente asociado |
 | `amount` | `Money` | ✅ | `{"amount":500.00,"currency":"EUR"}` | Importe de la prestación (ver [tipo Money](#tipo-money)) |
 | `paymentOrderedAt` | `Instant` | ❌ | `"2024-06-01T00:00:00Z"` | Fecha en que se ordenó el pago (null si aún no pagado) |
@@ -128,12 +131,17 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "economicBenefit",
   "oid": "BEN-OID-001",
   "id": "PEV-2024-00001",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "amount": { "amount": 500.00, "currency": "EUR" },
   "paymentOrderedAt": null,
@@ -151,12 +159,17 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "economicBenefit",
   "oid": "BEN-OID-002",
   "id": "PEV-2024-00002",
   "lastChangedAt": "2026-09-15T10:30:00Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-002", "id": "EXP-2024-00124" },
   "amount": { "amount": 1200.00, "currency": "EUR" },
   "paymentOrderedAt": "2024-09-01T00:00:00Z",

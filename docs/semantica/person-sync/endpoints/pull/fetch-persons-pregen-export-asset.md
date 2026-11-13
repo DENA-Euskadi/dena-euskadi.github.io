@@ -24,7 +24,7 @@ Descarga un listado pregenerado de personas usuarias de DENA. Estos se generan c
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp":"2026-06-10T15:37:57.5530000Z"
+                    "timestamp":"2026-06-10T15:37:57.553Z"
                 }
             ]
         },

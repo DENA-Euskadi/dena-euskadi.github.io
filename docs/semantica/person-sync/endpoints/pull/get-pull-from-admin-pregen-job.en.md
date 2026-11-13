@@ -34,7 +34,7 @@ Where `{jobOid}` is the identifier of the pre-generated job you want to query.
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp": "2026-06-10T15:37:57.5530000Z"
+                    "timestamp": "2026-06-10T15:37:57.553Z"
                 }
             ]
         },
@@ -69,7 +69,7 @@ Where `{jobOid}` is the identifier of the pre-generated job you want to query.
     "payload": {
         "job": {
             "oid": "F74724F6-65F6-4E01-B215-AB8CDA3FC42B",
-            "registeredAt": "2026-05-26T01:00:00.0284171Z",
+            "registeredAt": "2026-05-26T01:00:00.028Z",
             "status": "FINISHED_OK"
         }
     }

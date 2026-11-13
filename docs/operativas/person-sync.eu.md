@@ -63,6 +63,116 @@ Zure admin-ak DENAri kontsulta egiten dio nahi duenean, bi modutan:
 | Pertsonak eskaeraz kontsultatu nahi dituzu | **Pull on-line** |
 | Biak nahi dituzu (gomendatua) | **Push** + **Pull off-line** babeskopia gisa |
 
+
+---
+
+## Benetako Push deialdiaren adibidea
+
+DENAk mezu hau bidaltzen dio zure endpoint-ari pertsona bat sortzen edo eguneratzen denean:
+
+### Eskaera (REQUEST)
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "PERSON_PUSH_TO_ADMIN_REQ",
+            "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_CORE",
+                    "timestamp": "2026-11-09T18:48:01.1692680Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                }
+            ]
+        },
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "20202020E",
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+        }
+    },
+    "payload": {
+        "syncData": {
+            "personRef": {
+                "id": "20202020E",
+                "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+            },
+            "createDate": "2026-11-09T17:48:01.1630320Z",
+            "lastUpdateDate": "2026-11-09T18:48:01.1630770Z",
+            "syncEvent": "CREATED"
+        },
+        "person": {
+            "entityVersion": 0,
+            "id": "20202020E",
+            "lastChangeEvent": "CREATED",
+            "name": "John",
+            "numericId": 0,
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA",
+            "surname1": "Doe",
+            "surname2": "Smith"
+        }
+    }
+}
+```
+
+### Erantzuna (RESPONSE)
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "PERSON_PUSH_TO_ADMIN_RESP",
+            "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_CORE",
+                    "timestamp": "2026-11-09T18:48:01.1692680Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                },
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                }
+            ]
+        },
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "20202020E",
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+        }
+    },
+    "payload": {
+        "result": "OK"
+    }
+}
+```
+
+!!! info "Mezuaren egitura"
+    - **`context.message.type`**: `PERSON_PUSH_TO_ADMIN_REQ` (eskaera) / `PERSON_PUSH_TO_ADMIN_RESP` (erantzuna)
+    - **`context.message.correlationId`**: trazabilitate UUID
+    - **`context.message.interopRouteData`**: osagaien traza — `DENA_CORE` → `DENA_ADMIN_CONNECTOR` eskaeran; `ADMIN` gehitzen da erantzunean
+    - **`context.destinationAdmin`**: helburuko administrazioa (zurea)
+    - **`context.subjectPerson`**: sinkronizatzen ari den pertsona
+    - **`payload.syncData.personRef`**: pertsonaren erreferentzia (`id` NAN + `oid`)
+    - **`payload.syncData.createDate`**: pertsonaren sorrera-data DENAn
+    - **`payload.syncData.lastUpdateDate`**: pertsonaren azken aldaketaren data
+    - **`payload.syncData.syncEvent`**: gertaera mota — `CREATED`, `UPDATED` edo `DELETED`
+    - **`payload.person`**: oinarrizko datuak — `id` (NAN), `oid`, `name`, `surname1`, `surname2`, `lastChangeEvent`, `entityVersion`
+    - **`payload.result`** (erantzuna): `"OK"` zure endpoint-ak ongi prozesatzen badu
+
 ---
 
 ## Baliabide eskuragarriak

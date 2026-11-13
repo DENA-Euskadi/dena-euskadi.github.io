@@ -30,7 +30,7 @@ flowchart LR
 
     CITA --> WHEN["year · monthOfYear<br/>dayOfMonth · hourOfDay<br/>minuteOfHour · durationMinutes"]
     CITA --> PRIO["priority"]
-    CITA --> TYPE["type<br/><i>REMINDER · IN_PERSON<br/>PHONE · VIDEO · CHAT</i>"]
+    CITA --> TYPE["type<br/><i>REMINDER · IN_PERSON_APPOINTMENT<br/>PHONE_CALL_APPOINTMENT · VIDEO_CALL_APPOINTMENT · CHAT_APPOINTMENT</i>"]
     CITA --> SUBJECT["subject"]
     CITA --> CONTACT["contactInfo<br/><i>r01f ContactInfo</i>"]
     CITA --> RECORD["record<br/><i>oid · id (opcional)</i>"]
@@ -87,6 +87,8 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 | `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"SCHED-OID-001"` | Identificador técnico único |
 | `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"CITA-2024-00050"` | Identificador de negocio |
 | `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen. DENA-CORE lo usa para calcular el estado NEW/UPDATED/UNCHANGED |
+| `originAdmin` <span class="field-badge--common">común</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">común</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `year` | `Number` | ✅ | `2024` | Año |
 | `monthOfYear` | `Number` | ✅ | `7` | Mes (1-12) |
 | `dayOfMonth` | `Number` | ✅ | `15` | Día del mes (1-31) |
@@ -138,15 +140,17 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 6"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "urls": [
-    { "url": "https://sede.miadmin.eus/cita/CITA-2024-00050", "language": "SPANISH", "tags": ["default"] }
+    { "value": "https://sede.miadmin.eus/cita/CITA-2024-00050", "lang": "SPANISH", "tags": ["default"] }
   ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "year": 2024,
   "monthOfYear": 7,
   "dayOfMonth": 15,
@@ -173,12 +177,17 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "scheduleItem",
   "oid": "SCHED-OID-002",
   "id": "HITO-2024-00010",
   "lastChangedAt": "2026-09-01T06:00:00.000Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "year": 2024,
   "monthOfYear": 9,
   "dayOfMonth": 1,

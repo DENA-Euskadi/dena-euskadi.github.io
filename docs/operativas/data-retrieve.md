@@ -234,7 +234,7 @@ DENA llama a tu endpoint con este mensaje. El tipo de dato solicitado es `SCHEDU
         "message": {
             "type": "CLIENT_RETRIEVE_REQ",
             "correlationId": "541ECEAE-228B-4588-9504-44D9094322B5",
-            "interopRouteData": [{ "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T20:37:55.847000900Z" }]
+            "interopRouteData": [{ "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T20:37:55.847Z" }]
         },
         "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
         "subjectPerson": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
@@ -259,7 +259,7 @@ Tu endpoint devuelve la lista de elementos de tipo `scheduleItem` en `payload.da
             "type": "CLIENT_RETRIEVE_RESP",
             "correlationId": "541ECEAE-228B-4588-9504-44D9094322B5",
             "interopRouteData": [
-                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T20:37:55.8470009Z" },
+                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T20:37:55.847Z" },
                 { "denaComponentId": "DENA_ADMIN", "timestamp": "2026-11-10T08:17:46.029Z" }
             ]
         },
@@ -277,7 +277,7 @@ Tu endpoint devuelve la lista de elementos de tipo `scheduleItem` en `payload.da
                     "durationMinutes": 30,
                     "hourOfDay": "10",
                     "id": "SANDBOX-SCHED-1794256626566",
-                    "lastChangedAt": "2026-11-09T20:37:06.5668985Z",
+                    "lastChangedAt": "2026-11-09T20:37:06.566Z",
                     "minuteOfHour": "0",
                     "monthOfYear": "9",
                     "oid": "D8815353-5B1D-47DE-9B65-57ABB58CEDAB",
@@ -295,7 +295,7 @@ Tu endpoint devuelve la lista de elementos de tipo `scheduleItem` en `payload.da
                     "durationMinutes": 30,
                     "hourOfDay": "10",
                     "id": "SANDBOX-SCHED-1794256564175",
-                    "lastChangedAt": "2026-11-09T20:36:04.1756730Z",
+                    "lastChangedAt": "2026-11-09T20:36:04.175Z",
                     "minuteOfHour": "0",
                     "monthOfYear": "12",
                     "oid": "A03F751D-E58B-4767-A0A6-35A7859B3EAA",
@@ -313,7 +313,7 @@ Tu endpoint devuelve la lista de elementos de tipo `scheduleItem` en `payload.da
                     "durationMinutes": 30,
                     "hourOfDay": "10",
                     "id": "SANDBOX-SCHED-1794256666986",
-                    "lastChangedAt": "2026-11-09T20:37:46.9870283Z",
+                    "lastChangedAt": "2026-11-09T20:37:46.987Z",
                     "minuteOfHour": "0",
                     "monthOfYear": "11",
                     "oid": "31FB5F96-0F9E-491C-B70A-A126F056C12B",

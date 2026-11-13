@@ -78,6 +78,9 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 | `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"ENR-OID-001"` | Unique technical identifier |
 | `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"MAT-2024-00001"` | Business identifier (enrollment number) |
 | `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last modification of the data at origin |
+| `urls` <span class="field-badge--common">common</span> | `Array` | ❌ | `[{"value":"https://sede.miadmin.eus/objeto/OID-001","lang":"SPANISH","tags":["default"]}]` | URLs de acceso al objeto en la sede electrónica (DENA lo completa automáticamente) |
+| `originAdmin` <span class="field-badge--common">common</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">common</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `registeredAt` | `Instant` | ✅ | `"2024-09-01T00:00:00Z"` | Date the enrollment was registered |
 | `enrollmentDateRange` | `Object` | ✅ | `{"start":"2024-09-01T00:00:00","end":"2025-06-30T00:00:00"}` | Date range of the enrollment period |
 | `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"English B2 — Module 3"}` | Course or enrollment name in multiple languages |
@@ -108,12 +111,17 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "personEnrollment",
   "oid": "ENR-OID-001",
   "id": "MAT-2024-00001",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "registeredAt": "2024-09-01T00:00:00Z",
   "enrollmentDateRange": {
     "start": "2024-09-01T00:00:00",
@@ -133,12 +141,17 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "personAcademicEnrollment",
   "oid": "ENR-OID-002",
   "id": "MAT-ACAD-2024-00001",
   "lastChangedAt": "2026-09-02T08:00:00Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "registeredAt": "2024-09-02T00:00:00Z",
   "enrollmentDateRange": {
     "start": "2024-09-01T00:00:00",

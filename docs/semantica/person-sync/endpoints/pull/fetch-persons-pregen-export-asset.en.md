@@ -24,7 +24,7 @@ Downloads a pre-generated list of DENA users. These are generated every hour of 
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp":"2026-06-10T15:37:57.5530000Z"
+                    "timestamp":"2026-06-10T15:37:57.553Z"
                 }
             ]
         },

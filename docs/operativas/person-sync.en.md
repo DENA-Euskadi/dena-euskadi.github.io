@@ -63,6 +63,116 @@ Your admin queries DENA whenever it wants, in two ways:
 | You want to query persons on demand | **Pull on-line** |
 | You want both (recommended) | **Push** + **Pull off-line** as backup |
 
+
+---
+
+## Real Push call example
+
+DENA sends this message to your endpoint when a person is created or updated:
+
+### Request (REQUEST)
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "PERSON_PUSH_TO_ADMIN_REQ",
+            "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_CORE",
+                    "timestamp": "2026-11-09T18:48:01.1692680Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                }
+            ]
+        },
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "20202020E",
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+        }
+    },
+    "payload": {
+        "syncData": {
+            "personRef": {
+                "id": "20202020E",
+                "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+            },
+            "createDate": "2026-11-09T17:48:01.1630320Z",
+            "lastUpdateDate": "2026-11-09T18:48:01.1630770Z",
+            "syncEvent": "CREATED"
+        },
+        "person": {
+            "entityVersion": 0,
+            "id": "20202020E",
+            "lastChangeEvent": "CREATED",
+            "name": "John",
+            "numericId": 0,
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA",
+            "surname1": "Doe",
+            "surname2": "Smith"
+        }
+    }
+}
+```
+
+### Response (RESPONSE)
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "PERSON_PUSH_TO_ADMIN_RESP",
+            "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_CORE",
+                    "timestamp": "2026-11-09T18:48:01.1692680Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                },
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                }
+            ]
+        },
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "20202020E",
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+        }
+    },
+    "payload": {
+        "result": "OK"
+    }
+}
+```
+
+!!! info "Message structure"
+    - **`context.message.type`**: `PERSON_PUSH_TO_ADMIN_REQ` (request) / `PERSON_PUSH_TO_ADMIN_RESP` (response)
+    - **`context.message.correlationId`**: correlation UUID for traceability
+    - **`context.message.interopRouteData`**: component trace — `DENA_CORE` → `DENA_ADMIN_CONNECTOR` in the request; adds `ADMIN` in the response
+    - **`context.destinationAdmin`**: destination administration (yours)
+    - **`context.subjectPerson`**: person being synchronized
+    - **`payload.syncData.personRef`**: person reference (`id` NIF + `oid`)
+    - **`payload.syncData.createDate`**: person creation date in DENA
+    - **`payload.syncData.lastUpdateDate`**: date of the person's last change
+    - **`payload.syncData.syncEvent`**: event type — `CREATED`, `UPDATED` or `DELETED`
+    - **`payload.person`**: basic data — `id` (NIF), `oid`, `name`, `surname1`, `surname2`, `lastChangeEvent`, `entityVersion`
+    - **`payload.result`** (response): `"OK"` if your endpoint processes correctly
+
 ---
 
 ## Available resources

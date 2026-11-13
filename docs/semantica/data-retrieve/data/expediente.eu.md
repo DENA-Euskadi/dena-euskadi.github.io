@@ -92,6 +92,8 @@ flowchart LR
 | `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"EXP-OID-001"` | Identifikatzaile tekniko bakarra |
 | `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"EXP-2024-00123"` | Negozio-identifikatzailea |
 | `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
+| `originAdmin` <span class="field-badge--common">komuna</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">komuna</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `service` | `Object` | ✅ | *(ikusi [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdmistrativeService`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeService.java))* | Administrazio-zerbitzua |
 | `procedure` | `Object` | ✅ | *(ikusi [servicio-administrativo.md](./servicio-administrativo.md) · [`DN00AdministrativeServiceProcedure`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdministrativeServiceProcedure.java))* | Prozedura |
 | `applicationData` | `Object` | ❌ | *(ikusi [applicationData](#applicationdata))* | Eskaera aurkeztearen datuak |
@@ -128,16 +130,18 @@ flowchart LR
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 6"
+```json hl_lines="3 4 5 6 7 8 9 10 11"
 {
   "type": "administrativeServiceProcedureRecord",
   "oid": "EXP-OID-001",
   "id": "EXP-2024-00123",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "urls": [
-    { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] },
-    { "url": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123", "language": "BASQUE", "tags": ["default"] }
+    { "value": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "lang": "SPANISH", "tags": ["default"] },
+    { "value": "https://egoitza.miadmin.eus/espedientea/EXP-2024-00123", "lang": "BASQUE", "tags": ["default"] }
   ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "service": {
     "nameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "id": "SRV-LIC-ACT" }

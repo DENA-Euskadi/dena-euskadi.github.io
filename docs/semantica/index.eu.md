@@ -93,33 +93,41 @@ flowchart TD
 | [Erroreak eta troubleshooting](./data-retrieve/errores-troubleshooting.md) | Errore arrunten gida |
 | [Kode zatiak](./data-retrieve/snippets-codigo.md) | Java, C#, Python, Node.js, PHP |
 
-??? note "Datu objektuak"
+??? note "Datu-objektuak (17 mota)"
 
     | Objektua | Dokumentua |
     |---|---|
-    | Eremu komunak | [campos-comunes.md](./data-retrieve/data/campos-comunes.md) |
+    | Heredatutako eremu komunak | [campos-comunes.md](./data-retrieve/data/campos-comunes.md) |
     | Espedientea | [expediente.md](./data-retrieve/data/expediente.md) |
     | Jakinarazpena | [notificacion.md](./data-retrieve/data/notificacion.md) |
-    | Erregistro Ofiziala | [registro-oficial.md](./data-retrieve/data/registro-oficial.md) |
-    | Ordainketa | [pago.md](./data-retrieve/data/pago.md) |
+    | Ordainketa (bakarra eta domiziliazioa) | [pago.md](./data-retrieve/data/pago.md) |
     | Hitzordua | [cita.md](./data-retrieve/data/cita.md) |
+    | Pertsona | [persona.md](./data-retrieve/data/persona.md) |
+    | Pertsonaren kredentzialak | [credencial-persona.md](./data-retrieve/data/credencial-persona.md) |
+    | Onura ekonomikoa | [beneficio-economico.md](./data-retrieve/data/beneficio-economico.md) |
+    | Erregistro liburua | [libro-registro.md](./data-retrieve/data/libro-registro.md) |
+    | Pertsonaren erregistroa | [registro-persona.md](./data-retrieve/data/registro-persona.md) |
+    | Matrikula | [matricula.md](./data-retrieve/data/matricula.md) |
+    | Datu medikoak | [datos-medicos.md](./data-retrieve/data/datos-medicos.md) |
     | Administrazio Zerbitzua | [servicio-administrativo.md](./data-retrieve/data/servicio-administrativo.md) |
     | Unitate Organikoa | [unidad-organica.md](./data-retrieve/data/unidad-organica.md) |
+    | **Erregistro Ofiziala** *(zaharkitua)* | [registro-oficial.md](./data-retrieve/data/registro-oficial.md) |
 
 ### METADATA-SYNC
 
 | Dokumentua | Deskribapena |
 |---|---|
-| [Ikuspegi orokorra](./metadata-sync/index.md) | Aldaketen jakinarazpen fluxua |
+| [Ikuspegi orokorra](./metadata-sync/index.md) | Fluxua, SRMD itemaren egitura eta benetako adibideak |
 | [Endpoint-a](./metadata-sync/endpoint-sync-metadata.md) | Endpoint-aren REST kontratua |
+| [SRMD item eredua](./metadata-sync/modelo/sync-metadata-from-admin-to-core-item.md) | `DN00SyncMetaDataFromAdminToCOREItem` itemaren deskribapen zehatza |
 
 ### PERSON-SYNC
 
 | Dokumentua | Deskribapena |
 |---|---|
 | [Ikuspegi orokorra](./person-sync/index.md) | Pull eta Push mekanismoak |
-| [Push](./person-sync/push.md) | DENA → Administrazioa |
-| [Pull](./person-sync/pull.md) | Administrazioa → DENA |
+| [Push](./person-sync/push.md) | DENAk pertsona aldaketak administrazioari jakinarazten dizkio |
+| [Pull](./person-sync/pull.md) | Administrazioak pertsonak DNAetik deskargatzen ditu |
 
 ---
 

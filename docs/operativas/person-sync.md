@@ -53,16 +53,31 @@ DENA envía este mensaje a tu endpoint cuando una persona se crea o actualiza. E
             "type": "PERSON_PUSH_TO_ADMIN_REQ",
             "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
             "interopRouteData": [
-                { "denaComponentId": "DENA_CORE", "timestamp": "2026-11-09T18:48:01.1692680Z" },
-                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T18:48:01.2682590Z" }
+                {
+                    "denaComponentId": "DENA_CORE",
+                    "timestamp": "2026-11-09T18:48:01.1692680Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                }
             ]
         },
-        "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
-        "subjectPerson": { "id": "20202020E", "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA" }
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "20202020E",
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+        }
     },
     "payload": {
         "syncData": {
-            "personRef": { "id": "20202020E", "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA" },
+            "personRef": {
+                "id": "20202020E",
+                "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+            },
             "createDate": "2026-11-09T17:48:01.1630320Z",
             "lastUpdateDate": "2026-11-09T18:48:01.1630770Z",
             "syncEvent": "CREATED"
@@ -92,23 +107,47 @@ Tu endpoint devuelve un resultado simple:
             "type": "PERSON_PUSH_TO_ADMIN_RESP",
             "correlationId": "6F65F954-5310-40C9-B674-4AAE10C817FF",
             "interopRouteData": [
-                { "denaComponentId": "DENA_CORE", "timestamp": "2026-11-09T18:48:01.1692680Z" },
-                { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-11-09T18:48:01.2682590Z" },
-                { "denaComponentId": "ADMIN", "timestamp": "2026-11-09T18:48:01.2682590Z" }
+                {
+                    "denaComponentId": "DENA_CORE",
+                    "timestamp": "2026-11-09T18:48:01.1692680Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                },
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-09T18:48:01.2682590Z"
+                }
             ]
         },
-        "destinationAdmin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
-        "subjectPerson": { "id": "20202020E", "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA" }
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "20202020E",
+            "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA"
+        }
     },
-    "payload": { "result": "OK" }
+    "payload": {
+        "result": "OK"
+    }
 }
 ```
 
 !!! info "Estructura del mensaje"
-    - **`context.message.type`**: `PERSON_PUSH_TO_ADMIN_REQ` / `PERSON_PUSH_TO_ADMIN_RESP`
-    - **`payload.syncData`**: metadatos de sincronización (createDate, lastUpdateDate, syncEvent: `CREATED`/`UPDATED`/`DELETED`)
-    - **`payload.person`**: datos básicos de la persona (id NIF, oid, name, surname1, surname2)
-    - **`payload.result`**: `"OK"` si tu endpoint procesa correctamente
+    - **`context.message.type`**: `PERSON_PUSH_TO_ADMIN_REQ` (petición) / `PERSON_PUSH_TO_ADMIN_RESP` (respuesta)
+    - **`context.message.correlationId`**: UUID de correlación para trazabilidad
+    - **`context.message.interopRouteData`**: traza de componentes — `DENA_CORE` → `DENA_ADMIN_CONNECTOR` en la petición; añade `ADMIN` en la respuesta
+    - **`context.destinationAdmin`**: administración destino (la tuya)
+    - **`context.subjectPerson`**: persona que se sincroniza
+    - **`payload.syncData.personRef`**: referencia de la persona (`id` NIF + `oid`)
+    - **`payload.syncData.createDate`**: fecha de creación de la persona en DENA
+    - **`payload.syncData.lastUpdateDate`**: fecha del último cambio de la persona
+    - **`payload.syncData.syncEvent`**: tipo de evento — `CREATED`, `UPDATED` o `DELETED`
+    - **`payload.person`**: datos básicos — `id` (NIF), `oid`, `name`, `surname1`, `surname2`, `lastChangeEvent`, `entityVersion`
+    - **`payload.result`** (respuesta): `"OK"` si tu endpoint procesa correctamente
 
 ---
 

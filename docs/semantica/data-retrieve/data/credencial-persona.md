@@ -87,6 +87,9 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 | `oid` <span class="field-badge--common">común</span> | `String` | ✅ | `"CRED-OID-001"` | Identificador técnico único |
 | `id` <span class="field-badge--common">común</span> | `String` | ✅ | `"CRED-2024-00001"` | Identificador de negocio |
 | `lastChangedAt` <span class="field-badge--common">común</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Última modificación del dato en el origen |
+| `urls` <span class="field-badge--common">común</span> | `Array` | ❌ | `[{"value":"https://sede.miadmin.eus/objeto/OID-001","lang":"SPANISH","tags":["default"]}]` | URLs de acceso al objeto en la sede electrónica (DENA lo completa automáticamente) |
+| `originAdmin` <span class="field-badge--common">común</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">común</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `record` | `Object` | ❌ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` | Referencia al expediente asociado |
 | `subjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Gazte Txartela"}` | Descripción de la credencial en varios idiomas |
 | `issuedAt` | `Instant` | ✅ | `"2024-01-15T00:00:00Z"` | Fecha de emisión de la credencial |
@@ -130,12 +133,17 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "personCredential",
   "oid": "CRED-OID-001",
   "id": "CRED-2024-00001",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "subjectByLanguage": { "SPANISH": "Gazte Txartela", "BASQUE": "Gazte Txartela" },
   "issuedAt": "2024-01-15T00:00:00Z",
@@ -152,12 +160,17 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "personCredentialForBasqueLanguageDegree",
   "oid": "CRED-OID-002",
   "id": "CRED-EUSKERA-2024-00001",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-002", "id": "EXP-EUSKERA-2024-00001" },
   "subjectByLanguage": { "SPANISH": "Título de Euskera — Nivel B2", "BASQUE": "Euskarako Titulua — B2 Maila" },
   "issuedAt": "2023-06-20T00:00:00Z",

@@ -24,7 +24,7 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp":"2026-06-10T15:37:57.5530000Z"
+                    "timestamp":"2026-06-10T15:37:57.553Z"
                 }
             ]
         },
@@ -82,13 +82,13 @@ Crea una solicitud de exportación de un listado de personas usuarias de DENA pa
             "numericId": 0,
             "oid": "7F4C8F2A-03AB-4864-AC19-7D2E2FAD7FC2",
             "processingAttempts": 0,
-            "registeredAt": "2026-05-26T23:23:28.0284171Z",
+            "registeredAt": "2026-05-26T23:23:28.028Z",
             "status": "REGISTERED",
             "trackingInfo": {
-                "createDate": "2026-05-26T23:23:28.4973937Z",
+                "createDate": "2026-05-26T23:23:28.497Z",
                 "creatorUserCode": "mock-user-login",
                 "creatorUserOid": "09587694-e8ad-4d45-8f0c-0000f753d716",
-                "lastUpdate": "2026-05-26T23:23:28.4973937Z"
+                "lastUpdate": "2026-05-26T23:23:28.497Z"
             }
         }
     }

@@ -151,7 +151,7 @@ DENAk HTTP POST bat bidaltzen dio adminaren endopinti:
     "oid": "501872FE-9A67-4AF8-BAAE-2E385119FF5F",
     "personId": { "id": "40404040H" }
   },
-  "timestamp": "2026-08-17T15:14:07.0369127Z"
+  "timestamp": "2026-08-17T15:14:07.036Z"
 }
 ```
 
@@ -228,7 +228,7 @@ POST /bespokes
 {
   "exportSpec": {
     "personExportSpec": "data",
-    "lastUpdateRange": "Instant:[2026-08-24T21:19:41.314878600Z..)",
+    "lastUpdateRange": "Instant:[2026-08-24T21:19:41.314Z..)",
     "exportContentSpec": {
       "exportDefaultContactData": true,
       "exportOtherContactData": true,

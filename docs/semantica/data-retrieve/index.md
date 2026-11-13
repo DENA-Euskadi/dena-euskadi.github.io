@@ -169,19 +169,19 @@ El `id` de `dataType` corresponde al marshallTypeId de cada objeto (enum `DN00Da
 
 | `dataType.id` | Datos esperados |
 |--------------|-----------------|
-| `administrativeServiceProcedureRecord` | Expedientes |
-| `administrativeNotice` | Notificaciones |
-| `oneOffPayment` / `directDebitPayment` | Pagos |
-| `scheduleItem` | Citas |
-| `personData` | Datos de persona |
-| `personCredential` / `personCredentialForBasqueLanguageDegree` | Credenciales de persona |
-| `economicBenefit` | Beneficios económicos |
-| `administrativeLedger` | Libro registro |
-| `administrativePersonRegister` (+ `…ForHousingPEV` / `…ForLastWill` / `…ForRevisionPEV`) | Registro de persona |
-| `personEnrollment` / `personAcademicEnrollment` | Matrículas |
-| `personMedicalData` | Datos médicos |
+| `ADMINISTRATIVE_RECORD` | Expedientes |
+| `ADMINISTRATIVE_NOTICE` | Notificaciones |
+| `PAYMENT_ONE_OFF_PAYMENT` / `PAYMENT_DIRECT_DEBIT_PAYMENT` | Pagos |
+| `SCHEDULE` | Citas |
+| `PERSON_DATA` | Datos de persona |
+| `PERSON_CREDENTIAL` / `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` | Credenciales de persona |
+| `ECONOMIC_BENEFIT` | Beneficios económicos |
+| `ADMINISTRATIVE_LEDGER` | Libro registro |
+| `ADMINISTRATIVE_PERSON_REGISTER` (+ `…FOR_HOUSING_PEV` / `…FOR_LAST_WILL` / `…FOR_REVISION_PEV`) | Registro de persona |
+| `PERSON_ENROLLMENT` / `PERSON_ACADEMIC_ENROLLMENT` | Matrículas |
+| `PERSON_MEDICAL_DATA` | Datos médicos |
 
-> **Nota:** La lista completa (17 tipos del enum `DN00DataTypeEnum`) está en [DataTypeRef](../semantica-base/modelo/data-type-ref.md). El tipo `administrativeOfficialRegisterRecord` está **obsoleto**; usa `administrativeLedger`.
+> **Nota:** La lista completa (17 tipos del enum `DN00DataTypeEnum`) está en [DataTypeRef](../semantica-base/modelo/data-type-ref.md). El tipo `ADMINISTRATIVE_OFFICIAL_REGISTER_RECORD` está **obsoleto**; usa `ADMINISTRATIVE_LEDGER`.
 
 ---
 
@@ -201,65 +201,76 @@ config:
 ---
 flowchart LR
     ROOT["InteropMessage"] --> CTX["context"]
-    ROOT --> PROTOCOL["protocol"]
     ROOT --> PAYLOAD["payload"]
 
     CTX --> MSG["message"]
-    CTX --> ORIGIN_CI["originClientInstallment"]
-    CTX --> ORIGIN_ADMIN["originAdmin"]
     CTX --> DEST["destinationAdmin"]
     CTX --> PERSON["subjectPerson"]
     CTX --> DTYPE["dataType"]
-    CTX --> UA["userAgent"]
 
     MSG --> MTYPE["type"]
     MSG --> CORR["correlationId"]
     MSG --> ROUTE["interopRouteData"]
 
-    PROTOCOL --> PURLS["urls"]
-    PROTOCOL --> PTO["timeOut"]
+    PAYLOAD --> PDTYPE["dataType"]
+    PAYLOAD --> PADMIN["admin"]
+    PAYLOAD --> PPERSON["person"]
 
     style ROOT fill:#70d680,stroke:#1a4d1f,color:#1a4d1f,stroke-width:3px,rx:8,ry:8
     style CTX fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PAYLOAD fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style PROTOCOL fill:#e3f2fd,stroke:#1565c0,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style MSG fill:#e1d5e7,stroke:#9673a6,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style MTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style DTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style CORR fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style ORIGIN_CI fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style ORIGIN_ADMIN fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style ROUTE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style DEST fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
     style PERSON fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style UA fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style ROUTE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style PURLS fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
-    style PTO fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style DTYPE fill:#e8f5e8,stroke:#2e7d32,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PDTYPE fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PADMIN fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
+    style PPERSON fill:#f5d836,stroke:#1a4d1f,color:#1a4d1f,stroke-width:2px,rx:8,ry:8
 ```
 
 ```json
 {
-  "context": {
-    "message": {
-      "type": "PERSON_FETCH_DATA",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000",
-      "interopRouteData": [
-        { "denaComponentId": "DENA_CORE", "timestamp": "2026-06-01T10:00:00.000Z" }
-      ]
+    "context": {
+        "message": {
+            "type": "CLIENT_RETRIEVE_REQ",
+            "correlationId": "541ECEAE-228B-4588-9504-44D9094322B5",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T20:37:55.847000900Z"
+                }
+            ]
+        },
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "11189396B",
+            "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+        },
+        "dataType": {
+            "id": "SCHEDULE",
+            "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006"
+        }
     },
-    "originClientInstallment": "8B5AE78A-7D42-4069-A626-959BB07276C5",
-    "destinationAdmin": { "id": "ADMIN-001", "oid": "...", "dir3Id": "EA0000001" },
-    "subjectPerson": { "id": "12345678A", "oid": "..." },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
-    "userAgent": "DENA-CORE/2.1.0 person-data/1.0.1 (support@dena.eus)"
-  },
-  "protocol": {
-    "urls": [],
-    "timeOut": "30s"
-  },
-  "payload": {
-    "person": "PERSON-OID-001"
-  }
+    "payload": {
+        "dataType": {
+            "id": "SCHEDULE",
+            "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006"
+        },
+        "admin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "person": {
+            "id": "11189396B",
+            "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+        }
+    }
 }
 ```
 
@@ -268,37 +279,21 @@ flowchart LR
 | `context.message.type` | ✅ | Tipo de mensaje. Ver [`DN00InteropMessageType`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageType.java) |
 | `context.message.correlationId` | ✅ | UUID de correlación para trazabilidad. Ver [`DN00InteropMessageData`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropMessageData.java) |
 | `context.message.interopRouteData` | ❌ | Traza de componentes. Ver [`DN00IteropRouteDataItem`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00IteropRouteDataItem.java) |
-| `context.dataType` | ❌ | Tipo de dato solicitado. Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
-| `context.originClientInstallment` | ❌ | OID de la instalación cliente de origen. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.originAdmin` | ❌ | Administración de origen. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.destinationAdmin` | ❌ | Administración destino. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.subjectPerson` | ❌ | Persona sobre la que se solicitan datos. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `context.userAgent` | ❌ | User Agent del origen. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
-| `protocol.urls` | ❌ | URLs de plantilla del protocolo. Ver [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
-| `protocol.timeOut` | ❌ | Timeout de la operación (ej: `"30s"`). Ver [`DN00InteropProtocol`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropProtocol.java) |
-| `payload` | ✅ | Payload específico de la operación |
+| `context.dataType` | ✅ | Tipo de dato solicitado. Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.destinationAdmin` | ✅ | Administración destino. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `context.subjectPerson` | ✅ | Persona sobre la que se solicitan datos. Ver [`DN00InteropContext`]({{ repos.common_api_blob }}/denaCommonAPIModelClasses/src/main/java/dena/api/common/interop/context/DN00InteropContext.java) |
+| `payload.dataType` | ✅ | Tipo de dato solicitado (réplica de `context.dataType`). Ver [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `payload.admin` | ✅ | Administración destino (réplica de `context.destinationAdmin`) |
+| `payload.person` | ✅ | Persona sobre la que se solicitan datos (réplica de `context.subjectPerson`) |
 
 ### Tipos de mensaje (`message.type`)
 
-| Valor | Descripción | Uso en DATA-RETRIEVE |
-|-------|-------------|---------------------|
-| `PERSON_FETCH_DATA` | Solicitud de datos de persona | ✅ Principal |
-| `CLIENT_RETRIEVE_REQ` / `CLIENT_RETRIEVE_RESP` | Recuperación de datos desde cliente | Petición/Respuesta |
+| Valor | Descripción |
+|-------|-------------|
+| `CLIENT_RETRIEVE_REQ` | Petición de recuperación de datos — es el tipo que recibes en tu endpoint |
+| `CLIENT_RETRIEVE_RESP` | Respuesta que devuelves con los datos solicitados |
 
 Consulta la lista completa de valores en [Tipos de Mensaje](../semantica-base/modelo/message-types.md).
-
-### Dirección del flujo (`flowDirection`)
-
-La dirección (`REQUEST`/`RESPONSE`) se deriva del tipo de mensaje; no es un campo propio del contexto.
-
-### Bloque `protocol`
-
-Metadatos del protocolo de comunicación entre DENA y la administración.
-
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `urls` | `Array` | URLs de plantilla para la comunicación |
-| `timeOut` | `TimeLapse` | Timeout de la operación (formato: `"30s"`, `"1m"`, etc.) |
 
 ### Traza de ruta (`interopRouteData`)
 
@@ -368,31 +363,137 @@ flowchart LR
 
 ```json
 {
-  "context": {
-    "message": {
-      "type": "CLIENT_RETRIEVE_RESP",
-      "correlationId": "550e8400-e29b-41d4-a716-446655440000"
+    "context": {
+        "message": {
+            "type": "CLIENT_RETRIEVE_RESP",
+            "correlationId": "541ECEAE-228B-4588-9504-44D9094322B5",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_ADMIN_CONNECTOR",
+                    "timestamp": "2026-11-09T20:37:55.8470009Z"
+                },
+                {
+                    "denaComponentId": "DENA_ADMIN",
+                    "timestamp": "2026-11-10T08:17:46.029Z"
+                }
+            ]
+        },
+        "destinationAdmin": {
+            "id": "SANDBOXCIF",
+            "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+        },
+        "subjectPerson": {
+            "id": "11189396B",
+            "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+        },
+        "dataType": {
+            "id": "SCHEDULE",
+            "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006"
+        }
     },
-    "subjectPerson": { "id": "12345678A", "oid": "..." },
-    "dataType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
-    "destinationAdmin": { "id": "ADMIN-001", "oid": "..." }
-  },
-  "payload": {
-    "dataItems": [ ... ]
-  },
-  "code": "OK",
-  "errorId": null,
-  "details": null
+    "payload": {
+        "dataItems": [
+            {
+                "data": {
+                    "type": "scheduleItem",
+                    "dayOfMonth": "20",
+
+                    "durationMinutes": 30,
+                    "hourOfDay": "10",
+                    "id": "SANDBOX-SCHED-1794256626566",
+                    "lastChangedAt": "2026-11-09T20:37:06.5668985Z",
+                    "minuteOfHour": "0",
+                    "monthOfYear": "9",
+                    "oid": "D8815353-5B1D-47DE-9B65-57ABB58CEDAB",
+                    "priority": "MEDIUM",
+                    "subject": {
+                        "SPANISH": "Título de familia numerosa",
+                        "BASQUE": "Título de familia numerosa"
+                    },
+                    "urls": [
+                        {
+                            "id": "48D2",
+                            "tags": [
+                                "default"
+                            ],
+                            "value": "https://sandbox.dena.eus/schedules"
+                        }
+                    ],
+                    "year": "2040"
+                }
+            },
+            {
+                "data": {
+                    "type": "scheduleItem",
+                    "dayOfMonth": "22",
+
+                    "durationMinutes": 30,
+                    "hourOfDay": "10",
+                    "id": "SANDBOX-SCHED-1794256564175",
+                    "lastChangedAt": "2026-11-09T20:36:04.1756730Z",
+                    "minuteOfHour": "0",
+                    "monthOfYear": "12",
+                    "oid": "A03F751D-E58B-4767-A0A6-35A7859B3EAA",
+                    "priority": "MEDIUM",
+                    "subject": {
+                        "SPANISH": "Caducidad BakQ",
+                        "BASQUE": "Caducidad BakQ"
+                    },
+                    "urls": [
+                        {
+                            "id": "AA46",
+                            "tags": [
+                                "default"
+                            ],
+                            "value": "https://sandbox.dena.eus/schedules"
+                        }
+                    ],
+                    "year": "2026"
+                }
+            },
+            {
+                "data": {
+                    "type": "scheduleItem",
+                    "dayOfMonth": "12",
+
+                    "durationMinutes": 30,
+                    "hourOfDay": "10",
+                    "id": "SANDBOX-SCHED-1794256666986",
+                    "lastChangedAt": "2026-11-09T20:37:46.9870283Z",
+                    "minuteOfHour": "0",
+                    "monthOfYear": "11",
+                    "oid": "31FB5F96-0F9E-491C-B70A-A126F056C12B",
+                    "priority": "MEDIUM",
+                    "subject": {
+                        "SPANISH": "Cita Osakidetza",
+                        "BASQUE": "Cita Osakidetza"
+                    },
+                    "urls": [
+                        {
+                            "id": "A754",
+                            "tags": [
+                                "default"
+                            ],
+                            "value": "https://sandbox.dena.eus/schedules"
+                        }
+                    ],
+                    "year": "2026"
+                }
+            }
+        ]
+    }
 }
 ```
 
 | Campo | Descripción |
 |-------|-------------|
 | `context` | Eco del contexto recibido (el tipo de mensaje indica la respuesta) |
-| `payload.dataItems` | Array de objetos de datos |
+| `payload.dataItems` | Array de objetos de datos; cada uno envuelto en un campo `"data"` |
 | `code` | Estado de la respuesta (`DN00InteropResponseStatus`) |
 | `errorId` | Código de error específico (opcional, solo en errores) |
 | `details` | Mensaje descriptivo del error (opcional) |
+
+> **Importante:** Cada elemento de `dataItems` contiene el objeto de dato envuelto en un campo `"data"`. El campo `data.type` identifica el tipo concreto de objeto (p.ej. `scheduleItem`). Ver la documentación de cada tipo de dato para la estructura completa.
 
 ### Códigos de estado (`code`)
 

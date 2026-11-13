@@ -85,6 +85,8 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 | `oid` <span class="field-badge--common">common</span> | `String` | ✅ | `"NOT-OID-001"` | Unique technical identifier |
 | `id` <span class="field-badge--common">common</span> | `String` | ✅ | `"NOT-2024-00456"` | Business identifier |
 | `lastChangedAt` <span class="field-badge--common">common</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Last change of the data at the origin. DENA-CORE uses it to compute the NEW/UPDATED/UNCHANGED state |
+| `originAdmin` <span class="field-badge--common">common</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">common</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(see [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Reference to the record |
 | `issuedAt` | `String` (ISO 8601) | ✅ | `"2024-05-20T09:00:00Z"` | Issue date |
 | `readAt` | `String` (ISO 8601) | ❌ | `"2024-05-21T10:30:00Z"` | Read date (null if not read) |
@@ -123,15 +125,17 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 ## JSON example
 
 <div class="common-highlight" markdown>
-```json hl_lines="3 4 5 6"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "administrativeNotice",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "urls": [
-    { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }
+    { "value": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "lang": "SPANISH", "tags": ["default"] }
   ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "typeNotice": "OFFICIAL_NOTICE",
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-20T09:00:00Z",
@@ -149,15 +153,17 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 ### Example — Read notification
 
 <div class="common-highlight" markdown>
-```json hl_lines="3 4 5 6"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "administrativeNotice",
   "oid": "NOT-OID-002",
   "id": "NOT-2024-00457",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "urls": [
-    { "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00457", "language": "SPANISH", "tags": ["default"] }
+    { "value": "https://sede.miadmin.eus/notificacion/NOT-2024-00457", "lang": "SPANISH", "tags": ["default"] }
   ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "typeNotice": "COMMUNICATION",
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-15T08:00:00Z",

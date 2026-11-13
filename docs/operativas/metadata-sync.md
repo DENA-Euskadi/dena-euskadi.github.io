@@ -56,7 +56,7 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
             new DN00OrgAdminRef(DN00OrgAdminID.forId("MY_ADMIN")),
             DN00PersonRef.from(DN00PersonID.forId(dbChange.personId())),
             dbChange.lastChangedAt(),
-            new DN00DataTypeRef(DN00DataTypeID.forId("citizen_service_appointment")),
+            new DN00DataTypeRef(DN00DataTypeID.forId("SCHEDULE")),  // ID externo del tipo Cita (DN00DataTypeEnum.SCHEDULE)
             null))  // null = instancia de origen por defecto (DEFAULT)
         .toList();
 }
@@ -97,14 +97,14 @@ HttpRequest request = HttpRequest.newBuilder()
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "40404040H" },
-    "someDataWasUpdatedAt": "2026-08-17T15:14:07.036Z",
+    "someDataWasUpdatedAt": "2026-08-17T15:14:07.0360000Z",
     "ofType": { "id": "ADMIN_NOTICE" },
     "fromDataOriginInstance": "DEFAULT"
   },
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "12345678A" },
-    "someDataWasUpdatedAt": "2026-08-17T15:14:07.032Z",
+    "someDataWasUpdatedAt": "2026-08-17T15:14:07.0320000Z",
     "ofType": { "id": "PROCEDURE_RECORD" },
     "fromDataOriginInstance": "DEFAULT"
   }
@@ -160,23 +160,42 @@ Tu administración envía al endpoint SRMD de DENA una lista de cambios detectad
             "type": "ADMIN_SRMD_SYNC_REQ",
             "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
             "interopRouteData": [
-                { "denaComponentId": "ADMIN", "timestamp": "2026-11-10T08:07:38.934Z" }
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-10T08:07:38.934Z"
+                }
             ]
         },
-        "originAdmin": { "id": "SANDBOXCIF" }
+        "originAdmin": {
+            "id": "SANDBOXCIF"
+        }
     },
     "payload": [
         {
-            "admin": { "id": "SANDBOXCIF" },
-            "aboutPerson": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+            "admin": {
+                "id": "SANDBOXCIF"
+            },
+            "aboutPerson": {
+                "id": "11189396B",
+                "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+            },
             "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
-            "ofType": { "id": "PERSON_DATA" }
+            "ofType": {
+                "id": "PERSON_DATA"
+            }
         },
         {
-            "admin": { "id": "SANDBOXCIF" },
-            "aboutPerson": { "id": "11111111B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+            "admin": {
+                "id": "SANDBOXCIF"
+            },
+            "aboutPerson": {
+                "id": "11111111B",
+                "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+            },
             "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
-            "ofType": { "id": "PERSON_DATA" }
+            "ofType": {
+                "id": "PERSON_DATA"
+            }
         }
     ]
 }
@@ -194,8 +213,14 @@ DENA procesa cada item individualmente y devuelve los aceptados (`processedOK`) 
             "type": "ADMIN_SRMD_SYNC_RESP",
             "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
             "interopRouteData": [
-                { "denaComponentId": "DENA_INTEROP_ADMIN_SYNC", "timestamp": "2026-11-10T08:07:39.5179823Z" },
-                { "denaComponentId": "ADMIN", "timestamp": "2026-11-10T08:07:38.934Z" }
+                {
+                    "denaComponentId": "DENA_INTEROP_ADMIN_SYNC",
+                    "timestamp": "2026-11-10T08:07:39.5179823Z"
+                },
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-10T08:07:38.934Z"
+                }
             ]
         }
     },
@@ -204,15 +229,24 @@ DENA procesa cada item individualmente y devuelve los aceptados (`processedOK`) 
         "receivedItemsCount": 2,
         "processedOK": [
             {
-                "admin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
+                "admin": {
+                    "id": "SANDBOXCIF",
+                    "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                },
                 "dataLastUpdatedAt": "2026-11-09T20:41:39.8825952Z",
                 "dataOriginInstanceId": "DEFAULT",
-                "dataType": { "id": "PERSON_DATA", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007" },
+                "dataType": {
+                    "id": "PERSON_DATA",
+                    "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007"
+                },
                 "entityVersion": 5,
-                "numericId": 0,
                 "lastTransactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+                "numericId": 0,
                 "oid": "6485BF2C-5C53-4EC0-ABE3-212DD4403913",
-                "person": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+                "person": {
+                    "id": "11189396B",
+                    "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+                },
                 "trackingInfo": {
                     "createdAt": "2026-11-04T17:22:41.6877234Z",
                     "lastUpdatedAt": "2026-11-10T08:07:39.4321202Z",
@@ -223,10 +257,18 @@ DENA procesa cada item individualmente y devuelve los aceptados (`processedOK`) 
         "processedNOK": [
             {
                 "item": {
-                    "admin": { "id": "SANDBOXCIF", "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011" },
-                    "aboutPerson": { "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+                    "admin": {
+                        "id": "SANDBOXCIF",
+                        "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                    },
+                    "aboutPerson": {
+                        "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+                    },
                     "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
-                    "ofType": { "id": "PERSON_DATA", "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007" },
+                    "ofType": {
+                        "id": "PERSON_DATA",
+                        "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007"
+                    },
                     "fromDataOriginInstance": "DEFAULT"
                 },
                 "error": "The [person] with ref=631011F3-9A2F-4D08-9F56-B7F4D6A0749E;null could NOT be validated"
@@ -237,11 +279,19 @@ DENA procesa cada item individualmente y devuelve los aceptados (`processedOK`) 
 ```
 
 !!! info "Estructura del mensaje"
-    - **`context.message.type`**: `ADMIN_SRMD_SYNC_REQ` / `ADMIN_SRMD_SYNC_RESP`
-    - **`payload[]`** (petición): array de SRMD items (admin + persona + tipo de dato + timestamp)
+    - **`context.message.type`**: `ADMIN_SRMD_SYNC_REQ` (petición) / `ADMIN_SRMD_SYNC_RESP` (respuesta)
+    - **`context.message.correlationId`**: UUID de correlación para trazabilidad
+    - **`context.message.interopRouteData`**: traza de componentes DENA por los que ha pasado el mensaje
+    - **`context.originAdmin`**: administración de origen (la tuya)
+    - **`payload[]`** (petición): array de SRMD items — cada uno con:
+        - `admin.id`: tu administración
+        - `aboutPerson.id` / `aboutPerson.oid`: la persona afectada
+        - `someDataWasUpdatedAt`: instante del cambio en ISO 8601, **7 decimales** (`yyyy-MM-dd'T'HH:mm:ss.SSSSSSSX`)
+        - `ofType.id`: tipo de dato (p.ej. `PERSON_DATA`)
+    - **`payload.transactionOid`** (respuesta): OID de la transacción asignado por DENA
     - **`payload.receivedItemsCount`** (respuesta): total de items recibidos
-    - **`payload.processedOK[]`**: items aceptados con sus metadatos de seguimiento
-    - **`payload.processedNOK[]`**: items rechazados con el motivo del error
+    - **`payload.processedOK[]`** (respuesta): items aceptados — contiene `admin`, `person`, `dataType`, `dataLastUpdatedAt`, `entityVersion`, `trackingInfo` (con `createdAt`, `lastUpdatedAt`) y metadatos internos de DENA
+    - **`payload.processedNOK[]`** (respuesta): items rechazados — contiene `item` (el item original enviado) y `error` (motivo del fallo)
 
 ---
 

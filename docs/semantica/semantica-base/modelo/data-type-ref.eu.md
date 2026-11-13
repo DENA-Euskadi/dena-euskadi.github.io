@@ -2,38 +2,22 @@
 
 ## Deskribapena
 
-`dataType` `context`-eko eremua da eta **zein datu mota** eskatzen edo trukatzen den adierazten du (Espedientea, Jakinarazpena, Ordainketa...). Administrazio batek zein objektu itzuli behar duen jakiteko irakurtzen duen zatia da.
+`dataType` `context`-eko eremua da eta **zein datu mota** eskatzen edo trukatzen ari den adierazten du. Zure administrazioak zein objektu itzuli behar duen jakiteko irakurtzen duen pieza da.
 
-!!! tip "Administrazio batek behar duen guztia"
+!!! tip "Administrazio batek behar duen bakarra"
 
-    Endpoint-a inplementatzeko, **nahikoa da `dataType.id` irakurtzea**: datu mota identifikatzen duen katalogoko string bat da (adib. `administrativeServiceProcedureRecord`). Bere balioaren arabera, dagokion objektua itzultzen duzu. `oid` DENAren barne-identifikatzailea da eta **ez da interpretatu behar**.
-
----
-
-## Hiru zatiak (eta zergatik dauden)
-
-Ereduak sarritan nahasten diren hiru kontzeptu bereizten ditu. Praktikan `id`-rekin bakarrik lan egingo duzu:
-
-| Zatia | Java klasea | Zer den | Adibidea |
-|---|---|---|---|
-| **`id`** | `DN00DataTypeID` (`@MarshallType(as="dataTypeId")`) | Datu motaren **testu**-identifikatzailea. Katalogoko balioa da eta objektuaren `marshallTypeId`-arekin bat egiten du. **Hau da interpretatzen duzuna.** | `"administrativeServiceProcedureRecord"` |
-| **`oid`** | `DN00DataTypeOID` (`@MarshallType(as="dataTypeOid")`) | DENAren **barne**-identifikatzailea (GUID bat). Barne-erabilerakoa; administrazio batek ez du behar. | `"6AE83A0C-2202-4666-9857-3334C14663A2"` |
-| **`dataType`** (edukiontzia) | `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`) | `oid` + `id` biltzen dituen objektua, `context`-aren barruan bidaltzen dena. `DN00DENAObjectWithIDRefBase` espezializatzen du. | `{ "id": "...", "oid": "..." }` |
-
-!!! info "`oid` edo `id`?"
-
-    `oid` **edo** `id` sartu behar da (edo biak). DATA-RETRIEVE-n, DENAk beti bidaltzen du `id`, erabili behar duzuna. Biak etortzen badira, `oid`-k lehentasuna du barne-mailan, baina `id` beti da nahikoa zein objektu itzuli erabakitzeko.
+    **`dataType.id` irakurtzea besterik ez da behar**: datu mota identifikatzen duen testu bat da (adib. `SCHEDULE`). Bere balioaren arabera, dagokion objektua itzultzen duzu. `oid` DENA-ren barneko identifikatzaile bat da eta **ez da interpretatu behar**.
 
 ---
 
 ## JSON atributuak
 
-| Eremua | Mota | Derrigorrez | Deskribapena |
-|---|---|:---:|---|
-| `id` | `String` | :material-check:* | Datu motaren testu-identifikatzailea (`DN00DataTypeID`). Katalogoko balioetako bat (ikusi beheko taula) |
-| `oid` | `String` | :material-close:* | DENAren barne-identifikatzailea (`DN00DataTypeOID`, GUID bat). Barne-erabilerakoa |
+| Eremua | Nahitaezkoa | Deskribapena |
+|---|:---:|---|
+| `id` | ✅* | Datu motaren testu-identifikatzailea. Zein objektu itzuli behar duzun jakiteko erabiltzen duzuna da |
+| `oid` | ❌* | DENA-ren barneko identifikatzailea (GUID bat). Barneko erabilerarako; ez da interpretatu behar |
 
-<small>*Gutxienez bietako bat. Praktikan `id` beti iristen da.</small>
+<small>*Bietako bat gutxienez. Praktikan `id` beti heltzen da.</small>
 
 ---
 
@@ -41,44 +25,37 @@ Ereduak sarritan nahasten diren hiru kontzeptu bereizten ditu. Praktikan `id`-re
 
 ```json
 {
-    "id": "administrativeServiceProcedureRecord",
-    "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
+    "id": "SCHEDULE",
+    "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006"
 }
 ```
 
-> `id` da erabiltzen duzuna; `oid` (barne GUID bat) etorri daiteke ala ez eta ez duzu interpretatu behar.
-
 ---
 
-## Datu moten katalogoa (`id`)
+## Datu moten katalogoa (`dataType.id`)
 
-Baliozko `id` balioak `DN00DataTypeEnum` enum-ean definitzen dira. Balio bakoitzak dagokion datu-objektuaren `marshallTypeId`-arekin bat egiten du, beraz `id`-k zuzenean esaten dizu zein objektu itzuli:
+`dataType.id`-n etorri daitezkeen balio baliodunak eta itzuli beharreko datu-objektua:
 
-| `id` (`dataType.id`-ren balioa) | Itzuli beharreko datu-objektua | `DN00DataTypeEnum` konstantea |
+| `dataType.id` | Itzuli beharreko datu-objektua | Dokumentazioa |
 |---|---|---|
-| `administrativeServiceProcedureRecord` | Espedientea | `ADMINISTRATIVE_RECORD` |
-| `administrativeNotice` | Jakinarazpena | `ADMINISTRATIVE_NOTICE` |
-| `oneOffPayment` | Ordainketa bakarra | `PAYMENT_ONE_OFF_PAYMENT` |
-| `directDebitPayment` | Helbideratzea | `PAYMENT_DIRECT_DEBIT_PAYMENT` |
-| `scheduleItem` | Hitzordua | `SCHEDULE` |
-| `personData` | Pertsonaren datuak | `PERSON_DATA` |
-| `personCredential` | Pertsonaren kredentziala | `PERSON_CREDENTIAL` |
-| `personCredentialForBasqueLanguageDegree` | Euskara-mailaren kredentziala | `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` |
-| `economicBenefit` | Onura ekonomikoa | `ECONOMIC_BENEFIT` |
-| `administrativeLedger` | Erregistro liburua | `ADMINISTRATIVE_LEDGER` |
-| `administrativePersonRegister` | Pertsonaren erregistroa (oinarria) | `ADMINISTRATIVE_PERSON_REGISTER` |
-| `administrativePersonRegisterForHousingPEV` | Pertsonaren erregistroa — etxebizitza PEB | `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` |
-| `administrativePersonRegisterForLastWill` | Pertsonaren erregistroa — azken nahia | `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` |
-| `administrativePersonRegisterForRevisionPEV` | Pertsonaren erregistroa — PEB berrikuspena | `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` |
-| `personEnrollment` | Matrikula | `PERSON_ENROLLMENT` |
-| `personAcademicEnrollment` | Matrikula akademikoa | `PERSON_ACADEMIC_ENROLLMENT` |
-| `personMedicalData` | Datu medikoak | `PERSON_MEDICAL_DATA` |
+| `ADMINISTRATIVE_RECORD` | Espediente administratiboa | [expediente.md](../../../data-retrieve/data/expediente.md) |
+| `ADMINISTRATIVE_NOTICE` | Jakinarazpena | [notificacion.md](../../../data-retrieve/data/notificacion.md) |
+| `PAYMENT_ONE_OFF_PAYMENT` | Ordainketa bakarra | [pago.md](../../../data-retrieve/data/pago.md) |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | Banku-domiziliazioa | [pago.md](../../../data-retrieve/data/pago.md) |
+| `SCHEDULE` | Aurretiazko hitzordua | [cita.md](../../../data-retrieve/data/cita.md) |
+| `PERSON_DATA` | Pertsonaren datuak | [persona.md](../../../data-retrieve/data/persona.md) |
+| `PERSON_CREDENTIAL` | Pertsonaren kredentzialak | [credencial-persona.md](../../../data-retrieve/data/credencial-persona.md) |
+| `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` | Euskarako hizkuntza-profilaren kredentzialak | [credencial-persona.md](../../../data-retrieve/data/credencial-persona.md) |
+| `ECONOMIC_BENEFIT` | Onura ekonomikoa | [beneficio-economico.md](../../../data-retrieve/data/beneficio-economico.md) |
+| `ADMINISTRATIVE_LEDGER` | Erregistro-liburua | [libro-registro.md](../../../data-retrieve/data/libro-registro.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER` | Pertsona-erregistroa | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` | Pertsona-erregistroa — PEV etxebizitza | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` | Pertsona-erregistroa — azken borondateak | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` | Pertsona-erregistroa — PEV berrikuspena | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `PERSON_ENROLLMENT` | Matrikula | [matricula.md](../../../data-retrieve/data/matricula.md) |
+| `PERSON_ACADEMIC_ENROLLMENT` | Matrikula akademikoa | [matricula.md](../../../data-retrieve/data/matricula.md) |
+| `PERSON_MEDICAL_DATA` | Datu medikoak | [datos-medicos.md](../../../data-retrieve/data/datos-medicos.md) |
 
-> ⚠️ `administrativeOfficialRegisterRecord` (`ADMINISTRATIVE_REGISTER`) mota **zaharkituta** dago eta
-> jada ez da `DN00DataTypeEnum` enum-aren parte; haren ordezkoa `administrativeLedger` da.
-
-> `DN00DataTypeEnum` enum-a `dena-common-data-api`-n dago; identifikatzaileak (`DN00DataTypeID`/`DN00DataTypeOID`) eta `DN00DataTypeRef` edukiontzia `dena-common-api`-n daude.
+> ⚠️ `ADMINISTRATIVE_OFFICIAL_REGISTER_RECORD` mota **zaharkituta** dago eta katalogotik kendu da. Bere ordezko mota `ADMINISTRATIVE_LEDGER` da.
 
 <!-- DENA-DOC-FOOTER -->
----
-<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

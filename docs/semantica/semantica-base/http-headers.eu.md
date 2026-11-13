@@ -16,6 +16,7 @@ DENAko HTTP dei guztiek testuingurua, segurtasuna eta trazabilitatea ematen dute
 | `X-DENA-This-TimeStamp` | Eskaera sortzen duen osagaian eskaera abiarazi zen unea (EPOCH milisegundotan) | `1670374400000` |
 | `X-DENA-Origin-TimeStamp` | Hasierako osagaian (adib.: mugikorreko app-a) fluxua abiarazi zen unea (EPOCH milisegundotan). Osagaien artean aldatu gabe mantentzen da | `1670374400000` |
 | `X-DENA-Message-Correlation-Id` | Fluxua abiarazi zuen osagaiak sortutako UIDa. Osagaien artean aldatu gabe mantentzen da | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
+| `X-DENA-ORG-ADMIN-ID` | Eskaera abiarazten duen erakundearen/administrazioaren identifikadorea | `SANDBOXCIF` |
 
 !!! warning "Traffic-flow-aren nahitaezko goiburuak"
 

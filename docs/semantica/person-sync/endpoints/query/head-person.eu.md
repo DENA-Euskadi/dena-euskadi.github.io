@@ -70,11 +70,11 @@ Response-aren `payload`-a pertsona existitzen den adierazten duen **boolear** ba
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp": "2026-05-16T10:15:30.0000000Z"
+                    "timestamp": "2026-05-16T10:15:30.000Z"
                 },
                 {
                     "denaComponentId": "DENA_CORE",
-                    "timestamp": "2026-05-16T10:15:32.0000000Z"
+                    "timestamp": "2026-05-16T10:15:32.000Z"
                 }
             ]
         }

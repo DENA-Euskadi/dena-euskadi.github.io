@@ -34,7 +34,7 @@ Downloads the result (the persons file) of an export request **once its status i
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp":"2026-06-11T14:55:01.7520000Z"
+                    "timestamp":"2026-06-11T14:55:01.752Z"
                 }
             ]
         },

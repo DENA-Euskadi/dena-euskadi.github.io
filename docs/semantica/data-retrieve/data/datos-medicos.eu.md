@@ -56,6 +56,11 @@ Data-retrieve-ko beste mota batzuek ez bezala, **objektu honek ez ditu `oid` eta
 {
   "type": "personMedicalData",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "medicalPassId": "TIS-123456789",
   "medicalInsuranceId": null,
   "doctorFullName": {

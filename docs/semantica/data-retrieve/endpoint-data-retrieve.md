@@ -22,14 +22,13 @@ La administración recibe del conector DENA una petición con un objeto `context
 ```json
 {
   "context": {
-    "message": { "type": "PERSON_FETCH_DATA", "correlationId": "550e8400-e29b-41d4-a716-446655440000" },
-    "originAdmin": { "id": "dena_connector" },
+    "message": { "type": "CLIENT_RETRIEVE_REQ", "correlationId": "550e8400-e29b-41d4-a716-446655440000" },
     "destinationAdmin": { "id": "ADMIN-001" },
     "subjectPerson": { "id": "12345678A" },
-    "dataType": { "id": "administrativeServiceProcedureRecord" }
+    "dataType": { "id": "ADMINISTRATIVE_RECORD" }
   },
   "payload": {
-    "dataType": { "id": "administrativeServiceProcedureRecord" },
+    "dataType": { "id": "ADMINISTRATIVE_RECORD" },
     "admin": { "id": "ADMIN-001" },
     "person": { "id": "12345678A" }
   }
@@ -39,7 +38,7 @@ La administración recibe del conector DENA una petición con un objeto `context
 | Campo | Obligatorio | Descripción |
 |-------|:-----------:|-------------|
 | `context.subjectPerson.id` | ✅ | DNI/NIE/NIF de la persona cuyos datos se solicitan |
-| `context.dataType.id` | ✅ | Tipo de dato solicitado (marshallTypeId): `administrativeServiceProcedureRecord`, `administrativeNotice`, `oneOffPayment`, `directDebitPayment`, `scheduleItem`, `personData`, `personCredential`, `personCredentialForBasqueLanguageDegree`, `economicBenefit`, `administrativeLedger`, `administrativePersonRegister`, `administrativePersonRegisterForHousingPEV`, `administrativePersonRegisterForLastWill`, `administrativePersonRegisterForRevisionPEV`, `personEnrollment`, `personAcademicEnrollment`, `personMedicalData`. Ver [DataTypeRef](../semantica-base/modelo/data-type-ref.md) y [`DN00DataTypeEnum`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/DN00DataTypeEnum.java) |
+| `context.dataType.id` | ✅ | Tipo de dato solicitado (ID externo SCREAMING_SNAKE_CASE): `ADMINISTRATIVE_RECORD`, `ADMINISTRATIVE_NOTICE`, `PAYMENT_ONE_OFF_PAYMENT`, `PAYMENT_DIRECT_DEBIT_PAYMENT`, `SCHEDULE`, `PERSON_DATA`, `PERSON_CREDENTIAL`, `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE`, `ECONOMIC_BENEFIT`, `ADMINISTRATIVE_LEDGER`, `ADMINISTRATIVE_PERSON_REGISTER`, y variantes de registro de persona, `PERSON_ENROLLMENT`, `PERSON_ACADEMIC_ENROLLMENT`, `PERSON_MEDICAL_DATA`. Ver [catálogo completo](../semantica-base/modelo/data-type-ref.md) |
 | `context.destinationAdmin.id` | ✅ | Identificador de la administración de destino (la que sirve los datos) |
 | `context.originAdmin.id` | ❌ | Identificador del origen de la petición (el conector DENA) |
 
@@ -57,7 +56,7 @@ La administración recibe del conector DENA una petición con un objeto `context
 {
   "context": {
     "message": {
-      "type": "PERSON_FETCH_DATA",
+      "type": "CLIENT_RETRIEVE_RESP",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
     }
   },
@@ -69,26 +68,33 @@ La administración recibe del conector DENA una petición con un objeto `context
           "type": "administrativeServiceProcedureRecord",
           "oid": "EXP-OID-001",
           "id": "EXP-2024-00123",
+          "lastChangedAt": "2024-06-01T14:00:00Z",
+          "urls": [
+            { "value": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "lang": "SPANISH", "tags": ["default"] }
+          ],
+          "originAdmin": { "id": "ADMIN-001" },
+          "aboutPerson": { "id": "12345678A" },
           "service": {
-            "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+            "nameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
             "originRef": { "id": "SRV-LIC-ACT" }
           },
           "procedure": {
-            "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
+            "nameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
             "originRef": { "id": "PROC-LIC-APER" }
           },
-          "createdAt": "2024-03-15T10:30:00Z",
-          "lastUpdatedAt": "2024-06-01T14:00:00Z",
-          "applicationDate": "2024-03-14T09:00:00Z",
-          "regNumber": "REG-2024-00123",
-          "interested": { "partyId": "12345678A", "partyName": "Juan García" },
-          "state": {
-            "stateCode": "IN_PROGRESS",
-            "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
+          "applicationData": {
+            "date": "2024-03-14T09:00:00Z",
+            "ledgerId": "REG-2024-00123"
           },
-          "urls": [
-            { "url": "https://sede.miadmin.eus/expediente/EXP-2024-00123", "language": "SPANISH", "tags": ["default"] }
-          ]
+          "recordData": {
+            "createdAt": "2024-03-15T10:30:00Z",
+            "lastModifiedAt": "2024-06-01T14:00:00Z",
+            "state": {
+              "stateCode": "IN_PROGRESS",
+              "description": { "SPANISH": "En tramitación", "BASQUE": "Izapidetzen" }
+            },
+            "interestedParty": { "personId": "12345678A", "displayName": "Juan García" }
+          }
         },
         "proposedScheduleItems": []
       }
@@ -106,7 +112,7 @@ La administración recibe del conector DENA una petición con un objeto `context
 {
   "context": {
     "message": {
-      "type": "PERSON_FETCH_DATA",
+      "type": "CLIENT_RETRIEVE_RESP",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
     }
   },
@@ -121,7 +127,7 @@ La administración recibe del conector DENA una petición con un objeto `context
 {
   "context": {
     "message": {
-      "type": "PERSON_FETCH_DATA",
+      "type": "CLIENT_RETRIEVE_RESP",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000"
     }
   },
@@ -178,13 +184,14 @@ Objetos auxiliares referenciados:
   "type": "administrativeNotice",
   "oid": "NOT-OID-001",
   "id": "NOT-2024-00456",
+  "lastChangedAt": "2024-05-20T09:00:00.000000Z",
   "typeNotice": "OFFICIAL_NOTICE",
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "issuedAt": "2024-05-20T09:00:00Z",
   "readAt": null,
   "state": "PENDING_TO_BE_READ_BY_DESTINATION",
   "subjectByLanguage": { "SPANISH": "Resolución de concesión de ayuda", "BASQUE": "Laguntza emateko ebazpena" },
-  "urls": [{ "url": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "language": "SPANISH", "tags": ["default"] }]
+  "urls": [{ "value": "https://sede.miadmin.eus/notificacion/NOT-2024-00456", "lang": "SPANISH", "tags": ["default"] }]
 }
 ```
 
@@ -195,6 +202,7 @@ Objetos auxiliares referenciados:
   "type": "oneOffPayment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
+  "lastChangedAt": "2024-06-30T00:00:00.000000Z",
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
@@ -203,7 +211,7 @@ Objetos auxiliares referenciados:
   "amount": { "amount": 45.50, "currency": "EUR" },
   "amountIfSurcharged": { "amount": 50.05, "currency": "EUR" },
   "data": { "forStatus": "PENDING", "at": null, "medium": null, "device": null },
-  "urls": [{ "url": "https://pago.miadmin.eus/pay/PAY-2024-00321", "language": "SPANISH", "tags": ["payment"] }]
+  "urls": [{ "value": "https://pago.miadmin.eus/pay/PAY-2024-00321", "lang": "SPANISH", "tags": ["payment"] }]
 }
 ```
 
@@ -235,21 +243,16 @@ Objetos auxiliares referenciados:
   "type": "scheduleItem",
   "oid": "SCHED-OID-001",
   "id": "CITA-2024-00050",
-  "year": 2024,
-  "monthOfYear": 7,
-  "dayOfMonth": 15,
-  "hourOfDay": 10,
-  "minuteOfHour": 30,
+  "lastChangedAt": "2024-07-15T10:30:00.000000Z",
+  "year": "2024",
+  "monthOfYear": "7",
+  "dayOfMonth": "15",
+  "hourOfDay": "10",
+  "minuteOfHour": "30",
   "durationMinutes": 30,
   "priority": "NORMAL",
   "subject": { "SPANISH": "Cita previa para renovación de DNI", "BASQUE": "NAN berritzeko aurretiko hitzordua" },
-  "location": {
-    "country": { "id": "ES", "name": "España" },
-    "administrativeAreaLevel1": { "id": "PV", "name": "País Vasco" },
-    "administrativeAreaLevel3": { "id": "48020", "name": "Bilbao" },
-    "zipCode": "48001",
-    "address": "Gran Vía 50, Bilbao"
-  }
+  "urls": [{ "value": "https://sede.miadmin.eus/citas/CITA-2024-00050", "lang": "SPANISH", "tags": ["default"] }]
 }
 ```
 
@@ -260,6 +263,7 @@ Objetos auxiliares referenciados:
   "type": "directDebitPayment",
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
+  "lastChangedAt": "2024-06-01T00:00:00.000000Z",
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },

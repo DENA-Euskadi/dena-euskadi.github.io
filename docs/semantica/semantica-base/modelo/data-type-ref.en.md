@@ -2,38 +2,22 @@
 
 ## Description
 
-`dataType` is the `context` field that indicates **which type of data** is being requested or exchanged (Record, Notification, Payment...). It is the piece an administration reads to know which object to return.
+The `dataType` field in the `context` indicates **what type of data** is being requested or exchanged. It is the piece your administration reads to know which object it has to return.
 
-!!! tip "All an administration needs"
+!!! tip "The only thing an administration needs"
 
-    To implement the endpoint, **it is enough to read `dataType.id`**: it is a catalog string (e.g. `administrativeServiceProcedureRecord`) that identifies the data type. Based on its value, you return the corresponding object. The `oid` is a DENA-internal identifier and **does not need to be interpreted**.
-
----
-
-## The three pieces (and why they exist)
-
-The model separates three concepts that are often confused. In practice you will only work with the `id`:
-
-| Piece | Java class | What it is | Example |
-|---|---|---|---|
-| **`id`** | `DN00DataTypeID` (`@MarshallType(as="dataTypeId")`) | **Textual** identifier of the data type. It is the catalog value and matches the object's `marshallTypeId`. **This is what you interpret.** | `"administrativeServiceProcedureRecord"` |
-| **`oid`** | `DN00DataTypeOID` (`@MarshallType(as="dataTypeOid")`) | **Internal** DENA identifier (a GUID). Internal use; an administration does not need it. | `"6AE83A0C-2202-4666-9857-3334C14663A2"` |
-| **`dataType`** (container) | `DN00DataTypeRef` (`@MarshallType(as="dataTypeRef")`) | The object that groups `oid` + `id` and travels inside the `context`. Specializes `DN00DENAObjectWithIDRefBase`. | `{ "id": "...", "oid": "..." }` |
-
-!!! info "`oid` or `id`?"
-
-    Either `oid` **or** `id` must be included (or both). In DATA-RETRIEVE, DENA always sends the `id`, which is the one you should use. If both come, `oid` takes priority internally, but the `id` is always enough to decide which object to return.
+    **Just read `dataType.id`**: it is a text string (e.g. `SCHEDULE`) that identifies the data type. Based on its value, you return the corresponding object. The `oid` is an internal DENA identifier and **does not need to be interpreted**.
 
 ---
 
-## JSON attributes
+## JSON Attributes
 
-| Field | Type | Mandatory | Description |
-|---|---|:---:|---|
-| `id` | `String` | :material-check:* | Textual identifier of the data type (`DN00DataTypeID`). One of the catalog values (see table below) |
-| `oid` | `String` | :material-close:* | DENA-internal identifier (`DN00DataTypeOID`, a GUID). Internal use |
+| Field | Required | Description |
+|---|:---:|---|
+| `id` | ✅* | Textual identifier of the data type. This is what you use to know which object to return |
+| `oid` | ❌* | Internal DENA identifier (a GUID). For internal use; no need to interpret it |
 
-<small>*At least one of the two. In practice the `id` always arrives.</small>
+<small>*At least one of the two. In practice, `id` always arrives.</small>
 
 ---
 
@@ -41,44 +25,37 @@ The model separates three concepts that are often confused. In practice you will
 
 ```json
 {
-    "id": "administrativeServiceProcedureRecord",
-    "oid": "6AE83A0C-2202-4666-9857-3334C14663A2"
+    "id": "SCHEDULE",
+    "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4006"
 }
 ```
 
-> The `id` is the one you use; the `oid` (an internal GUID) may or may not come and you do not need to interpret it.
-
 ---
 
-## Data type catalog (`id`)
+## Data type catalogue (`dataType.id`)
 
-The valid `id` values are defined in the `DN00DataTypeEnum` enum. Each value matches the `marshallTypeId` of the corresponding data object, so the `id` tells you directly which object to return:
+Valid values that can arrive in `dataType.id` and the data object to return:
 
-| `id` (value of `dataType.id`) | Data object to return | `DN00DataTypeEnum` constant |
+| `dataType.id` | Data object to return | Documentation |
 |---|---|---|
-| `administrativeServiceProcedureRecord` | Record | `ADMINISTRATIVE_RECORD` |
-| `administrativeNotice` | Notification | `ADMINISTRATIVE_NOTICE` |
-| `oneOffPayment` | One-off payment | `PAYMENT_ONE_OFF_PAYMENT` |
-| `directDebitPayment` | Direct debit | `PAYMENT_DIRECT_DEBIT_PAYMENT` |
-| `scheduleItem` | Appointment | `SCHEDULE` |
-| `personData` | Person data | `PERSON_DATA` |
-| `personCredential` | Person credential | `PERSON_CREDENTIAL` |
-| `personCredentialForBasqueLanguageDegree` | Basque language degree credential | `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` |
-| `economicBenefit` | Economic benefit | `ECONOMIC_BENEFIT` |
-| `administrativeLedger` | Register ledger | `ADMINISTRATIVE_LEDGER` |
-| `administrativePersonRegister` | Person register (base) | `ADMINISTRATIVE_PERSON_REGISTER` |
-| `administrativePersonRegisterForHousingPEV` | Person register — housing PEV | `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` |
-| `administrativePersonRegisterForLastWill` | Person register — last will | `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` |
-| `administrativePersonRegisterForRevisionPEV` | Person register — PEV revision | `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` |
-| `personEnrollment` | Enrollment | `PERSON_ENROLLMENT` |
-| `personAcademicEnrollment` | Academic enrollment | `PERSON_ACADEMIC_ENROLLMENT` |
-| `personMedicalData` | Medical data | `PERSON_MEDICAL_DATA` |
+| `ADMINISTRATIVE_RECORD` | Administrative record | [expediente.md](../../../data-retrieve/data/expediente.md) |
+| `ADMINISTRATIVE_NOTICE` | Notification | [notificacion.md](../../../data-retrieve/data/notificacion.md) |
+| `PAYMENT_ONE_OFF_PAYMENT` | One-off payment | [pago.md](../../../data-retrieve/data/pago.md) |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | Direct debit payment | [pago.md](../../../data-retrieve/data/pago.md) |
+| `SCHEDULE` | Appointment | [cita.md](../../../data-retrieve/data/cita.md) |
+| `PERSON_DATA` | Person data | [persona.md](../../../data-retrieve/data/persona.md) |
+| `PERSON_CREDENTIAL` | Person credential | [credencial-persona.md](../../../data-retrieve/data/credencial-persona.md) |
+| `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` | Basque language proficiency credential | [credencial-persona.md](../../../data-retrieve/data/credencial-persona.md) |
+| `ECONOMIC_BENEFIT` | Economic benefit | [beneficio-economico.md](../../../data-retrieve/data/beneficio-economico.md) |
+| `ADMINISTRATIVE_LEDGER` | Administrative ledger | [libro-registro.md](../../../data-retrieve/data/libro-registro.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER` | Person register | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER_FOR_HOUSING_PEV` | Person register — PEV housing | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER_FOR_LAST_WILL` | Person register — last will | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER_FOR_REVISION_PEV` | Person register — PEV revision | [registro-persona.md](../../../data-retrieve/data/registro-persona.md) |
+| `PERSON_ENROLLMENT` | Enrollment | [matricula.md](../../../data-retrieve/data/matricula.md) |
+| `PERSON_ACADEMIC_ENROLLMENT` | Academic enrollment | [matricula.md](../../../data-retrieve/data/matricula.md) |
+| `PERSON_MEDICAL_DATA` | Medical data | [datos-medicos.md](../../../data-retrieve/data/datos-medicos.md) |
 
-> ⚠️ The `administrativeOfficialRegisterRecord` (`ADMINISTRATIVE_REGISTER`) type is **deprecated**
-> and no longer part of the `DN00DataTypeEnum` enum; its replacement is `administrativeLedger`.
-
-> The `DN00DataTypeEnum` enum lives in `dena-common-data-api`; the identifiers (`DN00DataTypeID`/`DN00DataTypeOID`) and the `DN00DataTypeRef` container live in `dena-common-api`.
+> ⚠️ The `ADMINISTRATIVE_OFFICIAL_REGISTER_RECORD` type is **deprecated** and has been removed from the catalogue. Its replacement is `ADMINISTRATIVE_LEDGER`.
 
 <!-- DENA-DOC-FOOTER -->
----
-<sub>DENA Docs v{{ dena.version }} · {{ dena.date }}</sub>

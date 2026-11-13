@@ -74,6 +74,9 @@ flowchart LR
 | `oid` <span class="field-badge--common">komun</span> | `String` | ✅ | `"BEN-OID-001"` | Identifikatzaile tekniko bakarra |
 | `id` <span class="field-badge--common">komun</span> | `String` | ✅ | `"PEV-2024-00001"` | Negozio identifikatzailea |
 | `lastChangedAt` <span class="field-badge--common">komun</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Jatorrizko datuen azken aldaketa |
+| `urls` <span class="field-badge--common">komun</span> | `Array` | ❌ | `[{"value":"https://sede.miadmin.eus/objeto/OID-001","lang":"SPANISH","tags":["default"]}]` | URLs de acceso al objeto en la sede electrónica (DENA lo completa automáticamente) |
+| `originAdmin` <span class="field-badge--common">komun</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">komun</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `record` | `Object` | ❌ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` | Espediente erreferentzia |
 | `amount` | `Money` | ✅ | `{"amount":500.00,"currency":"EUR"}` | Prestazioaren zenbatekoa |
 | `paymentOrderedAt` | `Instant` | ❌ | `"2024-06-01T00:00:00Z"` | Ordainketa agindu zen data (null oraindik ordaindu ez bada) |
@@ -116,12 +119,17 @@ flowchart LR
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "economicBenefit",
   "oid": "BEN-OID-001",
   "id": "PEV-2024-00001",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "amount": { "amount": 500.00, "currency": "EUR" },
   "paymentOrderedAt": null,

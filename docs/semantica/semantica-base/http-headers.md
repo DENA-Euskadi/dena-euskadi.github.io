@@ -16,6 +16,7 @@ Todas las llamadas HTTP en DENA incluyen un conjunto de cabeceras estándar y pe
 | `X-DENA-This-TimeStamp` | Instante (EPOCH en milisegundos) en el que se inició la petición en el componente que la origina | `1670374400000` |
 | `X-DENA-Origin-TimeStamp` | Instante (EPOCH en milisegundos) en el que se inició el flujo en el componente inicial (ej: app móvil). Se conserva inalterado entre componentes | `1670374400000` |
 | `X-DENA-Message-Correlation-Id` | UID generado por el componente que inició el flujo. Se conserva inalterado entre componentes | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
+| `X-DENA-ORG-ADMIN-ID` | Identificador de la organización / administración que origina la petición | `SANDBOXCIF` |
 
 !!! warning "Cabeceras obligatorias del traffic-flow"
 

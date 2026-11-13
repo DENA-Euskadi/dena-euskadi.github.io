@@ -34,7 +34,7 @@ Descarga el resultado (el fichero de personas) de una solicitud de exportación 
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp":"2026-06-11T14:55:01.7520000Z"
+                    "timestamp":"2026-06-11T14:55:01.752Z"
                 }
             ]
         },

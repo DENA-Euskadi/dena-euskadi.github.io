@@ -25,20 +25,18 @@ Class: `DN00SyncMetaDataFromAdminToCOREItem` (`@MarshallType(as="syncMetaDataFro
 
 ```json
 [
-  {
-    "admin": { "id": "EJGV", "oid": "..." },
-    "aboutPerson": { "id": "11111111H", "oid": "..." },
-    "someDataWasUpdatedAt": "2025-07-16T13:00:00.000Z",
-    "ofType": { "id": "administrativeServiceProcedureRecord", "oid": "..." },
-    "fromDataOriginInstance": "EJGV-Expedientes"
-  },
-  {
-    "admin": { "id": "DFB", "oid": "..." },
-    "aboutPerson": { "id": "11223344L", "oid": "..." },
-    "someDataWasUpdatedAt": "2025-07-15T11:00:00.000Z",
-    "ofType": { "id": "oneOffPayment", "oid": "..." },
-    "fromDataOriginInstance": "DFB-Pagos"
-  }
+    {
+        "admin": { "id": "SANDBOXCIF" },
+        "aboutPerson": { "id": "11189396B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+        "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+        "ofType": { "id": "PERSON_DATA" }
+    },
+    {
+        "admin": { "id": "SANDBOXCIF" },
+        "aboutPerson": { "id": "11111111B", "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E" },
+        "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+        "ofType": { "id": "PERSON_DATA" }
+    }
 ]
 ```
 

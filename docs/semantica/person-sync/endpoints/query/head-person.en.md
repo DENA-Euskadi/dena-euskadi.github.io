@@ -70,11 +70,11 @@ The response `payload` is a **boolean** indicating whether the person exists:
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp": "2026-05-16T10:15:30.0000000Z"
+                    "timestamp": "2026-05-16T10:15:30.000Z"
                 },
                 {
                     "denaComponentId": "DENA_CORE",
-                    "timestamp": "2026-05-16T10:15:32.0000000Z"
+                    "timestamp": "2026-05-16T10:15:32.000Z"
                 }
             ]
         }

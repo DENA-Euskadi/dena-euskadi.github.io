@@ -34,7 +34,7 @@ Esportazio-eskaera baten emaitza (pertsonen fitxategia) deskargatzen du **bere e
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp":"2026-06-11T14:55:01.7520000Z"
+                    "timestamp":"2026-06-11T14:55:01.752Z"
                 }
             ]
         },

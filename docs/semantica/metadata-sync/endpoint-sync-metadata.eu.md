@@ -22,7 +22,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp": "2026-06-10T15:37:57.5530000Z"
+                    "timestamp": "2026-06-10T15:37:57.553Z"
                 }
             ]
         },
@@ -42,7 +42,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
             },
             "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
             "ofType": {
-                "id": "administrativeNotice"
+                "id": "ADMINISTRATIVE_NOTICE"
             },
             "fromDataOriginInstance": "DEFAULT",
             "popMessageAfterSync": {
@@ -72,7 +72,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 | `admin`                  | `OrgAdminRef` (`oid`/`id`/`dir3Id`) | ✅ | Aldaketaren jatorrizko administrazioa |
 | `aboutPerson`            | `PersonRef` (`oid`/`id`)      | ✅          | Datuak zein pertsonarenak diren |
 | `someDataWasUpdatedAt`   | `Instant` (ISO 8601)          | ✅          | Administrazioaren aldean izandako azken aldaketaren unea |
-| `ofType`                 | `DataTypeRef` (`oid`/`id`)    | ✅          | Datu mota (marshallTypeId, adib. `administrativeNotice`) |
+| `ofType`                 | `DataTypeRef` (`oid`/`id`)    | ✅          | Datu mota (ID kanpokoa, adib. `ADMINISTRATIVE_NOTICE`). Ikusi [katalogoa](../semantica-base/modelo/data-type-ref.md) |
 | `fromDataOriginInstance` | `String`                      | ❌          | Datuaren jatorrizko instantzia (lehenetsia `DEFAULT`) |
 | `popMessageAfterSync`    | `PopMessageAfterSyncAdminSpec`| ❌          | Sinkronizazioaren ondoren bezeroan erakusteko mezu aukerakoa |
 
@@ -89,7 +89,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
             "interopRouteData": [
                 {
                     "denaComponentId": "DENA_CORE",
-                    "timestamp": "2026-05-27T15:54:58.8973112Z"
+                    "timestamp": "2026-05-27T15:54:58.897Z"
                 }
             ]
         }
@@ -105,7 +105,7 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
                     "admin": { "id": "admin-A414" },
                     "aboutPerson": { "id": "12345678A" },
                     "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                    "ofType": { "id": "administrativeNotice" },
+                    "ofType": { "id": "ADMINISTRATIVE_NOTICE" },
                     "fromDataOriginInstance": "DEFAULT"
                 },
                 "error": "The admin with ref=null;admin-A414 could NOT be validated"

@@ -56,7 +56,7 @@ private List<DN00SyncMetaDataFromAdminToCOREItem> _toSRMD(
             new DN00OrgAdminRef(DN00OrgAdminID.forId("MY_ADMIN")),
             DN00PersonRef.from(DN00PersonID.forId(dbChange.personId())),
             dbChange.lastChangedAt(),
-            new DN00DataTypeRef(DN00DataTypeID.forId("citizen_service_appointment")),
+            new DN00DataTypeRef(DN00DataTypeID.forId("SCHEDULE")),  // ID externo del tipo Cita (DN00DataTypeEnum.SCHEDULE)
             null))  // null = instancia de origen por defecto (DEFAULT)
         .toList();
 }
@@ -97,14 +97,14 @@ HttpRequest request = HttpRequest.newBuilder()
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "40404040H" },
-    "someDataWasUpdatedAt": "2026-08-17T15:14:07.036Z",
+    "someDataWasUpdatedAt": "2026-08-17T15:14:07.0360000Z",
     "ofType": { "id": "ADMIN_NOTICE" },
     "fromDataOriginInstance": "DEFAULT"
   },
   {
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "12345678A" },
-    "someDataWasUpdatedAt": "2026-08-17T15:14:07.032Z",
+    "someDataWasUpdatedAt": "2026-08-17T15:14:07.0320000Z",
     "ofType": { "id": "PROCEDURE_RECORD" },
     "fromDataOriginInstance": "DEFAULT"
   }
@@ -144,6 +144,153 @@ DENA returns which items were processed correctly (`processedOK`) and which ones
 
 !!! warning "Classic error: data origin not configured"
     The most common failure in `processedNOK` is a `fromDataOriginInstance` that is not registered in the DENA configuration. If you receive validation errors on the data origin, verify with the DENA team that the identifier you are using matches the one configured in the connector.
+
+
+---
+
+## Real complete call example
+
+### Request (REQUEST) — your admin notifies DENA
+
+Your administration sends a list of detected changes to DENA's SRMD endpoint. In this example, 2 changes of type `PERSON_DATA` are notified for 2 different people from the `SANDBOXCIF` administration:
+
+```json
+{
+    "context": {
+        "message": {
+            "type": "ADMIN_SRMD_SYNC_REQ",
+            "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-10T08:07:38.934Z"
+                }
+            ]
+        },
+        "originAdmin": {
+            "id": "SANDBOXCIF"
+        }
+    },
+    "payload": [
+        {
+            "admin": {
+                "id": "SANDBOXCIF"
+            },
+            "aboutPerson": {
+                "id": "11189396B",
+                "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+            },
+            "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+            "ofType": {
+                "id": "PERSON_DATA"
+            }
+        },
+        {
+            "admin": {
+                "id": "SANDBOXCIF"
+            },
+            "aboutPerson": {
+                "id": "11111111B",
+                "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+            },
+            "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+            "ofType": {
+                "id": "PERSON_DATA"
+            }
+        }
+    ]
+}
+```
+
+### DENA Response (RESPONSE)
+
+```json
+{
+    "code": "OK",
+    "context": {
+        "message": {
+            "type": "ADMIN_SRMD_SYNC_RESP",
+            "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
+            "interopRouteData": [
+                {
+                    "denaComponentId": "DENA_INTEROP_ADMIN_SYNC",
+                    "timestamp": "2026-11-10T08:07:39.5179823Z"
+                },
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-10T08:07:38.934Z"
+                }
+            ]
+        }
+    },
+    "payload": {
+        "transactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+        "receivedItemsCount": 2,
+        "processedOK": [
+            {
+                "admin": {
+                    "id": "SANDBOXCIF",
+                    "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                },
+                "dataLastUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+                "dataOriginInstanceId": "DEFAULT",
+                "dataType": {
+                    "id": "PERSON_DATA",
+                    "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007"
+                },
+                "entityVersion": 5,
+                "lastTransactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+                "numericId": 0,
+                "oid": "6485BF2C-5C53-4EC0-ABE3-212DD4403913",
+                "person": {
+                    "id": "11189396B",
+                    "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+                },
+                "trackingInfo": {
+                    "createdAt": "2026-11-04T17:22:41.6877234Z",
+                    "lastUpdatedAt": "2026-11-10T08:07:39.4321202Z",
+                    "lastUpdaterSecurityPrincipalOid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                }
+            }
+        ],
+        "processedNOK": [
+            {
+                "item": {
+                    "admin": {
+                        "id": "SANDBOXCIF",
+                        "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                    },
+                    "aboutPerson": {
+                        "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+                    },
+                    "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+                    "ofType": {
+                        "id": "PERSON_DATA",
+                        "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007"
+                    },
+                    "fromDataOriginInstance": "DEFAULT"
+                },
+                "error": "The [person] with ref=631011F3-9A2F-4D08-9F56-B7F4D6A0749E;null could NOT be validated"
+            }
+        ]
+    }
+}
+```
+
+!!! info "Message structure"
+    - **`context.message.type`**: `ADMIN_SRMD_SYNC_REQ` (request) / `ADMIN_SRMD_SYNC_RESP` (response)
+    - **`context.message.correlationId`**: correlation UUID for traceability
+    - **`context.message.interopRouteData`**: trace of DENA components the message has passed through
+    - **`context.originAdmin`**: origin administration (yours)
+    - **`payload[]`** (request): array of SRMD items — each with:
+        - `admin.id`: your administration
+        - `aboutPerson.id` / `aboutPerson.oid`: the affected person
+        - `someDataWasUpdatedAt`: change timestamp in ISO 8601, **7 decimal places** (`yyyy-MM-dd'T'HH:mm:ss.SSSSSSSX`)
+        - `ofType.id`: data type (e.g. `PERSON_DATA`)
+    - **`payload.transactionOid`** (response): transaction OID assigned by DENA
+    - **`payload.receivedItemsCount`** (response): total items received
+    - **`payload.processedOK[]`** (response): accepted items — contains `admin`, `person`, `dataType`, `dataLastUpdatedAt`, `entityVersion`, `trackingInfo` (with `createdAt`, `lastUpdatedAt`) and DENA internal metadata
+    - **`payload.processedNOK[]`** (response): rejected items — contains `item` (the original item sent) and `error` (reason for failure)
 
 ---
 

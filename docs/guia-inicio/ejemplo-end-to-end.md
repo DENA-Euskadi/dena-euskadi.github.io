@@ -78,7 +78,7 @@ curl -s -X POST "${DENA_URL}/srmd/" \
     {
       "admin": { "id": "TU-ADMIN-ID" },
       "aboutPerson": { "id": "12345678A" },
-      "someDataWasUpdatedAt": "2026-08-24T10:30:00.000Z",
+      "someDataWasUpdatedAt": "2026-08-24T10:30:00.0000000Z",
       "ofType": { "id": "RECORDS" },
       "fromDataOriginInstance": "DEFAULT"
     }
@@ -248,7 +248,7 @@ SRMD_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${DENA_URL}/srmd/" \
   -d "[{
     \"admin\": { \"id\": \"${ADMIN_ID}\" },
     \"aboutPerson\": { \"id\": \"12345678A\" },
-    \"someDataWasUpdatedAt\": \"$(date -u +%Y-%m-%dT%H:%M:%S.000Z)\",
+    \"someDataWasUpdatedAt\": \"$(date -u +%Y-%m-%dT%H:%M:%S.0000000Z)\",
     \"ofType\": { \"id\": \"RECORDS\" },
     \"fromDataOrigin\": \"DEFAULT\"
   }]")

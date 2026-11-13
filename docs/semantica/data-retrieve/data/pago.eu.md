@@ -113,6 +113,8 @@ flowchart LR
 | `oid` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PAY-OID-001"` | Identifikatzaile tekniko bakarra |
 | `id` <span class="field-badge--common">komuna</span> | `String` | ✅ | `"PAY-2024-00321"` | Negozio-identifikatzailea |
 | `lastChangedAt` <span class="field-badge--common">komuna</span> | `Instant` | ✅ | `"2026-08-19T08:07:56.742Z"` | Datuaren azken aldaketa jatorrian. DENA-COREk erabiltzen du UIan NEW/UPDATED/UNCHANGED egoera kalkulatzeko |
+| `originAdmin` <span class="field-badge--common">komuna</span> | `OrgAdminRef` | ❌ | `{"oid":"6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011","id":"SANDBOXCIF"}` | Referencia a la administración de origen. DENA lo completa automáticamente si no se envía |
+| `aboutPerson` <span class="field-badge--common">komuna</span> | `PersonRef` | ❌ | `{"oid":"E0BF74D6-E07A-457F-8F2B-55C4561F33AA","id":"20202020E"}` | Referencia a la persona sobre la que trata el objeto. DENA lo completa automáticamente si no se envía |
 | `record` | `Object` | ✅ | `{"oid":"EXP-OID-001","id":"EXP-2024-00123"}` *(ikusi [`DN00AdmistrativeServiceProcedureRecord`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/DN00AdmistrativeServiceProcedureRecord.java))* | Espedientearen erreferentzia |
 | `paymentType` | `String` | ✅ | `"ONE_OFF_PAYMENT"` | `ONE_OFF_PAYMENT` edo `DIRECT_DEBIT` |
 | `paymentSubjectByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Tasa licencia"}` | Ordainketaren kontzeptua |
@@ -318,15 +320,17 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 6"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-001",
   "id": "PAY-2024-00321",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "urls": [
-    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00321", "language": "SPANISH", "tags": ["payment"] }
+    { "value": "https://pago.miadmin.eus/pay/PAY-2024-00321", "lang": "SPANISH", "tags": ["payment"] }
   ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de actividad", "BASQUE": "Jarduera-lizentziaren tasa" },
@@ -352,16 +356,18 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5 6"
+```json hl_lines="3 4 5 6 7 8 9 10 11"
 {
   "type": "oneOffPayment",
   "oid": "PAY-OID-002",
   "id": "PAY-2024-00322",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
   "urls": [
-    { "url": "https://pago.miadmin.eus/pay/PAY-2024-00322", "language": "SPANISH", "tags": ["payment"] },
-    { "url": "https://pago.miadmin.eus/receipt/PAY-2024-00322", "language": "SPANISH", "tags": ["payment-receipt"] }
+    { "value": "https://pago.miadmin.eus/pay/PAY-2024-00322", "lang": "SPANISH", "tags": ["payment"] },
+    { "value": "https://pago.miadmin.eus/receipt/PAY-2024-00322", "lang": "SPANISH", "tags": ["payment-receipt"] }
   ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "ONE_OFF_PAYMENT",
   "paymentSubjectByLanguage": { "SPANISH": "Tasa por licencia de obras", "BASQUE": "Obra-lizentziaren tasa" },
@@ -388,12 +394,17 @@ Formatu bakoitzak bere kobrantza-kodea atal hauen azpimultzo batetik osatzen du 
 
 <div class="common-highlight" markdown>
 
-```json hl_lines="3 4 5"
+```json hl_lines="3 4 5 6 7 8 9 10"
 {
   "type": "directDebitPayment",
   "oid": "DD-OID-001",
   "id": "DD-2024-00100",
   "lastChangedAt": "2026-08-19T08:07:56.742Z",
+  "urls": [
+    { "value": "https://sede.miadmin.eus/objeto/OID-001", "lang": "SPANISH", "tags": ["default"] }
+  ],
+  "originAdmin": { "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011", "id": "SANDBOXCIF" },
+  "aboutPerson": { "oid": "E0BF74D6-E07A-457F-8F2B-55C4561F33AA", "id": "20202020E" },
   "record": { "oid": "EXP-OID-001", "id": "EXP-2024-00123" },
   "paymentType": "DIRECT_DEBIT",
   "paymentSubjectByLanguage": { "SPANISH": "Cuota mensual guardería", "BASQUE": "Haur-eskolako hileko kuota" },

@@ -193,8 +193,8 @@ Todos los objetos devueltos deben incluir como mínimo:
   "oid": "TU-OID-UNICO-001",
   "id": "NUMERO-VISIBLE-PARA-PERSONA",
   "urls": [
-    { "url": "https://sede.tuadmin.eus/...", "language": "SPANISH", "tags": ["default"] },
-    { "url": "https://egoitza.tuadmin.eus/...", "language": "BASQUE", "tags": ["default"] }
+    { "value": "https://sede.tuadmin.eus/...", "lang": "SPANISH", "tags": ["default"] },
+    { "value": "https://egoitza.tuadmin.eus/...", "lang": "BASQUE", "tags": ["default"] }
   ]
 }
 ```
@@ -406,8 +406,8 @@ Incluye enlaces donde la persona pueda ver cada objeto en tu sede electrónica:
 
 ```json
 "urls": [
-  { "url": "https://sede.tuadmin.eus/expediente/123", "language": "SPANISH", "tags": ["default"] },
-  { "url": "https://egoitza.tuadmin.eus/espedientea/123", "language": "BASQUE", "tags": ["default"] }
+  { "value": "https://sede.tuadmin.eus/expediente/123", "lang": "SPANISH", "tags": ["default"] },
+  { "value": "https://egoitza.tuadmin.eus/espedientea/123", "lang": "BASQUE", "tags": ["default"] }
 ]
 ```
 

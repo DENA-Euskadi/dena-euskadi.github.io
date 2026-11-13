@@ -130,7 +130,7 @@ public <D extends DN00IsDENADataExchangedObject>
         "data": {
           "type": "scheduleItem",
           "id": "appointment123",
-          "lastChangedAt": "2026-08-19T08:07:56.7423565Z",
+          "lastChangedAt": "2026-08-19T08:07:56.742Z",
           "aboutPerson": {
             "oid": "D530141A-1E2A-4800-A118-3FC8D6EFE6D5"
           },
@@ -229,7 +229,7 @@ public void notifyPersonChange(SecurityContext securityContext,
       "oid": "501872FE-9A67-4AF8-BAAE-2E385119FF5F",
       "personId": { "id": "40404040H" }
     },
-    "timestamp": "2026-08-17T15:14:07.0369127Z"
+    "timestamp": "2026-08-17T15:14:07.036Z"
   }
 }
 ```
@@ -334,7 +334,7 @@ public COREServiceMethodExecResult<DN00BespokeJobResponse>
   "payload": {
     "exportSpec": {
       "personExportSpec": "data",
-      "lastUpdateRange": "Instant:[2026-08-24T21:19:41.314878600Z..)",
+      "lastUpdateRange": "Instant:[2026-08-24T21:19:41.314Z..)",
       "exportContentSpec": {
         "exportDefaultContactData": true,
         "exportOtherContactData": true,
@@ -353,7 +353,7 @@ public COREServiceMethodExecResult<DN00BespokeJobResponse>
   "payload": {
     "oid": "83F7BADC-1C54-4E80-8DB5-A9913ED3D41F",
     "status": "REGISTERED",
-    "registeredAt": "2026-08-25T22:01:06.5551369Z"
+    "registeredAt": "2026-08-25T22:01:06.555Z"
   }
 }
 ```
@@ -373,7 +373,7 @@ public COREServiceMethodExecResult<DN00BespokeJobResponse>
   "payload": {
     "oid": "83F7BADC-1C54-4E80-8DB5-A9913ED3D41F",
     "status": "BEING_PROCESSED",
-    "startedAt": "2026-08-25T22:01:46.7589852Z"
+    "startedAt": "2026-08-25T22:01:46.758Z"
   }
 }
 ```
@@ -385,7 +385,7 @@ public COREServiceMethodExecResult<DN00BespokeJobResponse>
   "payload": {
     "oid": "7F46C5E1-7774-4C56-A450-5AD788D33EB0",
     "status": "FINISHED_OK",
-    "finishedAt": "2026-08-25T22:04:16.0708960Z",
+    "finishedAt": "2026-08-25T22:04:16.070Z",
     "exportResultAssets": [
       {
         "fileStoreItemOid": "D824157A-CB93-4FC3-99ED-F567513FB1A2"

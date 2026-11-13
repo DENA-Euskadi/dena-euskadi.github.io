@@ -22,7 +22,7 @@ Authorization: Bearer <token> (if OAuth is configured)
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp": "2026-06-10T15:37:57.5530000Z"
+                    "timestamp": "2026-06-10T15:37:57.553Z"
                 }
             ]
         },
@@ -42,7 +42,7 @@ Authorization: Bearer <token> (if OAuth is configured)
             },
             "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
             "ofType": {
-                "id": "administrativeNotice"
+                "id": "ADMINISTRATIVE_NOTICE"
             },
             "fromDataOriginInstance": "DEFAULT",
             "popMessageAfterSync": {
@@ -72,7 +72,7 @@ Each element of the `payload` array follows the `DN00SyncMetaDataFromAdminToCORE
 | `admin`                  | `OrgAdminRef` (`oid`/`id`/`dir3Id`) | ✅ | Origin administration of the change |
 | `aboutPerson`            | `PersonRef` (`oid`/`id`)      | ✅        | Person the data belongs to |
 | `someDataWasUpdatedAt`   | `Instant` (ISO 8601)          | ✅        | Timestamp of the last change on the admin side |
-| `ofType`                 | `DataTypeRef` (`oid`/`id`)    | ✅        | Data type (marshallTypeId, e.g. `administrativeNotice`) |
+| `ofType`                 | `DataTypeRef` (`oid`/`id`)    | ✅        | Data type (External ID, e.g. `ADMINISTRATIVE_NOTICE`). See [catalogue](../semantica-base/modelo/data-type-ref.md) |
 | `fromDataOriginInstance` | `String`                      | ❌        | Data origin instance (defaults to `DEFAULT`) |
 | `popMessageAfterSync`    | `PopMessageAfterSyncAdminSpec`| ❌        | Optional message to show on the client after syncing |
 
@@ -89,7 +89,7 @@ Each element of the `payload` array follows the `DN00SyncMetaDataFromAdminToCORE
             "interopRouteData": [
                 {
                     "denaComponentId": "DENA_CORE",
-                    "timestamp": "2026-05-27T15:54:58.8973112Z"
+                    "timestamp": "2026-05-27T15:54:58.897Z"
                 }
             ]
         }
@@ -105,7 +105,7 @@ Each element of the `payload` array follows the `DN00SyncMetaDataFromAdminToCORE
                     "admin": { "id": "admin-A414" },
                     "aboutPerson": { "id": "12345678A" },
                     "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                    "ofType": { "id": "administrativeNotice" },
+                    "ofType": { "id": "ADMINISTRATIVE_NOTICE" },
                     "fromDataOriginInstance": "DEFAULT"
                 },
                 "error": "The admin with ref=null;admin-A414 could NOT be validated"

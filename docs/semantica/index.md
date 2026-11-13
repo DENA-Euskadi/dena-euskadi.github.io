@@ -93,33 +93,41 @@ flowchart TD
 | [Errores y troubleshooting](./data-retrieve/errores-troubleshooting.md) | Guía de errores comunes |
 | [Snippets de código](./data-retrieve/snippets-codigo.md) | Java, C#, Python, Node.js, PHP |
 
-??? note "Objetos de datos"
+??? note "Objetos de datos (17 tipos)"
 
     | Objeto | Documento |
     |---|---|
-    | Campos comunes | [campos-comunes.md](./data-retrieve/data/campos-comunes.md) |
+    | Campos comunes heredados | [campos-comunes.md](./data-retrieve/data/campos-comunes.md) |
     | Expediente | [expediente.md](./data-retrieve/data/expediente.md) |
     | Notificación | [notificacion.md](./data-retrieve/data/notificacion.md) |
-    | Registro Oficial | [registro-oficial.md](./data-retrieve/data/registro-oficial.md) |
-    | Pago | [pago.md](./data-retrieve/data/pago.md) |
+    | Pago (único y domiciliación) | [pago.md](./data-retrieve/data/pago.md) |
     | Cita | [cita.md](./data-retrieve/data/cita.md) |
+    | Persona | [persona.md](./data-retrieve/data/persona.md) |
+    | Credencial de persona | [credencial-persona.md](./data-retrieve/data/credencial-persona.md) |
+    | Beneficio económico | [beneficio-economico.md](./data-retrieve/data/beneficio-economico.md) |
+    | Libro registro | [libro-registro.md](./data-retrieve/data/libro-registro.md) |
+    | Registro de persona | [registro-persona.md](./data-retrieve/data/registro-persona.md) |
+    | Matrícula | [matricula.md](./data-retrieve/data/matricula.md) |
+    | Datos médicos | [datos-medicos.md](./data-retrieve/data/datos-medicos.md) |
     | Servicio Administrativo | [servicio-administrativo.md](./data-retrieve/data/servicio-administrativo.md) |
     | Unidad Orgánica | [unidad-organica.md](./data-retrieve/data/unidad-organica.md) |
+    | **Registro Oficial** *(obsoleto)* | [registro-oficial.md](./data-retrieve/data/registro-oficial.md) |
 
 ### METADATA-SYNC
 
 | Documento | Descripción |
 |---|---|
-| [Visión general](./metadata-sync/index.md) | Flujo de notificación de cambios |
+| [Visión general](./metadata-sync/index.md) | Flujo, estructura del ítem SRMD y ejemplos reales |
 | [Endpoint](./metadata-sync/endpoint-sync-metadata.md) | Contrato REST del endpoint |
+| [Modelo ítem SRMD](./metadata-sync/modelo/sync-metadata-from-admin-to-core-item.md) | Descripción detallada del ítem `DN00SyncMetaDataFromAdminToCOREItem` |
 
 ### PERSON-SYNC
 
 | Documento | Descripción |
 |---|---|
 | [Visión general](./person-sync/index.md) | Mecanismos Pull y Push |
-| [Push](./person-sync/push.md) | DENA → Administración |
-| [Pull](./person-sync/pull.md) | Administración → DENA |
+| [Push](./person-sync/push.md) | DENA notifica cambios de personas a la administración |
+| [Pull](./person-sync/pull.md) | La administración descarga personas desde DENA |
 
 ---
 

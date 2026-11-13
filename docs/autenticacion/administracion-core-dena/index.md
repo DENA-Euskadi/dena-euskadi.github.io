@@ -105,13 +105,13 @@ Ademas del token, cada llamada a DENA debe incluir cabeceras de seguridad que ga
 | `Content-Type` | Tipo de contenido | `application/json` |
 | `X-DENA-Message-Correlation-Id` | UUID unico generado por tu sistema para esta peticion. Se mantiene en todo el flujo para trazabilidad | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
 | `X-DENA-This-TimeStamp` | Instante EPOCH (milisegundos) en el que tu sistema inicia la peticion | `1724500500000` |
-| `X-DENA-Data-Digest` | Hash SHA-256 del body del mensaje (ver generacion mas abajo) | `sha-256=2251f5ac60e4...` |
+| `X-DENA-Data-Digest` | Hash SHA-256 de la concatenación `timestamp + correlationId + body`, codificado en Base64 (ver generación más abajo) | `SHA-256=:Rp/u+lTGp+VLFBrJGpC3BPw5Gf...=:` |
 
 ### Cabeceras opcionales
 
 | Header | Descripcion | Ejemplo |
 |---|---|---|
-| `Content-Digest` | Hash SHA-256 del mensaje completo (headers + body) | `sha-256=...` |
+| `Content-Digest` | Hash SHA-256 del body, codificado en Base64. Complementa `X-DENA-Data-Digest` | `SHA-256=:Rp/u+lTGp+VLFBrJGpC3BPw5Gf...=:` |
 | `X-DENA-Origin-TimeStamp` | Instante EPOCH del inicio del flujo en el componente original. Se conserva inalterado entre componentes | `1724500500000` |
 | `User-Agent` | Identificacion de tu sistema. Formato recomendado: `AdminX/<ver> <modulo>/<ver> (soporte@admin.eus)` | `MiAdmin/1.0 srmd-sender/1.0 (soporte@miadmin.eus)` |
 
@@ -137,35 +137,35 @@ long timestamp = System.currentTimeMillis();
 
 #### X-DENA-Data-Digest
 
-Hash SHA-256 del body de la peticion, codificado en hexadecimal:
+Hash SHA-256 de la concatenación **`timestamp + correlationId + body`**, codificado en **Base64**. El formato del valor es `SHA-256=:{base64}:`.
 
 ```java
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
-public static String computeDataDigest(String body) {
-    MessageDigest digest = MessageDigest.getInstance("SHA-256");
-    byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
-    
-    // Convertir a hexadecimal
-    StringBuilder hex = new StringBuilder();
-    for (byte b : hash) {
-        hex.append(String.format("%02x", b));
-    }
-    return "sha-256=" + hex.toString();
+// X-DENA-Data-Digest = SHA-256=:base64(SHA256(timestamp + correlationId + body)):
+public static String computeDenaDataDigest(String timestamp, String correlationId, String body)
+        throws Exception {
+    MessageDigest md = MessageDigest.getInstance("SHA-256");
+    byte[] hash = md.digest((timestamp + correlationId + body).getBytes(StandardCharsets.UTF_8));
+    return "SHA-256=:" + Base64.getEncoder().encodeToString(hash) + ":";
 }
 ```
 
 ```python
 import hashlib
+import base64
 
-def compute_data_digest(body: str) -> str:
-    hash_value = hashlib.sha256(body.encode('utf-8')).hexdigest()
-    return f"sha-256={hash_value}"
+# X-DENA-Data-Digest = SHA-256=:base64(SHA256(timestamp + correlationId + body)):
+def compute_dena_data_digest(timestamp: str, correlation_id: str, body: str) -> str:
+    data = (timestamp + correlation_id + body).encode('utf-8')
+    hash_bytes = hashlib.sha256(data).digest()
+    return "SHA-256=:" + base64.b64encode(hash_bytes).decode('utf-8') + ":"
 ```
 
-!!! warning "Calcula el digest sobre el body exacto"
-    El hash debe calcularse sobre el cuerpo exacto que se envia por la red (despues de la serializacion JSON). Si un proxy o middleware modifica el body despues del calculo, DENA rechazara la peticion.
+!!! warning "El digest incluye timestamp y correlationId, no solo el body"
+    La entrada del hash es la concatenación `timestamp + correlationId + body` (sin separadores). Calcular el hash solo sobre el body producirá un digest inválido y DENA rechazará la petición con 401.
 
 ---
 
@@ -177,8 +177,8 @@ Peticion completa a DENA con todas las cabeceras:
 # 1. Generar valores de seguridad
 CORRELATION_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 TIMESTAMP=$(date +%s%3N)
-BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.000Z","ofType":{"id":"RECORDS"},"fromDataOriginInstance":"DEFAULT"}]'
-DATA_DIGEST="sha-256=$(echo -n "$BODY" | shasum -a 256 | cut -d' ' -f1)"
+BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.0000000Z","ofType":{"id":"RECORDS"},"fromDataOriginInstance":"DEFAULT"}]'
+DATA_DIGEST="SHA-256=:$(printf '%s' "${TIMESTAMP}${CORRELATION_ID}${BODY}" | openssl dgst -sha256 -binary | openssl base64 -A):"
 
 # 2. Enviar con todas las cabeceras
 curl -X POST "https://api-batera.pre.dena.eus/srmd/" \
