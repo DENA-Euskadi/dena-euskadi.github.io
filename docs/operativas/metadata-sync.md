@@ -98,7 +98,7 @@ HttpRequest request = HttpRequest.newBuilder()
     "admin": { "id": "EJGV" },
     "aboutPerson": { "id": "40404040H" },
     "someDataWasUpdatedAt": "2026-08-17T15:14:07.0360000Z",
-    "ofType": { "id": "ADMIN_NOTICE" },
+    "ofType": { "id": "ADMINISTRATIVE_NOTICE" },
     "fromDataOriginInstance": "DEFAULT"
   },
   {

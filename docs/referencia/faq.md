@@ -87,7 +87,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
     ```json
     {
       "context": { ... },
-      "data": { "dataItems": [] },
+      "payload": { "dataItems": [] },
       "code": "OK"
     }
     ```
@@ -97,7 +97,7 @@ Respuestas a las dudas más comunes de las administraciones integradoras.
 ??? question "¿Puedo devolver datos parciales si solo tengo algunos tipos?"
 
     Sí. Devuelve solo los objetos que tengas disponibles para el `dataTypeId` solicitado.
-    Si te piden `RECORDS` y no tienes expedientes para esa persona, devuelve `dataItems: []`.
+    Si te piden `ADMINISTRATIVE_RECORD` y no tienes expedientes para esa persona, devuelve `dataItems: []`.
 
 ??? question "¿Los textos multiidioma son obligatorios en euskera y castellano?"
 

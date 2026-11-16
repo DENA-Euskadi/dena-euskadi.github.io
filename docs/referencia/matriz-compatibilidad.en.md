@@ -28,7 +28,7 @@ Which endpoints are mandatory or optional depending on your integration type?
 |---|---|---|
 | `POST` Data-Retrieve (configurable URL; e.g. `/api/retrieveData`) | :material-domain: Administration | :material-swap-horizontal: DENA |
 | `POST` Person Push (configurable URL) | :material-domain: Administration | :material-swap-horizontal: DENA |
-| `POST /api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administration |
+| `POST https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administration |
 | `POST /api/admin/persons/sync/...` (Person-Sync Pull: bespokes/pregens) | :material-swap-horizontal: DENA | :material-domain: Administration |
 
 > The endpoints **implemented by the administration** (Data-Retrieve and Person Push) are exposed at the URL the administration configures in DENA; the routes shown are examples/reference. The endpoints **implemented by DENA** (Metadata-Sync and Person-Sync Pull) have a fixed route.
@@ -37,13 +37,15 @@ Which endpoints are mandatory or optional depending on your integration type?
 
 ## By data type
 
-| dataTypeId | Returned object | Documentation |
+| `dataType.id` | Returned object | Documentation |
 |---|---|---|
-| `RECORDS` | Records | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
-| `NOTICES` | Notifications | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
-| `REGISTER` | Official registries | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
-| `PAYMENTS` | Payments | [pago.md](../semantica/data-retrieve/data/pago.md) |
-| `SCHEDULE` | Appointments | [cita.md](../semantica/data-retrieve/data/cita.md) |
+| `ADMINISTRATIVE_RECORD` | Administrative record | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
+| `ADMINISTRATIVE_NOTICE` | Notification | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
+| `PAYMENT_ONE_OFF_PAYMENT` | One-off payment | [pago.md](../semantica/data-retrieve/data/pago.md) |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | Direct debit | [pago.md](../semantica/data-retrieve/data/pago.md) |
+| `SCHEDULE` | Appointment | [cita.md](../semantica/data-retrieve/data/cita.md) |
+| `ADMINISTRATIVE_LEDGER` | Register ledger | [libro-registro.md](../semantica/data-retrieve/data/libro-registro.md) |
+| `PERSON_DATA` | Person data | [persona.md](../semantica/data-retrieve/data/persona.md) |
 
 !!! tip "You don't need to implement all types"
 

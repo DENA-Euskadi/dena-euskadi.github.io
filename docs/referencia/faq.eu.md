@@ -73,7 +73,7 @@ Administrazio integratzaileen zalantza ohikoenei erantzunak.
     ```json
     {
       "context": { ... },
-      "data": { "dataItems": [] },
+      "payload": { "dataItems": [] },
       "code": "OK"
     }
     ```
@@ -83,7 +83,7 @@ Administrazio integratzaileen zalantza ohikoenei erantzunak.
 ??? question "Datu partzialak itzul al ditzaket mota batzuk bakarrik baditut?"
 
     Bai. Itzuli eskatutako `dataTypeId`-rako eskuragarri dituzun objektuak bakarrik.
-    `RECORDS` eskatzen badizute eta pertsona horren espedienteik ez baduzu, itzuli `dataItems: []`.
+    `ADMINISTRATIVE_RECORD` eskatzen badizute eta pertsona horren espedienteik ez baduzu, itzuli `dataItems: []`.
 
 ??? question "Hizkuntz anitzeko testuak derrigorrez euskaraz eta gaztelaniaz egon behar al dira?"
 

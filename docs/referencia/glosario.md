@@ -115,7 +115,7 @@ Definición de los términos técnicos y funcionales utilizados en la documentac
 ## M
 
 `messageType`
-:   Tipo de mensaje enviado en el campo `data` de un mensaje interop (ej: `PERSON_FETCH_DATA`, `CLIENT_LOGIN`).
+:   Tipo de mensaje en el campo `context.message.type` de un mensaje interop. Indica la operación y su dirección (ej: `CLIENT_RETRIEVE_REQ`, `ADMIN_SRMD_SYNC_REQ`, `PERSON_PUSH_TO_ADMIN_REQ`). Ver [Tipos de Mensaje](../semantica/semantica-base/modelo/message-types.md).
 
 `Metadata-Sync`
 :   Mecanismo mediante el cual las administraciones notifican a DENA los cambios en datos de personas.

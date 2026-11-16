@@ -144,14 +144,14 @@ DENA-k zure sistemara deituko du pertsonak bere datuak ikusi behar dituenean. Zu
           "id": "2026/00456",
           "lastChangedAt": "2026-08-24T10:30:00.000Z",
           "service": {
-            "serviceNameByLanguage": {
+            "nameByLanguage": {
               "SPANISH": "Licencias de actividad",
               "BASQUE": "Jarduera-lizentziak"
             },
             "originRef": { "id": "SRV-LIC-001" }
           },
           "procedure": {
-            "serviceNameByLanguage": {
+            "nameByLanguage": {
               "SPANISH": "Solicitud de licencia de apertura",
               "BASQUE": "Irekiera-lizentzia eskaera"
             },

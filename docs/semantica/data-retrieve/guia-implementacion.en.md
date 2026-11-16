@@ -214,11 +214,11 @@ All returned objects must include at minimum:
   "oid": "EXP-001",
   "id": "2024/00123",
   "service": {
-    "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+    "nameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "id": "SRV-LIC-ACT" }
   },
   "procedure": {
-    "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera" },
+    "nameByLanguage": { "SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera" },
     "originRef": { "id": "PROC-LIC-001" }
   },
   "createdAt": "2024-03-15T10:30:00Z",

@@ -75,14 +75,14 @@ private List<DN00ScheduleItem> _fromDBDataToReturnedDataItems(
                 .add(Language.BASQUE, item.subjectEU()));
 
             // URLs de detalle en tu web
-            schItem.setUrls(UrlCollection.create()
-                .addItems(
-                    UrlCollectionItem.createFor(
-                        Url.from("https://my-admin.eus/citas/" + item.id() + "?lang=eu")),
-                        CollectionItemID.forId("main"), Language.BASQUE),
-                    UrlCollectionItem.createFor(
-                        Url.from("https://my-admin.eus/citas/" + item.id() + "?lang=es")),
-                        CollectionItemID.forId("main"), Language.SPANISH)));
+            UrlCollection urls = new UrlCollection();
+            urls.add(UrlCollectionItem.createFor(
+                Url.from("https://my-admin.eus/citas/" + item.id() + "?lang=eu"),
+                CollectionItemID.forId("main"), Language.BASQUE));
+            urls.add(UrlCollectionItem.createFor(
+                Url.from("https://my-admin.eus/citas/" + item.id() + "?lang=es"),
+                CollectionItemID.forId("main"), Language.SPANISH));
+            schItem.setUrls(urls);
 
             return schItem;
         })
@@ -124,13 +124,13 @@ La respuesta completa incluye la estructura del mensaje interop DENA (context + 
 {
   "context": {
     "message": {
-      "type": "PERSON_FETCH_DATA",
+      "type": "CLIENT_RETRIEVE_REQ",
       "correlationId": "550e8400-e29b-41d4-a716-446655440000",
       "interopRouteData": [
         { "denaComponentId": "ADMIN", "timestamp": "2026-08-19T08:07:56.742Z" }
       ]
     },
-    "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
+    "dataType": { "id": "SCHEDULE", "oid": "DTYPE-OID-SCHEDULE" },
     "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
   },
   "code": "OK",
@@ -169,7 +169,7 @@ La respuesta completa incluye la estructura del mensaje interop DENA (context + 
     {
       "context": {
         "message": {
-          "type": "PERSON_FETCH_DATA",
+          "type": "CLIENT_RETRIEVE_REQ",
           "correlationId": "550e8400-e29b-41d4-a716-446655440000",
           "interopRouteData": [
             { "denaComponentId": "DENA_ADMIN_CONNECTOR", "timestamp": "2026-08-19T08:07:55.100Z" },
@@ -178,7 +178,7 @@ La respuesta completa incluye la estructura del mensaje interop DENA (context + 
         },
         "originAdmin": { "oid": "ADMIN-OID-001", "id": "MI-ADMIN", "dir3Id": "EA0000001" },
         "userAgent": "MiAdmin/1.0 data-provider/1.0 (soporte@miadmin.eus)",
-        "dataType": { "id": "scheduleItem", "oid": "DTYPE-OID-SCHEDULE" },
+        "dataType": { "id": "SCHEDULE", "oid": "DTYPE-OID-SCHEDULE" },
         "subjectPerson": { "id": "48291038Z", "oid": "PERSON-OID-001" }
       },
       "protocol": {

@@ -115,7 +115,7 @@ Definition of technical and functional terms used in the DENA documentation.
 ## M
 
 `messageType`
-:   Type of message sent in the `data` field of an interop message (e.g.: `PERSON_FETCH_DATA`, `CLIENT_LOGIN`).
+:   Message type in the `context.message.type` field of an interop message. Indicates the operation and its direction (e.g. `CLIENT_RETRIEVE_REQ`, `ADMIN_SRMD_SYNC_REQ`, `PERSON_PUSH_TO_ADMIN_REQ`). See [Message Types](../semantica/semantica-base/modelo/message-types.md).
 
 `Metadata-Sync`
 :   Mechanism through which administrations notify DENA of changes in person data.

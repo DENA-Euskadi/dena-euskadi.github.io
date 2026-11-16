@@ -126,6 +126,30 @@ Fields marked with <span class="field-badge--common">common</span> are **inherit
 
 ---
 
+## applicationData
+
+Application submission data:
+
+| Field | Type | Description |
+|---|---|---|
+| `date` | `String` (ISO 8601) | Application submission date |
+| `ledgerId` | `String` | Assigned registry entry number |
+
+---
+
+## recordData
+
+Record status and dates:
+
+| Field | Type | Description |
+|---|---|---|
+| `createdAt` | `String` (ISO 8601) | Record creation date |
+| `lastModifiedAt` | `String` (ISO 8601) | Last modification date |
+| `state` | `Object` | Record state (`stateCode` + `description`) |
+| `interestedParty` | `Object` | Interested party (`personId` + `displayName`) |
+
+---
+
 ## JSON example
 
 <div class="common-highlight" markdown>

@@ -11,7 +11,7 @@ Este documento explica cómo usar el sistema de versionado centralizado para rep
 [Documentación DENA]({{ repos.docs_tree_public }})
 
 <!-- Ejemplo: Enlace al conector base con versión específica -->
-Ver código fuente: [dena-connector-base-rest](https://gitlab-q.batsdlc.itbatera.euskadi.eus/itbatera/convergencia/dena/e80a021-dena-interop/e80a021g-dena-interop-connectors/e80a021g-dena-connector-base-rest/tree/v0.3.30-SNAPSHOT)
+Ver código fuente: [dena-connector-base-rest](https://gitlab-q.batsdlc.itbatera.euskadi.eus/itbatera/convergencia/dena/e80a021-dena-interop/e80a021g-dena-interop-connectors/e80a021g-dena-connector-base-rest/tree/0.5.20-SNAPSHOT)
 ```
 
 ### Artefactos Maven Versionados
@@ -25,7 +25,7 @@ Ver código fuente: [dena-connector-base-rest](https://gitlab-q.batsdlc.itbatera
 <dependency>
     <groupId>dena.api.common</groupId>
     <artifactId>denaCommonAPIModelClasses</artifactId>
-    <version>v0.3.30-SNAPSHOT</version>
+    <version>0.5.20-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -36,10 +36,10 @@ Ver código fuente: [dena-connector-base-rest](https://gitlab-q.batsdlc.itbatera
 mvn clean compile -s ~/.m2/settings-dena.xml -Pbatsdlc
 
 # Instalar snapshot con versión específica  
-mvn clean install -s ~/.m2/settings-dena.xml -Pbatsdlc -Drevision=0.3.26
+mvn clean install -s ~/.m2/settings-dena.xml -Pbatsdlc -Drevision=0.5.20
 
 # Build Docker con versión específica
-docker build -t dena-service:0.3.26 .
+docker build -t dena-service:0.5.20 .
 ```
 
 ## Actualización de Versiones
@@ -50,8 +50,8 @@ Para actualizar todas las versiones del sistema, solo necesitas modificar el arc
 
 ```yaml
 tags:
-  dena_common_api: "v0.4.0"  # Nueva versión
-  dena_connector_base_rest: "v0.4.0"  # Nueva versión
+  dena_common_api: "0.5.20"  # Nueva versión
+  dena_connector_base_rest: "0.5.20"  # Nueva versión
   # ... resto de tags
 ```
 
@@ -59,7 +59,7 @@ tags:
 
 ```yaml
 dena:
-  version: "0.4.0"  # Nueva versión principal
+  version: "0.5.20"  # Nueva versión principal
   date: "2026-08-24"  # Nueva fecha de release
 ```
 
@@ -82,10 +82,10 @@ mkdocs build
 ### Documentar Nueva Feature
 
 ```markdown
-## Nuevo Endpoint Data-Retrieve v0.3.30-SNAPSHOT
+## Nuevo Endpoint Data-Retrieve 0.5.20-SNAPSHOT
 
 La nueva funcionalidad está disponible en:
-- API: [dena-common-api](https://gitlab-q.batsdlc.itbatera.euskadi.eus/itbatera/convergencia/dena/e80a021-dena-interop/public/dena-common-api/tree/v0.3.30-SNAPSHOT)
+- API: [dena-common-api](https://gitlab-q.batsdlc.itbatera.euskadi.eus/itbatera/convergencia/dena/e80a021-dena-interop/public/dena-common-api/tree/0.5.20-SNAPSHOT)
 - Ejemplos: [Postman Collections]({{ repos.docs_tree }}/docs/adjuntos/postman)
 
 ### Dependencia Maven
@@ -94,7 +94,7 @@ La nueva funcionalidad está disponible en:
 <dependency>
     <groupId>dena.api.common</groupId>
     <artifactId>denaCommonAPIModelClasses</artifactId>
-    <version>v0.3.30-SNAPSHOT</version>
+    <version>0.5.20-SNAPSHOT</version>
 </dependency>
 \```
 ```
@@ -106,13 +106,13 @@ La nueva funcionalidad está disponible en:
     Antes de proceder con la instalación de cualquier componente DENA, asegúrese de que la versión seleccionada sea compatible con la infraestructura de destino y las versiones de otros componentes ya desplegados.
 
 ```markdown
-## Instalar Conector Demo v0.3.30-SNAPSHOT
+## Instalar Conector Demo 0.5.20-SNAPSHOT
 
 1. Clonar repositorio:
    \```bash
    git clone https://gitlab-q.batsdlc.itbatera.euskadi.eus/itbatera/convergencia/dena/e80a021-dena-interop/e80a021h-dena-interop-mocks/e80a021h-dena-connector-demo1-rest.git
    cd dena-connector-demo1-rest
-   git checkout v0.3.30-SNAPSHOT
+   git checkout 0.5.20-SNAPSHOT
    \```
 
 2. Compilar:
@@ -138,7 +138,7 @@ La nueva funcionalidad está disponible en:
 #!/bin/bash
 # update-versions.sh - Script para actualizar versiones
 
-NEW_VERSION="v0.4.0"
+NEW_VERSION="0.5.20"
 NEW_DATE=$(date +%Y-%m-%d)
 
 # Actualizar mkdocs-vars.yaml

@@ -57,11 +57,11 @@ public class RetrieveDataController {
                 "oid", "EXP-OID-001",
                 "id", "EXP-2024-00123",
                 "service", Map.of(
-                    "serviceNameByLanguage", Map.of("SPANISH", "Licencias de actividad", "BASQUE", "Jarduera-lizentziak"),
+                    "nameByLanguage", Map.of("SPANISH", "Licencias de actividad", "BASQUE", "Jarduera-lizentziak"),
                     "originRef", Map.of("id", "SRV-LIC-ACT")
                 ),
                 "procedure", Map.of(
-                    "serviceNameByLanguage", Map.of("SPANISH", "Solicitud de licencia", "BASQUE", "Lizentzia eskaera"),
+                    "nameByLanguage", Map.of("SPANISH", "Solicitud de licencia", "BASQUE", "Lizentzia eskaera"),
                     "originRef", Map.of("id", "PROC-LIC-001")
                 ),
                 "createdAt", "2024-03-15T10:30:00Z",
@@ -162,11 +162,11 @@ def fetch_records(person_id: str) -> list[dict]:
                 "oid": "EXP-OID-001",
                 "id": "EXP-2024-00123",
                 "service": {
-                    "serviceNameByLanguage": {"SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak"},
+                    "nameByLanguage": {"SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak"},
                     "originRef": {"id": "SRV-LIC-ACT"},
                 },
                 "procedure": {
-                    "serviceNameByLanguage": {"SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera"},
+                    "nameByLanguage": {"SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera"},
                     "originRef": {"id": "PROC-LIC-001"},
                 },
                 "createdAt": "2024-03-15T10:30:00Z",
@@ -223,11 +223,11 @@ function fetchRecords(personId) {
         oid: 'EXP-OID-001',
         id: 'EXP-2024-00123',
         service: {
-          serviceNameByLanguage: { SPANISH: 'Licencias de actividad', BASQUE: 'Jarduera-lizentziak' },
+          nameByLanguage: { SPANISH: 'Licencias de actividad', BASQUE: 'Jarduera-lizentziak' },
           originRef: { id: 'SRV-LIC-ACT' },
         },
         procedure: {
-          serviceNameByLanguage: { SPANISH: 'Solicitud de licencia', BASQUE: 'Lizentzia eskaera' },
+          nameByLanguage: { SPANISH: 'Solicitud de licencia', BASQUE: 'Lizentzia eskaera' },
           originRef: { id: 'PROC-LIC-001' },
         },
         createdAt: '2024-03-15T10:30:00Z',
@@ -287,11 +287,11 @@ function fetchRecords(string $personId): array {
                 'oid' => 'EXP-OID-001',
                 'id' => 'EXP-2024-00123',
                 'service' => [
-                    'serviceNameByLanguage' => ['SPANISH' => 'Licencias de actividad', 'BASQUE' => 'Jarduera-lizentziak'],
+                    'nameByLanguage' => ['SPANISH' => 'Licencias de actividad', 'BASQUE' => 'Jarduera-lizentziak'],
                     'originRef' => ['id' => 'SRV-LIC-ACT'],
                 ],
                 'procedure' => [
-                    'serviceNameByLanguage' => ['SPANISH' => 'Solicitud de licencia', 'BASQUE' => 'Lizentzia eskaera'],
+                    'nameByLanguage' => ['SPANISH' => 'Solicitud de licencia', 'BASQUE' => 'Lizentzia eskaera'],
                     'originRef' => ['id' => 'PROC-LIC-001'],
                 ],
                 'createdAt' => '2024-03-15T10:30:00Z',

@@ -59,14 +59,14 @@ public class DenaRetrieveDataController {
             Map.entry("id", exp.getNumero()),
             Map.entry("lastChangedAt", exp.getUpdatedAt().toString()),
             Map.entry("service", Map.of(
-                "serviceNameByLanguage", Map.of(
+                "nameByLanguage", Map.of(
                     "SPANISH", exp.getServicioEs(),
                     "BASQUE", exp.getServicioEu()
                 ),
                 "originRef", Map.of("id", exp.getServicioId())
             )),
             Map.entry("procedure", Map.of(
-                "serviceNameByLanguage", Map.of(
+                "nameByLanguage", Map.of(
                     "SPANISH", exp.getProcedimientoEs(),
                     "BASQUE", exp.getProcedimientoEu()
                 ),

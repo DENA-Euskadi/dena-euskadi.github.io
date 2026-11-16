@@ -3,7 +3,7 @@
 ## Endpoint
 
 ```
-POST /api/admin/interop/sync/metadata
+POST https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer <token> (OAuth konfiguratuta badago)
@@ -18,39 +18,43 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
     "context": {
         "message": {
             "type": "ADMIN_SRMD_SYNC_REQ",
-            "correlationId": "0777f936-4c31-43b5-81ee-fdf4d708f147",
+            "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
             "interopRouteData": [
                 {
                     "denaComponentId": "ADMIN",
-                    "timestamp": "2026-06-10T15:37:57.553Z"
+                    "timestamp": "2026-11-10T08:07:38.934Z"
                 }
             ]
         },
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36",
         "originAdmin": {
-            "id": "admin-A414",
-            "dir3Id": "EA0000001"
+            "id": "SANDBOXCIF"
         }
     },
     "payload": [
         {
             "admin": {
-                "id": "admin-A414"
+                "id": "SANDBOXCIF"
             },
             "aboutPerson": {
-                "id": "12345678A"
+                "id": "11189396B",
+                "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
             },
-            "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
+            "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
             "ofType": {
-                "id": "ADMINISTRATIVE_NOTICE"
+                "id": "PERSON_DATA"
+            }
+        },
+        {
+            "admin": {
+                "id": "SANDBOXCIF"
             },
-            "fromDataOriginInstance": "DEFAULT",
-            "popMessageAfterSync": {
-                "how": "AT_CLIENT_AFTER_SYNC",
-                "messageByLang": {
-                    "SPANISH": "Nuevo expediente de \"adminId\"",
-                    "ENGLISH": "New procedure from \"adminId\""
-                }
+            "aboutPerson": {
+                "id": "11111111B",
+                "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+            },
+            "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+            "ofType": {
+                "id": "PERSON_DATA"
             }
         }
     ]
@@ -82,33 +86,71 @@ Authorization: Bearer <token> (OAuth konfiguratuta badago)
 
 ```json
 {
+    "code": "OK",
     "context": {
         "message": {
             "type": "ADMIN_SRMD_SYNC_RESP",
-            "correlationId": "6750E08A-58F0-433D-900F-253529AAD25E",
+            "correlationId": "9cd46653-284c-468d-81f6-53c84bd50794",
             "interopRouteData": [
                 {
-                    "denaComponentId": "DENA_CORE",
-                    "timestamp": "2026-05-27T15:54:58.897Z"
+                    "denaComponentId": "DENA_INTEROP_ADMIN_SYNC",
+                    "timestamp": "2026-11-10T08:07:39.5179823Z"
+                },
+                {
+                    "denaComponentId": "ADMIN",
+                    "timestamp": "2026-11-10T08:07:38.934Z"
                 }
             ]
         }
     },
-    "code": "OK",
     "payload": {
-        "transactionOid": "EA2C9ECD-DC48-48D0-B863-963D9468F042",
-        "receivedItemsCount": 1,
-        "processedOK": [],
+        "transactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+        "receivedItemsCount": 2,
+        "processedOK": [
+            {
+                "admin": {
+                    "id": "SANDBOXCIF",
+                    "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                },
+                "dataLastUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+                "dataOriginInstanceId": "DEFAULT",
+                "dataType": {
+                    "id": "PERSON_DATA",
+                    "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007"
+                },
+                "entityVersion": 5,
+                "lastTransactionOid": "FFCD3371-D351-427E-A890-0C886BCA1275",
+                "numericId": 0,
+                "oid": "6485BF2C-5C53-4EC0-ABE3-212DD4403913",
+                "person": {
+                    "id": "11189396B",
+                    "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+                },
+                "trackingInfo": {
+                    "createdAt": "2026-11-04T17:22:41.6877234Z",
+                    "lastUpdatedAt": "2026-11-10T08:07:39.4321202Z",
+                    "lastUpdaterSecurityPrincipalOid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                }
+            }
+        ],
         "processedNOK": [
             {
                 "item": {
-                    "admin": { "id": "admin-A414" },
-                    "aboutPerson": { "id": "12345678A" },
-                    "someDataWasUpdatedAt": "2026-05-11T09:56:10.2237636Z",
-                    "ofType": { "id": "ADMINISTRATIVE_NOTICE" },
+                    "admin": {
+                        "id": "SANDBOXCIF",
+                        "oid": "6d9d73d4-3d3d-6d3d-ad3d-3d3d3d3d3011"
+                    },
+                    "aboutPerson": {
+                        "oid": "631011F3-9A2F-4D08-9F56-B7F4D6A0749E"
+                    },
+                    "someDataWasUpdatedAt": "2026-11-09T20:41:39.8825952Z",
+                    "ofType": {
+                        "id": "PERSON_DATA",
+                        "oid": "7e0e84e5-4e4e-7e4e-be4e-4e4e4e4e4007"
+                    },
                     "fromDataOriginInstance": "DEFAULT"
                 },
-                "error": "The admin with ref=null;admin-A414 could NOT be validated"
+                "error": "The [person] with ref=631011F3-9A2F-4D08-9F56-B7F4D6A0749E;null could NOT be validated"
             }
         ]
     }

@@ -140,8 +140,8 @@ Guía centralizada de errores comunes y su resolución, organizada por categorí
     {
       "context": {
         "subjectPerson": { "id": "12345678A" },
-        "dataType": { "id": "administrativeServiceProcedureRecord" },
-        "administration": { "id": "ADMIN-001" }
+        "dataType": { "id": "ADMINISTRATIVE_RECORD" },
+        "destinationAdmin": { "id": "ADMIN-001" }
       }
     }
     ```

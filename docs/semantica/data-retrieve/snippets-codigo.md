@@ -29,13 +29,13 @@ public class RetrieveDataController {
 
         // Buscar datos según tipo; cada elemento se envuelve en "data"
         List<Map<String, Object>> dataItems = switch (dataTypeId) {
-            case "administrativeServiceProcedureRecord"  -> fetchRecords(personId);
-            case "administrativeNotice"                  -> fetchNotices(personId);
-            case "administrativeLedger"  -> fetchLedger(personId);
-            case "oneOffPayment"                         -> fetchPayments(personId);
-            case "scheduleItem"                          -> fetchSchedule(personId);
-            case "personData"                            -> fetchPersonData(personId);
-            default                                      -> List.of();
+            case "ADMINISTRATIVE_RECORD"      -> fetchRecords(personId);
+            case "ADMINISTRATIVE_NOTICE"      -> fetchNotices(personId);
+            case "ADMINISTRATIVE_LEDGER"      -> fetchLedger(personId);
+            case "PAYMENT_ONE_OFF_PAYMENT"    -> fetchPayments(personId);
+            case "SCHEDULE"                   -> fetchSchedule(personId);
+            case "PERSON_DATA"                -> fetchPersonData(personId);
+            default                           -> List.of();
         };
 
         // Construir response: code a nivel raíz, payload.dataItems
@@ -57,11 +57,11 @@ public class RetrieveDataController {
                 "oid", "EXP-OID-001",
                 "id", "EXP-2024-00123",
                 "service", Map.of(
-                    "serviceNameByLanguage", Map.of("SPANISH", "Licencias de actividad", "BASQUE", "Jarduera-lizentziak"),
+                    "nameByLanguage", Map.of("SPANISH", "Licencias de actividad", "BASQUE", "Jarduera-lizentziak"),
                     "originRef", Map.of("id", "SRV-LIC-ACT")
                 ),
                 "procedure", Map.of(
-                    "serviceNameByLanguage", Map.of("SPANISH", "Solicitud de licencia", "BASQUE", "Lizentzia eskaera"),
+                    "nameByLanguage", Map.of("SPANISH", "Solicitud de licencia", "BASQUE", "Lizentzia eskaera"),
                     "originRef", Map.of("id", "PROC-LIC-001")
                 ),
                 "createdAt", "2024-03-15T10:30:00Z",
@@ -92,13 +92,13 @@ app.MapPost("/api/retrieveData", async (HttpContext http) =>
 
     var dataItems = dataTypeId switch
     {
-        "administrativeServiceProcedureRecord"  => GetRecords(personId),
-        "administrativeNotice"                  => GetNotices(personId),
-        "administrativeLedger"  => GetLedger(personId),
-        "oneOffPayment"                         => GetPayments(personId),
-        "scheduleItem"                          => GetSchedule(personId),
-        "personData"                            => GetPersonData(personId),
-        _                                       => new List<object>()
+        "ADMINISTRATIVE_RECORD"      => GetRecords(personId),
+        "ADMINISTRATIVE_NOTICE"      => GetNotices(personId),
+        "ADMINISTRATIVE_LEDGER"      => GetLedger(personId),
+        "PAYMENT_ONE_OFF_PAYMENT"    => GetPayments(personId),
+        "SCHEDULE"                   => GetSchedule(personId),
+        "PERSON_DATA"                => GetPersonData(personId),
+        _                            => new List<object>()
     };
 
     return Results.Ok(new
@@ -133,12 +133,12 @@ async def retrieve_data(request: dict[str, Any]) -> dict[str, Any]:
     data_type_id = context["dataType"]["id"]
 
     fetchers = {
-        "administrativeServiceProcedureRecord": fetch_records,
-        "administrativeNotice": fetch_notices,
-        "administrativeLedger": fetch_ledger,
-        "oneOffPayment": fetch_payments,
-        "scheduleItem": fetch_schedule,
-        "personData": fetch_person_data,
+        "ADMINISTRATIVE_RECORD": fetch_records,
+        "ADMINISTRATIVE_NOTICE": fetch_notices,
+        "ADMINISTRATIVE_LEDGER": fetch_ledger,
+        "PAYMENT_ONE_OFF_PAYMENT": fetch_payments,
+        "SCHEDULE": fetch_schedule,
+        "PERSON_DATA": fetch_person_data,
     }
 
     data_items = fetchers.get(data_type_id, lambda _: [])(person_id)
@@ -162,11 +162,11 @@ def fetch_records(person_id: str) -> list[dict]:
                 "oid": "EXP-OID-001",
                 "id": "EXP-2024-00123",
                 "service": {
-                    "serviceNameByLanguage": {"SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak"},
+                    "nameByLanguage": {"SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak"},
                     "originRef": {"id": "SRV-LIC-ACT"},
                 },
                 "procedure": {
-                    "serviceNameByLanguage": {"SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera"},
+                    "nameByLanguage": {"SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera"},
                     "originRef": {"id": "PROC-LIC-001"},
                 },
                 "createdAt": "2024-03-15T10:30:00Z",
@@ -194,12 +194,12 @@ app.post('/api/retrieveData', (req, res) => {
   const dataTypeId = context.dataType.id;
 
   const fetchers = {
-    administrativeServiceProcedureRecord: fetchRecords,
-    administrativeNotice: fetchNotices,
-    administrativeLedger: fetchLedger,
-    oneOffPayment: fetchPayments,
-    scheduleItem: fetchSchedule,
-    personData: fetchPersonData,
+    ADMINISTRATIVE_RECORD: fetchRecords,
+    ADMINISTRATIVE_NOTICE: fetchNotices,
+    ADMINISTRATIVE_LEDGER: fetchLedger,
+    PAYMENT_ONE_OFF_PAYMENT: fetchPayments,
+    SCHEDULE: fetchSchedule,
+    PERSON_DATA: fetchPersonData,
   };
 
   const dataItems = (fetchers[dataTypeId] || (() => []))(personId);
@@ -223,11 +223,11 @@ function fetchRecords(personId) {
         oid: 'EXP-OID-001',
         id: 'EXP-2024-00123',
         service: {
-          serviceNameByLanguage: { SPANISH: 'Licencias de actividad', BASQUE: 'Jarduera-lizentziak' },
+          nameByLanguage: { SPANISH: 'Licencias de actividad', BASQUE: 'Jarduera-lizentziak' },
           originRef: { id: 'SRV-LIC-ACT' },
         },
         procedure: {
-          serviceNameByLanguage: { SPANISH: 'Solicitud de licencia', BASQUE: 'Lizentzia eskaera' },
+          nameByLanguage: { SPANISH: 'Solicitud de licencia', BASQUE: 'Lizentzia eskaera' },
           originRef: { id: 'PROC-LIC-001' },
         },
         createdAt: '2024-03-15T10:30:00Z',
@@ -259,13 +259,13 @@ Route::post('/api/retrieveData', function (Request $request) {
     $dataTypeId = $context['dataType']['id'];
 
     $dataItems = match ($dataTypeId) {
-        'administrativeServiceProcedureRecord'  => fetchRecords($personId),
-        'administrativeNotice'                  => fetchNotices($personId),
-        'administrativeLedger'  => fetchLedger($personId),
-        'oneOffPayment'                         => fetchPayments($personId),
-        'scheduleItem'                          => fetchSchedule($personId),
-        'personData'                            => fetchPersonData($personId),
-        default                                 => [],
+        'ADMINISTRATIVE_RECORD'      => fetchRecords($personId),
+        'ADMINISTRATIVE_NOTICE'      => fetchNotices($personId),
+        'ADMINISTRATIVE_LEDGER'      => fetchLedger($personId),
+        'PAYMENT_ONE_OFF_PAYMENT'    => fetchPayments($personId),
+        'SCHEDULE'                   => fetchSchedule($personId),
+        'PERSON_DATA'                => fetchPersonData($personId),
+        default                      => [],
     };
 
     return response()->json([
@@ -287,11 +287,11 @@ function fetchRecords(string $personId): array {
                 'oid' => 'EXP-OID-001',
                 'id' => 'EXP-2024-00123',
                 'service' => [
-                    'serviceNameByLanguage' => ['SPANISH' => 'Licencias de actividad', 'BASQUE' => 'Jarduera-lizentziak'],
+                    'nameByLanguage' => ['SPANISH' => 'Licencias de actividad', 'BASQUE' => 'Jarduera-lizentziak'],
                     'originRef' => ['id' => 'SRV-LIC-ACT'],
                 ],
                 'procedure' => [
-                    'serviceNameByLanguage' => ['SPANISH' => 'Solicitud de licencia', 'BASQUE' => 'Lizentzia eskaera'],
+                    'nameByLanguage' => ['SPANISH' => 'Solicitud de licencia', 'BASQUE' => 'Lizentzia eskaera'],
                     'originRef' => ['id' => 'PROC-LIC-001'],
                 ],
                 'createdAt' => '2024-03-15T10:30:00Z',
@@ -315,7 +315,7 @@ La respuesta de error lleva el `code` a nivel raíz (`CLIENT_ERR`/`SERVER_ERR`),
 {
   "context": {
     "subjectPerson": { "id": "12345678A" },
-    "dataType": { "id": "administrativeServiceProcedureRecord" }
+    "dataType": { "id": "ADMINISTRATIVE_RECORD" }
   },
   "code": "CLIENT_ERR",
   "errorId": "PERSON_NOT_FOUND",

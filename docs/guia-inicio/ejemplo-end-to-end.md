@@ -79,7 +79,7 @@ curl -s -X POST "${DENA_URL}/srmd/" \
       "admin": { "id": "TU-ADMIN-ID" },
       "aboutPerson": { "id": "12345678A" },
       "someDataWasUpdatedAt": "2026-08-24T10:30:00.0000000Z",
-      "ofType": { "id": "RECORDS" },
+      "ofType": { "id": "ADMINISTRATIVE_RECORD" },
       "fromDataOriginInstance": "DEFAULT"
     }
   ]' | jq .
@@ -95,7 +95,7 @@ curl -s -X POST "${DENA_URL}/srmd/" \
     {
       "admin": { "id": "TU-ADMIN-ID" },
       "aboutPerson": { "id": "12345678A" },
-      "ofType": { "id": "RECORDS" }
+      "ofType": { "id": "ADMINISTRATIVE_RECORD" }
     }
   ],
   "processedNOK": []
@@ -144,14 +144,14 @@ DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint
           "id": "2026/00456",
           "lastChangedAt": "2026-08-24T10:30:00.000Z",
           "service": {
-            "serviceNameByLanguage": {
+            "nameByLanguage": {
               "SPANISH": "Licencias de actividad",
               "BASQUE": "Jarduera-lizentziak"
             },
             "originRef": { "id": "SRV-LIC-001" }
           },
           "procedure": {
-            "serviceNameByLanguage": {
+            "nameByLanguage": {
               "SPANISH": "Solicitud de licencia de apertura",
               "BASQUE": "Irekiera-lizentzia eskaera"
             },
@@ -166,8 +166,8 @@ DENA llamará a tu sistema cuando la persona necesite ver sus datos. Tu endpoint
             }
           },
           "urls": [
-            { "url": "https://sede.tuadmin.eus/expedientes/2026-00456", "language": "SPANISH", "tags": ["default"] },
-            { "url": "https://egoitza.tuadmin.eus/espedienteak/2026-00456", "language": "BASQUE", "tags": ["default"] }
+            { "value": "https://sede.tuadmin.eus/expedientes/2026-00456", "lang": "SPANISH", "tags": ["default"] },
+            { "value": "https://egoitza.tuadmin.eus/espedienteak/2026-00456", "lang": "BASQUE", "tags": ["default"] }
           ]
         }
       }
@@ -249,8 +249,8 @@ SRMD_RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "${DENA_URL}/srmd/" \
     \"admin\": { \"id\": \"${ADMIN_ID}\" },
     \"aboutPerson\": { \"id\": \"12345678A\" },
     \"someDataWasUpdatedAt\": \"$(date -u +%Y-%m-%dT%H:%M:%S.0000000Z)\",
-    \"ofType\": { \"id\": \"RECORDS\" },
-    \"fromDataOrigin\": \"DEFAULT\"
+    \"ofType\": { \"id\": \"ADMINISTRATIVE_RECORD\" },
+    \"fromDataOriginInstance\": \"DEFAULT\"
   }]")
 
 HTTP_CODE=$(echo "$SRMD_RESPONSE" | tail -1)

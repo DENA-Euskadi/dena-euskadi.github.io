@@ -28,7 +28,7 @@
 |---|---|---|
 | `POST` Data-Retrieve (URL configurable; ej. `/api/retrieveData`) | :material-domain: Administración | :material-swap-horizontal: DENA |
 | `POST` Person Push (URL configurable) | :material-domain: Administración | :material-swap-horizontal: DENA |
-| `POST /api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administración |
+| `POST https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administración |
 | `POST /api/admin/persons/sync/...` (Person-Sync Pull: bespokes/pregens) | :material-swap-horizontal: DENA | :material-domain: Administración |
 
 > Los endpoints que **implementa la administración** (Data-Retrieve y Person Push) se exponen en la URL que la administración configure en DENA; las rutas mostradas son ejemplos/referencia. Los endpoints que **implementa DENA** (Metadata-Sync y Person-Sync Pull) tienen ruta fija.
@@ -37,13 +37,15 @@
 
 ## Por tipo de dato
 
-| dataTypeId | Objeto devuelto | Documentación |
+| `dataType.id` | Objeto devuelto | Documentación |
 |---|---|---|
-| `RECORDS` | Expedientes | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
-| `NOTICES` | Notificaciones | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
-| `REGISTER` | Registros oficiales | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
-| `PAYMENTS` | Pagos | [pago.md](../semantica/data-retrieve/data/pago.md) |
-| `SCHEDULE` | Citas | [cita.md](../semantica/data-retrieve/data/cita.md) |
+| `ADMINISTRATIVE_RECORD` | Expediente | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
+| `ADMINISTRATIVE_NOTICE` | Notificación | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
+| `PAYMENT_ONE_OFF_PAYMENT` | Pago único | [pago.md](../semantica/data-retrieve/data/pago.md) |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | Domiciliación bancaria | [pago.md](../semantica/data-retrieve/data/pago.md) |
+| `SCHEDULE` | Cita | [cita.md](../semantica/data-retrieve/data/cita.md) |
+| `ADMINISTRATIVE_LEDGER` | Libro registro | [libro-registro.md](../semantica/data-retrieve/data/libro-registro.md) |
+| `PERSON_DATA` | Datos de persona | [persona.md](../semantica/data-retrieve/data/persona.md) |
 
 !!! tip "No necesitas implementar todos los tipos"
 

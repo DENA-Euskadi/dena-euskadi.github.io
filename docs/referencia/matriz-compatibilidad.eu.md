@@ -28,7 +28,7 @@ Zein endpoint dira nahitaezkoak edo aukerakoak zure integrazio-motaren arabera?
 |---|---|---|
 | `POST` Data-Retrieve (URL konfiguragarria; adib. `/api/retrieveData`) | :material-domain: Administrazioa | :material-swap-horizontal: DENA |
 | `POST` Person Push (URL konfiguragarria) | :material-domain: Administrazioa | :material-swap-horizontal: DENA |
-| `POST /api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
+| `POST https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata` (Metadata-Sync) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
 | `POST /api/admin/persons/sync/...` (Person-Sync Pull: bespokes/pregens) | :material-swap-horizontal: DENA | :material-domain: Administrazioa |
 
 > Administrazioak **inplementatzen dituen** endpoint-ak (Data-Retrieve eta Person Push) administrazioak DENAn konfiguratzen duen URLan erakusten dira; erakutsitako bideak adibideak/erreferentzia dira. DENAk **inplementatzen dituen** endpoint-ek (Metadata-Sync eta Person-Sync Pull) bide finkoa dute.
@@ -37,13 +37,15 @@ Zein endpoint dira nahitaezkoak edo aukerakoak zure integrazio-motaren arabera?
 
 ## Datu-motaren arabera
 
-| dataTypeId | Itzulitako objektua | Dokumentazioa |
+| `dataType.id` | Itzulitako objektua | Dokumentazioa |
 |---|---|---|
-| `RECORDS` | Espedienteak | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
-| `NOTICES` | Jakinarazpenak | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
-| `REGISTER` | Erregistro ofizialak | [registro-oficial.md](../semantica/data-retrieve/data/registro-oficial.md) |
-| `PAYMENTS` | Ordainketak | [pago.md](../semantica/data-retrieve/data/pago.md) |
-| `SCHEDULE` | Hitzorduak | [cita.md](../semantica/data-retrieve/data/cita.md) |
+| `ADMINISTRATIVE_RECORD` | Espedientea | [expediente.md](../semantica/data-retrieve/data/expediente.md) |
+| `ADMINISTRATIVE_NOTICE` | Jakinarazpena | [notificacion.md](../semantica/data-retrieve/data/notificacion.md) |
+| `PAYMENT_ONE_OFF_PAYMENT` | Ordainketa bakuna | [pago.md](../semantica/data-retrieve/data/pago.md) |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | Banku-domiziliazioa | [pago.md](../semantica/data-retrieve/data/pago.md) |
+| `SCHEDULE` | Hitzordua | [cita.md](../semantica/data-retrieve/data/cita.md) |
+| `ADMINISTRATIVE_LEDGER` | Erregistro-liburua | [libro-registro.md](../semantica/data-retrieve/data/libro-registro.md) |
+| `PERSON_DATA` | Pertsonaren datuak | [persona.md](../semantica/data-retrieve/data/persona.md) |
 
 !!! tip "Ez duzu mota guztiak inplementatu behar"
 

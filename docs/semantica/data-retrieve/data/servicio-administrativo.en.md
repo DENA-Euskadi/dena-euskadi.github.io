@@ -23,8 +23,8 @@ config:
     fontSize: "12px"
 ---
 flowchart TD
-    SRV["<b>Service</b><br/><i>serviceNameByLanguage<br/>originRef · DENARef · SIARef</i>"]
-    PROC["<b>Procedure</b><br/><i>serviceNameByLanguage<br/>originRef · DENARef · SIARef</i>"]
+    SRV["<b>Service</b><br/><i>nameByLanguage<br/>originRef · DENARef · SIARef</i>"]
+    PROC["<b>Procedure</b><br/><i>nameByLanguage<br/>originRef · DENARef · SIARef</i>"]
     EXP["<b>Record</b> (1:N)"]
 
     SRV --> PROC
@@ -95,7 +95,7 @@ flowchart TD
 
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:-----------:|---------|-------------|
-| `serviceNameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Licencias de actividad"}` | Service name |
+| `nameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Licencias de actividad"}` | Service name |
 | `serviceUrls` | `Array` | ❌ | | Service catalogue URLs |
 | `participatingOrgUnits` | `Array` | ❌ | *(see [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Participating organizational units |
 | `originRef` | `Object` | ✅ | *(see [`DN00AdministrativeServiceReference`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceReference.java))* | Reference in the origin administration |
@@ -116,7 +116,7 @@ flowchart TD
 
 | Field | Type | Mandatory | Example | Description |
 |-------|------|:-----------:|---------|-------------|
-| `serviceNameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Procedure name |
+| `nameByLanguage` | `LanguageTexts` | ✅ | `{"SPANISH":"Solicitud licencia"}` | Procedure name |
 | `serviceUrls` | `Array` | ❌ | | Catalogue URLs |
 | `participatingOrgUnits` | `Array` | ❌ | *(see [unidad-organica.md](./unidad-organica.md) · [`DN00OrgUnitReferenceWithRole`]({{ repos.common_data_api_blob }}/denaCommonDataAPIModelClasses/src/main/java/dena/api/data/model/org/DN00OrgUnitReferenceWithRole.java))* | Participating organizational units |
 | `originRef` | `Object` | ✅ | *(see [`DN00AdministrativeServiceProcedureReference`]({{ repos.common_data_api_blob }}/denaCommonDataAPIAdministrativeServicesModelClasses/src/main/java/dena/api/data/model/administrativeservices/refs/DN00AdministrativeServiceProcedureReference.java))* | Reference in the origin administration |
@@ -155,7 +155,7 @@ All references share the same structure:
 ```json
 {
   "service": {
-    "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+    "nameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "oid": "SRV-OID-001", "id": "SRV-LIC-ACT" },
     "DENARef": null,
     "SIARef": null,
@@ -167,7 +167,7 @@ All references share the same structure:
     ]
   },
   "procedure": {
-    "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
+    "nameByLanguage": { "SPANISH": "Solicitud de licencia de apertura", "BASQUE": "Irekiera-lizentzia eskaera" },
     "originRef": { "oid": "PROC-OID-001", "id": "PROC-LIC-APER" },
     "DENARef": null,
     "SIARef": null
@@ -196,7 +196,7 @@ Administrative Service
 
 - `originRef.id` is mandatory: the administration must provide at least the business identifier of the service and procedure in its own catalogue.
 - `DENARef` and `SIARef` are optional. If the administration knows the DENA or SIA code, it can include it to facilitate correlation.
-- `serviceNameByLanguage` must include at least texts in `SPANISH` and `BASQUE`.
+- `nameByLanguage` must include at least texts in `SPANISH` and `BASQUE`.
 
 
 

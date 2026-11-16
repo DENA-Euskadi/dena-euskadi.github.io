@@ -60,8 +60,8 @@ El conector DENA enviará una petición `POST` con este formato reducido:
 {
   "context": {
     "subjectPerson": { "id": "12345678A" },
-    "dataType": { "id": "administrativeServiceProcedureRecord" },
-    "administration": { "id": "ADMIN-001" }
+    "dataType": { "id": "ADMINISTRATIVE_RECORD" },
+    "destinationAdmin": { "id": "ADMIN-001" }
   }
 }
 ```
@@ -78,18 +78,18 @@ Los campos clave que debes interpretar:
 
 | Valor | Qué debes devolver | Modelo |
 |-------|---------------------|--------|
-| `administrativeServiceProcedureRecord` | Expedientes | [expediente.md](./data/expediente.md) |
-| `administrativeNotice` | Notificaciones | [notificacion.md](./data/notificacion.md) |
-| `oneOffPayment` | Pago único | [pago.md](./data/pago.md) |
-| `directDebitPayment` | Domiciliación | [pago.md](./data/pago.md) |
-| `scheduleItem` | Citas | [cita.md](./data/cita.md) |
-| `personData` | Datos de persona | [persona.md](./data/persona.md) |
-| `personCredential` · `personCredentialForBasqueLanguageDegree` | Credenciales de persona | [credencial-persona.md](./data/credencial-persona.md) |
-| `economicBenefit` | Beneficios económicos | [beneficio-economico.md](./data/beneficio-economico.md) |
-| `administrativeLedger` | Libro registro (entradas/salidas) | [libro-registro.md](./data/libro-registro.md) |
-| `administrativePersonRegister` · `…ForHousingPEV` · `…ForLastWill` · `…ForRevisionPEV` | Registro de persona | [registro-persona.md](./data/registro-persona.md) |
-| `personEnrollment` · `personAcademicEnrollment` | Matrículas | [matricula.md](./data/matricula.md) |
-| `personMedicalData` | Datos médicos | [datos-medicos.md](./data/datos-medicos.md) |
+| `ADMINISTRATIVE_RECORD` | Expedientes | [expediente.md](./data/expediente.md) |
+| `ADMINISTRATIVE_NOTICE` | Notificaciones | [notificacion.md](./data/notificacion.md) |
+| `PAYMENT_ONE_OFF_PAYMENT` | Pago único | [pago.md](./data/pago.md) |
+| `PAYMENT_DIRECT_DEBIT_PAYMENT` | Domiciliación | [pago.md](./data/pago.md) |
+| `SCHEDULE` | Citas | [cita.md](./data/cita.md) |
+| `PERSON_DATA` | Datos de persona | [persona.md](./data/persona.md) |
+| `PERSON_CREDENTIAL` · `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE` | Credenciales de persona | [credencial-persona.md](./data/credencial-persona.md) |
+| `ECONOMIC_BENEFIT` | Beneficios económicos | [beneficio-economico.md](./data/beneficio-economico.md) |
+| `ADMINISTRATIVE_LEDGER` | Libro registro (entradas/salidas) | [libro-registro.md](./data/libro-registro.md) |
+| `ADMINISTRATIVE_PERSON_REGISTER` · `…FOR_HOUSING_PEV` · `…FOR_LAST_WILL` · `…FOR_REVISION_PEV` | Registro de persona | [registro-persona.md](./data/registro-persona.md) |
+| `PERSON_ENROLLMENT` · `PERSON_ACADEMIC_ENROLLMENT` | Matrículas | [matricula.md](./data/matricula.md) |
+| `PERSON_MEDICAL_DATA` | Datos médicos | [datos-medicos.md](./data/datos-medicos.md) |
 
 > El catálogo completo de valores lo define el enum `DN00DataTypeEnum` (17 tipos). Ver [DataTypeRef](../semantica-base/modelo/data-type-ref.md).
 >
@@ -214,11 +214,11 @@ Todos los objetos devueltos deben incluir como mínimo:
   "oid": "EXP-001",
   "id": "2024/00123",
   "service": {
-    "serviceNameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
+    "nameByLanguage": { "SPANISH": "Licencias de actividad", "BASQUE": "Jarduera-lizentziak" },
     "originRef": { "id": "SRV-LIC-ACT" }
   },
   "procedure": {
-    "serviceNameByLanguage": { "SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera" },
+    "nameByLanguage": { "SPANISH": "Solicitud de licencia", "BASQUE": "Lizentzia eskaera" },
     "originRef": { "id": "PROC-LIC-001" }
   },
   "createdAt": "2024-03-15T10:30:00Z",
@@ -335,7 +335,7 @@ página correspondiente:
   "minuteOfHour": 30,
   "durationMinutes": 30,
   "subject": { "SPANISH": "Cita renovación DNI", "BASQUE": "NAN berritzeko hitzordua" },
-  "type": "IN_PERSON_APPOINTMENT",
+  "typeSchedule": "IN_PERSON_APPOINTMENT",
   "contactInfo": {
     "address": "Gran Vía 50, Bilbao"
   }

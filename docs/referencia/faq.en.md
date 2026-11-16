@@ -73,7 +73,7 @@ Answers to the most common questions from integrating administrations.
     ```json
     {
       "context": { ... },
-      "data": { "dataItems": [] },
+      "payload": { "dataItems": [] },
       "code": "OK"
     }
     ```
@@ -83,7 +83,7 @@ Answers to the most common questions from integrating administrations.
 ??? question "Can I return partial data if I only have some types?"
 
     Yes. Return only the objects you have available for the requested `dataTypeId`.
-    If `RECORDS` is requested and you have no records for that person, return `dataItems: []`.
+    If `ADMINISTRATIVE_RECORD` is requested and you have no records for that person, return `dataItems: []`.
 
 ??? question "Are multilingual texts mandatory in Basque and Spanish?"
 

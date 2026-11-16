@@ -126,6 +126,30 @@ flowchart LR
 
 ---
 
+## applicationData
+
+Eskaeraren aurkezpenaren datuak:
+
+| Eremua | Mota | Deskribapena |
+|---|---|---|
+| `date` | `String` (ISO 8601) | Eskaera aurkezteko data |
+| `ledgerId` | `String` | Esleitutako erregistro-idazpenaren zenbakia |
+
+---
+
+## recordData
+
+Espedientearen egoera eta datak:
+
+| Eremua | Mota | Deskribapena |
+|---|---|---|
+| `createdAt` | `String` (ISO 8601) | Espedientearen sorrera-data |
+| `lastModifiedAt` | `String` (ISO 8601) | Azken aldaketaren data |
+| `state` | `Object` | Espedientearen egoera (`stateCode` + `description`) |
+| `interestedParty` | `Object` | Interesduna (`personId` + `displayName`) |
+
+---
+
 ## JSON adibidea
 
 <div class="common-highlight" markdown>

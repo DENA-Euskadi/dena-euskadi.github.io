@@ -140,8 +140,8 @@ Centralised guide for common errors and their resolution, organised by category.
     {
       "context": {
         "subjectPerson": { "id": "12345678A" },
-        "dataType": { "id": "administrativeServiceProcedureRecord" },
-        "administration": { "id": "ADMIN-001" }
+        "dataType": { "id": "ADMINISTRATIVE_RECORD" },
+        "destinationAdmin": { "id": "ADMIN-001" }
       }
     }
     ```

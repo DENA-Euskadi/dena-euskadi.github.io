@@ -115,7 +115,7 @@ DENA dokumentazioan erabiltzen diren termino tekniko eta funtzionalen definizioa
 ## M
 
 `messageType`
-:   Interop mezu baten `data` eremuan bidalitako mezu-mota (adib.: `PERSON_FETCH_DATA`, `CLIENT_LOGIN`).
+:   `context.message.type` eremuko mezu-mota interop mezu batean. Eragiketaren izena eta norabidea adierazten ditu (adib. `CLIENT_RETRIEVE_REQ`, `ADMIN_SRMD_SYNC_REQ`, `PERSON_PUSH_TO_ADMIN_REQ`). Ikusi [Mezu Motak](../semantica/semantica-base/modelo/message-types.md).
 
 `Metadata-Sync`
 :   Administrazioek DENAri pertsonen datuetako aldaketak jakinarazten dizkioten mekanismoa.

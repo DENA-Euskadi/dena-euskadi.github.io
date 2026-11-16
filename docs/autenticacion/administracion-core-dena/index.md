@@ -177,7 +177,7 @@ Peticion completa a DENA con todas las cabeceras:
 # 1. Generar valores de seguridad
 CORRELATION_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 TIMESTAMP=$(date +%s%3N)
-BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.0000000Z","ofType":{"id":"RECORDS"},"fromDataOriginInstance":"DEFAULT"}]'
+BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.0000000Z","ofType":{"id":"ADMINISTRATIVE_RECORD"},"fromDataOriginInstance":"DEFAULT"}]'
 DATA_DIGEST="SHA-256=:$(printf '%s' "${TIMESTAMP}${CORRELATION_ID}${BODY}" | openssl dgst -sha256 -binary | openssl base64 -A):"
 
 # 2. Enviar con todas las cabeceras

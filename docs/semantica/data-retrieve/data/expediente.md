@@ -126,6 +126,30 @@ Los campos marcados con <span class="field-badge--common">común</span> son **he
 
 ---
 
+## applicationData
+
+Datos de la presentación de la solicitud:
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `date` | `String` (ISO 8601) | Fecha de presentación de la solicitud |
+| `ledgerId` | `String` | Número de asiento registral asignado |
+
+---
+
+## recordData
+
+Estado y fechas del expediente:
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `createdAt` | `String` (ISO 8601) | Fecha de creación del expediente |
+| `lastModifiedAt` | `String` (ISO 8601) | Fecha de última modificación |
+| `state` | `Object` | Estado del expediente (`stateCode` + `description`) |
+| `interestedParty` | `Object` | Interesado (`personId` + `displayName`) |
+
+---
+
 ## Ejemplo JSON
 
 <div class="common-highlight" markdown>
