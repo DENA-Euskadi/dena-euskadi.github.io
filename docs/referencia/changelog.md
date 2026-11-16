@@ -4,9 +4,67 @@ Historial de versiones de la documentación DENA.
 
 ---
 
-## v0.5.4 <small>— 2026-10-20</small> { #v054 }
+## v0.5.20 <small>— 2026-11-13</small> { #v0520 }
 
 !!! success "Actual"
+
+**Auditoría exhaustiva de documentación frente a código 0.5.20: correcciones de IDs, ejemplos reales del sandbox, nuevos modelos y revisión completa de semántica.**
+
+Nuevos tipos de dato documentados:
+
+- :material-plus: `semantica/data-retrieve/data/beneficio-economico.md` — **Beneficio económico** (`ECONOMIC_BENEFIT`): ayudas, subvenciones y prestaciones económicas (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/credencial-persona.md` — **Credencial de persona** (`PERSON_CREDENTIAL` · `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE`): carnets, títulos y perfiles lingüísticos (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/datos-medicos.md` — **Datos médicos** (`PERSON_MEDICAL_DATA`): categoría especial RGPD (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/libro-registro.md` — **Libro registro** (`ADMINISTRATIVE_LEDGER`): asientos de entrada/salida. Sustituye al tipo obsoleto `registro-oficial` (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/matricula.md` — **Matrícula** (`PERSON_ENROLLMENT` · `PERSON_ACADEMIC_ENROLLMENT`): matrículas y matrículas académicas (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/registro-persona.md` — **Registro de persona** (`ADMINISTRATIVE_PERSON_REGISTER` · `…FOR_HOUSING_PEV` · `…FOR_LAST_WILL` · `…FOR_REVISION_PEV`): registros PEV, últimas voluntades y revisiones (ES/EN/EU)
+
+Actualizaciones del modelo y API (alineación con código 0.5.20):
+
+- :material-bug: `semantica/data-retrieve/`: corregidos todos los DataType IDs de `context.dataType.id` en switch/match, tablas y ejemplos — de marshallTypeId camelCase (`scheduleItem`) al nombre del enum SCREAMING_SNAKE_CASE (`SCHEDULE`), que es el valor real que DENA envía. Impactaba `snippets-codigo` (Java/C#/Python/Node.js/PHP), `guia-implementacion`, `endpoint-data-retrieve`, `operativas/data-retrieve` y `referencia/matriz-compatibilidad`
+- :material-bug: `semantica/data-retrieve/data/servicio-administrativo.md` + snippets: corregido `serviceNameByLanguage` → `nameByLanguage` (campo real `@MarshallField(as="nameByLanguage")` en `DN00AdmistrativeService`)
+- :material-bug: `semantica/data-retrieve/guia-implementacion.md`: corregido campo de tipo de cita `"type": "IN_PERSON_APPOINTMENT"` → `"typeSchedule"` (campo real del enum `DN00ScheduleItemType`)
+- :material-bug: `operativas/data-retrieve.md`: corregido snippet Java `UrlCollection.create().addItems(...)` (método inexistente) por patrón correcto `new UrlCollection(); urls.add(UrlCollectionItem.createFor(...))`
+- :material-bug: `operativas/data-retrieve.md`: corregido tipo de mensaje `PERSON_FETCH_DATA` → `CLIENT_RETRIEVE_REQ/RESP`
+- :material-bug: `operativas/metadata-sync.md` + `semantica/metadata-sync/`: corregido `ADMIN_NOTICE` → `ADMINISTRATIVE_NOTICE`; `RECORDS` → `ADMINISTRATIVE_RECORD` en múltiples ficheros
+- :material-bug: `guia-inicio/ejemplo-end-to-end.md`: corregidos `"url"`/`"language"` → `"value"`/`"lang"` en URLs, `"fromDataOrigin"` → `"fromDataOriginInstance"`, y `RECORDS` → `ADMINISTRATIVE_RECORD`
+- :material-bug: `autenticacion/administracion-core-dena/index.md`: corregido algoritmo del digest — `X-DENA-Data-Digest` = SHA-256(**timestamp + correlationId + body**), no solo del body; encoding Base64 (no hex); formato `SHA-256=:{base64}:`
+- :material-refresh: `semantica/semantica-base/modelo/data-type-ref.md`: reescrito orientado a administraciones externas — muestra IDs externos SCREAMING_SNAKE_CASE con enlace a la documentación de cada tipo; eliminadas referencias internas (marshallTypeId, clases Java)
+- :material-refresh: `semantica/semantica-base/modelo/message-types.md`: completado con los 26 tipos del enum `DN00InteropMessageType` (pares `_REQ`/`_RESP`, origen→destino); añadidos `DENA_PERSON_ADMIN`, `DENA_PERSON_ADMIN_SYNC`, `DENA_SANDBOX_ADMIN` y `DENA_INTEROP_ADMIN_SYNC` en la tabla de componentes
+- :material-refresh: `semantica/semantica-base/modelo/sync-types.md`: corregidos los IDs de `ofType` a SCREAMING_SNAKE_CASE; ejemplo actualizado con datos reales del sandbox
+- :material-refresh: `semantica/metadata-sync/endpoint-sync-metadata.md`: URL corregida a `https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata`; ejemplos de request y response reemplazados por los reales del sandbox
+
+Ejemplos reales del sandbox (logs de producción integrados):
+
+- :material-plus: `semantica/data-retrieve/index.md`: ejemplos de request/response del sandbox real (SANDBOXCIF, SCHEDULE) con timestamps de 7 decimales; diagrama de request corregido (eliminados `protocol`, `originAdmin`, `userAgent` que no aparecen en el log real)
+- :material-plus: `semantica/metadata-sync/index.md`: enriquecido con resumen del flujo, estructura del ítem SRMD, request/response real del sandbox, diagrama Mermaid y códigos HTTP
+- :material-plus: `semantica/metadata-sync/modelo/sync-metadata-from-admin-to-core-item.md`: añadido campo `fromDataOriginInstance`, formato de 7 decimales para `someDataWasUpdatedAt`, ejemplo real del sandbox
+- :material-plus: `semantica/person-sync/push.md`: añadida sección "Estructura del mensaje Push" con request/response reales del sandbox, diagrama Mermaid y tabla de campos
+- :material-plus: Todos los ejemplos de `metadata-sync` y `person-sync` (ES/EN/EU) actualizados con logs reales del sandbox
+
+Correcciones de URLs y diagramas Mermaid:
+
+- :material-bug: Todos los `click` en diagramas Mermaid: corregidos paths relativos para URL-relative resolution (MkDocs usa trailing slash); afectados `data-retrieve/data/*.md`, `metadata-sync/modelo/*.md`
+- :material-bug: `data-type-ref.md`: corregidas profundidades de links `../../../` → `../../` en tabla de tipos
+- :material-bug: `expediente.md`: añadidas secciones `## applicationData` y `## recordData` para resolver anchors rotos
+
+Sección Ayuda y Referencia:
+
+- :material-bug: `referencia/faq.md`: `"data"` → `"payload"` en ejemplo vacío; `RECORDS` → `ADMINISTRATIVE_RECORD`
+- :material-bug: `referencia/troubleshooting.md`: `"administrativeServiceProcedureRecord"` → `ADMINISTRATIVE_RECORD`; `"administration"` → `"destinationAdmin"`
+- :material-bug: `referencia/matriz-compatibilidad.md`: tabla de tipos corregida (5 → 7 tipos con IDs correctos); URL Metadata-Sync con FQDN completo
+- :material-refresh: `referencia/glosario.md`: entrada `messageType` corregida — apunta a `context.message.type` (no `data`)
+- :material-refresh: `referencia/sistema-versionado.md`: versiones de ejemplo actualizadas a 0.5.20
+
+Estructura de expediente alineada con 0.5.20:
+
+- :material-bug: `endpoint-data-retrieve.md` + `snippets-codigo.md`: estructura del expediente actualizada a 0.5.20 — `recordData` anidado con `lastModifiedAt`, `applicationData` con `date`/`ledgerId`, `nameByLanguage` en servicio/procedimiento
+
+- :material-translate: Todos los cambios reflejados en ES, EN y EU
+
+---
+
+## v0.5.4 <small>— 2026-10-20</small> { #v054 }
 
 **Resalte de los campos comunes (heredados) en las fichas de tipo de dato de Data-Retrieve.**
 

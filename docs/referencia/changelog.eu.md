@@ -4,9 +4,41 @@ DENA dokumentazioaren bertsio-historia.
 
 ---
 
-## v0.5.4 <small>— 2026-10-20</small> { #v054 }
+## v0.5.20 <small>— 2026-11-13</small> { #v0520 }
 
-!!! success "Unekoa"
+!!! success "Oraingoa"
+
+**0.5.20 kodearen aurkako dokumentazio-ikuskaritza sakona: ID zuzenketak, sandbox adibide errealak, eredu berriak eta semantikaren berrikuspen osoa.**
+
+Dokumentatutako datu mota berriak:
+
+- :material-plus: `semantica/data-retrieve/data/beneficio-economico.md` — **Prestazioa** (`ECONOMIC_BENEFIT`): laguntzak, diru-laguntzak eta prestazio ekonomikoak (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/credencial-persona.md` — **Pertsonaren egiaztagiria** (`PERSON_CREDENTIAL` · `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE`): txartelak, titulazioak eta hizkuntza-profilak (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/datos-medicos.md` — **Datu medikoak** (`PERSON_MEDICAL_DATA`): BGPD kategoria berezia (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/libro-registro.md` — **Erregistro liburua** (`ADMINISTRATIVE_LEDGER`): sarrera/irteera erregistro-idazpenak. `registro-oficial` mota zaharkituaren ordezkoa (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/matricula.md` — **Matrikula** (`PERSON_ENROLLMENT` · `PERSON_ACADEMIC_ENROLLMENT`): matrikulak eta matrikula akademikoak (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/registro-persona.md` — **Pertsona erregistroa** (`ADMINISTRATIVE_PERSON_REGISTER` · `…FOR_HOUSING_PEV` · `…FOR_LAST_WILL` · `…FOR_REVISION_PEV`): PEV erregistroak, azken borondateak eta berrikuspenak (ES/EN/EU)
+
+Ereduaren eta APIaren eguneratzeak (0.5.20 kodearekin lerrokatuta):
+
+- :material-bug: `semantica/data-retrieve/`: `context.dataType.id` DataType ID guztiak zuzendu switch/match, tauletan eta adibideetan — camelCase marshallTypeId (`scheduleItem`) → SCREAMING_SNAKE_CASE enum izen (`SCHEDULE`), DENA-k bidaltzen duen balio erreala. Eragindakoak: `snippets-codigo` (Java/C#/Python/Node.js/PHP), `guia-implementacion`, `endpoint-data-retrieve`, `operativas/data-retrieve` eta `referencia/matriz-compatibilidad`
+- :material-bug: `serviceNameByLanguage` → `nameByLanguage` (eremu erreala `DN00AdmistrativeService`-n)
+- :material-bug: Hitzorduen mota eremua: `"type": "IN_PERSON_APPOINTMENT"` → `"typeSchedule"`
+- :material-bug: Java snippet `UrlCollection.create().addItems(...)` (existitzen ez den metodoa) patroi zuzenez ordezkatu
+- :material-bug: Mezu mota `PERSON_FETCH_DATA` → `CLIENT_RETRIEVE_REQ/RESP`
+- :material-bug: `ADMIN_NOTICE` → `ADMINISTRATIVE_NOTICE`; `RECORDS` → `ADMINISTRATIVE_RECORD` hainbat fitxategitan
+- :material-bug: Digest algoritmoaren deskribapena zuzenduta — `X-DENA-Data-Digest` = SHA-256(**timestamp + correlationId + body**); Base64 kodeketa; `SHA-256=:{base64}:` formatua
+- :material-refresh: `data-type-ref.md`: kanpoko administrazioentzat berridatzia — SCREAMING_SNAKE_CASE ID kanpokoak
+- :material-refresh: `message-types.md`: `DN00InteropMessageType` enum-eko 26 mota guztiak (`_REQ`/`_RESP` bikoteak)
+- :material-refresh: `endpoint-sync-metadata.md`: URLa zuzendu `https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata`-ra; sandbox adibide errealak
+- :material-plus: Sandbox log adibide errealak `data-retrieve`, `metadata-sync` eta `person-sync`-en integratuta
+- :material-bug: Mermaid `click` URL guztiak zuzendu MkDocs URL-erlatibo ebazpenerako
+- :material-bug: Laguntza eta Erreferentzia atala berrikusita: DataType IDs, eremu izenak eta bertsio adibideak zuzendu
+- :material-translate: Aldaketa guztiak ES, EN eta EU-n islatuta
+
+---
+
+## v0.5.4 <small>— 2026-10-20</small> { #v054 }
 
 **Data-Retrieve datu-moten fitxetan eremu komunak (heredatutakoak) nabarmentzea.**
 

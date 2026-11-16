@@ -4,9 +4,42 @@ DENA documentation version history.
 
 ---
 
-## v0.5.4 <small>— 2026-10-20</small> { #v054 }
+## v0.5.20 <small>— 2026-11-13</small> { #v0520 }
 
 !!! success "Current"
+
+**Exhaustive documentation audit against code 0.5.20: ID fixes, real sandbox examples, new models and full semantics review.**
+
+New data types documented:
+
+- :material-plus: `semantica/data-retrieve/data/beneficio-economico.md` — **Economic Benefit** (`ECONOMIC_BENEFIT`): grants, subsidies and financial benefits (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/credencial-persona.md` — **Person Credential** (`PERSON_CREDENTIAL` · `PERSON_CREDENTIAL_FOR_BASQUE_LANGUAGE_DEGREE`): cards, qualifications and language profiles (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/datos-medicos.md` — **Medical Data** (`PERSON_MEDICAL_DATA`): GDPR special category (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/libro-registro.md` — **Administrative Ledger** (`ADMINISTRATIVE_LEDGER`): entry/exit register entries. Replaces deprecated type `registro-oficial` (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/matricula.md` — **Enrollment** (`PERSON_ENROLLMENT` · `PERSON_ACADEMIC_ENROLLMENT`): enrolments and academic enrolments (ES/EN/EU)
+- :material-plus: `semantica/data-retrieve/data/registro-persona.md` — **Person Register** (`ADMINISTRATIVE_PERSON_REGISTER` · `…FOR_HOUSING_PEV` · `…FOR_LAST_WILL` · `…FOR_REVISION_PEV`): PEV registers, last wills and revisions (ES/EN/EU)
+
+Model and API updates (aligned with code 0.5.20):
+
+- :material-bug: `semantica/data-retrieve/`: corrected all `context.dataType.id` DataType IDs in switch/match, tables and examples — from camelCase marshallTypeId (`scheduleItem`) to SCREAMING_SNAKE_CASE enum name (`SCHEDULE`), which is the real value DENA sends. Affected `snippets-codigo` (Java/C#/Python/Node.js/PHP), `guia-implementacion`, `endpoint-data-retrieve`, `operativas/data-retrieve` and `referencia/matriz-compatibilidad`
+- :material-bug: `semantica/data-retrieve/data/servicio-administrativo.md` + snippets: corrected `serviceNameByLanguage` → `nameByLanguage` (real `@MarshallField(as="nameByLanguage")` in `DN00AdmistrativeService`)
+- :material-bug: `semantica/data-retrieve/guia-implementacion.md`: corrected appointment type field `"type": "IN_PERSON_APPOINTMENT"` → `"typeSchedule"` (real field of `DN00ScheduleItemType` enum)
+- :material-bug: `operativas/data-retrieve.md`: corrected Java snippet `UrlCollection.create().addItems(...)` (non-existent method) to correct pattern `new UrlCollection(); urls.add(UrlCollectionItem.createFor(...))`
+- :material-bug: `operativas/data-retrieve.md`: corrected message type `PERSON_FETCH_DATA` → `CLIENT_RETRIEVE_REQ/RESP`
+- :material-bug: `operativas/metadata-sync.md` + `semantica/metadata-sync/`: corrected `ADMIN_NOTICE` → `ADMINISTRATIVE_NOTICE`; `RECORDS` → `ADMINISTRATIVE_RECORD` across multiple files
+- :material-bug: `guia-inicio/ejemplo-end-to-end.md`: corrected `"url"`/`"language"` → `"value"`/`"lang"` in URLs, `"fromDataOrigin"` → `"fromDataOriginInstance"`, `RECORDS` → `ADMINISTRATIVE_RECORD`
+- :material-bug: `autenticacion/administracion-core-dena/index.md`: corrected digest algorithm — `X-DENA-Data-Digest` = SHA-256(**timestamp + correlationId + body**), not body only; Base64 encoding (not hex); format `SHA-256=:{base64}:`
+- :material-refresh: `semantica/semantica-base/modelo/data-type-ref.md`: rewritten for external administrations — shows SCREAMING_SNAKE_CASE external IDs with link to each type's documentation
+- :material-refresh: `semantica/semantica-base/modelo/message-types.md`: completed with all 26 `DN00InteropMessageType` enum types (`_REQ`/`_RESP` pairs, origin→destination); added missing components
+- :material-refresh: `semantica/metadata-sync/endpoint-sync-metadata.md`: URL corrected to `https://api-batera.pre.dena.eus/sync/api/admin/interop/sync/metadata`; request/response examples replaced with real sandbox data
+- :material-plus: Real sandbox log examples integrated across `data-retrieve`, `metadata-sync` and `person-sync`
+- :material-bug: All Mermaid `click` URLs corrected for MkDocs URL-relative resolution (trailing slash)
+- :material-bug: Help & Reference section reviewed: DataType IDs, field names and version examples corrected
+- :material-translate: All changes reflected in ES, EN and EU
+
+---
+
+## v0.5.4 <small>— 2026-10-20</small> { #v054 }
 
 **Highlighting of common (inherited) fields in the Data-Retrieve data-type pages.**
 
