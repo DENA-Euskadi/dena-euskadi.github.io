@@ -27,6 +27,7 @@ Ereduaren eta APIaren eguneratzeak (0.5.20 kodearekin lerrokatuta):
 - :material-bug: Java snippet `UrlCollection.create().addItems(...)` (existitzen ez den metodoa) patroi zuzenez ordezkatu
 - :material-bug: Mezu mota `PERSON_FETCH_DATA` → `CLIENT_RETRIEVE_REQ/RESP`
 - :material-bug: `ADMIN_NOTICE` → `ADMINISTRATIVE_NOTICE`; `RECORDS` → `ADMINISTRATIVE_RECORD` hainbat fitxategitan
+- :material-plus: `semantica/semantica-base/http-headers.md` + `autenticacion/administracion-core-dena/`: **`X-DENA-ORG-ADMIN-ID`** goiburua **nahitaezko** gisa dokumentatua DENA-rako administrazioen eskaera guztietan — administrazioaren IFZ/IFK eduki behar du (`context.originAdmin.id`-ren balio bera); nahitaezko goiburuen taulan gehitua, azalpen-atal berezia eta bash scripta eguneratua
 - :material-bug: Digest algoritmoaren deskribapena zuzenduta — `X-DENA-Data-Digest` = SHA-256(**timestamp + correlationId + body**); Base64 kodeketa; `SHA-256=:{base64}:` formatua
 - :material-refresh: `data-type-ref.md`: kanpoko administrazioentzat berridatzia — SCREAMING_SNAKE_CASE ID kanpokoak
 - :material-refresh: `message-types.md`: `DN00InteropMessageType` enum-eko 26 mota guztiak (`_REQ`/`_RESP` bikoteak)

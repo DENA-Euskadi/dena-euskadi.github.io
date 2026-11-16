@@ -106,6 +106,7 @@ Ademas del token, cada llamada a DENA debe incluir cabeceras de seguridad que ga
 | `X-DENA-Message-Correlation-Id` | UUID unico generado por tu sistema para esta peticion. Se mantiene en todo el flujo para trazabilidad | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
 | `X-DENA-This-TimeStamp` | Instante EPOCH (milisegundos) en el que tu sistema inicia la peticion | `1724500500000` |
 | `X-DENA-Data-Digest` | Hash SHA-256 de la concatenación `timestamp + correlationId + body`, codificado en Base64 (ver generación más abajo) | `SHA-256=:Rp/u+lTGp+VLFBrJGpC3BPw5Gf...=:` |
+| `X-DENA-ORG-ADMIN-ID` | **NIF/CIF de tu administración**. DENA lo usa para identificar el origen de cada petición y enrutar correctamente | `S4833001C` |
 
 ### Cabeceras opcionales
 
@@ -125,6 +126,20 @@ Genera un UUID v4 aleatorio por cada peticion. Este ID se mantiene durante todo 
 String correlationId = UUID.randomUUID().toString();
 // Resultado: "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
 ```
+
+#### X-DENA-ORG-ADMIN-ID
+
+El **NIF/CIF de tu administración**. DENA lo usa para identificar el origen de cada petición HTTP y para validar que las cabeceras de integridad son consistentes con el origen declarado.
+
+```java
+// El mismo valor que usas en context.originAdmin.id
+String orgAdminId = "S4833001C"; // NIF/CIF de tu administración
+```
+
+!!! important "Obligatorio en todas las peticiones al endpoint DENA"
+    Este header debe incluirse en **todas** las peticiones que tu administración envía a DENA (Metadata-Sync, Person-Sync Pull, etc.). El valor debe ser el NIF/CIF de tu administración, el mismo que configuras en DENA como identificador de tu organización.
+
+    Si no lo incluyes, DENA no podrá identificar la administración de origen y la petición será rechazada.
 
 #### X-DENA-This-TimeStamp
 
@@ -177,6 +192,7 @@ Peticion completa a DENA con todas las cabeceras:
 # 1. Generar valores de seguridad
 CORRELATION_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 TIMESTAMP=$(date +%s%3N)
+ORG_ADMIN_ID="MI-ADMIN-CIF"  # NIF/CIF de tu administración
 BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.0000000Z","ofType":{"id":"ADMINISTRATIVE_RECORD"},"fromDataOriginInstance":"DEFAULT"}]'
 DATA_DIGEST="SHA-256=:$(printf '%s' "${TIMESTAMP}${CORRELATION_ID}${BODY}" | openssl dgst -sha256 -binary | openssl base64 -A):"
 
@@ -188,6 +204,7 @@ curl -X POST "https://api-batera.pre.dena.eus/srmd/" \
   -H "X-DENA-Message-Correlation-Id: ${CORRELATION_ID}" \
   -H "X-DENA-This-TimeStamp: ${TIMESTAMP}" \
   -H "X-DENA-Data-Digest: ${DATA_DIGEST}" \
+  -H "X-DENA-ORG-ADMIN-ID: ${ORG_ADMIN_ID}" \
   -H "User-Agent: MiAdmin/1.0 srmd-sender/1.0 (soporte@miadmin.eus)" \
   -d "${BODY}"
 ```

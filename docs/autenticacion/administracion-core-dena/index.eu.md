@@ -106,6 +106,7 @@ Tokenaz gain, DENA-ri egindako dei bakoitzak segurtasun-goiburuak sartu behar di
 | `X-DENA-Message-Correlation-Id` | Zure sistemak eskaera honetarako sortutako UUID bakarra. Fluxu osoan mantentzen da trazabilitaterako | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
 | `X-DENA-This-TimeStamp` | Zure sistemak eskaera abiarazten duen EPOCH unea (milisegundotan) | `1724500500000` |
 | `X-DENA-Data-Digest` | `timestamp + correlationId + body` kateaketaren SHA-256 hash-a, Base64 formatuan kodifikatua (ikus beheko sorkuntza) | `SHA-256=:Rp/u+lTGp+VLFBrJGpC3BPw5Gf...=:` |
+| `X-DENA-ORG-ADMIN-ID` | **Zure administrazioaren IFZ/IFK**. DENA-k eskaera bakoitzaren jatorria identifikatzeko eta behar bezala bideratzeko erabiltzen du | `S4833001C` |
 
 ### Aukerako goiburuak
 
@@ -125,6 +126,19 @@ Sortu UUID v4 ausazko bat eskaera bakoitzeko. ID hau DENA-n zehar prozesatze oso
 String correlationId = UUID.randomUUID().toString();
 // Emaitza: "db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb"
 ```
+
+#### X-DENA-ORG-ADMIN-ID
+
+Zure **administrazioaren IFZ/IFK zenbakia**. DENA-k HTTP eskaeraren jatorria identifikatzeko erabiltzen du.
+
+```java
+String orgAdminId = "S4833001C"; // Zure administrazioaren IFZ/IFK
+```
+
+!!! important "Nahitaezkoa DENA-ko endpoint guztietarako eskaerak"
+    Header hau **eskaera guztietan** sartu behar da (Metadata-Sync, Person-Sync Pull, etab.). Balioa DENA-n konfiguratutako zure administrazioaren IFZ/IFK da.
+
+    Ez baduzu sartzen, DENA-k ezin izango du jatorri-administrazioa identifikatu eta eskaera baztertuko da.
 
 #### X-DENA-This-TimeStamp
 
@@ -177,6 +191,7 @@ Eskaera osoa DENA-ri goiburu guztiekin:
 # 1. Segurtasun-balioak sortu
 CORRELATION_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
 TIMESTAMP=$(date +%s%3N)
+ORG_ADMIN_ID="NIRE-ADMIN-IFK"  # Zure administrazioaren IFZ/IFK
 BODY='[{"admin":{"id":"MI-ADMIN"},"aboutPerson":{"id":"12345678A"},"someDataWasUpdatedAt":"2026-08-24T10:30:00.0000000Z","ofType":{"id":"RECORDS"},"fromDataOriginInstance":"DEFAULT"}]'
 DATA_DIGEST="SHA-256=:$(printf '%s' "${TIMESTAMP}${CORRELATION_ID}${BODY}" | openssl dgst -sha256 -binary | openssl base64 -A):"
 
@@ -188,6 +203,7 @@ curl -X POST "https://api-batera.pre.dena.eus/srmd/" \
   -H "X-DENA-Message-Correlation-Id: ${CORRELATION_ID}" \
   -H "X-DENA-This-TimeStamp: ${TIMESTAMP}" \
   -H "X-DENA-Data-Digest: ${DATA_DIGEST}" \
+  -H "X-DENA-ORG-ADMIN-ID: ${ORG_ADMIN_ID}" \
   -H "User-Agent: NireAdmin/1.0 srmd-sender/1.0 (laguntza@nireadmin.eus)" \
   -d "${BODY}"
 ```

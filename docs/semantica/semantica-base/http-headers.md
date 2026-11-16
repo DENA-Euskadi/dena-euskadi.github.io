@@ -16,11 +16,11 @@ Todas las llamadas HTTP en DENA incluyen un conjunto de cabeceras estándar y pe
 | `X-DENA-This-TimeStamp` | Instante (EPOCH en milisegundos) en el que se inició la petición en el componente que la origina | `1670374400000` |
 | `X-DENA-Origin-TimeStamp` | Instante (EPOCH en milisegundos) en el que se inició el flujo en el componente inicial (ej: app móvil). Se conserva inalterado entre componentes | `1670374400000` |
 | `X-DENA-Message-Correlation-Id` | UID generado por el componente que inició el flujo. Se conserva inalterado entre componentes | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
-| `X-DENA-ORG-ADMIN-ID` | Identificador de la organización / administración que origina la petición | `SANDBOXCIF` |
+| `X-DENA-ORG-ADMIN-ID` | **NIF/CIF de la administración** que origina la petición. **Obligatorio** en todas las peticiones de administraciones a DENA. Mismo valor que `context.originAdmin.id` | `S4833001C` |
 
 !!! warning "Cabeceras obligatorias del traffic-flow"
 
-    En las llamadas de interoperabilidad protegidas por el *traffic-flow*, DENA **exige** las cabeceras `X-DENA-This-TimeStamp`, `X-DENA-Origin-TimeStamp`, `X-DENA-Message-Correlation-Id` y `X-DENA-Data-Digest`. Si falta alguna, la petición se rechaza con **HTTP 400**. Si `X-DENA-Data-Digest` o `Content-Digest` faltan o no cuadran con el body recibido, se rechaza con **HTTP 401**.
+    En las llamadas de interoperabilidad protegidas por el *traffic-flow*, DENA **exige** las cabeceras `X-DENA-This-TimeStamp`, `X-DENA-Origin-TimeStamp`, `X-DENA-Message-Correlation-Id`, `X-DENA-Data-Digest` y **`X-DENA-ORG-ADMIN-ID`** (NIF/CIF de la administración). Si falta alguna, la petición se rechaza con **HTTP 400**. Si `X-DENA-Data-Digest` o `Content-Digest` faltan o no cuadran con el body recibido, se rechaza con **HTTP 401**.
 
 ---
 

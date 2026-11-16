@@ -28,6 +28,7 @@ Model and API updates (aligned with code 0.5.20):
 - :material-bug: `operativas/data-retrieve.md`: corrected message type `PERSON_FETCH_DATA` → `CLIENT_RETRIEVE_REQ/RESP`
 - :material-bug: `operativas/metadata-sync.md` + `semantica/metadata-sync/`: corrected `ADMIN_NOTICE` → `ADMINISTRATIVE_NOTICE`; `RECORDS` → `ADMINISTRATIVE_RECORD` across multiple files
 - :material-bug: `guia-inicio/ejemplo-end-to-end.md`: corrected `"url"`/`"language"` → `"value"`/`"lang"` in URLs, `"fromDataOrigin"` → `"fromDataOriginInstance"`, `RECORDS` → `ADMINISTRATIVE_RECORD`
+- :material-plus: `semantica/semantica-base/http-headers.md` + `autenticacion/administracion-core-dena/`: documented header **`X-DENA-ORG-ADMIN-ID`** as **required** in all administration requests to DENA — must contain the administration's NIF/VAT (same value as `context.originAdmin.id`); added to mandatory headers table, dedicated explanatory section and updated bash script
 - :material-bug: `autenticacion/administracion-core-dena/index.md`: corrected digest algorithm — `X-DENA-Data-Digest` = SHA-256(**timestamp + correlationId + body**), not body only; Base64 encoding (not hex); format `SHA-256=:{base64}:`
 - :material-refresh: `semantica/semantica-base/modelo/data-type-ref.md`: rewritten for external administrations — shows SCREAMING_SNAKE_CASE external IDs with link to each type's documentation
 - :material-refresh: `semantica/semantica-base/modelo/message-types.md`: completed with all 26 `DN00InteropMessageType` enum types (`_REQ`/`_RESP` pairs, origin→destination); added missing components

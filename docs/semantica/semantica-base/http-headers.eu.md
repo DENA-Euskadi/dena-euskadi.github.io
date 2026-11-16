@@ -16,11 +16,11 @@ DENAko HTTP dei guztiek testuingurua, segurtasuna eta trazabilitatea ematen dute
 | `X-DENA-This-TimeStamp` | Eskaera sortzen duen osagaian eskaera abiarazi zen unea (EPOCH milisegundotan) | `1670374400000` |
 | `X-DENA-Origin-TimeStamp` | Hasierako osagaian (adib.: mugikorreko app-a) fluxua abiarazi zen unea (EPOCH milisegundotan). Osagaien artean aldatu gabe mantentzen da | `1670374400000` |
 | `X-DENA-Message-Correlation-Id` | Fluxua abiarazi zuen osagaiak sortutako UIDa. Osagaien artean aldatu gabe mantentzen da | `db761b72-1634-4fb0-b7f1-3c1ebbdbb1eb` |
-| `X-DENA-ORG-ADMIN-ID` | Eskaera abiarazten duen erakundearen/administrazioaren identifikadorea | `SANDBOXCIF` |
+| `X-DENA-ORG-ADMIN-ID` | Eskaera abiarazten duen **administrazioaren IFZ/IFK**. DENA-ri egindako administrazioen eskaera guztietan **nahitaezkoa**. `context.originAdmin.id`-ren balio bera | `S4833001C` |
 
 !!! warning "Traffic-flow-aren nahitaezko goiburuak"
 
-    Traffic-flow-ak babestutako interoperabilitate-deietan, DENAk `X-DENA-This-TimeStamp`, `X-DENA-Origin-TimeStamp`, `X-DENA-Message-Correlation-Id` eta `X-DENA-Data-Digest` goiburuak **eskatzen** ditu. Bat falta bada, eskaera **HTTP 400**-ekin baztertzen da. `X-DENA-Data-Digest` edo `Content-Digest` falta badira edo jasotako body-arekin bat ez badatoz, **HTTP 401**-ekin baztertzen da.
+    Traffic-flow-ak babestutako interoperabilitate-deietan, DENAk `X-DENA-This-TimeStamp`, `X-DENA-Origin-TimeStamp`, `X-DENA-Message-Correlation-Id`, `X-DENA-Data-Digest` eta **`X-DENA-ORG-ADMIN-ID`** (administrazioaren IFZ/IFK) goiburuak **eskatzen** ditu. Bat falta bada, eskaera **HTTP 400**-ekin baztertzen da. `X-DENA-Data-Digest` edo `Content-Digest` falta badira edo jasotako body-arekin bat ez badatoz, **HTTP 401**-ekin baztertzen da.
 
 ---
 
