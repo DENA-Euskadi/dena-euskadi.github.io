@@ -139,6 +139,8 @@ nav:
       - Recursos Swagger: adjuntos/swagger.md
       - Documentos (PDF): adjuntos/documentos.md
       - JSON Schema (Mensajes REST): adjuntos/json-schema.md
+  - Assets:
+      - Person-Sync (instalación y funcionamiento): assets/index.md
   - Ayuda y Referencia:
       - Preguntas Frecuentes: referencia/faq.md
       - Resolver Problemas: referencia/troubleshooting.md
@@ -253,6 +255,7 @@ plugins:
             Recursos Swagger: Swagger Resources
             Documentos (PDF): Documents (PDF)
             'JSON Schema (Mensajes REST)': 'JSON Schema (REST Messages)'
+            'Person-Sync (instalación y funcionamiento)': 'Person-Sync (installation and operation)'
             Ayuda y Referencia: Help & Reference
             Preguntas Frecuentes: FAQ
             Resolver Problemas: Troubleshooting
@@ -316,6 +319,7 @@ plugins:
             Recursos Swagger: Swagger Baliabideak
             Documentos (PDF): Dokumentuak (PDF)
             'JSON Schema (Mensajes REST)': 'JSON Schema (REST Mezuak)'
+            'Person-Sync (instalación y funcionamiento)': 'Person-Sync (instalazioa eta funtzionamendua)'
             Ayuda y Referencia: Laguntza eta Erreferentzia
             Preguntas Frecuentes: Ohiko Galderak
             Resolver Problemas: Arazoen Konponketa
