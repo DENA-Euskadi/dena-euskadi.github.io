@@ -2,7 +2,7 @@
 
 The **Admin Proxy Person-Sync** is a component (`.jar` or `.war`) you install in your administration to keep an **always up-to-date local copy of DENA's persons**, without programming the [Person-Sync](../operativas/person-sync.md) integration yourself.
 
-**Download:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · 0.5.25-SNAPSHOT](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/0.5.25-SNAPSHOT)
+**Download:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · v0.5.25](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/v0.5.25)
 
 ---
 
@@ -18,7 +18,7 @@ These seven terms appear throughout the page:
 | **Bespoke** | **Incremental** Pull job: downloads only the persons changed since last time |
 | **Watermark** | Timestamp stored in your DB: *"I have everything synchronised up to this moment"*. It decides which job works |
 | **ShedLock** | DB lock that guarantees only **one replica** runs a Pull job at a time |
-| **Scheduler cron** | Expressions that set how often bespoke and pregen run. The values for development and production are in *Recommended scheduler timings*, inside *Minimum configuration* |
+| **Scheduler cron** | Expressions that set how often bespoke and pregen run. The values for development and production are in *Recommended scheduler timings*, inside [Minimum configuration](#minimum-configuration) |
 
 The idea in one sentence: **pregen fills the table once, bespoke keeps it up to date and Push applies changes in real time.**
 
@@ -54,14 +54,14 @@ When called, the service:
 
 The component combines two mechanisms. With **Push**, DENA-CORE calls `/push` every time a person changes, and the change is applied immediately in your database. With **Pull**, two scheduled jobs download persons from DENA-CORE in batches: **pregen** does the full load and **bespoke** fetches only what has changed, as often as `DENA_ADMINPROXY_PERSON_SYNC_JOBS_SCHEDULER_BESPOKE_CRON` sets, covering whatever Push did not deliver.
 
-The *watermark*, the timestamp up to which your data is synchronised, decides which job works: without a *watermark* pregen acts, with a *watermark* bespoke acts. On startup, the service launches pregen in the background if there is no *watermark* yet. Pull requires `DENA_ADMINPROXY_PERSON_SYNC_JOBS_SCHEDULER_ENABLED=true`. The details are in *How it works*, at the end of the page.
+The *watermark*, the timestamp up to which your data is synchronised, decides which job works: without a *watermark* pregen acts, with a *watermark* bespoke acts. On startup, the service launches pregen in the background if there is no *watermark* yet. Pull requires `DENA_ADMINPROXY_PERSON_SYNC_JOBS_SCHEDULER_ENABLED=true`. The details are in [How it works](#how-it-works), at the end of the page.
 
 | # | Step | Detail |
 |---|------|--------|
-| 1 | **Prepare the database** | Empty MySQL 8 or Oracle schema and a user allowed to create tables (see *Prerequisites*) |
+| 1 | **Prepare the database** | Empty MySQL 8 or Oracle schema and a user allowed to create tables (see [Prerequisites](#prerequisites)) |
 | 2 | **Gather DENA's data** | Your administration's `client-id` and `secret`, your `ID_ADMIN` and DENA-CORE's public Person-Sync URL |
-| 3 | **Install the component** | `.jar` (Option A) or `.war` on Tomcat 11 (Option B). See *Installation* |
-| 4 | **Set the minimum configuration** | The variables in *Minimum configuration*, with the crons from *Recommended scheduler timings* |
+| 3 | **Install the component** | `.jar` (Option A) or `.war` on Tomcat 11 (Option B). See [Installation](#installation) |
+| 4 | **Set the minimum configuration** | The variables in [Minimum configuration](#minimum-configuration), with the crons from *Recommended scheduler timings* |
 | 5 | **Start and check** | `GET <BASE_URL>/actuator/health` must return `UP` |
 | 6 | **Verify the initial load** | In the log, `running pregen pull task on application startup` followed by `receivedPersonItemsCount` |
 | 7 | **Open the network for Push** | DENA-CORE must be able to reach `<BASE_URL>/api/admin/proxy/persons/sync/push` (firewall, ingress) |
@@ -88,21 +88,21 @@ The *watermark*, the timestamp up to which your data is synchronised, decides wh
 
 ## Installation
 
-**Download:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · 0.5.25-SNAPSHOT](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/0.5.25-SNAPSHOT)
+**Download:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · v0.5.25](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/v0.5.25)
 
 It is delivered in two equivalent formats. Choose one:
 
 | Component | When to use it |
 |----------|----------------|
-| `denaInteropAdminProxyPersonSyncAPP-<version>.jar` | Standalone execution, with an embedded web server. The simplest option |
-| `denaInteropAdminProxyPersonSyncAPP-<version>.war` | If your standard is deploying on an external **Apache Tomcat 11.x** (Servlet 6.1) |
+| `denaInteropAdminProxyPersonSyncREST-<version>.jar` | Standalone execution, with an embedded web server. The simplest option |
+| `denaInteropAdminProxyPersonSyncREST-<version>.war` | If your standard is deploying on an external **Apache Tomcat 11.x** (Servlet 6.1) |
 
 ### Option A: `.jar` (standalone)
 
 Nothing else is needed: the web server and the `sqlite-jdbc` driver are inside.
 
 ```bash
-java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar
+java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar
 ```
 
 It starts on port **`8100`** with the context path **`/admin-person-proxy-sync`**.
@@ -117,14 +117,14 @@ curl -L -o "$CATALINA_HOME/lib/sqlite-jdbc-3.51.3.0.jar" \
   https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.51.3.0/sqlite-jdbc-3.51.3.0.jar
 ```
 
-Use the same `sqlite-jdbc` version shipped with the component. You can check it with `jar tf denaInteropAdminProxyPersonSyncAPP-<version>.war | grep sqlite`.
+Use the same `sqlite-jdbc` version shipped with the component. You can check it with `jar tf denaInteropAdminProxyPersonSyncREST-<version>.war | grep sqlite`.
 
 If your DB is **Oracle**, also check that the `ojdbc` driver is in `$CATALINA_HOME/lib/`.
 
 **Step 2. Copy the `.war` to `webapps/`.** The file name sets the context path:
 
 ```bash
-cp denaInteropAdminProxyPersonSyncAPP-<version>.war "$CATALINA_HOME/webapps/admin-person-proxy-sync.war"
+cp denaInteropAdminProxyPersonSyncREST-<version>.war "$CATALINA_HOME/webapps/admin-person-proxy-sync.war"
 ```
 
 !!! note "On an external Tomcat"
@@ -162,7 +162,7 @@ The component ships a default configuration (`application-war.yml`) where everyt
     export DENA_PERSON_SYNC_PROXY_SECURITY_CLIENT_ID="<client-id>"
     export DENA_PERSON_SYNC_PROXY_SECURITY_SECRET="<client-secret>"
 
-    java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar
+    java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar
     ```
 
 === "2. JVM properties or arguments"
@@ -180,7 +180,7 @@ The component ships a default configuration (`application-war.yml`) where everyt
     With the **JAR**:
 
     ```bash
-    java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar \
+    java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar \
       --DENA_DDBB_HOST=localhost \
       --DENA_DDBB_USER=<db_user> \
       --DENA_DDBB_PASSWORD=<db_password>
@@ -189,7 +189,7 @@ The component ships a default configuration (`application-war.yml`) where everyt
 === "3. External file"
 
     ```bash
-    java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar \
+    java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar \
       --spring.config.additional-location=optional:file:/etc/dena/application-custom.yml
     ```
 
@@ -254,7 +254,7 @@ What you **must** set in a real environment. The rest has a valid default.
 | `DENA_DDBB_PASSWORD` | `db_password_change` | Password |
 | `DENA_DDBB_DRIVER` | `com.mysql.cj.jdbc.Driver` | Driver class (`oracle.jdbc.OracleDriver` for Oracle) |
 | `DENA_DDBB_PLATFORM` | `dena.core.common.db.mysql.DN01MySQLDenaDialect` | Hibernate dialect (`org.hibernate.dialect.OracleDialect` for Oracle) |
-| `DENA_DDBB_HBM2DDL_AUTO` | `update` | Hibernate DDL strategy. `validate` or `none` recommended in production (see *Prerequisites*) |
+| `DENA_DDBB_HBM2DDL_AUTO` | `update` | Hibernate DDL strategy. `validate` or `none` recommended in production (see [Prerequisites](#prerequisites)) |
 | `DENA_DDBB_TABLES_PREFIX` | `Z99` | Prefix of the person tables |
 
 #### OAuth2 / Keycloak security (inbound Push)
@@ -314,20 +314,20 @@ The defaults point to the **PRE** Keycloak. In any other environment, change all
 | Method | Path | Authentication | Description |
 |--------|------|----------------|-------------|
 | `POST` | `<BASE_URL>/api/admin/proxy/persons/sync/push` | **Yes** (`Bearer` JWT) | Receives the creation, update or deletion Push |
-| `POST` | `<BASE_URL>/api/admin/proxy/persons/sync/reload` | **No** | Deletes local persons and relaunches the full load (see *Full data reload*) |
+| `POST` | `<BASE_URL>/api/admin/proxy/persons/sync/reload` | **No** | Deletes local persons and relaunches the full load (see [Full data reload](#full-data-reload-reload)) |
 | `GET` | `<BASE_URL>/actuator/health` | No | Service status |
 | `GET` | `<BASE_URL>/v3/api-docs` | No | OpenAPI 3 contract in JSON |
 | `GET` | `<BASE_URL>/swagger-ui.html` | No | Swagger UI |
 
 ### `/push` responses
 
-The token in the `Authorization` header must be a valid, active JWT from the administrations realm (`DenaAuthAdmins`), with audience `account` and the `dena.admin.oid` and `dena.admin.id` claims.
+Every call to `/push` must include a valid `Bearer` token issued by DENA.
 
 | HTTP code | Meaning |
 |-----------|---------|
 | `200 OK` | Change applied: person created, updated or deleted |
 | `400 Bad Request` | The message has no `payload` or no reference to the person |
-| `401 Unauthorized` | `Authorization` is missing, the token has expired, Keycloak answers `active: false` or the mandatory claims are missing |
+| `401 Unauthorized` | The token is missing, has expired or is not valid |
 | `500 Internal Server Error` | Error saving to the DB or malformed JSON |
 
 Full message specification: [Push Endpoint](../semantica/person-sync/push.md) and [Pull Endpoint](../semantica/person-sync/pull.md).
@@ -340,7 +340,7 @@ Always start with the log: almost every case is identified by a specific message
 
 | Symptom or log message | Likely cause | What to do |
 |------------------------|--------------|------------|
-| `401` on `/push` | Missing or expired token, `active: false` in introspection, or missing `dena.admin.oid` / `dena.admin.id` claims | Check the token and the `DENA_KEYCLOAK_*` and `DENA_INTROSPECTION_URL_ADMIN` variables |
+| `401` on `/push` | The token is missing, has expired or is not valid | Check the token and the `DENA_KEYCLOAK_*` and `DENA_INTROSPECTION_URL_ADMIN` variables |
 | Nothing arrives by Pull and there are no pregen or bespoke traces | `SCHEDULER_ENABLED=false` (default) | Set it to `true` |
 | `Failed to fetch OAuth token` | The token URL is unreachable or the credentials are wrong | Check `DENA_TOKEN_URL_ADMIN`, client ID/secret and outbound network to Keycloak |
 | `Watermark is NULL ... skipping bespoke` (continuously) | The initial load has not finished or has failed | Look for the pregen error in the log (`Cannot create received person error`). Fix it and restart the service or call `/reload` |
@@ -348,7 +348,7 @@ Always start with the log: almost every case is identified by a specific message
 | The initial load failed and is not retried in production | `PREGEN_CRON="-"` disables scheduled retries | Restart the service or call `/reload` |
 | `/reload` answers `409` | A Pull job holds the lock longer than `RELOAD_LOCK_WAIT_FOR` | Wait for it to finish and call again |
 | `/reload` answers `200` but the table stays empty | `SCHEDULER_ENABLED=false`: nothing launches the pregen | Set `SCHEDULER_ENABLED=true` and restart (the load runs on startup) |
-| Driver error when reading the `.sqlite` on Tomcat | `sqlite-jdbc` is missing from `$CATALINA_HOME/lib/` | Install it (Option B, step 1) |
+| Driver error when reading the `.sqlite` on Tomcat | `sqlite-jdbc` is missing from `$CATALINA_HOME/lib/` | Install it ([Option B, step 1](#option-b-war-on-tomcat-11)) |
 | Pull fails because of DENA-CORE's URL | `DENA_PERSON_SYNC_PROXY_HOST` has the internal default value | Set DENA-CORE's public URL and `PROTOCOL=HTTPS` |
 
 ---

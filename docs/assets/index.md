@@ -2,7 +2,7 @@
 
 El **Admin Proxy Person-Sync** es un componente (`.jar` o `.war`) que instalas en tu administración para tener una **copia local de las personas de DENA** siempre actualizada, sin programar tú la integración de [Person-Sync](../operativas/person-sync.md).
 
-**Descarga:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · 0.5.25-SNAPSHOT](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/0.5.25-SNAPSHOT)
+**Descarga:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · v0.5.25](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/v0.5.25)
 
 ---
 
@@ -18,7 +18,7 @@ Antes de seguir, estos siete términos aparecen en toda la página:
 | **Bespoke** | Job Pull **incremental**: descarga solo las personas que han cambiado desde la última vez |
 | **Watermark** | Marca de tiempo guardada en tu BD: *"tengo todo sincronizado hasta este momento"*. Decide qué job trabaja |
 | **ShedLock** | Bloqueo en BD que garantiza que solo **una réplica** ejecuta un job Pull a la vez |
-| **Cron del planificador** | Expresiones que fijan cada cuánto se ejecutan el bespoke y el pregen. Los valores para desarrollo y producción están en *Tiempos recomendados del planificador*, dentro de *Configuración mínima* |
+| **Cron del planificador** | Expresiones que fijan cada cuánto se ejecutan el bespoke y el pregen. Los valores para desarrollo y producción están en *Tiempos recomendados del planificador*, dentro de [Configuración mínima](#configuracion-minima) |
 
 La idea en una frase: **el pregen llena la tabla una vez, el bespoke la mantiene al día y el Push aplica los cambios en tiempo real.**
 
@@ -54,14 +54,14 @@ Al llamarlo, el servicio:
 
 El componente combina dos mecanismos. Por **Push**, DENA-CORE llama a `/push` cada vez que una persona cambia, y el cambio se aplica al momento en tu base de datos. Por **Pull**, dos jobs programados descargan personas de DENA-CORE por lotes: el **pregen** hace la carga completa y el **bespoke** trae solo lo que ha cambiado, con la frecuencia que marque `DENA_ADMINPROXY_PERSON_SYNC_JOBS_SCHEDULER_BESPOKE_CRON`, para cubrir lo que el Push no haya entregado.
 
-Qué job trabaja lo decide el *watermark*, la marca de tiempo hasta la que tienes datos sincronizados: sin *watermark* actúa el pregen, con *watermark* actúa el bespoke. Al arrancar, el servicio lanza el pregen en segundo plano si todavía no hay *watermark*. El Pull requiere `DENA_ADMINPROXY_PERSON_SYNC_JOBS_SCHEDULER_ENABLED=true`. El detalle está en *Cómo funciona*, al final de la página.
+Qué job trabaja lo decide el *watermark*, la marca de tiempo hasta la que tienes datos sincronizados: sin *watermark* actúa el pregen, con *watermark* actúa el bespoke. Al arrancar, el servicio lanza el pregen en segundo plano si todavía no hay *watermark*. El Pull requiere `DENA_ADMINPROXY_PERSON_SYNC_JOBS_SCHEDULER_ENABLED=true`. El detalle está en [Cómo funciona](#como-funciona), al final de la página.
 
 | # | Paso | Detalle |
 |---|------|---------|
-| 1 | **Prepara la base de datos** | Esquema vacío en MySQL 8 u Oracle y usuario con permisos para crear tablas (ver *Requisitos previos*) |
+| 1 | **Prepara la base de datos** | Esquema vacío en MySQL 8 u Oracle y usuario con permisos para crear tablas (ver [Requisitos previos](#requisitos-previos)) |
 | 2 | **Reúne los datos de DENA** | `client-id` y `secret` de tu administración, tu `ID_ADMIN` y la URL pública de Person-Sync de DENA-CORE |
-| 3 | **Instala el componente** | `.jar` (Opción A) o `.war` en Tomcat 11 (Opción B). Ver *Instalación* |
-| 4 | **Configura lo mínimo** | Las variables de *Configuración mínima*, con los cron de *Tiempos recomendados del planificador* |
+| 3 | **Instala el componente** | `.jar` (Opción A) o `.war` en Tomcat 11 (Opción B). Ver [Instalación](#instalacion) |
+| 4 | **Configura lo mínimo** | Las variables de [Configuración mínima](#configuracion-minima), con los cron de *Tiempos recomendados del planificador* |
 | 5 | **Arranca y comprueba** | `GET <BASE_URL>/actuator/health` debe devolver `UP` |
 | 6 | **Verifica la carga inicial** | En el log, `running pregen pull task on application startup` seguido de `receivedPersonItemsCount` |
 | 7 | **Abre la red para el Push** | DENA-CORE debe poder alcanzar `<BASE_URL>/api/admin/proxy/persons/sync/push` (firewall, ingress) |
@@ -88,21 +88,21 @@ Qué job trabaja lo decide el *watermark*, la marca de tiempo hasta la que tiene
 
 ## Instalación
 
-**Descarga:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · 0.5.25-SNAPSHOT](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/0.5.25-SNAPSHOT)
+**Descarga:** [:octicons-download-24: dena-admin-proxy-person-sync-rest · v0.5.25](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/v0.5.25)
 
 Se entrega en dos formatos equivalentes. Elige uno:
 
 | Componente | Cuándo usarlo |
 |-----------|---------------|
-| `denaInteropAdminProxyPersonSyncAPP-<version>.jar` | Ejecución autónoma, con servidor web embebido. La opción más sencilla |
-| `denaInteropAdminProxyPersonSyncAPP-<version>.war` | Si tu estándar es desplegar en un **Apache Tomcat 11.x** externo (Servlet 6.1) |
+| `denaInteropAdminProxyPersonSyncREST-<version>.jar` | Ejecución autónoma, con servidor web embebido. La opción más sencilla |
+| `denaInteropAdminProxyPersonSyncREST-<version>.war` | Si tu estándar es desplegar en un **Apache Tomcat 11.x** externo (Servlet 6.1) |
 
 ### Opción A: `.jar` (standalone)
 
 No necesita nada más: el servidor web y el driver `sqlite-jdbc` van dentro.
 
 ```bash
-java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar
+java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar
 ```
 
 Arranca en el puerto **`8100`** con el context-path **`/admin-person-proxy-sync`**.
@@ -117,14 +117,14 @@ curl -L -o "$CATALINA_HOME/lib/sqlite-jdbc-3.51.3.0.jar" \
   https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.51.3.0/sqlite-jdbc-3.51.3.0.jar
 ```
 
-Usa la misma versión de `sqlite-jdbc` que trae el componente. Puedes comprobarla con `jar tf denaInteropAdminProxyPersonSyncAPP-<version>.war | grep sqlite`.
+Usa la misma versión de `sqlite-jdbc` que trae el componente. Puedes comprobarla con `jar tf denaInteropAdminProxyPersonSyncREST-<version>.war | grep sqlite`.
 
 Si tu BD es **Oracle**, comprueba también que el driver `ojdbc` está en `$CATALINA_HOME/lib/`.
 
 **Paso 2. Copia el `.war` a `webapps/`.** El nombre del fichero fija el context-path:
 
 ```bash
-cp denaInteropAdminProxyPersonSyncAPP-<version>.war "$CATALINA_HOME/webapps/admin-person-proxy-sync.war"
+cp denaInteropAdminProxyPersonSyncREST-<version>.war "$CATALINA_HOME/webapps/admin-person-proxy-sync.war"
 ```
 
 !!! note "En Tomcat externo"
@@ -162,7 +162,7 @@ El componente trae una configuración por defecto (`application-war.yml`) donde 
     export DENA_PERSON_SYNC_PROXY_SECURITY_CLIENT_ID="<client-id>"
     export DENA_PERSON_SYNC_PROXY_SECURITY_SECRET="<client-secret>"
 
-    java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar
+    java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar
     ```
 
 === "2. Propiedades JVM o argumentos"
@@ -180,7 +180,7 @@ El componente trae una configuración por defecto (`application-war.yml`) donde 
     En **JAR**:
 
     ```bash
-    java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar \
+    java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar \
       --DENA_DDBB_HOST=localhost \
       --DENA_DDBB_USER=<usuario_bd> \
       --DENA_DDBB_PASSWORD=<password_bd>
@@ -189,7 +189,7 @@ El componente trae una configuración por defecto (`application-war.yml`) donde 
 === "3. Fichero externo"
 
     ```bash
-    java -jar denaInteropAdminProxyPersonSyncAPP-<version>.jar \
+    java -jar denaInteropAdminProxyPersonSyncREST-<version>.jar \
       --spring.config.additional-location=optional:file:/etc/dena/application-custom.yml
     ```
 
@@ -254,7 +254,7 @@ Lo que **tienes** que definir en un entorno real. El resto tiene un valor por de
 | `DENA_DDBB_PASSWORD` | `db_password_change` | Contraseña |
 | `DENA_DDBB_DRIVER` | `com.mysql.cj.jdbc.Driver` | Clase del driver (`oracle.jdbc.OracleDriver` para Oracle) |
 | `DENA_DDBB_PLATFORM` | `dena.core.common.db.mysql.DN01MySQLDenaDialect` | Dialecto Hibernate (`org.hibernate.dialect.OracleDialect` para Oracle) |
-| `DENA_DDBB_HBM2DDL_AUTO` | `update` | Estrategia DDL de Hibernate. En producción se recomienda `validate` o `none` (ver *Requisitos previos*) |
+| `DENA_DDBB_HBM2DDL_AUTO` | `update` | Estrategia DDL de Hibernate. En producción se recomienda `validate` o `none` (ver [Requisitos previos](#requisitos-previos)) |
 | `DENA_DDBB_TABLES_PREFIX` | `Z99` | Prefijo de las tablas de personas |
 
 #### Seguridad OAuth2 / Keycloak (Push entrante)
@@ -314,20 +314,20 @@ Los valores por defecto apuntan al Keycloak de **PRE**. En otro entorno, cambia 
 | Método | Ruta | Autenticación | Descripción |
 |--------|------|---------------|-------------|
 | `POST` | `<BASE_URL>/api/admin/proxy/persons/sync/push` | **Sí** (`Bearer` JWT) | Recibe el Push de alta, modificación o baja |
-| `POST` | `<BASE_URL>/api/admin/proxy/persons/sync/reload` | **No** | Borra las personas locales y relanza la carga completa (ver *Recarga completa de datos*) |
+| `POST` | `<BASE_URL>/api/admin/proxy/persons/sync/reload` | **No** | Borra las personas locales y relanza la carga completa (ver [Recarga completa de datos](#recarga-completa-de-datos-reload)) |
 | `GET` | `<BASE_URL>/actuator/health` | No | Estado del servicio |
 | `GET` | `<BASE_URL>/v3/api-docs` | No | Contrato OpenAPI 3 en JSON |
 | `GET` | `<BASE_URL>/swagger-ui.html` | No | Swagger UI |
 
 ### Respuestas de `/push`
 
-El token de la cabecera `Authorization` debe ser un JWT válido y activo del realm de administraciones (`DenaAuthAdmins`), con audiencia `account` y los claims `dena.admin.oid` y `dena.admin.id`.
+Cada llamada a `/push` debe incluir un token `Bearer` válido emitido por DENA.
 
 | Código HTTP | Significado |
 |-------------|-------------|
 | `200 OK` | Cambio aplicado: persona creada, actualizada o eliminada |
 | `400 Bad Request` | El mensaje no trae `payload` o no trae la referencia a la persona |
-| `401 Unauthorized` | Falta `Authorization`, el token ha caducado, Keycloak responde `active: false` o faltan los claims obligatorios |
+| `401 Unauthorized` | Falta el token, ha caducado o no es válido |
 | `500 Internal Server Error` | Error al guardar en la BD o JSON mal formado |
 
 Especificación completa del mensaje: [Endpoint Push](../semantica/person-sync/push.md) y [Endpoint Pull](../semantica/person-sync/pull.md).
@@ -340,7 +340,7 @@ Empieza siempre por el log: casi todos los casos se identifican por un mensaje c
 
 | Síntoma o mensaje en el log | Causa probable | Qué hacer |
 |-----------------------------|----------------|-----------|
-| `401` en `/push` | Token ausente o caducado, `active: false` en la introspección o sin claims `dena.admin.oid` / `dena.admin.id` | Revisa el token y las variables `DENA_KEYCLOAK_*` y `DENA_INTROSPECTION_URL_ADMIN` |
+| `401` en `/push` | Falta el token, ha caducado o no es válido | Revisa el token y las variables `DENA_KEYCLOAK_*` y `DENA_INTROSPECTION_URL_ADMIN` |
 | No llega nada por Pull y no hay trazas de pregen ni bespoke | `SCHEDULER_ENABLED=false` (valor por defecto) | Ponlo a `true` |
 | `Failed to fetch OAuth token` | No se alcanza la URL de token o las credenciales son incorrectas | Revisa `DENA_TOKEN_URL_ADMIN`, client ID/secret y la red saliente a Keycloak |
 | `Watermark is NULL ... skipping bespoke` (de forma continuada) | La carga inicial no ha terminado o ha fallado | Busca el error del pregen en el log (`Cannot create received person error`). Corrígelo y reinicia el servicio o llama a `/reload` |
@@ -348,7 +348,7 @@ Empieza siempre por el log: casi todos los casos se identifican por un mensaje c
 | La carga inicial falló y en producción no se reintenta | `PREGEN_CRON="-"` desactiva los reintentos programados | Reinicia el servicio o llama a `/reload` |
 | `/reload` responde `409` | Un job Pull tiene el bloqueo más de `RELOAD_LOCK_WAIT_FOR` | Espera a que termine y vuelve a llamar |
 | `/reload` responde `200` pero la tabla sigue vacía | `SCHEDULER_ENABLED=false`: nadie lanza el pregen | Pon `SCHEDULER_ENABLED=true`, reinicia (se hará la carga al arrancar) |
-| Error de driver al leer el `.sqlite` en Tomcat | Falta `sqlite-jdbc` en `$CATALINA_HOME/lib/` | Instálalo (Opción B, paso 1) |
+| Error de driver al leer el `.sqlite` en Tomcat | Falta `sqlite-jdbc` en `$CATALINA_HOME/lib/` | Instálalo ([Opción B, paso 1](#opcion-b-war-en-tomcat-11)) |
 | El Pull falla por la URL de DENA-CORE | `DENA_PERSON_SYNC_PROXY_HOST` con el valor interno por defecto | Pon la URL pública de DENA-CORE y `PROTOCOL=HTTPS` |
 
 ---

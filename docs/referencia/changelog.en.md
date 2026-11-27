@@ -4,9 +4,18 @@ DENA documentation version history.
 
 ---
 
-## v0.5.20 <small>— 2026-11-13</small> { #v0520 }
+## v0.5.25 <small>— 2026-11-27</small> { #v0525 }
 
 !!! success "Current"
+
+**New installation and operation guide for the Admin Proxy Person-Sync.**
+
+- :material-plus: `assets/index.md` — **Admin Proxy Person-Sync**: key concepts, quick start, installation (`.jar` / `.war` on Tomcat 11), configuration, `/reload`, common problems and how Push and Pull work (ES/EN/EU)
+- :material-download: Download link to release [`v0.5.25`](https://github.com/DENA-Euskadi/dena-admin-proxy-person-sync-rest/releases/tag/v0.5.25) (`denaInteropAdminProxyPersonSyncREST-<version>.jar` / `.war`)
+
+---
+
+## v0.5.20 <small>— 2026-11-13</small> { #v0520 }
 
 **Exhaustive documentation audit against code 0.5.20: ID fixes, real sandbox examples, new models and full semantics review.**
 
